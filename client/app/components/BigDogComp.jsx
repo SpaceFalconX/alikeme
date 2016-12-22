@@ -1,6 +1,6 @@
 import React from 'react';
 
-class AwesomeComponent extends React.Component {
+class BigDogsComponent extends React.Component {
   constructor(props) {
     super();
     this.state = {
@@ -62,4 +62,4 @@ class AwesomeComponent extends React.Component {
   }
 }
 
-export default AwesomeComponent;
+export default BigDogsComponent;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-class HomeComponent extends React.Component {
+class FerretsComponent extends React.Component {
   render() {
     return (
       <div>
@@ -11,4 +11,4 @@ class HomeComponent extends React.Component {
   }
 }
 
-export default HomeComponent;
+export default FerretsComponent;

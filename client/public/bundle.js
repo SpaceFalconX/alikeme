@@ -27155,6 +27155,8 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRouter = __webpack_require__(/*! react-router */ 178);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27173,6 +27175,21 @@
 	  }
 	
 	  _createClass(HomeComponent, [{
+	    key: 'BigDogsNav',
+	    value: function BigDogsNav() {
+	      _reactRouter.browserHistory.push('/bigdogs');
+	    }
+	  }, {
+	    key: 'FerretsNav',
+	    value: function FerretsNav() {
+	      _reactRouter.browserHistory.push('/ferrets');
+	    }
+	  }, {
+	    key: 'BabyFerretsNav',
+	    value: function BabyFerretsNav() {
+	      _reactRouter.browserHistory.push('/babyferrets');
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -27189,6 +27206,21 @@
 	          ' ',
 	          this.props.children,
 	          ' '
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.BigDogsNav },
+	          'big dogs'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.FerretsNav },
+	          'ferrets'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.BabyFerretsNav },
+	          'baby'
 	        )
 	      );
 	    }
@@ -27226,13 +27258,13 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var AwesomeComponent = function (_React$Component) {
-	  _inherits(AwesomeComponent, _React$Component);
+	var BigDogsComponent = function (_React$Component) {
+	  _inherits(BigDogsComponent, _React$Component);
 	
-	  function AwesomeComponent(props) {
-	    _classCallCheck(this, AwesomeComponent);
+	  function BigDogsComponent(props) {
+	    _classCallCheck(this, BigDogsComponent);
 	
-	    var _this = _possibleConstructorReturn(this, (AwesomeComponent.__proto__ || Object.getPrototypeOf(AwesomeComponent)).call(this));
+	    var _this = _possibleConstructorReturn(this, (BigDogsComponent.__proto__ || Object.getPrototypeOf(BigDogsComponent)).call(this));
 	
 	    _this.state = {
 	      likesCount: 0,
@@ -27243,7 +27275,7 @@
 	    return _this;
 	  }
 	
-	  _createClass(AwesomeComponent, [{
+	  _createClass(BigDogsComponent, [{
 	    key: 'onCountUp',
 	    value: function onCountUp() {
 	      this.setState({
@@ -27318,10 +27350,10 @@
 	    }
 	  }]);
 	
-	  return AwesomeComponent;
+	  return BigDogsComponent;
 	}(_react2.default.Component);
 	
-	exports.default = AwesomeComponent;
+	exports.default = BigDogsComponent;
 
 /***/ },
 /* 236 */
@@ -27350,16 +27382,16 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var HomeComponent = function (_React$Component) {
-	  _inherits(HomeComponent, _React$Component);
+	var FerretsComponent = function (_React$Component) {
+	  _inherits(FerretsComponent, _React$Component);
 	
-	  function HomeComponent() {
-	    _classCallCheck(this, HomeComponent);
+	  function FerretsComponent() {
+	    _classCallCheck(this, FerretsComponent);
 	
-	    return _possibleConstructorReturn(this, (HomeComponent.__proto__ || Object.getPrototypeOf(HomeComponent)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (FerretsComponent.__proto__ || Object.getPrototypeOf(FerretsComponent)).apply(this, arguments));
 	  }
 	
-	  _createClass(HomeComponent, [{
+	  _createClass(FerretsComponent, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -27381,10 +27413,10 @@
 	    }
 	  }]);
 	
-	  return HomeComponent;
+	  return FerretsComponent;
 	}(_react2.default.Component);
 	
-	exports.default = HomeComponent;
+	exports.default = FerretsComponent;
 
 /***/ },
 /* 237 */
@@ -27413,16 +27445,16 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var HomeComponent = function (_React$Component) {
-	  _inherits(HomeComponent, _React$Component);
+	var BabyFerretsComponent = function (_React$Component) {
+	  _inherits(BabyFerretsComponent, _React$Component);
 	
-	  function HomeComponent() {
-	    _classCallCheck(this, HomeComponent);
+	  function BabyFerretsComponent() {
+	    _classCallCheck(this, BabyFerretsComponent);
 	
-	    return _possibleConstructorReturn(this, (HomeComponent.__proto__ || Object.getPrototypeOf(HomeComponent)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (BabyFerretsComponent.__proto__ || Object.getPrototypeOf(BabyFerretsComponent)).apply(this, arguments));
 	  }
 	
-	  _createClass(HomeComponent, [{
+	  _createClass(BabyFerretsComponent, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -27433,10 +27465,10 @@
 	    }
 	  }]);
 	
-	  return HomeComponent;
+	  return BabyFerretsComponent;
 	}(_react2.default.Component);
 	
-	exports.default = HomeComponent;
+	exports.default = BabyFerretsComponent;
 
 /***/ }
 /******/ ]);
