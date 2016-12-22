@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path')
-var db = require('./database/config.js')
 var app = express();
 
 app.use(express.static('client'));

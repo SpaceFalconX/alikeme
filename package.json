@@ -22,10 +22,7 @@
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-router": "^3.0.0",
-<<<<<<< HEAD
-=======
     "sequelize": "^3.28.0",
->>>>>>> 3ce8aa62de604b0b26c867cb4c84521d20eaec19
     "webpack": "^1.14.0"
   },
   "devDependencies": {
