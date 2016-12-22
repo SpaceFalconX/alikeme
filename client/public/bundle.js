@@ -59,9 +59,13 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 178);
 	
-	var _AwesomeComp = __webpack_require__(/*! ./components/AwesomeComp.jsx */ 233);
+	var _BigDogComp = __webpack_require__(/*! ./components/BigDogComp.jsx */ 235);
 	
-	var _AwesomeComp2 = _interopRequireDefault(_AwesomeComp);
+	var _BigDogComp2 = _interopRequireDefault(_BigDogComp);
+	
+	var _HomeComp = __webpack_require__(/*! ./components/HomeComp.jsx */ 234);
+	
+	var _HomeComp2 = _interopRequireDefault(_HomeComp);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -86,12 +90,14 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_AwesomeComp2.default, null),
 	        _react2.default.createElement(
 	          _reactRouter.Router,
 	          { history: _reactRouter.browserHistory },
-	          _react2.default.createElement(_reactRouter.Route, { path: '/', component: Home }),
-	          _react2.default.createElement(_reactRouter.Route, { path: '/bigdogs', component: _AwesomeComp2.default })
+	          _react2.default.createElement(
+	            _reactRouter.Route,
+	            { path: '/', component: _HomeComp2.default },
+	            _react2.default.createElement(_reactRouter.Route, { path: '/bigdogs', component: _BigDogComp2.default })
+	          )
 	        )
 	      );
 	    }
@@ -99,14 +105,6 @@
 	
 	  return App;
 	}(_react2.default.Component);
-	
-	var Home = function Home() {
-	  return _react2.default.createElement(
-	    'h1',
-	    null,
-	    'Hello from Home!'
-	  );
-	};
 	
 	(0, _reactDom.render)(_react2.default.createElement(App, null), document.getElementById('app'));
 
@@ -27125,10 +27123,74 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../process/browser.js */ 3)))
 
 /***/ },
-/* 233 */
-/*!***********************************************!*\
-  !*** ./client/app/components/AwesomeComp.jsx ***!
-  \***********************************************/
+/* 233 */,
+/* 234 */
+/*!********************************************!*\
+  !*** ./client/app/components/HomeComp.jsx ***!
+  \********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var HomeComponent = function (_React$Component) {
+	  _inherits(HomeComponent, _React$Component);
+	
+	  function HomeComponent() {
+	    _classCallCheck(this, HomeComponent);
+	
+	    return _possibleConstructorReturn(this, (HomeComponent.__proto__ || Object.getPrototypeOf(HomeComponent)).apply(this, arguments));
+	  }
+	
+	  _createClass(HomeComponent, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Hello from Home!'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          ' ',
+	          this.props.children,
+	          ' '
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return HomeComponent;
+	}(_react2.default.Component);
+	
+	exports.default = HomeComponent;
+
+/***/ },
+/* 235 */
+/*!**********************************************!*\
+  !*** ./client/app/components/BigDogComp.jsx ***!
+  \**********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
