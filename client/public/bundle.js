@@ -27179,15 +27179,7 @@
 	
 	    _this.state = {
 	      username: '',
-	      password: '',
-	      handleSignIn: function handleSignIn(e) {
-	        e.preventDefault();
-	        console.log('signin called');
-	      },
-	      handleSignUp: function handleSignUp(e) {
-	        e.preventDefault();
-	        console.log('signup called');
-	      }
+	      password: ''
 	    };
 	
 	    _this.styles = {
@@ -27220,6 +27212,18 @@
 	      this.setState({ password: e.target.value });
 	    }
 	  }, {
+	    key: 'handleSignIn',
+	    value: function handleSignIn(e) {
+	      e.preventDefault();
+	      _reactRouter.browserHistory.push('/profile/' + this.state.username);
+	    }
+	  }, {
+	    key: 'handleSignUp',
+	    value: function handleSignUp(e) {
+	      e.preventDefault();
+	      _reactRouter.browserHistory.push('/signup');
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -27232,7 +27236,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'form',
-	          { onSubmit: this.state.handleSignIn },
+	          { onSubmit: this.handleSignIn.bind(this) },
 	          _react2.default.createElement('input', { type: 'text', value: this.state.username, onChange: this.handleUsername.bind(this) }),
 	          _react2.default.createElement('input', { type: 'password', value: this.state.password, onChange: this.handlePassword.bind(this) }),
 	          _react2.default.createElement('input', { style: this.styles.buttonStyle, type: 'submit', value: 'Sign In' })
@@ -27240,7 +27244,7 @@
 	        _react2.default.createElement('br', null),
 	        _react2.default.createElement(
 	          'form',
-	          { onSubmit: this.state.handleSignUp },
+	          { onSubmit: this.handleSignUp.bind(this) },
 	          _react2.default.createElement('input', { style: this.styles.buttonStyle, type: 'submit', value: 'Sign Up' })
 	        )
 	      );
