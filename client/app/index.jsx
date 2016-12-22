@@ -1,15 +1,16 @@
 import React from 'react';
 import {render} from 'react-dom';
+import {Router, Route, browserHistory, IndexRoute} from "react-router";
 import AwesomeComponent from './components/AwesomeComp.jsx';
 
 
 class App extends React.Component {
   render () {
     return (
-    	<div>
-    		<h1>app</h1>
-    		<AwesomeComponent />
-    	</div>
+  <Router history = {browserHistory}>
+    <Route path={"/"} component={AwesomeComponent}>
+    </Route>
+  </Router>
     )
   }
 }

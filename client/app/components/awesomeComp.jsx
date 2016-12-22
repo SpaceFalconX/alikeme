@@ -1,7 +1,6 @@
 import React from 'react';
 
 class AwesomeComponent extends React.Component {
-
   constructor(props) {
     super();
     this.state = {
@@ -61,7 +60,6 @@ class AwesomeComponent extends React.Component {
       </div>
     );
   }
-
 }
 
 export default AwesomeComponent;
