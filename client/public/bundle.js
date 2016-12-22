@@ -85,9 +85,9 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(
-	          'p',
+	          'h1',
 	          null,
-	          ' yooooooo!'
+	          'app'
 	        ),
 	        _react2.default.createElement(_AwesomeComp2.default, null)
 	      );
@@ -22076,29 +22076,72 @@
 	  function AwesomeComponent(props) {
 	    _classCallCheck(this, AwesomeComponent);
 	
-	    var _this = _possibleConstructorReturn(this, (AwesomeComponent.__proto__ || Object.getPrototypeOf(AwesomeComponent)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (AwesomeComponent.__proto__ || Object.getPrototypeOf(AwesomeComponent)).call(this));
 	
-	    _this.state = { likesCount: 0 };
-	    _this.onLike = _this.onLike.bind(_this);
+	    _this.state = {
+	      likesCount: 0,
+	      display: 'zero',
+	      top: 200,
+	      left: 200
+	    };
 	    return _this;
 	  }
 	
 	  _createClass(AwesomeComponent, [{
-	    key: 'onLike',
-	    value: function onLike() {
-	      var newLikesCount = this.state.likesCount + 1;
-	      this.setState({ likesCount: newLikesCount });
+	    key: 'onCountUp',
+	    value: function onCountUp() {
+	      this.setState({
+	        likesCount: this.state.likesCount + 5,
+	        top: this.state.top + 10,
+	        left: this.state.left + 10
+	      });
+	      this.setDisplay();
+	    }
+	  }, {
+	    key: 'onCountDown',
+	    value: function onCountDown() {
+	      this.setState({
+	        likesCount: this.state.likesCount - 5,
+	        top: this.state.top - 10,
+	        left: this.state.left - 10
+	      });
+	      this.setDisplay();
+	    }
+	  }, {
+	    key: 'setDisplay',
+	    value: function setDisplay() {
+	      if (this.state.likesCount % 2 === 0) {
+	        this.setState({
+	          display: 'even'
+	        });
+	      } else {
+	        this.setState({
+	          display: 'odd'
+	        });
+	      }
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var myStyle = {
+	        color: 'red',
+	        backgroundColor: 'blue',
+	        position: 'absolute',
+	        top: this.state.top,
+	        left: this.state.left
+	      };
 	      return _react2.default.createElement(
 	        'div',
 	        null,
+	        _react2.default.createElement(
+	          'h4',
+	          null,
+	          this.state.display
+	        ),
 	        'Likes : ',
 	        _react2.default.createElement(
-	          'span',
-	          null,
+	          'h1',
+	          { style: myStyle },
 	          this.state.likesCount
 	        ),
 	        _react2.default.createElement(
@@ -22106,8 +22149,13 @@
 	          null,
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.onLike },
-	            'Like Me'
+	            { onClick: this.onCountUp.bind(this) },
+	            'Add 5'
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this.onCountDown.bind(this) },
+	            'Remove 5'
 	          )
 	        )
 	      );
