@@ -1,23 +1,23 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {Router, Route, browserHistory, hashHistory, IndexRoute} from "react-router";
-import BigDogComponent from './components/BigDogComp.jsx';
-import HomeComponent from './components/HomeComp.jsx';
-import FerretsComponent from './components/FerretsComp.jsx';
-import BabyFerretsComponent from './components/BabyFerretsComp.jsx';
+import LandingComponent from './components/LandingComponent.jsx'
+import SignInComponent from './components/SignInComponent.jsx'
+import SignUpComponent from './components/SignUpComponent.jsx'
+import SetUpComponent from './components/SetUpComponent.jsx'
+import ProfileComponent from './components/ProfileComponent.jsx'
 
 class App extends React.Component {
   render () {
     return (
     	<div>
 	  	  <Router history = {browserHistory}>
-			    <Route path='/' component= {HomeComponent}>
-            <Route path='/bigdogs' component={BigDogComponent} />
-              <Route path='/ferrets' component={FerretsComponent}>
-                <Route path='/babyferrets' component={BabyFerretsComponent} />
-              </Route>
-          </Route>
-          <Route path="*" component={HomeComponent} />
+			    <Route path='/' component= {LandingComponent} />
+          <Route path='/signup' component={SignUpComponent} />
+          <Route path='/signin' component={SignInComponent} />
+          <Route path='/setup' component={SetUpComponent} />
+          <Route path='/profile/:username' component={ProfileComponent} />
+          <Route path="*" component={LandingComponent} />
 			  </Router>
 		  </div>
     )
