@@ -15,10 +15,17 @@
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
+    "bookshelf": "^0.10.2",
     "express": "^4.14.0",
+    "knex": "^0.12.6",
+    "mysql": "^2.12.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-router": "^3.0.0",
+<<<<<<< HEAD
+=======
+    "sequelize": "^3.28.0",
+>>>>>>> 3ce8aa62de604b0b26c867cb4c84521d20eaec19
     "webpack": "^1.14.0"
   },
   "devDependencies": {
