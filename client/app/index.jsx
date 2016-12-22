@@ -8,7 +8,8 @@ class App extends React.Component {
   render () {
     return (
   <Router history = {browserHistory}>
-    <Route path={"/"} component={AwesomeComponent}>
+    <Route path={"/"}component={AwesomeComponent}>
+      <Route path={'/bigdogs'} component={AwesomeComponent} />
     </Route>
   </Router>
     )
@@ -16,3 +17,5 @@ class App extends React.Component {
 }
 
 render(<App/>, document.getElementById('app'));
+
+
