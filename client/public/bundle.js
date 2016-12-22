@@ -86,6 +86,9 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	// import { render } from 'react-dom'
+	// import { Provider } from 'react-redux'
+	// import { createStore } from 'redux'
 	
 	var App = function (_React$Component) {
 	  _inherits(App, _React$Component);
@@ -108,7 +111,7 @@
 	          _react2.default.createElement(_reactRouter.Route, { path: '/', component: _LandingComponent2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: '/signup', component: _SignUpComponent2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: '/signin', component: _SignInComponent2.default }),
-	          _react2.default.createElement(_reactRouter.Route, { path: '/setup', component: _SetUpComponent2.default }),
+	          _react2.default.createElement(_reactRouter.Route, { path: '/setup/:username', component: _SetUpComponent2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: '/profile/:username', component: _ProfileComponent2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: '*', component: _LandingComponent2.default })
 	        )
@@ -118,6 +121,10 @@
 	
 	  return App;
 	}(_react2.default.Component);
+	
+	//provider store = {store} app /provider
+	//let store = some imported reducer thing
+	
 	
 	(0, _reactDom.render)(_react2.default.createElement(App, null), document.getElementById('app'));
 
@@ -27351,11 +27358,30 @@
 	
 	    var _this = _possibleConstructorReturn(this, (SignUpComponent.__proto__ || Object.getPrototypeOf(SignUpComponent)).call(this));
 	
-	    _this.styles = {};
+	    _this.state = {
+	      username: '',
+	      password: ''
+	    };
 	    return _this;
 	  }
 	
 	  _createClass(SignUpComponent, [{
+	    key: 'handleUsername',
+	    value: function handleUsername(e) {
+	      this.setState({ username: e.target.value });
+	    }
+	  }, {
+	    key: 'handlePassword',
+	    value: function handlePassword(e) {
+	      this.setState({ password: e.target.value });
+	    }
+	  }, {
+	    key: 'createNewUser',
+	    value: function createNewUser(e) {
+	      e.preventDefault();
+	      _reactRouter.browserHistory.push('/setup/' + this.state.username);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -27363,10 +27389,14 @@
 	        null,
 	        'Sign Up',
 	        _react2.default.createElement('br', null),
+	        'Choose a username and password',
+	        _react2.default.createElement('br', null),
 	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/setup' },
-	          'Next steps'
+	          'form',
+	          { onSubmit: this.createNewUser.bind(this) },
+	          _react2.default.createElement('input', { type: 'text', value: this.state.username, onChange: this.handleUsername.bind(this) }),
+	          _react2.default.createElement('input', { type: 'password', value: this.state.password, onChange: this.handlePassword.bind(this) }),
+	          _react2.default.createElement('input', { type: 'submit', value: 'Sign In' })
 	        )
 	      );
 	    }
@@ -27428,7 +27458,7 @@
 	        _react2.default.createElement('br', null),
 	        _react2.default.createElement(
 	          _reactRouter.Link,
-	          { to: '/profile' },
+	          { to: "/profile/" + this.props.params.username },
 	          'Done'
 	        )
 	      );

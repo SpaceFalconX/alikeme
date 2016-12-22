@@ -1,12 +1,28 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link, browserHistory} from 'react-router';
 
 
 class SignUpComponent extends React.Component {
   constructor(props) {
     super();
-    this.styles = {
+
+    this.state = {
+      username: '',
+      password: ''
     };
+  }
+
+  handleUsername(e){
+    this.setState({username: e.target.value})
+  }
+
+  handlePassword(e){
+    this.setState({password: e.target.value})
+  }
+
+  createNewUser(e){
+    e.preventDefault();
+    browserHistory.push('/setup/' + this.state.username)
   }
 
   render() {
@@ -14,7 +30,13 @@ class SignUpComponent extends React.Component {
       <div>
         Sign Up
         <br />
-        <Link to='/setup'>Next steps</Link>
+        Choose a username and password
+        <br />
+        <form onSubmit={this.createNewUser.bind(this)}>
+          <input type="text" value={this.state.username} onChange={this.handleUsername.bind(this)} />
+          <input type="password" value={this.state.password} onChange={this.handlePassword.bind(this)}/>
+          <input type="submit" value="Sign In" />
+        </form>
       </div>
     );
   }

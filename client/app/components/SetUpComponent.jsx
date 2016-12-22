@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link, browserHistory} from 'react-router';
 
 
 class SetUpComponent extends React.Component {
@@ -14,7 +14,7 @@ class SetUpComponent extends React.Component {
       <div>
         Configure your account
         <br />
-        <Link to="/profile">Done</Link>
+        <Link to={"/profile/" + this.props.params.username}>Done</Link>
       </div>
     );
   }
