@@ -17,6 +17,7 @@ class App extends React.Component {
                 <Route path='/babyferrets' component={BabyFerretsComponent} />
               </Route>
           </Route>
+          <Route path="*" component={HomeComponent} />
 			  </Router>
 		  </div>
     )

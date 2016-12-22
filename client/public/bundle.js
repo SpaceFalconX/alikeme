@@ -110,7 +110,8 @@
 	              { path: '/ferrets', component: _FerretsComp2.default },
 	              _react2.default.createElement(_reactRouter.Route, { path: '/babyferrets', component: _BabyFerretsComp2.default })
 	            )
-	          )
+	          ),
+	          _react2.default.createElement(_reactRouter.Route, { path: '*', component: _HomeComp2.default })
 	        )
 	      );
 	    }
