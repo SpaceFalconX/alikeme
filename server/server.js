@@ -9,5 +9,5 @@ app.get('*', function (request, response){
 })
 
 app.listen(4000, function() {
-	console.log("app running on port 4000...")
+	console.log("app running on port 4000")
 })

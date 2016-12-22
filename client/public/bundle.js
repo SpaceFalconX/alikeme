@@ -86,12 +86,6 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' wtf '
-	        ),
-	        '// ',
 	        _react2.default.createElement(_AwesomeComp2.default, null),
 	        _react2.default.createElement(
 	          _reactRouter.Router,

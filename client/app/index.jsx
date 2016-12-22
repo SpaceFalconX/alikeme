@@ -8,8 +8,7 @@ class App extends React.Component {
     return (
 
     	<div>
-    		<p> wtf </p>
-    		// <AwesomeComponent />
+    		<AwesomeComponent />
 	  	  <Router history = {browserHistory}>
 			    <Route path='/' component= {Home} />
 			    <Route path='/bigdogs' component={AwesomeComponent} />
