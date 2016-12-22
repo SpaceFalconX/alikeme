@@ -27208,14 +27208,19 @@
 	          ' '
 	        ),
 	        _react2.default.createElement(
-	          'button',
-	          { onClick: this.BigDogsNav },
+	          _reactRouter.Link,
+	          { to: '/bigdogs' },
 	          'big dogs'
+	        ),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/ferrets' },
+	          'link to ferrets'
 	        ),
 	        _react2.default.createElement(
 	          'button',
 	          { onClick: this.FerretsNav },
-	          'ferrets'
+	          'button to ferrets'
 	        ),
 	        _react2.default.createElement(
 	          'button',
