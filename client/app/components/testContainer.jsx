@@ -1,6 +1,8 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import submitAction from '../actions/submitAction.jsx'
+import formUpdateAction from '../actions/formUpdateAction.jsx'
 
 class Demo extends React.Component {
 
@@ -16,11 +18,11 @@ class Demo extends React.Component {
         {this.props.text}
         <h4>{this.props.other}</h4>
 
-        <p onClick={() => this.props.testAction(this.props.formText, "CLICKED")}>CLICK TO CHANGE STATE</p>
+        <p onClick={() => this.props.submitAction(this.props.formText, "CLICKED")}>CLICK TO CHANGE STATE</p>
 
         <form onSubmit={e => {
           e.preventDefault();
-          this.props.testAction(this.props.formText, "FORM SUBMITTED")
+          this.props.submitAction(this.props.formText, "FORM SUBMITTED")
         }}>
           <input type="text" value={this.props.formText} onChange={this.handleInputChange.bind(this)}/>
           <input type="submit" value="CHANGE STATE WITH FORM" />
@@ -28,24 +30,6 @@ class Demo extends React.Component {
       </div>
     );
   }
-}
-
-function testAction(text, other) {
-    return {
-        type: 'TEST_ACTION',
-        payload: {
-          text: text,
-          other: other,
-          formText: ""
-        }
-    }
-}
-
-function formUpdateAction(formText) {
-    return {
-        type: 'FORMUPDATE_ACTION',
-        payload: formText
-    }
 }
 
 function mapStateToProps(state) {
@@ -57,7 +41,7 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({testAction: testAction, formUpdateAction: formUpdateAction}, dispatch);
+  return bindActionCreators({submitAction: submitAction, formUpdateAction: formUpdateAction}, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Demo);

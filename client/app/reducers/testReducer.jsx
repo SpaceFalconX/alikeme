@@ -1,5 +1,5 @@
 export default function (state = null, action) {
-  if(action.type === 'TEST_ACTION'){
+  if(action.type === 'SUBMIT_ACTION'){
     return action.payload
   }
 
@@ -10,7 +10,6 @@ export default function (state = null, action) {
       formText: action.payload
     }
   }
-
 
   else {
     return {
