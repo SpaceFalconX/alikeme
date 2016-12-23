@@ -1,9 +1,9 @@
-export default function (text, other) {
+export default function (text, submitType) {
   return {
       type: 'SUBMIT_ACTION',
       payload: {
         text: text,
-        other: other,
+        submitType: submitType,
         formText: ""
       }
   }

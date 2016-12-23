@@ -16,7 +16,7 @@ class Demo extends React.Component {
         <h1>TEST</h1>
         <br />
         {this.props.text}
-        <h4>{this.props.other}</h4>
+        <h4>{this.props.submitType}</h4>
 
         <p onClick={() => this.props.submitAction(this.props.formText, "CLICKED")}>CLICK TO CHANGE STATE</p>
 
@@ -35,13 +35,16 @@ class Demo extends React.Component {
 function mapStateToProps(state) {
   return {
     text: state.text,
-    other: state.other,
+    submitType: state.submitType,
     formText: state.formText
   };
 }
 
 function matchDispatchToProps(dispatch){
-  return bindActionCreators({submitAction: submitAction, formUpdateAction: formUpdateAction}, dispatch);
+  return bindActionCreators({
+    submitAction: submitAction,
+    formUpdateAction: formUpdateAction
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Demo);
