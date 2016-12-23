@@ -1,9 +1,9 @@
 const bcrypt = require('bcryptjs');
 const Sequelize = require('sequelize');
 const _ = require('underscore');
-const dbConnection = new Sequelize('alikeMe','root','123');
+const connection = new Sequelize('alikeMe','root','123');
 
-const User = dbConnection.define('user', {
+const User = connection.define('user', {
   username: {
   	type: Sequelize.STRING, 
   	allowNull: false, 
@@ -30,20 +30,24 @@ const User = dbConnection.define('user', {
   	validate: {
   		isEmail: true
   	}
-  }
+  },
+  friends: {type: Sequelize.INTEGER}
 }, {
 	hooks: {
-		beforeBulkCreate: function (users) {
+		beforeBulkCreate (users) {
 			_.each(users, (user) => (user.password = bcrypt.hashSync(user.password, 8)))
+		},
+		beforeCreate (user) {
+			user.password = bcrypt.hashSync(user.password, 8)
 		}
 	}
 })
 
 
 
-dbConnection.sync({
-	force: true,
-	logging: console.log
+connection.sync({
+	force: true
+	// logging: console.log
 })
 .then(() => (
 	User.bulkCreate([{
@@ -63,14 +67,17 @@ dbConnection.sync({
 		ignoreDuplicates: true
 	})
 	.then((users) => (
-		_.each(users, (user)=>( console.log(user.dataValues) ))
+		_.each(users, (user)=>( console.log('Created user:', user.dataValues.username)))
 	))
 ))
 .catch((error) => (
 	console.log(error)
 ))
 
-module.exports = dbConnection;
+module.exports = {
+	connection: connection,
+	User: User
+};
 
 
 
