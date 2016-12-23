@@ -3,11 +3,6 @@ import {Link, browserHistory} from 'react-router';
 
 
 class SetUpComponent extends React.Component {
-  constructor(props) {
-    super();
-    this.styles = {
-    };
-  }
 
   render() {
     return (

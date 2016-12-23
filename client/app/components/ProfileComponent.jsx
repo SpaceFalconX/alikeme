@@ -3,12 +3,6 @@ import {Link} from 'react-router';
 
 
 class ProfileComponent extends React.Component {
-  constructor(props) {
-    super();
-    this.styles = {
-    };
-  }
-
   render() {
     return (
       <div>
