@@ -3,6 +3,11 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 class Demo extends React.Component {
+
+  handleInputChange(e){
+    this.props.testAction(e.target.value, e.target.value)
+  }
+
   render() {
     return (
       <div>
@@ -17,7 +22,7 @@ class Demo extends React.Component {
           e.preventDefault();
           this.props.testAction("FORM SUBMISSION TEXT", "FORM")
         }}>
-          <input type="text" defaultValue={this.props.text} />
+          <input type="text" value={this.props.text} onChange={this.handleInputChange.bind(this)}/>
           <input type="submit" value="CHANGE STATE WITH FORM" />
         </form>
       </div>

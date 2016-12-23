@@ -4,10 +4,9 @@ export default function (state = null, action) {
     return action.payload
   } else {
     return {
-      text: "THIS IS TEXT FROM TEST REDUCER",
+      text: "THIS IS DEFAULT TEXT FROM TEST REDUCER",
       other: "SOME OTHER TEXT"
     }
   }
-
 
 }
