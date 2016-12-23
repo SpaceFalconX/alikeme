@@ -30,11 +30,13 @@ class Demo extends React.Component {
   }
 }
 
-function testAction(item) {
-    console.log('input text: ', item);
+function testAction(text) {
     return {
         type: 'TEST_ACTION',
-        payload: item
+        payload: {
+          text: text,
+          other: "HOW ABOUT NOOOOOW"
+        }
     }
 }
 

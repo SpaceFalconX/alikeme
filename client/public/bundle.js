@@ -29767,7 +29767,7 @@
   \*********************************************/
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -29780,10 +29780,7 @@
 	  console.log(action.type);
 	
 	  if (action.type === 'TEST_ACTION') {
-	    return {
-	      text: action.payload,
-	      other: 'HOW ABOUT NOW'
-	    };
+	    return action.payload;
 	  } else {
 	    return {
 	      text: "THIS IS TEXT FROM TEST REDUCER",
@@ -29880,11 +29877,13 @@
 	  return Demo;
 	}(_react2.default.Component);
 	
-	function testAction(item) {
-	  console.log('input text: ', item);
+	function testAction(text) {
 	  return {
 	    type: 'TEST_ACTION',
-	    payload: item
+	    payload: {
+	      text: text,
+	      other: "HOW ABOUT NOOOOOW"
+	    }
 	  };
 	}
 	
