@@ -144,10 +144,6 @@
 	  return App;
 	}(_react2.default.Component);
 	
-	//provider store = {store} app /provider
-	//let store = some imported reducer thing
-	
-	
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: store },
@@ -29778,7 +29774,15 @@
 	});
 	
 	exports.default = function () {
-	  return "FROM REDUCER";
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+	  var action = arguments[1];
+	
+	  console.log(action.type);
+	
+	  return {
+	    text: "THIS IS TEXT FROM TEST REDUCER",
+	    other: "SOME OTHER TEXT"
+	  };
 	};
 
 /***/ },
@@ -29823,14 +29827,38 @@
 	  }
 	
 	  _createClass(Demo, [{
+	    key: 'testAction',
+	    value: function testAction(item) {} //are you kidding me
+	
+	  }, {
+	    key: 'handleUsername',
+	    value: function handleUsername(e) {
+	      this.setState({ username: e.target.value });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        'TEST',
 	        _react2.default.createElement('br', null),
-	        this.props.users
+	        this.props.text,
+	        _react2.default.createElement(
+	          'h4',
+	          null,
+	          this.props.other
+	        ),
+	        _react2.default.createElement(
+	          'form',
+	          { onSubmit: function onSubmit() {
+	              return _this2.props.testAction(_this2.props.text);
+	            } },
+	          _react2.default.createElement('input', { type: 'text', value: this.props.text, onChange: this.handleUsername.bind(this) }),
+	          _react2.default.createElement('input', { type: 'submit', value: 'CHECK IT OUT' })
+	        )
 	      );
 	    }
 	  }]);
@@ -29838,13 +29866,26 @@
 	  return Demo;
 	}(_react2.default.Component);
 	
-	function mapStateToProps(state) {
+	function testAction(item) {
+	  console.log('input text: ', item);
 	  return {
-	    users: state
+	    type: 'TEST_ACTION',
+	    payload: item
 	  };
 	}
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Demo);
+	function mapStateToProps(state) {
+	  return {
+	    text: state.text,
+	    other: state.other
+	  };
+	}
+	
+	function matchDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({ testAction: testAction }, dispatch);
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, matchDispatchToProps)(Demo);
 
 /***/ }
 /******/ ]);

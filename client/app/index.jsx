@@ -37,8 +37,6 @@ class App extends React.Component {
   }
 }
 
-//provider store = {store} app /provider
-//let store = some imported reducer thing
 render(
   <Provider store={store}>
     <App/>

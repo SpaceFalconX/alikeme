@@ -3,7 +3,6 @@ import {Link, browserHistory} from 'react-router';
 
 
 class SetUpComponent extends React.Component {
-
   render() {
     return (
       <div>
