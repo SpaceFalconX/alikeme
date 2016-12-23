@@ -29777,7 +29777,6 @@
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 	  var action = arguments[1];
 	
-	  console.log(action.type);
 	
 	  if (action.type === 'TEST_ACTION') {
 	    return action.payload;
@@ -29831,15 +29830,6 @@
 	  }
 	
 	  _createClass(Demo, [{
-	    key: 'testAction',
-	    value: function testAction(item) {} //are you kidding me
-	
-	  }, {
-	    key: 'handleUsername',
-	    value: function handleUsername(e) {
-	      this.setState({ username: e.target.value });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -29865,9 +29855,9 @@
 	        _react2.default.createElement(
 	          'form',
 	          { onSubmit: function onSubmit() {
-	              return _this2.props.testAction("submitted text");
+	              return _this2.props.testAction("FORM SUBMISSION");
 	            } },
-	          _react2.default.createElement('input', { type: 'text', value: this.props.text, onChange: this.handleUsername.bind(this) }),
+	          _react2.default.createElement('input', { type: 'text', defaultValue: this.props.text }),
 	          _react2.default.createElement('input', { type: 'submit', value: 'CHECK IT OUT' })
 	        )
 	      );

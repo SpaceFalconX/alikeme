@@ -3,14 +3,6 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 class Demo extends React.Component {
-
-  testAction(item){
-  } //are you kidding me
-
-  handleUsername(e){
-    this.setState({username: e.target.value})
-  }
-
   render() {
     return (
       <div>
@@ -21,8 +13,8 @@ class Demo extends React.Component {
 
         <p onClick={() => this.props.testAction("NEW TEXT")}>CLICK TO CHANGE STATE</p>
 
-        <form onSubmit={() => this.props.testAction("submitted text")}>
-          <input type="text" value={this.props.text} onChange={this.handleUsername.bind(this)} />
+        <form onSubmit={() => this.props.testAction("FORM SUBMISSION")}>
+          <input type="text" defaultValue={this.props.text} />
           <input type="submit" value="CHECK IT OUT" />
         </form>
       </div>
