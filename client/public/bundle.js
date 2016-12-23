@@ -29767,7 +29767,7 @@
   \*********************************************/
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -29779,10 +29779,17 @@
 	
 	  console.log(action.type);
 	
-	  return {
-	    text: "THIS IS TEXT FROM TEST REDUCER",
-	    other: "SOME OTHER TEXT"
-	  };
+	  if (action.type === 'TEST_ACTION') {
+	    return {
+	      text: action.payload,
+	      other: 'HOW ABOUT NOW'
+	    };
+	  } else {
+	    return {
+	      text: "THIS IS TEXT FROM TEST REDUCER",
+	      other: "SOME OTHER TEXT"
+	    };
+	  }
 	};
 
 /***/ },
@@ -29852,9 +29859,16 @@
 	          this.props.other
 	        ),
 	        _react2.default.createElement(
+	          'p',
+	          { onClick: function onClick() {
+	              return _this2.props.testAction("NEW TEXT");
+	            } },
+	          'CLICK TO CHANGE STATE'
+	        ),
+	        _react2.default.createElement(
 	          'form',
 	          { onSubmit: function onSubmit() {
-	              return _this2.props.testAction(_this2.props.text);
+	              return _this2.props.testAction("submitted text");
 	            } },
 	          _react2.default.createElement('input', { type: 'text', value: this.props.text, onChange: this.handleUsername.bind(this) }),
 	          _react2.default.createElement('input', { type: 'submit', value: 'CHECK IT OUT' })

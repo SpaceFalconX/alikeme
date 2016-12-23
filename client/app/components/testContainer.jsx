@@ -19,7 +19,9 @@ class Demo extends React.Component {
         {this.props.text}
         <h4>{this.props.other}</h4>
 
-        <form onSubmit={() => this.props.testAction(this.props.text)}>
+        <p onClick={() => this.props.testAction("NEW TEXT")}>CLICK TO CHANGE STATE</p>
+
+        <form onSubmit={() => this.props.testAction("submitted text")}>
           <input type="text" value={this.props.text} onChange={this.handleUsername.bind(this)} />
           <input type="submit" value="CHECK IT OUT" />
         </form>
