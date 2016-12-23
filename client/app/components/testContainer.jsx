@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 class Demo extends React.Component {
 
   handleInputChange(e){
-    this.props.testAction(e.target.value, e.target.value)
+    this.props.formUpdateAction(e.target.value)
   }
 
   render() {
@@ -16,13 +16,13 @@ class Demo extends React.Component {
         {this.props.text}
         <h4>{this.props.other}</h4>
 
-        <p onClick={() => this.props.testAction("PARAGRAPH TEXT", "P")}>CLICK TO CHANGE STATE</p>
+        <p onClick={() => this.props.testAction(this.props.formText, "CLICKED")}>CLICK TO CHANGE STATE</p>
 
         <form onSubmit={e => {
           e.preventDefault();
-          this.props.testAction("FORM SUBMISSION TEXT", "FORM")
+          this.props.testAction(this.props.formText, "FORM SUBMITTED")
         }}>
-          <input type="text" value={this.props.text} onChange={this.handleInputChange.bind(this)}/>
+          <input type="text" value={this.props.formText} onChange={this.handleInputChange.bind(this)}/>
           <input type="submit" value="CHANGE STATE WITH FORM" />
         </form>
       </div>
@@ -35,20 +35,29 @@ function testAction(text, other) {
         type: 'TEST_ACTION',
         payload: {
           text: text,
-          other: other
+          other: other,
+          formText: ""
         }
+    }
+}
+
+function formUpdateAction(formText) {
+    return {
+        type: 'FORMUPDATE_ACTION',
+        payload: formText
     }
 }
 
 function mapStateToProps(state) {
   return {
     text: state.text,
-    other: state.other
+    other: state.other,
+    formText: state.formText
   };
 }
 
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({testAction: testAction}, dispatch);
+    return bindActionCreators({testAction: testAction, formUpdateAction: formUpdateAction}, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Demo);
