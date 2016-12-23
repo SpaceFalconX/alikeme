@@ -6,28 +6,31 @@ class Demo extends React.Component {
   render() {
     return (
       <div>
-        TEST
+        <h1>TEST</h1>
         <br />
         {this.props.text}
         <h4>{this.props.other}</h4>
 
-        <p onClick={() => this.props.testAction("NEW TEXT")}>CLICK TO CHANGE STATE</p>
+        <p onClick={() => this.props.testAction("NEW TEXT", "PARAGRAPH")}>CLICK TO CHANGE STATE</p>
 
-        <form onSubmit={() => this.props.testAction("FORM SUBMISSION")}>
+        <form onSubmit={e => {
+          e.preventDefault();
+          this.props.testAction("FORM SUBMISSION TEXT", "FORM")
+        }}>
           <input type="text" defaultValue={this.props.text} />
-          <input type="submit" value="CHECK IT OUT" />
+          <input type="submit" value="CHANGE STATE WITH FORM" />
         </form>
       </div>
     );
   }
 }
 
-function testAction(text) {
+function testAction(text, other) {
     return {
         type: 'TEST_ACTION',
         payload: {
           text: text,
-          other: "HOW ABOUT NOOOOOW"
+          other: other
         }
     }
 }

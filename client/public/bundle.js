@@ -29837,7 +29837,11 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        'TEST',
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'TEST'
+	        ),
 	        _react2.default.createElement('br', null),
 	        this.props.text,
 	        _react2.default.createElement(
@@ -29848,17 +29852,18 @@
 	        _react2.default.createElement(
 	          'p',
 	          { onClick: function onClick() {
-	              return _this2.props.testAction("NEW TEXT");
+	              return _this2.props.testAction("NEW TEXT", "PARAGRAPH");
 	            } },
 	          'CLICK TO CHANGE STATE'
 	        ),
 	        _react2.default.createElement(
 	          'form',
-	          { onSubmit: function onSubmit() {
-	              return _this2.props.testAction("FORM SUBMISSION");
+	          { onSubmit: function onSubmit(e) {
+	              e.preventDefault();
+	              _this2.props.testAction("FORM SUBMISSION TEXT", "FORM");
 	            } },
 	          _react2.default.createElement('input', { type: 'text', defaultValue: this.props.text }),
-	          _react2.default.createElement('input', { type: 'submit', value: 'CHECK IT OUT' })
+	          _react2.default.createElement('input', { type: 'submit', value: 'CHANGE STATE WITH FORM' })
 	        )
 	      );
 	    }
@@ -29867,12 +29872,12 @@
 	  return Demo;
 	}(_react2.default.Component);
 	
-	function testAction(text) {
+	function testAction(text, other) {
 	  return {
 	    type: 'TEST_ACTION',
 	    payload: {
 	      text: text,
-	      other: "HOW ABOUT NOOOOOW"
+	      other: other
 	    }
 	  };
 	}
