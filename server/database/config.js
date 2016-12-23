@@ -1,6 +1,11 @@
-var Sequelize = require('sequelize')
+const Sequelize = require('sequelize')
+const dbConnection = new Sequelize('alikeMe','root','123');
 
-var db = new Sequelize('mysql://localhost:3306/database', {})
+const User = dbConnection.define('user', {
+  username: {type: Sequelize.STRING, allowNull: false, unique: true},
+  password: {type: Sequelize.TEXT, allowNull: false}
+})
 
+dbConnection.sync();
 
-module.exports = db;
+module.exports = dbConnection;

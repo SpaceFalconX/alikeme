@@ -59,23 +59,23 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 178);
 	
-	var _LandingComponent = __webpack_require__(/*! ./components/LandingComponent.jsx */ 238);
+	var _LandingComponent = __webpack_require__(/*! ./components/LandingComponent.jsx */ 233);
 	
 	var _LandingComponent2 = _interopRequireDefault(_LandingComponent);
 	
-	var _SignInComponent = __webpack_require__(/*! ./components/SignInComponent.jsx */ 240);
+	var _SignInComponent = __webpack_require__(/*! ./components/SignInComponent.jsx */ 234);
 	
 	var _SignInComponent2 = _interopRequireDefault(_SignInComponent);
 	
-	var _SignUpComponent = __webpack_require__(/*! ./components/SignUpComponent.jsx */ 241);
+	var _SignUpComponent = __webpack_require__(/*! ./components/SignUpComponent.jsx */ 235);
 	
 	var _SignUpComponent2 = _interopRequireDefault(_SignUpComponent);
 	
-	var _SetUpComponent = __webpack_require__(/*! ./components/SetUpComponent.jsx */ 242);
+	var _SetUpComponent = __webpack_require__(/*! ./components/SetUpComponent.jsx */ 236);
 	
 	var _SetUpComponent2 = _interopRequireDefault(_SetUpComponent);
 	
-	var _ProfileComponent = __webpack_require__(/*! ./components/ProfileComponent.jsx */ 243);
+	var _ProfileComponent = __webpack_require__(/*! ./components/ProfileComponent.jsx */ 237);
 	
 	var _ProfileComponent2 = _interopRequireDefault(_ProfileComponent);
 	
@@ -25188,9 +25188,9 @@
 
 /***/ },
 /* 208 */
-/*!**********************************!*\
-  !*** ./~/history/lib/Actions.js ***!
-  \**********************************/
+/*!*************************************************!*\
+  !*** ./~/react-router/~/history/lib/Actions.js ***!
+  \*************************************************/
 /***/ function(module, exports) {
 
 	'use strict';
@@ -25257,9 +25257,9 @@
 
 /***/ },
 /* 210 */
-/*!*************************************!*\
-  !*** ./~/history/lib/useQueries.js ***!
-  \*************************************/
+/*!****************************************************!*\
+  !*** ./~/react-router/~/history/lib/useQueries.js ***!
+  \****************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25508,9 +25508,9 @@
 
 /***/ },
 /* 213 */
-/*!********************************************!*\
-  !*** ./~/history/lib/runTransitionHook.js ***!
-  \********************************************/
+/*!***********************************************************!*\
+  !*** ./~/react-router/~/history/lib/runTransitionHook.js ***!
+  \***********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -25536,13 +25536,13 @@
 	};
 	
 	exports.default = runTransitionHook;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../process/browser.js */ 3)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../../process/browser.js */ 3)))
 
 /***/ },
 /* 214 */
-/*!****************************************!*\
-  !*** ./~/history/lib/LocationUtils.js ***!
-  \****************************************/
+/*!*******************************************************!*\
+  !*** ./~/react-router/~/history/lib/LocationUtils.js ***!
+  \*******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -25637,13 +25637,13 @@
 	  // a.action === b.action && // Different action !== location change.
 	  a.pathname === b.pathname && a.search === b.search && a.hash === b.hash && statesAreEqual(a.state, b.state);
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../process/browser.js */ 3)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../../process/browser.js */ 3)))
 
 /***/ },
 /* 215 */
-/*!************************************!*\
-  !*** ./~/history/lib/PathUtils.js ***!
-  \************************************/
+/*!***************************************************!*\
+  !*** ./~/react-router/~/history/lib/PathUtils.js ***!
+  \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -25747,13 +25747,13 @@
 	
 	  return path;
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../process/browser.js */ 3)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../../process/browser.js */ 3)))
 
 /***/ },
 /* 216 */
-/*!**************************************!*\
-  !*** ./~/history/lib/useBasename.js ***!
-  \**************************************/
+/*!*****************************************************!*\
+  !*** ./~/react-router/~/history/lib/useBasename.js ***!
+  \*****************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25868,9 +25868,9 @@
 
 /***/ },
 /* 217 */
-/*!**********************************************!*\
-  !*** ./~/history/lib/createMemoryHistory.js ***!
-  \**********************************************/
+/*!*************************************************************!*\
+  !*** ./~/react-router/~/history/lib/createMemoryHistory.js ***!
+  \*************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -26013,13 +26013,13 @@
 	};
 	
 	exports.default = createMemoryHistory;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../process/browser.js */ 3)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../../process/browser.js */ 3)))
 
 /***/ },
 /* 218 */
-/*!****************************************!*\
-  !*** ./~/history/lib/createHistory.js ***!
-  \****************************************/
+/*!*******************************************************!*\
+  !*** ./~/react-router/~/history/lib/createHistory.js ***!
+  \*******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26201,9 +26201,9 @@
 
 /***/ },
 /* 219 */
-/*!*************************************!*\
-  !*** ./~/history/lib/AsyncUtils.js ***!
-  \*************************************/
+/*!****************************************************!*\
+  !*** ./~/react-router/~/history/lib/AsyncUtils.js ***!
+  \****************************************************/
 /***/ function(module, exports) {
 
 	"use strict";
@@ -26385,9 +26385,9 @@
 
 /***/ },
 /* 223 */
-/*!***********************************************!*\
-  !*** ./~/history/lib/createBrowserHistory.js ***!
-  \***********************************************/
+/*!**************************************************************!*\
+  !*** ./~/react-router/~/history/lib/createBrowserHistory.js ***!
+  \**************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -26483,13 +26483,13 @@
 	};
 	
 	exports.default = createBrowserHistory;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../process/browser.js */ 3)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../../process/browser.js */ 3)))
 
 /***/ },
 /* 224 */
-/*!***********************************************!*\
-  !*** ./~/history/lib/ExecutionEnvironment.js ***!
-  \***********************************************/
+/*!**************************************************************!*\
+  !*** ./~/react-router/~/history/lib/ExecutionEnvironment.js ***!
+  \**************************************************************/
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26499,9 +26499,9 @@
 
 /***/ },
 /* 225 */
-/*!******************************************!*\
-  !*** ./~/history/lib/BrowserProtocol.js ***!
-  \******************************************/
+/*!*********************************************************!*\
+  !*** ./~/react-router/~/history/lib/BrowserProtocol.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26605,9 +26605,9 @@
 
 /***/ },
 /* 226 */
-/*!***********************************!*\
-  !*** ./~/history/lib/DOMUtils.js ***!
-  \***********************************/
+/*!**************************************************!*\
+  !*** ./~/react-router/~/history/lib/DOMUtils.js ***!
+  \**************************************************/
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26653,9 +26653,9 @@
 
 /***/ },
 /* 227 */
-/*!******************************************!*\
-  !*** ./~/history/lib/DOMStateStorage.js ***!
-  \******************************************/
+/*!*********************************************************!*\
+  !*** ./~/react-router/~/history/lib/DOMStateStorage.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -26743,13 +26743,13 @@
 	
 	  return undefined;
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../process/browser.js */ 3)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../../process/browser.js */ 3)))
 
 /***/ },
 /* 228 */
-/*!******************************************!*\
-  !*** ./~/history/lib/RefreshProtocol.js ***!
-  \******************************************/
+/*!*********************************************************!*\
+  !*** ./~/react-router/~/history/lib/RefreshProtocol.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26843,9 +26843,9 @@
 
 /***/ },
 /* 231 */
-/*!********************************************!*\
-  !*** ./~/history/lib/createHashHistory.js ***!
-  \********************************************/
+/*!***********************************************************!*\
+  !*** ./~/react-router/~/history/lib/createHashHistory.js ***!
+  \***********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -26995,13 +26995,13 @@
 	};
 	
 	exports.default = createHashHistory;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../process/browser.js */ 3)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../../process/browser.js */ 3)))
 
 /***/ },
 /* 232 */
-/*!***************************************!*\
-  !*** ./~/history/lib/HashProtocol.js ***!
-  \***************************************/
+/*!******************************************************!*\
+  !*** ./~/react-router/~/history/lib/HashProtocol.js ***!
+  \******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -27140,15 +27140,10 @@
 	    if (getHashPath() !== path) replaceHashPath(path);
 	  });
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../process/browser.js */ 3)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../../process/browser.js */ 3)))
 
 /***/ },
-/* 233 */,
-/* 234 */,
-/* 235 */,
-/* 236 */,
-/* 237 */,
-/* 238 */
+/* 233 */
 /*!****************************************************!*\
   !*** ./client/app/components/LandingComponent.jsx ***!
   \****************************************************/
@@ -27264,8 +27259,7 @@
 	exports.default = LandingComponent;
 
 /***/ },
-/* 239 */,
-/* 240 */
+/* 234 */
 /*!***************************************************!*\
   !*** ./client/app/components/SignInComponent.jsx ***!
   \***************************************************/
@@ -27322,7 +27316,7 @@
 	exports.default = SignInComponent;
 
 /***/ },
-/* 241 */
+/* 235 */
 /*!***************************************************!*\
   !*** ./client/app/components/SignUpComponent.jsx ***!
   \***************************************************/
@@ -27408,7 +27402,7 @@
 	exports.default = SignUpComponent;
 
 /***/ },
-/* 242 */
+/* 236 */
 /*!**************************************************!*\
   !*** ./client/app/components/SetUpComponent.jsx ***!
   \**************************************************/
@@ -27471,7 +27465,7 @@
 	exports.default = SetUpComponent;
 
 /***/ },
-/* 243 */
+/* 237 */
 /*!****************************************************!*\
   !*** ./client/app/components/ProfileComponent.jsx ***!
   \****************************************************/
