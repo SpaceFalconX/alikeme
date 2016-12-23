@@ -1,5 +1,6 @@
-export default function (state = null, action) {
-  console.log(state)
+import defaults from './defaults.jsx';
+
+export default function (state = defaults, action) {
   if(action.type === 'SUBMIT_ACTION'){
     return action.payload
   }
@@ -13,10 +14,6 @@ export default function (state = null, action) {
   }
 
   else {
-    return {
-      text: "THIS IS DEFAULT TEXT FROM TEST REDUCER",
-      submitType: "SOME MORE DEFAULT TEXT",
-      formText: "enter text here"
-    }
+    return state
   }
 }
