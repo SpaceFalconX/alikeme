@@ -11,7 +11,7 @@ class Demo extends React.Component {
         {this.props.text}
         <h4>{this.props.other}</h4>
 
-        <p onClick={() => this.props.testAction("NEW TEXT", "PARAGRAPH")}>CLICK TO CHANGE STATE</p>
+        <p onClick={() => this.props.testAction("PARAGRAPH TEXT", "P")}>CLICK TO CHANGE STATE</p>
 
         <form onSubmit={e => {
           e.preventDefault();
