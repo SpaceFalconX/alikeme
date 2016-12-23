@@ -12,11 +12,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan('dev'));
 
+
 // ALL ROUTES
 app.use(router)
 
-
-// WILD CARD
+// WILD CARD - anything else direct to landing page
 app.get('*', (req, res) => (
   res.sendFile(path.resolve(__dirname, '../client', 'index.html'))
 ))
