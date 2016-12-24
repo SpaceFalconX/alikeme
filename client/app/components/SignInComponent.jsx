@@ -6,7 +6,7 @@ class SignInComponent extends React.Component {
   render() {
     return (
       <div>
-        SIGN IN
+        SIGN INasdksdkkjdfsakjfdsa
       </div>
     );
   }

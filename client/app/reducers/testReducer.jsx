@@ -1,13 +1,19 @@
-export default function (state = null, action) {
+import defaults from './defaults.jsx';
 
-  if(action.type === 'TEST_ACTION'){
+export default function (state = defaults, action) {
+  if(action.type === 'SUBMIT_ACTION'){
     return action.payload
-  } else {
+  }
+
+  if(action.type === 'FORMUPDATE_ACTION'){
     return {
-      text: "THIS IS TEXT FROM TEST REDUCER",
-      other: "SOME OTHER TEXT"
+      text: state.text,
+      submitType: state.submitType,
+      formText: action.payload
     }
   }
 
-
+  else {
+    return state
+  }
 }
