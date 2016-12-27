@@ -16,4 +16,11 @@ router.get('/users/:username', (req, res) => {
 	.then((user) => ( res.send(user) )) 
 })
 
+router.post('/users/pref/:username', (req, res) => {
+	let username = req.params.username;
+	let prefs = req.body
+	User.update(prefs, {where: {username: username}})
+	.then((user) => ( res.send(user) )) 
+})
+
 module.exports = router;

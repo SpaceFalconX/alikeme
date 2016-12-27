@@ -14,7 +14,7 @@ router.post('/signup', (req, res) => {
 		if(err) { return res.sendStatus(500) }
 		if(user) {
 			req.flash('user already exists');
-			return res.sendStatus(400);
+			return res.sendStatus(401);
 		} else {
 			User.create({
 				username: username,

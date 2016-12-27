@@ -30,7 +30,13 @@ const User = connection.define('user', {
   	validate: {
   		isEmail: true
   	}
-  }
+  },
+  coffee: {type: Sequelize.BOOLEAN, defaultValue: false, allowNull: false},
+  founder: {type: Sequelize.BOOLEAN, defaultValue: false, allowNull: false},
+  developer: {type: Sequelize.BOOLEAN, defaultValue: false, allowNull: false},
+  clubbing: {type: Sequelize.BOOLEAN, defaultValue: false, allowNull: false},
+  concerts: {type: Sequelize.BOOLEAN, defaultValue: false, allowNull: false},
+  dating: {type: Sequelize.BOOLEAN, defaultValue: false, allowNull: false}
 }, {
 	hooks: {
 		beforeBulkCreate (users) {
