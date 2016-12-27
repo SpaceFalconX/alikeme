@@ -25,6 +25,11 @@ var config = {
         test : /\.jsx?/,
         include : path.join(__dirname, 'client/app'),
         loader : 'babel'
+      },
+      { 
+        test: /\.styl$/, 
+        include: path.join(__dirname, 'client/app'),
+        loader: 'style-loader!css-loader'
       }
     ]
   }
