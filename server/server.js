@@ -16,7 +16,7 @@ app.get('/test', function (request, response){
 
 app.get('/api/what', function(req, res){
   console.log("its here")
-  res.json({stuff: "asfasfasdfasdf"})
+  res.json({data: "SERVER RES: "})
 })
 
 app.listen(4000, function() {

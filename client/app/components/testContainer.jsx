@@ -20,7 +20,7 @@ class Demo extends React.Component {
         <h4>{this.props.submitType}</h4>
 
         <p onClick={() => this.props.submitAction(this.props.formText, "CLICKED")}>CLICK TO CHANGE STATE</p>
-        <p onClick={() => this.props.asyncAction('/api/what')}>CLICK TO DO ASYNC</p>
+        <p onClick={() => this.props.asyncAction('/api/what', this.props.formText)}>CLICK TO DO ASYNC</p>
 
         <form onSubmit={e => {
           e.preventDefault();

@@ -1,12 +1,10 @@
 import submitAction from './submitAction.jsx'
 
-export default function (url) {
+export default function (url, string) {
   return (dispatch) => {
     fetch(url).then((res) => {
-      console.log('res ', res)
       res.json().then((data) =>{
-        console.log('data ', data)
-        dispatch(submitAction(data.stuff, "ASYNC"));
+        dispatch(submitAction(data.data + string, "ASYNC"));
       })
     })
     .catch(() => {
