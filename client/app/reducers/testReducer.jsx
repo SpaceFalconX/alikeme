@@ -1,6 +1,7 @@
 import defaults from './defaults.jsx';
 
 export default function (state = defaults, action) {
+
   if(action.type === 'SUBMIT_ACTION'){
     return action.payload
   }

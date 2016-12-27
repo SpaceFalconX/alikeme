@@ -3,7 +3,8 @@ import {render} from 'react-dom';
 import {Router, Route, browserHistory, hashHistory, IndexRoute} from "react-router";
 import reactDOM from 'react-dom'
 import {Provider} from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 //reducers
 import TestReducer from './reducers/testReducer.jsx'
 //todo: make an allreducer export
@@ -17,7 +18,7 @@ import ProfileComponent from './components/ProfileComponent.jsx'
 import TestContainer from './components/TestContainer.jsx'
 //todo: make an allcomponent export
 
-const store = createStore(TestReducer); //reducers as parameter
+const store = createStore(TestReducer, applyMiddleware(thunk)); //reducers as parameter
 
 class App extends React.Component {
   render () {

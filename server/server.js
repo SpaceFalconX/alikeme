@@ -10,10 +10,14 @@ app.use(express.static('client'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan('dev'));
-app.get('*', function (request, response){
+app.get('/test', function (request, response){
   response.sendFile(path.resolve(__dirname, '../client', 'index.html'))
 })
 
+app.get('/api/what', function(req, res){
+  console.log("its here")
+  res.send("asfasfasdfasdf")
+})
 
 app.listen(4000, function() {
 	console.log("app running on port 4000")
