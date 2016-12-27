@@ -1,44 +1,16 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import {Link, browserHistory} from 'react-router';
+import formUpdateAction from '../actions/formUpdateAction.jsx'
+
 
 class LandingComponent extends React.Component {
-  constructor(props) {
-    super();
-
-    this.state = {
-      username: '',
-      password: ''
-    };
-
-    this.styles = {
-      mainStyle: {
-        color: 'white',
-        fontFamily: 'arial',
-        backgroundColor: 'grey',
-        textAlign: 'center',
-        height: '100%',
-        width: '100%',
-      },
-
-      buttonStyle: {
-        color: 'grey',
-        backgroundColor: 'white',
-        padding: '5px'
-      }
-    };
-  }
-
-  handleUsername(e){
-    this.setState({username: e.target.value})
-  }
-
-  handlePassword(e){
-    this.setState({password: e.target.value})
-  }
 
   handleSignIn(e){
     e.preventDefault();
-    browserHistory.push('/profile/' + this.state.username)
+    //do some authentication here
+    browserHistory.push('/profile/' + this.props.username)
   }
 
   handleSignUp(e){
@@ -46,21 +18,29 @@ class LandingComponent extends React.Component {
     browserHistory.push('/signup')
   }
 
+  handleUsernameChange(e){
+    this.props.formUpdateAction(e.target.value, 'username')
+  }
+
+  handlePasswordChange(e){
+    this.props.formUpdateAction(e.target.value, 'password')
+  }
+
   render() {
     return (
-      <div style={this.styles.mainStyle}>
+      <div>
         <h1>Landing Page</h1>
 
         <form onSubmit={this.handleSignIn.bind(this)}>
-          <input type="text" value={this.state.username} onChange={this.handleUsername.bind(this)} />
-          <input type="password" value={this.state.password} onChange={this.handlePassword.bind(this)}/>
-          <input style={this.styles.buttonStyle} type="submit" value="Sign In" />
+          <input type="text" value={this.props.username} onChange={this.handleUsernameChange.bind(this)} />
+          <input type="password" value={this.props.password} onChange={this.handlePasswordChange.bind(this)}/>
+          <input type="submit" value="Sign In" />
         </form>
 
         <br />
 
         <form onSubmit={this.handleSignUp.bind(this)}>
-          <input style={this.styles.buttonStyle} type="submit" value="Sign Up" />
+          <input type="submit" value="Sign Up" />
         </form>
 
       </div>
@@ -68,4 +48,17 @@ class LandingComponent extends React.Component {
   }
 }
 
-export default LandingComponent;
+function mapStateToProps(state) {
+  return {
+    username: state.username,
+    password: state.password
+  };
+}
+
+function matchDispatchToProps(dispatch){
+  return bindActionCreators({
+    formUpdateAction,
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(LandingComponent);

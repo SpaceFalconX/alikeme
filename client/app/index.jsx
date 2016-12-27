@@ -11,7 +11,6 @@ import TestReducer from './reducers/testReducer.jsx'
 
 //components
 import LandingComponent from './components/LandingComponent.jsx'
-import SignInComponent from './components/SignInComponent.jsx'
 import SignUpComponent from './components/SignUpComponent.jsx'
 import SetUpComponent from './components/SetUpComponent.jsx'
 import ProfileComponent from './components/ProfileComponent.jsx'
@@ -27,8 +26,7 @@ class App extends React.Component {
 	  	  <Router history = {browserHistory}>
 			    <Route path='/' component= {LandingComponent} />
           <Route path='/signup' component={SignUpComponent} />
-          <Route path='/signin' component={SignInComponent} />
-          <Route path='/setup/:username' component={SetUpComponent} />
+          <Route path='/setup' component={SetUpComponent} />
           <Route path='/profile/:username' component={ProfileComponent} />
           <Route path='/test' component={TestContainer} />
           <Route path="*" component={LandingComponent} />

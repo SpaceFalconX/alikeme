@@ -1,6 +1,6 @@
-export default function (formText) {
+export default function (formText, updatedField) {
   return {
       type: 'FORMUPDATE_ACTION',
-      payload: formText
+      payload: {formText, updatedField}
   }
 }

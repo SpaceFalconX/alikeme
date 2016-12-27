@@ -1,4 +1,4 @@
-import defaults from './defaults.jsx';
+import defaults from './testDefaults.jsx';
 
 export default function (state = defaults, action) {
 
@@ -7,10 +7,20 @@ export default function (state = defaults, action) {
   }
 
   if(action.type === 'FORMUPDATE_ACTION'){
-    return {
-      text: state.text,
-      submitType: state.submitType,
-      formText: action.payload
+    if(action.payload.updatedField === 'username'){
+      return {
+        text: state.text,
+        submitType: state.submitType,
+        username: action.payload.formText,
+        password: state.password
+      }
+    } else {
+      return {
+        text: state.text,
+        submitType: state.submitType,
+        username: state.username,
+        password: action.payload.formText
+      }
     }
   }
 
