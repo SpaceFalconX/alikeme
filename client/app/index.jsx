@@ -17,7 +17,7 @@ import ProfileComponent from './components/ProfileComponent.jsx'
 import TestContainer from './components/TestContainer.jsx'
 //todo: make an allcomponent export
 
-const store = createStore(TestReducer); //reducers as parameter
+const store = createStore(TestReducer); //reducers as parametercd 
 
 class App extends React.Component {
   render () {
