@@ -16,7 +16,7 @@ app.get('/test', function (request, response){
 
 app.get('/api/what', function(req, res){
   console.log("its here")
-  res.send("asfasfasdfasdf")
+  res.json({stuff: "asfasfasdfasdf"})
 })
 
 app.listen(4000, function() {
