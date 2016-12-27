@@ -36,7 +36,7 @@ const User = connection.define('user', {
 		beforeBulkCreate (users) {
 			_.each(users, (user) => (user.password = bcrypt.hashSync(user.password, 8)));
 		},
-    beforeCreate (users) {
+    beforeCreate (user) {
       user.password = bcrypt.hashSync(user.password, 8);
     }
 	}
@@ -44,8 +44,8 @@ const User = connection.define('user', {
 
 
 connection.sync({
-  force: true
-  // logging: console.log
+  force: true,
+  logging: console.log
 })
 .then(() => (
   User.bulkCreate([{
