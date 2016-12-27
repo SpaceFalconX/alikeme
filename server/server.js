@@ -14,9 +14,8 @@ app.get('/test', function (request, response){
   response.sendFile(path.resolve(__dirname, '../client', 'index.html'))
 })
 
-app.get('/api/what', function(req, res){
-  console.log("its here")
-  res.json({data: "SERVER RES: "})
+app.post('/api/what', function(req, res){
+  res.json({data: "SERVER RES: " + req.body.string})
 })
 
 app.listen(4000, function() {
