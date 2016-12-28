@@ -28,7 +28,6 @@ class App extends React.Component {
           <Route path='/signup' component={SignUpComponent} />
           <Route path='/setup' component={SetUpComponent} />
           <Route path='/profile/:username' component={ProfileComponent} />
-          <Route path='/test' component={TestContainer} />
           <Route path="*" component={LandingComponent} />
 			  </Router>
 		  </div>

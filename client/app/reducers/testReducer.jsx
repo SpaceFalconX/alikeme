@@ -1,4 +1,4 @@
-import defaults from './testDefaults.jsx';
+import defaults from './defaults.jsx';
 
 export default function (state = defaults, action) {
 

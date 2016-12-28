@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {Link, browserHistory} from 'react-router';
 import formUpdateAction from '../actions/formUpdateAction.jsx'
-
+import {SignUpFormComponent} from './formComponents.jsx'
 
 class SignUpComponent extends React.Component {
 
@@ -27,11 +27,7 @@ class SignUpComponent extends React.Component {
         <br />
         Choose a username and password
         <br />
-        <form onSubmit={this.createNewUser.bind(this)}>
-          <input type="text" value={this.props.username} onChange={this.handleUsernameChange.bind(this)} />
-          <input type="password" value={this.props.password} onChange={this.handlePasswordChange.bind(this)}/>
-          <input type="submit" value="Sign In" />
-        </form>
+        <SignUpFormComponent />
       </div>
     );
   }

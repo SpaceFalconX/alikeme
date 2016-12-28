@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {Link, browserHistory} from 'react-router';
 import formUpdateAction from '../actions/formUpdateAction.jsx'
-
+import {SignInComponent} from './formComponents.jsx'
 
 class LandingComponent extends React.Component {
 
@@ -31,11 +31,7 @@ class LandingComponent extends React.Component {
       <div>
         <h1>Landing Page</h1>
 
-        <form onSubmit={this.handleSignIn.bind(this)}>
-          <input type="text" value={this.props.username} onChange={this.handleUsernameChange.bind(this)} />
-          <input type="password" value={this.props.password} onChange={this.handlePasswordChange.bind(this)}/>
-          <input type="submit" value="Sign In" />
-        </form>
+        <SignInComponent />
 
         <br />
 
