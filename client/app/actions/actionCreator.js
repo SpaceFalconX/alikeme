@@ -9,9 +9,9 @@ export function signupUser (user) {
 	} 
 }
 
-export function loginUser (user) {
+export function setUser (user) {
 	return {
-		type: 'LOGIN_USER',
+		type: 'SET_USER',
 		user
 	} 
 }
@@ -37,11 +37,10 @@ export function loginApiRequest (userData) {
 	return function (dispatch) {
 		return axios.post('/auth/login', userData)
 		.then((resp) => { 
-			const {token} = resp.data
-			localStorage.setItem('token', token)
-			setAuthorizationToken(token)
-			console.log(jwt.decode(token))
-			dispatch(loginUser(userData))
+			var token = resp.data.token;
+			localStorage.setItem('token', token);
+			setAuthorizationToken(token);
+			dispatch(setUser(jwt.decode(token)));
 		})
 	}
 } 

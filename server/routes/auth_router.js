@@ -1,5 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const _ = require('underscore');
 const jwt = require('jsonwebtoken');
 const User = require('../database/models/user_model.js');
 const config = require('../config.js');
@@ -38,8 +39,7 @@ router.post('/login', (req, res) => {
     			return res.status(401).json({error: "incorrect password"})
     		} else {
     			const token = jwt.sign({
-    				id: user.id,
-    				username: user.username		
+    				user: _.omit(user.dataValues, 'password'),
     			}, config.jwtSecret)
 					console.log(`LOGGED IN USER: ${user.username} has logged in`)
 					res.status(200).send({token});

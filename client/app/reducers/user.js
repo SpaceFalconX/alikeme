@@ -4,13 +4,6 @@ export function user (state={}, action) {
 			return {
 				...state,
 				...action.user,
-				isLoggedIn: true
-			}
-		case 'LOGIN_USER':
-			return {
-				...state,
-				...action.user,
-				isLoggedIn: true
 			}
 		default:
 			return state;
