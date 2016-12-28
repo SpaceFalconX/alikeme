@@ -5,7 +5,7 @@ import {syncHistoryWithStore} from 'react-router-redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger'
 // import redux-thunk, logger, axios, etc
-import reducer from './reducers/user.js'
+import reducer from './reducers/index.js'
 
 const defaultState = {
 	user: {
@@ -24,7 +24,7 @@ const defaultState = {
 	}
 }
 const middleware = applyMiddleware(thunk, logger());
-export const store = createStore(reducer, defaultState, middleware);
+const store = createStore(reducer, defaultState, middleware);
 
 store.subscribe(() => {
 	console.log("Store current state", store.getState())
@@ -32,3 +32,11 @@ store.subscribe(() => {
 
 export const history = syncHistoryWithStore(browserHistory, store)
 
+if(module.hot) {
+  module.hot.accept('./reducers/',() => {
+    const nextRootReducer = require('./reducers/index').default;
+    store.replaceReducer(nextRootReducer);
+  });
+}
+
+export default store;

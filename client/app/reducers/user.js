@@ -1,7 +1,4 @@
-import {combineReducers} from 'redux';
-import {routerReducer} from 'react-router-redux'; 
-
-function user (state={}, action) {
+export function user (state={}, action) {
 	switch(action.type) {
 		case 'SIGNUP_USER':
 			return {
@@ -16,7 +13,7 @@ function user (state={}, action) {
 	return state;
 }
 
-function preferences(state={}, action) {
+export function preferences(state={}, action) {
 	switch(action.type) {
 		case 'SELECT_PREFERENCES':
 			return Object.assign({}, state, action.preferences)
@@ -26,10 +23,3 @@ function preferences(state={}, action) {
 	return state;
 }
 
-const reducer = combineReducers({
-	preferences: preferences,
-	user: user,
-	routing: routerReducer
-})
-
-export default reducer;

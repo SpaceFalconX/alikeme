@@ -6,8 +6,8 @@ import {Provider} from 'react-redux'
 import Bootstrap from './bower_components/react-bootstrap/react-bootstrap.js';
 
 //components
-import {store, history} from './store.js'
-import MainWrapper from './components/Main.js'	
+import store, {history} from './store.js'
+import MainWrapper from './components/MainWrapper.js'	
 import Signup from './components/Signup.js'
 import Profile from './components/Profile.js'
 import ProfileSetup from './components/ProfileSetup.js'
