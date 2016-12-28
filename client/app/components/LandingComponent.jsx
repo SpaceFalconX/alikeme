@@ -1,29 +1,12 @@
 import React from 'react';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-import {Link, browserHistory} from 'react-router';
-import formUpdateAction from '../actions/formUpdateAction.jsx'
+import {browserHistory} from 'react-router';
 import {SignInComponent} from './formComponents.jsx'
 
 class LandingComponent extends React.Component {
 
-  handleSignIn(e){
-    e.preventDefault();
-    //do some authentication here
-    browserHistory.push('/profile/' + this.props.username)
-  }
-
   handleSignUp(e){
     e.preventDefault();
     browserHistory.push('/signup')
-  }
-
-  handleUsernameChange(e){
-    this.props.formUpdateAction(e.target.value, 'username')
-  }
-
-  handlePasswordChange(e){
-    this.props.formUpdateAction(e.target.value, 'password')
   }
 
   render() {
@@ -44,17 +27,4 @@ class LandingComponent extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    username: state.username,
-    password: state.password
-  };
-}
-
-function matchDispatchToProps(dispatch){
-  return bindActionCreators({
-    formUpdateAction,
-  }, dispatch);
-}
-
-export default connect(mapStateToProps, matchDispatchToProps)(LandingComponent);
+export default LandingComponent;

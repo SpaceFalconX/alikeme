@@ -14,6 +14,11 @@ import LandingComponent from './components/LandingComponent.jsx'
 import SignUpComponent from './components/SignUpComponent.jsx'
 import SetUpComponent from './components/SetUpComponent.jsx'
 import ProfileComponent from './components/ProfileComponent.jsx'
+import BrowseComponent from './components/BrowseComponent.jsx'
+
+import InterestMatchComponent from './components/interests/InterestMatchComponent.jsx'
+import InterestViewComponent from './components/interests/InterestViewComponent.jsx'
+
 import TestContainer from './components/TestContainer.jsx'
 //todo: make an allcomponent export
 
@@ -28,6 +33,9 @@ class App extends React.Component {
           <Route path='/signup' component={SignUpComponent} />
           <Route path='/setup' component={SetUpComponent} />
           <Route path='/profile/:username' component={ProfileComponent} />
+          <Route path='/editInterest/:id' component={InterestMatchComponent} />
+          <Route path='/viewInterest/:id' component={InterestViewComponent} />
+          <Route path='/browse' component={BrowseComponent} />
           <Route path="*" component={LandingComponent} />
 			  </Router>
 		  </div>

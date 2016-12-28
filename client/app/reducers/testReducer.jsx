@@ -9,16 +9,12 @@ export default function (state = defaults, action) {
   if(action.type === 'FORMUPDATE_ACTION'){
     if(action.payload.updatedField === 'username'){
       return {
-        text: state.text,
-        submitType: state.submitType,
-        username: action.payload.formText,
-        password: state.password
+        ...state,
+        username: action.payload.formText
       }
     } else {
       return {
-        text: state.text,
-        submitType: state.submitType,
-        username: state.username,
+        ...state,
         password: action.payload.formText
       }
     }

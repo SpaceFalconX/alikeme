@@ -2,13 +2,14 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {Link, browserHistory} from 'react-router';
-import formUpdateAction from '../actions/formUpdateAction.jsx'
+import formUpdateAction from '../actions/formUpdateAction.jsx' //remove me and use refs instead
+import loginAction from '../actions/loginAction.jsx'
 
 export class SignInComponent extends React.Component {
 
   handleSignIn(e){
     e.preventDefault();
-    //do some authentication here
+    //do auth
     browserHistory.push('/profile/' + this.props.username)
   }
 
@@ -45,6 +46,8 @@ export class SignUpFormComponent extends React.Component {
 
   createNewUser(e){
     e.preventDefault();
+
+    //do auth
     browserHistory.push('/setup/')
   }
 
