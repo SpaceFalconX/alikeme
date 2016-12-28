@@ -4,7 +4,8 @@ import {signupApiRequest, signupUser} from '../actions/actionCreator.js'
 
 const Signup = React.createClass({
 	componentWillUpdate(nextProps, nextState) {
-		if(nextProps.user.isLoggedIn===true) {
+		console.log('UPDATE STATE AUTH SIGNUP', nextProps.user.isAuthenticated)
+		if(nextProps.user.isAuthenticated===true) {
 			nextProps.router.push({pathname:`/setup/${nextProps.user.username}`})
 		} else {
 			console.log('Signup error...')
