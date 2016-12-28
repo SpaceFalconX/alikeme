@@ -50,8 +50,8 @@ const User = connection.define('user', {
 
 
 connection.sync({
-  force: true,
-  logging: console.log
+  force: true
+  // logging: console.log
 })
 .then(() => (
   User.bulkCreate([{

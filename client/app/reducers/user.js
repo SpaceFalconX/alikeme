@@ -6,7 +6,12 @@ export function user (state={}, action) {
 				...action.user,
 				isLoggedIn: true
 			}
-
+		case 'LOGIN_USER':
+			return {
+				...state,
+				...action.user,
+				isLoggedIn: true
+			}
 		default:
 			return state;
 	}
@@ -22,4 +27,3 @@ export function preferences(state={}, action) {
 	}
 	return state;
 }
-

@@ -34,6 +34,10 @@ const Signup = React.createClass({
 					<input className="form-group" type="password" ref="password" placeholder="password"/><br/>
 					<input className="btn btn-default" type="submit" value="Signup"/>
 				</form>
+				<div>
+						<p>Already have an account?</p>
+						<Link to="/login">Go to Login Page</Link> 
+				</div>
 			</div>
 		)
 	}

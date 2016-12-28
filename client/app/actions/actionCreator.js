@@ -1,8 +1,17 @@
 import axios from 'axios'
+import setAuthorizationToken from '../utils/setAuthorizationToken.js'
+import jwt from 'jsonwebtoken'
 
 export function signupUser (user) {
 	return {
 		type: 'SIGNUP_USER',
+		user
+	} 
+}
+
+export function loginUser (user) {
+	return {
+		type: 'LOGIN_USER',
 		user
 	} 
 }
@@ -20,6 +29,19 @@ export function signupApiRequest (userData) {
 		return axios.post('/auth/signup', userData)
 		.then((resp) => { 
 			dispatch(signupUser(userData))
+		})
+	}
+} 
+
+export function loginApiRequest (userData) {
+	return function (dispatch) {
+		return axios.post('/auth/login', userData)
+		.then((resp) => { 
+			const {token} = resp.data
+			localStorage.setItem('token', token)
+			setAuthorizationToken(token)
+			console.log(jwt.decode(token))
+			dispatch(loginUser(userData))
 		})
 	}
 } 

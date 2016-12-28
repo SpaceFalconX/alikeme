@@ -5,13 +5,16 @@ import {syncHistoryWithStore} from 'react-router-redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger'
 import reducer from './reducers/index.js'
+import setAuthorizationToken from './utils/setAuthorizationToken.js'
 
 const defaultState = {
+	auth: {
+		isAuthenticated: !!(localStorage.token)
+	},
 	user: {
 		username: '',
-		email: 'aha',
+		email: '',
 		password: '',
-		isLoggedIn: false,
 	},
 	preferences: {
 		coffee: false,
@@ -23,21 +26,16 @@ const defaultState = {
 	}
 }
 
-const middleware = applyMiddleware(thunk, logger());
 const enhancers = compose(
-	middleware,
-	window.devToolsExtension? 
-	window.devToolsExtension() : f => f
+	applyMiddleware(thunk),
+	window.devToolsExtension? window.devToolsExtension() : f => f
 )
 
-
+// Store Creation
 const store = createStore(reducer, defaultState, enhancers);
 
-store.subscribe(() => {
-	console.log("Store current state", store.getState())
-})
-
-export const history = syncHistoryWithStore(browserHistory, store)
+// Chekcing and Setting for tokens for every request
+setAuthorizationToken(localStorage.token);
 
 if(module.hot) {
   module.hot.accept('./reducers/',() => {
@@ -46,4 +44,14 @@ if(module.hot) {
   });
 }
 
+
+export const history = syncHistoryWithStore(browserHistory, store)
+
 export default store;
+
+
+
+
+
+
+
