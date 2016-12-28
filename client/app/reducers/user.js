@@ -4,9 +4,7 @@ export function user (state={}, action) {
 			return {
 				...state,
 				...action.user,
-				isLoggedIn: true
 			}
-
 		default:
 			return state;
 	}
@@ -22,4 +20,3 @@ export function preferences(state={}, action) {
 	}
 	return state;
 }
-

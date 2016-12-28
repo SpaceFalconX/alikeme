@@ -5,16 +5,12 @@ const ProfileSetup = React.createClass({
 
 	selectPref (preference) {
 		this.props.preferences[preference] = !this.props.preferences[preference];
-
-		console.log('preference:', preference, this.props.preferences[preference]);
 	},
 	savePref() {
-		console.log('preeefss', this.props.preferences)
 		this.props.dispatch(preferencesApiRequest(this.props.preferences, this.props.params.username))
 
 	},
 	render() {
-		console.log(this.props.preferences['founder'])
 		const preferences = Object.keys(this.props.preferences);
 		return (
 			<div>
@@ -25,10 +21,9 @@ const ProfileSetup = React.createClass({
 				</div>
 				
 				<div className="col-md-8">
-
 					{preferences.map((pref, i) => {
 						return (
-								<div onClick={this.selectPref.bind(null, pref)} className="list-group-item col-md-4">
+								<div key={i} onClick={this.selectPref.bind(null, pref)} className="list-group-item col-md-4">
 									{preferences[pref]}
 									<h3><span className="label label-default">{pref}</span></h3>
 								</div>

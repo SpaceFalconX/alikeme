@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack -d --watch",
     "build": "webpack -p",
-    "start": "node server/server.js"
+    "start": "nodemon server/server.js"
   },
   "author": "",
   "license": "ISC",

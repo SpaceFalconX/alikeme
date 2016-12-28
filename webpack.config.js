@@ -32,6 +32,10 @@ var config = {
         loader: 'style-loader!css-loader'
       }
     ]
+  },
+  node: {
+    net: 'empty',
+    dns: 'empty'
   }
 };
 
