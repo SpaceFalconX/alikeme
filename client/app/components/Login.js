@@ -4,7 +4,6 @@ import {loginApiRequest} from '../actions/actionCreator.js'
 
 const Login = React.createClass({
 	componentWillUpdate(nextProps, nextState) {
-		console.log('UPDATE STATE AUTH', nextProps.user.isAuthenticated)
 		if(nextProps.user.isAuthenticated===true) {
 			nextProps.router.push({pathname:`/profile/${nextProps.user.username}`})
 		} else {

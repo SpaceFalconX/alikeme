@@ -22,7 +22,6 @@ router.post('/signup', (req, res) => {
 					return res.status(400).send('please fill in information as per instructions')}
 				console.log(`NEW USER: ${user.username} has just been added to the user table.`)
 				user = _.omit(user.dataValues, 'password')
-				console.log({user})
 				res.status(201).send({user});
 			})
 		} 
