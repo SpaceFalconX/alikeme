@@ -20,10 +20,9 @@ class NewInterest extends React.Component {
   }
 
   render () {
-    let options = [];
 
-    Seed.choices.forEach(function(choice){
-      options.push(<option key={choice}>{choice}</option>)
+    let options = Seed.choices.map((choice) => {
+      return <option key={choice}>{choice}</option>
     })
 
     return (

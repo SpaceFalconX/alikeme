@@ -15,7 +15,6 @@ import InterestView from './components/interests/InterestViewComponent.jsx'
 import Browse from './components/BrowseComponent.jsx'
 import Navbar from './components/Navbar.js'
 
-
 const Root = (
 	<Provider store={store}>
 		<Router history={history}>
@@ -33,5 +32,3 @@ const Root = (
 )
 
 render(Root, document.getElementById('app'))
-
-// <Route path="/signup" component={Signup} />

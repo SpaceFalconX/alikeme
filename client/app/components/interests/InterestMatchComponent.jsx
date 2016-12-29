@@ -1,5 +1,6 @@
 import React from 'react'
 import EntryComponent from './InterestEntryComponent.jsx'
+import BackButton from '../backButton.jsx'
 import Seed from '../../seed.js'
 
 class InterestMatch extends React.Component {
@@ -25,6 +26,8 @@ class InterestMatch extends React.Component {
         {matches}
         <h2>edit/delete</h2>
         something else here
+        <br />
+        <BackButton />
       </div>
     )
   }
