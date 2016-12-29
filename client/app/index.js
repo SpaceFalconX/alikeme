@@ -16,7 +16,6 @@ import Browse from './components/BrowseComponent.jsx'
 import Navbar from './components/Navbar.js'
 
 
-
 const Root = (
 	<Provider store={store}>
 		<Router history={history}>
@@ -25,7 +24,6 @@ const Root = (
 				<Route path="/login" component={Login} />
 				<Route path="/setup/:username" component={ProfileSetup} />
 				<Route path="/profile/:username" component={Profile} />
-
 				<Route path='/editInterest/:id' component={InterestMatch} />
         <Route path='/viewInterest/:id' component={InterestView} />
         <Route path='/browse' component={Browse} />
