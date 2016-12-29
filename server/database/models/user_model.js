@@ -3,6 +3,9 @@ const Sequelize = require('sequelize');
 const _ = require('underscore');
 const connection = require('../config.js')
 
+// const Category = require('./user_model.js')
+// const Post = require('./post_model.js')
+
 const User = connection.define('user', {
   username: {
   	type: Sequelize.STRING, 
@@ -31,12 +34,6 @@ const User = connection.define('user', {
   		isEmail: true
   	}
   },
-  coffee: {type: Sequelize.BOOLEAN, defaultValue: false, allowNull: false},
-  founder: {type: Sequelize.BOOLEAN, defaultValue: false, allowNull: false},
-  developer: {type: Sequelize.BOOLEAN, defaultValue: false, allowNull: false},
-  clubbing: {type: Sequelize.BOOLEAN, defaultValue: false, allowNull: false},
-  concerts: {type: Sequelize.BOOLEAN, defaultValue: false, allowNull: false},
-  dating: {type: Sequelize.BOOLEAN, defaultValue: false, allowNull: false}
 }, {
 	hooks: {
 		beforeBulkCreate (users) {
@@ -48,34 +45,61 @@ const User = connection.define('user', {
 	}
 })
 
-
-connection.sync({
-  force: true
-  // logging: console.log
+const Post = connection.define('post', {
+  text: {type: Sequelize.STRING, allowNull: false}  
 })
-.then(() => (
-  User.bulkCreate([{
-    username: "wasiff",
-    email: "wasiff@gmail.com",
-    password: "1"
-  }, {
-    username: "isaac",
-    email: "isaac@gmail.com",
-    password: "1"
-  }, {
-    username: "sevda",
-    email: "sevda@gmail.com",
-    password: "1"
-  }], {
-    validate: true,
-    ignoreDuplicates: true
-  })
-  .then((users) => (
-    _.each(users, (user)=>( console.log('Created user:', user.dataValues.username)))
-  ))
-))
-.catch((error) => (
-  console.log(error)
-))
 
+User.hasMany(Post);
+Post.belongsTo(User)
+
+User.sync();
+Post.sync();
+
+// Post.belongsTo(User);
+// Post.belongsTo(Category)
+// {
+//   force: true
+// })
+// .then(() => (
+//   Post.create({
+//     text: 'this is my first post!'
+//   })
+// ))
+// .then((post) => (
+//   console.log('Created user:', post.dataValues)
+// )
+
+// .then(() => (
+
+// ))
+// .catch((error) => (
+//   console.log(error)
+// ))
+
+// .then(() => (
+//   User.bulkCreate([{
+//     username: "wasiff",
+//     email: "wasiff@gmail.com",
+//     password: "1"
+//   }, {
+//     username: "isaac",
+//     email: "isaac@gmail.com",
+//     password: "1"
+//   }, {
+//     username: "sevda",
+//     email: "sevda@gmail.com",
+//     password: "1"
+//   }], {
+//     validate: true,
+//     ignoreDuplicates: true
+//   })
+// ))
+// .then((users) => (
+//   _.each(users, (user)=>( console.log('Created user:', user.dataValues.username)))
+// ))
+// .catch((error) => (
+//   console.log(error)
+// ))
+
+module.exports = Post;
 module.exports = User;

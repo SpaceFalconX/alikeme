@@ -5,7 +5,7 @@ var config = require('../webpack.config.js');
 
 const bodyParser = require('body-parser');
 const morgan = require('morgan')
-const db = require('./database/config.js');
+// const db = require('./database/config.js');
 const router = require('./router.js')
 const app = express();
 var compiler = webpack(config);
