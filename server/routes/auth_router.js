@@ -19,10 +19,9 @@ router.post('/signup', (req, res) => {
 				password: password
 			}).then((user, err) => {
 				if(err) { 
-					return res.status(400).send('please fill in information as per instructions')}
+					res.status(400).send('please fill in information as per instructions')}
 				console.log(`NEW USER: ${user.username} has just been added to the user table.`)
 				user = _.omit(user.dataValues, 'password')
-				console.log({user})
 				res.status(201).send({user});
 			})
 		} 
@@ -34,11 +33,11 @@ router.post('/login', (req, res) => {
 	User.findOne({where: {username: username}})
 	.then((user) => {
 		if(!user) {
-			return res.status(401).json({error: "go to signup"})
+			res.status(400).json({error: "go to signup"})
 		} else {
 			bcrypt.compare(password, user.password, (err, match) => {
     		if(!match) {
-    			return res.status(401).json({error: "incorrect password"})
+    			res.sendStatus(401)
     		} else {
     			const token = jwt.sign({
     				user: _.omit(user.dataValues, 'password'),
