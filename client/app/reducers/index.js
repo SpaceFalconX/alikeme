@@ -5,7 +5,6 @@ import {routerReducer} from 'react-router-redux';
 
 const reducer = combineReducers({
 	user: auth,
-	preferences: preferences,
 	routing: routerReducer
 })
 

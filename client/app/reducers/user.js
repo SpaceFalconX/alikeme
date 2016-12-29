@@ -11,12 +11,12 @@ export function user (state={}, action) {
 	return state;
 }
 
-export function preferences(state={}, action) {
-	switch(action.type) {
-		case 'SELECT_PREFERENCES':
-			return Object.assign({}, state, action.preferences)
-		default:
-			return state;
-	}
-	return state;
-}
+// export function preferences(state={}, action) {
+// 	switch(action.type) {
+// 		case 'SELECT_PREFERENCES':
+// 			return Object.assign({}, state, action.preferences)
+// 		default:
+// 			return state;
+// 	}
+// 	return state;
+// }

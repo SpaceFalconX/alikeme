@@ -1,8 +1,9 @@
 import React from 'react'
 import {browserHistory, Link} from 'react-router'
 import {selectPreferences, preferencesApiRequest} from '../actions/actionCreator.js'
-const ProfileSetup = React.createClass({
 
+
+const ProfileSetup = React.createClass({
 	selectPref (preference) {
 		this.props.preferences[preference] = !this.props.preferences[preference];
 	},
@@ -16,27 +17,12 @@ const ProfileSetup = React.createClass({
 	},
 
 	render() {
-		const preferences = Object.keys(this.props.preferences);
 		return (
 			<div>
 				<h2>ProfileSetup</h2><hr/>
 				<div className="block">
 					<h3> Hello {this.props.user.username}!</h3>
 					<h4> Why are you here?</h4>
-				</div>
-
-				<div className="col-md-8">
-					{preferences.map((pref, i) => {
-						return (
-								<div key={i} onClick={this.selectPref.bind(null, pref)} className="list-group-item col-md-4">
-									{preferences[pref]}
-									<h3><span className="label label-default">{pref}</span></h3>
-								</div>
-							)
-					})}
-					<button onClick={this.savePref.bind(null, this.props.preferences)} className="btn btn-primary">Save Settings</button>
-					<br />
-					<button onClick={this.navToProfile.bind(this)} className="btn btn-primary">Go To Profile</button>
 				</div>
 			</div>
 		)
@@ -46,3 +32,22 @@ const ProfileSetup = React.createClass({
 export default ProfileSetup;
 
 
+// <div>
+// 				<h2>ProfileSetup</h2><hr/>
+// 				<div className="block">
+// 					<h3> Hello {this.props.user.username}!</h3>
+// 					<h4> Why are you here?</h4>
+// 				</div>
+				
+// 				<div className="col-md-8">
+// 					{preferences.map((pref, i) => {
+// 						return (
+// 								<div key={i} onClick={this.selectPref.bind(null, pref)} className="list-group-item col-md-4">
+// 									{preferences[pref]}
+// 									<h3><span className="label label-default">{pref}</span></h3>
+// 								</div>
+// 							)
+// 					})}
+// 					<button onClick={this.savePref.bind(null, this.props.preferences)} className="btn btn-primary">Save Settings</button>
+// 				</div>
+// 			</div>
