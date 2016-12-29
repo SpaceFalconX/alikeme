@@ -1,15 +1,20 @@
 import React from 'react'
-import {Link} from 'react-router'
+import {browserHistory, Link} from 'react-router'
 import {selectPreferences, preferencesApiRequest} from '../actions/actionCreator.js'
 const ProfileSetup = React.createClass({
 
 	selectPref (preference) {
 		this.props.preferences[preference] = !this.props.preferences[preference];
 	},
+
 	savePref() {
 		this.props.dispatch(preferencesApiRequest(this.props.preferences, this.props.params.username))
-
 	},
+
+	navToProfile () {
+    browserHistory.push('/profile/' + this.props.user.username)
+	},
+
 	render() {
 		const preferences = Object.keys(this.props.preferences);
 		return (
@@ -19,7 +24,7 @@ const ProfileSetup = React.createClass({
 					<h3> Hello {this.props.user.username}!</h3>
 					<h4> Why are you here?</h4>
 				</div>
-				
+
 				<div className="col-md-8">
 					{preferences.map((pref, i) => {
 						return (
@@ -30,12 +35,14 @@ const ProfileSetup = React.createClass({
 							)
 					})}
 					<button onClick={this.savePref.bind(null, this.props.preferences)} className="btn btn-primary">Save Settings</button>
+					<br />
+					<button onClick={this.navToProfile.bind(this)} className="btn btn-primary">Go To Profile</button>
 				</div>
 			</div>
 		)
 	}
 })
 
-export default ProfileSetup;				
+export default ProfileSetup;
 
 

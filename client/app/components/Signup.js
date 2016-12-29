@@ -37,11 +37,11 @@ const Signup = React.createClass({
 				</form>
 				<div>
 						<p>Already have an account?</p>
-						<Link to="/login">Go to Login Page</Link> 
+						<Link to="/login">Go to Login Page</Link>
 				</div>
 			</div>
 		)
 	}
 })
 
-export default Signup;				
+export default Signup;

@@ -8,11 +8,14 @@ import {Provider} from 'react-redux'
 
 //components
 import store, {history} from './store.js'
-import MainWrapper from './components/MainWrapper.js'	
+import MainWrapper from './components/MainWrapper.js'
 import Signup from './components/Signup.js'
 import Profile from './components/Profile.js'
 import ProfileSetup from './components/ProfileSetup.js'
 import Login from './components/Login.js'
+import InterestMatch from './components/interests/InterestMatchComponent.jsx'
+import InterestView from './components/interests/InterestViewComponent.jsx'
+import Browse from './components/BrowseComponent.jsx'
 
 
 
@@ -24,6 +27,10 @@ const Root = (
 				<Route path="/login" component={Login} />
 				<Route path="/setup/:username" component={ProfileSetup} />
 				<Route path="/profile/:username" component={Profile} />
+
+				<Route path='/editInterest/:id' component={InterestMatch} />
+        <Route path='/viewInterest/:id' component={InterestView} />
+        <Route path='/browse' component={Browse} />
 			</Route>
 		</Router>
 	</Provider>
