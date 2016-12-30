@@ -18,8 +18,6 @@ const User = require('./models/user_model.js');
 const Comment = require('./models/comment_model.js');
 const Post = require('./models/post_model.js');
 const Category = require('./models/category_model.js');
-const Posts_Categories = require('./joins/posts_categories_join.js');
-
 
 db.Users = User(connection, Sequelize);
 db.Comments = Comment(connection, Sequelize);
@@ -35,6 +33,7 @@ db.Posts.hasMany(db.Comments);
 
 db.Posts.belongsTo(db.Users);
 db.Users.hasMany(db.Posts);
+
 
 module.exports = db;
 
