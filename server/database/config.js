@@ -34,7 +34,6 @@ db.Posts.hasMany(db.Comments);
 db.Posts.belongsTo(db.Users);
 db.Users.hasMany(db.Posts);
 
-
 module.exports = db;
 
 

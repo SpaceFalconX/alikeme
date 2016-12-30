@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const _ = require('underscore');
 
 const db = require('../database/config.js');
-const config = require('../config.js');
+const config = require('../config/config.js');
 
 const express = require('express');
 const router = express.Router();
