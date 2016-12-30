@@ -24,8 +24,11 @@ export function signupApiRequest (userData) {
 	return function (dispatch) {
 		return axios.post('/auth/signup', userData)
 		.then((resp) => { 
-			console.log('DATA ON SIGNUP:', resp)
-			dispatch(setUser(resp.data.user))
+			var token = resp.data.token;
+			localStorage.setItem('token', token);
+			setAuthorizationToken(token);
+			const data = jwt.decode(token)
+			dispatch(setUser(data.user))
 		})
 		.catch((err) => {
 			console.log(err);
@@ -37,12 +40,10 @@ export function loginApiRequest (userData) {
 	return function (dispatch) {
 		return axios.post('/auth/login', userData)
 		.then((resp) => { 
-			console.log(resp)
 			var token = resp.data.token;
 			localStorage.setItem('token', token);
 			setAuthorizationToken(token);
 			const data = jwt.decode(token)
-			console.log('DATA ON LOGIN:', jwt.decode(token))
 			dispatch(setUser(data.user));
 		})
 		.catch((err) => {

@@ -21,10 +21,13 @@ router.post('/signup', (req, res) => {
 				password: password
 			}).then((user, err) => {
 				if(err) { 
-					res.status(400).send('please fill in information as per instructions')}
+					return res.status(400).send('please fill in information as per instructions')
+				}
+				const token = jwt.sign({
+    				user: _.omit(user.dataValues, 'password'),
+    			}, config.jwtSecret)
 				console.log(`NEW USER: ${user.username} has just been added to the user table.`)
-				user = _.omit(user.dataValues, 'password')
-				res.status(201).send({user});
+				res.status(201).send({token});
 			})
 		} 
 	})

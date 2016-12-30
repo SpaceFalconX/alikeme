@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-
+const auth = require('../config/jwt_auth.js')
 const db = require('../database/config.js')
 
+router.use(auth)
 // Get all users in DB
 router.get('/users/all', (req, res) => {
 	db.Users.findAll()
