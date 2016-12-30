@@ -1,19 +1,21 @@
-const express = require('express');
 const bcrypt = require('bcryptjs');
-const _ = require('underscore');
 const jwt = require('jsonwebtoken');
-const User = require('../database/models/user_model.js');
+const _ = require('underscore');
+
+const db = require('../database/config.js');
 const config = require('../config.js');
+
+const express = require('express');
 const router = express.Router();
 
 router.post('/signup', (req, res) => {
 	const {username, password, email} = req.body
-	User.findOne({where: {username: username}})
+	db.Users.findOne({where: {username: username}})
 	.then((user) => {
 		if(user) {
 			return res.sendStatus(401);
 		} else {
-			User.create({
+			db.Users.create({
 				username: username,
 				email: email,
 				password: password
@@ -30,7 +32,7 @@ router.post('/signup', (req, res) => {
 
 router.post('/login', (req, res) => {
 	let {username, password} = req.body;
-	User.findOne({where: {username: username}})
+	db.Users.findOne({where: {username: username}})
 	.then((user) => {
 		if(!user) {
 			res.status(400).json({error: "go to signup"})
