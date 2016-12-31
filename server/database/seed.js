@@ -1,5 +1,3 @@
-// const db = require('./config.js');
-
 module.exports = (db) => {
 	const users = db.Users.bulkCreate([{
 	  username: "wasiff",

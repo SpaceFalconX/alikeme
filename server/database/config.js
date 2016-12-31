@@ -34,6 +34,9 @@ db.Posts.hasMany(db.Comments);
 db.Posts.belongsTo(db.Users);
 db.Users.hasMany(db.Posts);
 
+db.Categories.belongsToMany(db.Users, {through: "users_categories"});
+db.Users.belongsToMany(db.Categories, {through: "users_categories"});
+
 module.exports = db;
 
 
