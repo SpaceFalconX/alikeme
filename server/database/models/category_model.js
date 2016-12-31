@@ -8,7 +8,8 @@ module.exports = (connection, Sequelize) => {
     },
 	  name: { 
 	  	type: Sequelize.STRING, 
-	  	unique: true },
+	  	unique: true 
+	  },
 	  value: { 
 	  	type: Sequelize.BOOLEAN, 
 	  	defaultValue: false 

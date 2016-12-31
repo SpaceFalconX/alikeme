@@ -6,12 +6,31 @@ const db = require('../database/config.js')
 router.use(auth);
 
 
-router.post('/setup/:userid', (req, res) => {
-  const prefs = req.body;
-  console.log('id', req.params.userId)
-  console.log('body', req.body);
-  res.sendStatus(201);
-});
+router.post('/post', (req, res) => {
+	const newPost = req.body;
+	db.Posts.create({
+		text: newPost.content,
+		user_id: newPost.user_id
+	})
+	.then((post) => {
+		res.json({success: "post submitted"});
+	})
+	.catch((err) => {
+		res.json({error: "failed to create post"});
+	})
+})
+
+
+
+
+router.post('/users/pref/:username', (req, res) => {
+	let username = req.params.username;
+	let prefs = req.body
+	db.Users.update(prefs, {where: {username: username}})
+	.then((user) => ( res.send(user) )) 
+})
+
+
 
 // Get all users in DB
 router.get('/users/all', (req, res) => {

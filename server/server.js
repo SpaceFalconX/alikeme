@@ -49,6 +49,7 @@ db.connection.query('SET FOREIGN_KEY_CHECKS = 0', {raw: true})
 				console.log("App running on port 4000")
 			))
 		})
+		.catch((err) => { console.log(err)})
 	})
 });
 

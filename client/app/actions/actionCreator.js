@@ -60,17 +60,3 @@ export function loginApiRequest (userData) {
 // 		})
 // 	}
 // } 
-
-
-// export function signupUser (user) {
-// 	return {
-// 		type: 'SIGNUP_USER',
-// 		user
-// 	} 
-// }
-// export function selectPreferences (preferences) {
-// 	return {
-// 		type: 'SELECT_PREFERENCES',
-// 		preferences
-// 	} 
-// }

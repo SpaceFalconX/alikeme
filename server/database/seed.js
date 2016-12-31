@@ -31,6 +31,9 @@ module.exports = (db) => {
     name: "clubbing",
   }, {
     name: "dating",
+	}, {
+	  validate: true,
+	  ignoreDuplicates: true
 	}])
 	return Promise.all([users,categories])
 }
