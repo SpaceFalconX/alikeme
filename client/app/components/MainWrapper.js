@@ -3,24 +3,24 @@ import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import Navbar from './Navbar'
 
+//React.cloneElement will clone/propogate props down through the children elements
 const Main = React.createClass({
 
 	render() {
 		return (
 			<div>
 				<h1>
-					<Link to="/">Alike Me</Link>
+					<Link to="/">Alike.me</Link>
 				</h1>
 				<Navbar user={this.props.user} dispatch={this.props.dispatch}/>
 				{React.cloneElement(this.props.children, this.props)}
-
 			</div>
 		)
 	}
 })
 
 
-
+//map Redux state to React props
 function mapStatetoProps (state) {
 	console.log('STORE STATE', state)
 	return {
@@ -31,6 +31,7 @@ function mapStatetoProps (state) {
 	}
 }
 
+//init Redux store to React main
 const MainWrapper = connect(mapStatetoProps)(Main);
 
 export default MainWrapper;

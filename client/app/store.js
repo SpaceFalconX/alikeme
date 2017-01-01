@@ -9,6 +9,11 @@ import reducer from './reducers/index.js'
 import setAuthorizationToken from './utils/setAuthorizationToken.js'
 import {setUser} from './actions/actionCreator.js'
 
+
+/** 
+Devtools extension Redux - should be applied as a store enhancer 
+not as a middleware. 
+*/
 const enhancers = compose(
 	applyMiddleware(thunk),
 	window.devToolsExtension? window.devToolsExtension() : f => f
@@ -23,6 +28,7 @@ if(localStorage.token) {
 	store.dispatch(setUser(jwt.decode(localStorage.token).user));
 }
 
+//Hot reload Redux
 if(module.hot) {
   module.hot.accept('./reducers/',() => {
     const nextRootReducer = require('./reducers/index').default;
@@ -34,7 +40,6 @@ if(module.hot) {
 export const history = syncHistoryWithStore(browserHistory, store)
 
 export default store;
-
 
 
 
