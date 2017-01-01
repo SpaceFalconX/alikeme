@@ -1,15 +1,15 @@
-export function user (state={}, action) {
-	switch(action.type) {
-		case 'SIGNUP_USER':
-			return {
-				...state,
-				...action.user,
-			}
-		default:
-			return state;
-	}
-	return state;
-}
+// export function user (state={}, action) {
+// 	switch(action.type) {
+// 		case 'SIGNUP_USER':
+// 			return {
+// 				...state,
+// 				...action.user,
+// 			}
+// 		default:
+// 			return state;
+// 	}
+// 	return state;
+// }
 
 // export function preferences(state={}, action) {
 // 	switch(action.type) {

@@ -1,8 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router'
 import {connect} from 'react-redux'
-import {signupApiRequest} from '../actions/actionCreator.js'
 import Navbar from './Navbar'
+
 const Main = React.createClass({
 	render() {
 		return (
@@ -17,10 +17,14 @@ const Main = React.createClass({
 	}
 })
 
+
+
 function mapStatetoProps (state) {
+	console.log('STORE STATE', state)
 	return {
 		user: state.user,
 		isAuthenticated: state.user.isAuthenticated,
+		posts: state.userPosts,
 		preferences: state.preferences
 	}
 }

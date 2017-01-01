@@ -37,7 +37,7 @@ const store = createStore(reducer, enhancers);
 // Chekcing and Setting for tokens for every request
 if(localStorage.token) {
 	setAuthorizationToken(localStorage.token);
-	store.dispatch(setUser(jwt.decode(localStorage.token)));
+	store.dispatch(setUser(jwt.decode(localStorage.token).user));
 }
 
 if(module.hot) {

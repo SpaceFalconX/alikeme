@@ -1,19 +1,21 @@
 import React from 'react'
 import {browserHistory, Link} from 'react-router'
-import {selectPreferences, preferencesApiRequest} from '../actions/actionCreator.js'
+import {submitNewPost} from '../actions/post_actions.js'
 
 
 const ProfileSetup = React.createClass({
-	selectPref (preference) {
-		this.props.preferences[preference] = !this.props.preferences[preference];
-	},
-
-	savePref() {
-		this.props.dispatch(preferencesApiRequest(this.props.preferences, this.props.params.username))
-	},
-
 	navToProfile () {
     browserHistory.push('/profile/' + this.props.user.username)
+	},
+
+	handleSubmit(e) {
+		e.preventDefault();
+		const content = this.refs.newPost.value;
+		const user_id = this.props.user.id;
+		const username = this.props.user.username;
+		let postData = {user_id, username, content}
+		this.props.dispatch(submitNewPost(postData));
+		this.refs.newPostForm.reset();
 	},
 
 	render() {
@@ -22,7 +24,12 @@ const ProfileSetup = React.createClass({
 				<h2>ProfileSetup</h2><hr/>
 				<div className="block">
 					<h3> Hello {this.props.user.username}!</h3>
-					<h4> Why are you here?</h4>
+					
+					<form ref="newPostForm" onSubmit={this.handleSubmit}>
+						<h4> Make your first post and start matching up </h4>
+						<input className="form-group" type="text" ref="newPost" placeholder="new post"/><br/>
+						<input className="btn btn-default" type="submit" value="Submit Post"/>
+					</form>
 				</div>
 			</div>
 		)
@@ -31,6 +38,15 @@ const ProfileSetup = React.createClass({
 
 export default ProfileSetup;
 
+
+
+	// selectPref (preference) {
+	// 	this.props.preferences[preference] = !this.props.preferences[preference];
+	// },
+
+	// savePref() {
+	// 	this.props.dispatch(preferencesApiRequest(this.props.preferences, this.props.params.username))
+	// },
 
 // <div>
 // 				<h2>ProfileSetup</h2><hr/>
