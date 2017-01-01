@@ -8,13 +8,16 @@ const Navbar = React.createClass({
 	},
 
 	render() {
-		console.log(this.props)
 		const isAuthenticated = this.props.user.isAuthenticated;
+
 		const currUserView = (
 			<ul className="nav navbar-nav">
 				<li onClick={this.logout.bind(null, this)}><Link to="/login">Logout</Link></li>
+				<li><Link to="/browse">Browse</Link></li>
+				<li><Link to={'/profile/' + this.props.user.username}>Profile</Link></li>
 			</ul>
 		);
+
 		const noUserView = (
 			<ul className="nav navbar-nav">
 				<li><Link to="/login">Login</Link></li>
@@ -25,11 +28,11 @@ const Navbar = React.createClass({
 		return (
 			<nav className="navbar navbar-default navbar-static-top">
 			  <div className="container">
-					{ isAuthenticated? currUserView : noUserView }
+					{ isAuthenticated ? currUserView : noUserView }
 			  </div>
 			</nav>
 		)
 	}
 })
 
-export default Navbar;				
+export default Navbar;

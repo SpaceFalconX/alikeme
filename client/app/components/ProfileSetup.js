@@ -70,7 +70,7 @@ export default ProfileSetup;
 // 					<h3> Hello {this.props.user.username}!</h3>
 // 					<h4> Why are you here?</h4>
 // 				</div>
-				
+
 // 				<div className="col-md-8">
 // 					{preferences.map((pref, i) => {
 // 						return (

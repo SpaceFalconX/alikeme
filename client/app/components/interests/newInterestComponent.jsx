@@ -1,5 +1,9 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import Seed from '../../seed.js'
+// import Tags from './tagsComponent.jsx'
+import {addTag, removeTag} from '../../actions/tagActions.js'
 
 class NewInterest extends React.Component {
 
@@ -13,9 +17,17 @@ class NewInterest extends React.Component {
     this.refs.interests.reset();
   }
 
-  handleMini(e){
+  handleTag(toggle, str, e) {
     e.preventDefault();
-    console.log(this.refs.tags.value)
+
+    if(toggle === "add"){
+      this.props.addTag(this.refs.tags.value);
+    }
+
+    if(toggle === "remove"){
+      this.props.removeTag(str.tag);
+    }
+
     this.refs.tags.value = "";
   }
 
@@ -23,6 +35,12 @@ class NewInterest extends React.Component {
 
     let options = Seed.choices.map((choice) => {
       return <option key={choice}>{choice}</option>
+    })
+
+    let domTags = this.props.tags.map((tag) => {
+      //make a custom 4 dis
+      //or map to props somewhere else
+      return <p key={tag} onClick={this.handleTag.bind(this, "remove", {tag})}> {tag} </p>
     })
 
     return (
@@ -34,7 +52,10 @@ class NewInterest extends React.Component {
           </textarea>
           <br />
           <input ref="tags" type="text" placeholder="add a tag"></input>
-          <button onClick={this.handleMini.bind(this)}>add tag</button>
+          <button onClick={this.handleTag.bind(this, "add", null)}>add tag</button>
+          <div>
+            {domTags}
+          </div>
           <br />
           category:
           <select ref="category">
@@ -47,4 +68,17 @@ class NewInterest extends React.Component {
   }
 }
 
-export default NewInterest
+function mapStateToProps(state) {
+  return {
+    tags: state.tags.tags
+  };
+}
+
+function matchDispatchToProps(dispatch){
+  return bindActionCreators({
+    addTag,
+    removeTag
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(NewInterest);

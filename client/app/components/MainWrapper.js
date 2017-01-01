@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import Navbar from './Navbar'
 
 const Main = React.createClass({
+
 	render() {
 		return (
 			<div>
