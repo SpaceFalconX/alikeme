@@ -15,7 +15,6 @@ class InterestEntry extends React.Component {
   }
 
   render () {
-    let count = 0
     let current = Seed.interests.filter((interest) => {
       //console.log('INTEREST ENTRY: ' ,++count, ' ', interest) //deleteME
       return interest.id === this.props.id
@@ -23,10 +22,10 @@ class InterestEntry extends React.Component {
 
     //CSS STYLES
     let CSS_card = { 
-    boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
-    transition: '0.3s',
-    borderRadius: '5px',
-    paddingLeft:  '20px'
+      boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+      transition: '0.3s',
+      borderRadius: '5px',
+      paddingLeft:  '20px'
     }
     let CSS_category = {
       width: '250px',
@@ -36,7 +35,7 @@ class InterestEntry extends React.Component {
     }
 
     return (
-      <div style={CSS_card} onClick={this.doSomething.bind(this)}>
+      <div onClick={this.doSomething.bind(this)} style={CSS_card}>
         <h3>{current.title}</h3>
         <p className="lead">{current.description}</p>
         <p style={CSS_category}><small>Category:</small> {current.category}</p>
