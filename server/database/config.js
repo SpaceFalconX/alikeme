@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const _ = require('underscore');
 
-const connection = new Sequelize('alike_me','root','123',  {
+const connection = new Sequelize('alikeMe','root','io',  {
 	define: {
     underscored: true
   },

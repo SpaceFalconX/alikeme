@@ -20,6 +20,11 @@ const Login = React.createClass({
 		this.refs.loginForm.reset();
 	},
 
+	clicker(e) {
+		e.preventDefault()
+		console.log('cliked ', e )
+	},
+
 	render() {
 		return (
 			<div>
@@ -30,10 +35,19 @@ const Login = React.createClass({
 					<label>Password:</label><br/>
 					<input className="form-group" type="password" ref="password" placeholder="password"/><br/>
 					<input className="btn btn-default" type="submit" value="Login"/>
+					 <a onClick={this.clicker} className="btn btn-social-icon btn-twitter">
+    					<span className="fa fa-twitter"></span>
+  				</a>
+					<a href="/auth/facebook" className="btn btn-social-icon btn-facebook">
+    					<span className="fa fa-facebook"></span>
+  				</a>
+					<a onClick={this.clicker} className="btn btn-social-icon btn-tumblr">
+    					<span className="fa fa-tumblr"></span>
+  				</a>
 				</form>
 				<div>
-						<p>New to Alike Me?</p>
-						<Link to="/">Go to Signup Page</Link>
+						<p>New to Alike.me?</p>
+						<Link to="/">Go to Signup Page</Link> 
 				</div>
 			</div>
 		)
