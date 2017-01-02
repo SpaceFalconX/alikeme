@@ -2,7 +2,6 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import Seed from '../../seed.js'
-// import Tags from './tagsComponent.jsx'
 import {addTag, removeTag, clearTags} from '../../actions/tagActions.js'
 import {submitNewPost} from '../../actions/post_actions.js'
 
@@ -10,15 +9,15 @@ class NewInterest extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const description = this.refs.description.value;
-    const category = this.refs.category.value;
+    const content = this.refs.content.value;
     const title = this.refs.title.value
-    const tags = this.props.tags
-    let userData = {title, description, category, tags}
-    console.log(userData)
-    this.props.submitNewPost(userData)
+    const category = [this.refs.category.value].concat(this.props.tags)
+    const user_id = this.props.user.id;
+		const username = this.props.user.username;
+    let userData = {title, content, category, user_id, username}
+    this.props.submitNewPost(userData);
+    this.props.clearTags();
     this.refs.interests.reset();
-    this.props.clearTags()
   }
 
   handleTag(toggle, str, e) {
@@ -33,8 +32,6 @@ class NewInterest extends React.Component {
   }
 
   render () {
-    console.log("tags", this.props.tags)
-    console.log("user", this.props.user)
     let options = Seed.choices.map((choice) => {
       return <option key={choice}>{choice}</option>
     })
@@ -47,7 +44,7 @@ class NewInterest extends React.Component {
         <form ref="interests" onSubmit={this.handleSubmit.bind(this)}>
           <input type="text" ref="title" placeholder="title"></input>
           <br />
-          <textarea ref="description" rows="5" cols="30">
+          <textarea ref="content" rows="5" cols="30">
           </textarea>
           <br />
           <input ref="tags" type="text" placeholder="add a tag"></input>
@@ -69,7 +66,8 @@ class NewInterest extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    tags: state.tags.tags
+    tags: state.tags.tags,
+    user: state.user
   };
 }
 

@@ -8,23 +8,24 @@ const db = require('../database/config.js')
 
 router.post('/post', (req, res) => {
 	const newPost = req.body;
-	db.Post.create({
-		text: newPost.content,
-		user_id: newPost.user_id,
-	})
-	.then((post) => {
-		db.Category.findOrCreate({where: {name: newPost.category}})
-		.spread(function(category, created) {
-			console.log("CATEGORY", category.dataValues, created)
-			post.addCategory(category).then((result) => {console.log('added cat')})
-			category.addPost(category).then((result) => {console.log('added post')})
-			res.json({success: "post submitted"});
-		})
-	})
-	.catch((err) => {
-		// console.log(err)
-		res.json({error: "failed to create post"});
-	})
+	// db.Post.create({
+	// 	text: newPost.content,
+	// 	user_id: newPost.user_id,
+	// })
+	// .then((post) => {
+	// 	db.Category.findOrCreate({where: {name: newPost.category}})
+	// 	.spread(function(category, created) {
+	// 		console.log("CATEGORY", category.dataValues, created)
+	// 		post.addCategory(category).then((result) => {console.log('added cat')})
+	// 		category.addPost(category).then((result) => {console.log('added post')})
+	// 		res.json({success: "post submitted"});
+	// 	})
+	// })
+	res.sendStatus(200)
+	// .catch((err) => {
+	// 	// console.log(err)
+	// 	res.json({error: "failed to create post"});
+	// })
 })
 
 // router.get('/posts', (req, res) => {
