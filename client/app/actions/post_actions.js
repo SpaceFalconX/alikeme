@@ -9,6 +9,7 @@ export function createPost(newPost) {
 }
 
 export function submitNewPost (newPost) {
+	console.log(newPost)
 	return (dispatch) => {
 		return axios.post('/api/post', newPost)
 		.then((resp) => {

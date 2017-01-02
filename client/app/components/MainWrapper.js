@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import Navbar from './Navbar'
 
 const Main = React.createClass({
+
 	render() {
 		return (
 			<div>
@@ -11,7 +12,8 @@ const Main = React.createClass({
 					<Link to="/">Alike Me</Link>
 				</h1>
 				<Navbar user={this.props.user} dispatch={this.props.dispatch}/>
-				{React.cloneElement(this.props.children, this.props)}	
+				{React.cloneElement(this.props.children, this.props)}
+
 			</div>
 		)
 	}
@@ -31,4 +33,4 @@ function mapStatetoProps (state) {
 
 const MainWrapper = connect(mapStatetoProps)(Main);
 
-export default MainWrapper;				
+export default MainWrapper;

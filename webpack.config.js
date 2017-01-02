@@ -26,8 +26,8 @@ var config = {
         include : path.join(__dirname, 'client/app'),
         loader : 'babel'
       },
-      { 
-        test: /\.styl$/, 
+      {
+        test: /\.styl$/,
         include: path.join(__dirname, 'client/app'),
         loader: 'style-loader!css-loader'
       }

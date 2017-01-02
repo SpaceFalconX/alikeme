@@ -8,7 +8,7 @@ class InterestEntry extends React.Component {
     if (this.props.context === "edit") {
       browserHistory.push('/editInterest/' + this.props.id)
     }
-    if(this.props.context === "view") {
+    if (this.props.context === "view") {
       browserHistory.push('/viewInterest/' + this.props.id)
     }
   }
@@ -21,9 +21,9 @@ class InterestEntry extends React.Component {
     return (
       <div onClick={this.doSomething.bind(this)}>
         <h4>{current.title}</h4>
-        <p>{current.user}</p>
+        <h5>{current.user}</h5>
         <p>{current.description}</p>
-        <p>{current.category}</p>
+        <p><i>{current.category}</i></p>
       </div>
     )
   }
