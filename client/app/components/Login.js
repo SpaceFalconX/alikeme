@@ -22,7 +22,7 @@ const Login = React.createClass({
 
 	clicker(e) {
 		e.preventDefault()
-		console.log('cliked')
+		console.log('cliked ', e )
 	},
 
 	render() {
@@ -38,7 +38,7 @@ const Login = React.createClass({
 					 <a onClick={this.clicker} className="btn btn-social-icon btn-twitter">
     					<span className="fa fa-twitter"></span>
   				</a>
-					<a onClick={this.clicker} className="btn btn-social-icon btn-facebook">
+					<a href="/auth/facebook" className="btn btn-social-icon btn-facebook">
     					<span className="fa fa-facebook"></span>
   				</a>
 					<a onClick={this.clicker} className="btn btn-social-icon btn-tumblr">
