@@ -6,7 +6,7 @@ import {routerReducer} from 'react-router-redux';
 
 const reducer = combineReducers({
 	user: auth,
-	userPosts: userPosts,
+	userPosts,
 	routing: routerReducer,
   tags
 })

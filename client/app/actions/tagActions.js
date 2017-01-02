@@ -11,3 +11,9 @@ export function removeTag (tag) {
     tag
   }
 }
+
+export function clearTags () {
+  return {
+    type: 'CLEAR_TAGS'
+  }
+}

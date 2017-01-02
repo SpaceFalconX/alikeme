@@ -25,5 +25,12 @@ export function tags (state= {
     }
   }
 
+  if(action.type === 'CLEAR_TAGS') {
+    return {
+      ...state,
+      tags: []
+    }
+  }
+
   return state
 }

@@ -9,7 +9,6 @@ export function setUser (user) {
 	}
 }
 
-
 export function logoutClick (user) {
 	return function (dispatch) {
 		delete localStorage.token;
@@ -19,6 +18,7 @@ export function logoutClick (user) {
 }
 
 export function signupApiRequest (userData) {
+	console.log(userData)
 	return function (dispatch) {
 		return axios.post('/auth/signup', userData)
 		.then((resp) => {
@@ -45,6 +45,5 @@ export function loginApiRequest (userData) {
 		.catch((err) => {
 			console.log(err);
 		})
-
 	}
 }

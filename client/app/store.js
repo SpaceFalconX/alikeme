@@ -9,23 +9,6 @@ import reducer from './reducers/index.js'
 import setAuthorizationToken from './utils/setAuthorizationToken.js'
 import {setUser} from './actions/actionCreator.js'
 
-// const defaultState = {
-// 	isAuthenticated: false,
-// 	user: {
-// 		username: '',
-// 		email: '',
-// 		password: '',
-// 	},
-// 	preferences: {
-// 		coffee: false,
-// 		founder: false,
-// 		developer: false,
-// 		clubbing: false,
-// 		concerts: false,
-// 		dating: false
-// 	}
-// }
-
 const enhancers = compose(
 	applyMiddleware(thunk),
 	window.devToolsExtension? window.devToolsExtension() : f => f
