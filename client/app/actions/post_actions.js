@@ -13,7 +13,7 @@ export function submitNewPost (newPost) {
 	return (dispatch) => {
 		return axios.post('/api/post', newPost)
 		.then((resp) => {
-			//dispatch(createPost(newPost))
+			dispatch(createPost(newPost))
 		})
 	}
 }

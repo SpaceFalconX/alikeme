@@ -33,6 +33,8 @@ class NewInterest extends React.Component {
   }
 
   render () {
+    console.log("tags", this.props.tags)
+    console.log("user", this.props.user)
     let options = Seed.choices.map((choice) => {
       return <option key={choice}>{choice}</option>
     })
