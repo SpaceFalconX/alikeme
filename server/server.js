@@ -54,6 +54,21 @@ db.connection.query('SET FOREIGN_KEY_CHECKS = 0', {raw: true})
 });
 
 
+// db.connection.query('SET FOREIGN_KEY_CHECKS = 0', {raw: true})
+// .then(() => { 
+
+// 	db.connection.sync()
+// 	.then(() => {
+// 		console.log("App connected to DB") 
+// 		app.listen(4000, () => (
+// 			console.log("App running on port 4000")
+// 		))
+// 	})
+// 	.catch((err) => { console.log(err)})
+	
+// })
+
+
 
 
 

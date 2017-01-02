@@ -8,12 +8,24 @@ const ProfileSetup = React.createClass({
     browserHistory.push('/profile/' + this.props.user.username)
 	},
 
+	renderPost(post, index) {
+		return (
+			<div key={index}>
+				<p><strong>{post.author}</strong>
+				{post.content}
+				</p>
+			</div>
+		)
+	},
+
 	handleSubmit(e) {
 		e.preventDefault();
-		const content = this.refs.newPost.value;
+		const content = this.refs.content.value;
+		const title = this.refs.title.value;
+		const category = this.refs.category.value;
 		const user_id = this.props.user.id;
 		const username = this.props.user.username;
-		let postData = {user_id, username, content}
+		let postData = {user_id, username, content, title, category}
 		this.props.dispatch(submitNewPost(postData));
 		this.refs.newPostForm.reset();
 	},
@@ -23,14 +35,18 @@ const ProfileSetup = React.createClass({
 			<div>
 				<h2>ProfileSetup</h2><hr/>
 				<div className="block">
-					<h3> Hello {this.props.user.username}!</h3>
-					
+					<h3> Hello {this.props.user.username}!</h3>	
 					<form ref="newPostForm" onSubmit={this.handleSubmit}>
 						<h4> Make your first post and start matching up </h4>
-						<input className="form-group" type="text" ref="newPost" placeholder="new post"/><br/>
+						<input className="form-group" type="text" ref="title" placeholder="Title"/><br/>
+						<input className="form-group" type="text" ref="category" placeholder="category"/><br/>
+						<textarea className="form-group" type="text" ref="content" placeholder="new post"/><br/>
 						<input className="btn btn-default" type="submit" value="Submit Post"/>
 					</form>
 				</div>
+				{this.props.posts.map((post, index)=>{
+					this.renderPost(post, index)
+				})}
 			</div>
 		)
 	}

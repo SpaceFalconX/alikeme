@@ -18,7 +18,7 @@ const Signup = React.createClass({
 		const password = this.refs.password.value;
 		let userData = {username, email, password}
 		this.props.dispatch(signupApiRequest(userData));
-		this.refs.signupForm.reset();
+		// this.refs.signupForm.reset();
 	},
 
 	render() {
