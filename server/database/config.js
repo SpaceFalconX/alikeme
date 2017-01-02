@@ -19,23 +19,38 @@ const Comment = require('./models/comment_model.js');
 const Post = require('./models/post_model.js');
 const Category = require('./models/category_model.js');
 
-db.Users = User(connection, Sequelize);
-db.Comments = Comment(connection, Sequelize);
-db.Posts = Post(connection, Sequelize);
-db.Categories = Category(connection, Sequelize);
+db.User = User(connection, Sequelize);
+db.Comment = Comment(connection, Sequelize);
+db.Post = Post(connection, Sequelize);
+db.Category = Category(connection, Sequelize);
+
+const posts_categories = db.connection.define('posts_categories', {
+  id: {
+    type: db.Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  }
+}, {
+	underscored: true
+})
+
 
 // Relations 
-db.Posts.belongsToMany(db.Categories, {through: "posts_categories"});
-db.Categories.belongsToMany(db.Posts, {through: "posts_categories"});
+db.Post.belongsToMany(db.Category, {through: posts_categories});
+db.Category.belongsToMany(db.Post, {through: posts_categories});
 
-db.Comments.belongsTo(db.Posts);
-db.Posts.hasMany(db.Comments);
+db['posts_categories'] = posts_categories;
 
-db.Posts.belongsTo(db.Users);
-db.Users.hasMany(db.Posts);
 
-db.Categories.belongsToMany(db.Users, {through: "users_categories"});
-db.Users.belongsToMany(db.Categories, {through: "users_categories"});
+db.Comment.belongsTo(db.Post);
+db.Post.hasMany(db.Comment);
+
+db.Post.belongsTo(db.User);
+db.User.hasMany(db.Post);
+
+// db.Category.belongsToMany(db.User, {through: "users_categories"});
+// db.User.belongsToMany(db.Category, {through: "users_categories"});
+
 
 module.exports = db;
 

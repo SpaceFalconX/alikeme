@@ -10,12 +10,12 @@ const router = express.Router();
 
 router.post('/signup', (req, res) => {
 	const {username, password, email} = req.body
-	db.Users.findOne({where: {username: username}})
+	db.User.findOne({where: {username: username}})
 	.then((user) => {
 		if(user) {
 			return res.sendStatus(401);
 		} else {
-			db.Users.create({
+			db.User.create({
 				username: username,
 				email: email,
 				password: password
@@ -35,7 +35,7 @@ router.post('/signup', (req, res) => {
 
 router.post('/login', (req, res) => {
 	let {username, password} = req.body;
-	db.Users.findOne({where: {username: username}})
+	db.User.findOne({where: {username: username}})
 	.then((user) => {
 		if(!user) {
 			res.status(400).json({error: "go to signup"})
