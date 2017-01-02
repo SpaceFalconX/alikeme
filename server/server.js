@@ -4,6 +4,7 @@ const path = require('path')
 const bodyParser = require('body-parser');
 const morgan = require('morgan')
 const webpack = require('webpack');
+const Twit  = require('twit')
 
 // DEPENDENCIES
 const config = require('../webpack.config.js');
@@ -11,6 +12,7 @@ const db = require('./database/config.js');
 const seed = require('./database/seed.js');
 const auth = require('./routes/auth_router.js');
 const user =  require('./routes/user_router.js');
+const twitter = require('./config/twitter.js')
 
 
 // APP SETUP & MIDDLEWARE
@@ -52,6 +54,25 @@ db.connection.query('SET FOREIGN_KEY_CHECKS = 0', {raw: true})
 		.catch((err) => { console.log(err)})
 	})
 });
+
+// TWITTER API
+const T = new Twit(twitter)
+const options = { 
+	screen_name: 'guardian',
+  count: 5 
+}
+
+T.get('statuses/user_timeline', options, (err, data) => {
+	if (err) {
+		console.error('There was an error with the Twitter API')
+	}
+	 for (var i = 0; i < data.length ; i++) {
+	  console.log('inside twiiittteeer =>', i) //deleteME
+    console.log(data[i].text); //deleteME
+  }
+})
+
+
 
 
 // db.connection.query('SET FOREIGN_KEY_CHECKS = 0', {raw: true})
