@@ -39,6 +39,18 @@ class ProfileComponent extends React.Component {
       )
     }
   }
+  
+  profilePicture () {
+    if (!this.props.user.profilePicture) { //fix later
+      return (
+        <i className ="fa fa-user-o fa-5x"></i>
+      )
+    } else {
+      return (
+        <img src={this.props.user.profilePicture} />
+      )
+    }
+  }
 
   editOrView () {
     //todo
@@ -49,7 +61,7 @@ class ProfileComponent extends React.Component {
       return (
         <div>
           <h1>{this.props.params.username}'s Profile</h1>
-          <img src='#' />
+          {this.profilePicture()}
           <br />
           <button className="btn btn-primary">Message {this.props.params.username}</button>
           <h2>{this.props.params.username}'s posts</h2>
@@ -60,7 +72,7 @@ class ProfileComponent extends React.Component {
       return (
         <div>
           <h1>Your Profile</h1>
-          <img src='#' />
+          {this.profilePicture()}
           <h2>create a new {this.state.toggle}</h2>
           {this.createNewPost()}
           <h2>my posts</h2>
@@ -71,7 +83,6 @@ class ProfileComponent extends React.Component {
   }
 
   render () {
-    console.log(this.props.user.username)
     return (
       <div>
         {this.editOrView()}

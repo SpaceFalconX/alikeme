@@ -12,9 +12,10 @@ const Navbar = React.createClass({
 
 		const currUserView = (
 			<ul className="nav navbar-nav">
-				<li onClick={this.logout.bind(null, this)}><Link to="/login">Logout</Link></li>
 				<li><Link to="/browse">Browse</Link></li>
 				<li><Link to={'/profile/' + this.props.user.username}>Profile</Link></li>
+				<li><Link to='/settings'>Settings</Link></li>
+				<li onClick={this.logout.bind(null, this)}><Link to="/login">Logout</Link></li>
 			</ul>
 		);
 
