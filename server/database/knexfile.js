@@ -1,16 +1,50 @@
-const _ = require('underscore');
-
-const knex = require('knex')({
-  client: 'mysql',
-  connection: {
-  	host     : 'localhost',
-    user     : 'root',
-    password : '123',
-    database : 'alikeMe',
-    charset  : 'utf8'
+// Update with your config settings.
+module.exports = {
+  development: {
+    client: 'mysql',
+    connection: {
+      host     : 'localhost',
+      user     : 'root',
+      password : '123',
+      database : 'alike_me',
+      charset  : 'utf8'
+    }
   }
-});
+}
 
-const db = require('bookshelf')(knex);
 
-module.exports = db;
+
+
+/*** UNCOMMENT IN PRODUCTION ***/
+// staging: {
+//   client: 'postgresql',
+//   connection: {
+//     database: 'my_db',
+//     user:     'username',
+//     password: 'password'
+//   },
+//   pool: {
+//     min: 2,
+//     max: 10
+//   },
+//   migrations: {
+//     tableName: 'knex_migrations'
+//   }
+// },
+
+// production: {
+//   client: 'postgresql',
+//   connection: {
+//     database: 'my_db',
+//     user:     'username',
+//     password: 'password'
+//   },
+//   pool: {
+//     min: 2,
+//     max: 10
+//   },
+//   migrations: {
+//     tableName: 'knex_migrations'
+//   }
+// }
+
