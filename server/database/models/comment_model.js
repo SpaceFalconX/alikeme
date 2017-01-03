@@ -1,11 +1,10 @@
 module.exports = (connection, Sequelize) => {
 	const Comments = connection.define('comments', {
-		id: {
-      type: Sequelize.UUID,
-      primaryKey: true,
-      defaultValue: Sequelize.UUIDV4,
-      allowNull: false
-    },
+	  id: {
+	    type: Sequelize.INTEGER,
+	    primaryKey: true,
+	    autoIncrement: true
+	  },
 	  text: { 
 	  	type: Sequelize.TEXT 
 	  }

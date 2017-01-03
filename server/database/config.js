@@ -1,66 +1,74 @@
-const Sequelize = require('sequelize');
+// const db = require('./knexfile.js');
+
 const _ = require('underscore');
 
-const connection = new Sequelize('alike_me','root','123',  {
-	define: {
-    underscored: true
-  },
-  pool: false
+const knex = require('knex')({
+  client: 'mysql',
+  connection: {
+  	host     : 'localhost',
+    user     : 'root',
+    password : '123',
+    database : 'alikeMe',
+    charset  : 'utf8'
+  }
 });
 
-// DB connection
-const db = {};
-db.Sequelize = Sequelize;
-db.connection = connection;
+const db = require('bookshelf')(knex);
+db.plugin('registry');
 
-// Models
-const User = require('./models/user_model.js');
-const Comment = require('./models/comment_model.js');
-const Post = require('./models/post_model.js');
-const Category = require('./models/category_model.js');
 
-db.User = User(connection, Sequelize);
-db.Comment = Comment(connection, Sequelize);
-db.Post = Post(connection, Sequelize);
-db.Category = Category(connection, Sequelize);
-
-const posts_categories = db.connection.define('posts_categories', {
-  id: {
-    type: db.Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
+db.knex.schema.hasTable('users').then(function(exists) {
+  if (!exists) {
+    db.knex.schema.createTable('users', function (user) {
+      user.increments('id').primary();
+      user.string('username', 100).unique();
+      user.string('email', 254).unique();
+      user.string('password', 100);
+      user.timestamps();
+    }).then(function (table) {
+      console.log('Created Table', table);
+    });
   }
-}, {
-	underscored: true
-})
+});
+
+db.knex.schema.hasTable('categories').then(function(exists) {
+  if (!exists) {
+    db.knex.schema.createTable('categories', function (category) {
+      category.increments('id').primary();
+      category.string('name', 100).unique();
+      category.timestamps();
+    }).then(function (table) {
+      console.log('Created Table', table);
+    });
+  }
+});
 
 
-// Relations 
-db.Post.belongsToMany(db.Category, {through: posts_categories});
-db.Category.belongsToMany(db.Post, {through: posts_categories});
+db.knex.schema.hasTable('posts').then(function(exists) {
+  if (!exists) {
+    db.knex.schema.createTable('posts', function (post) {
+      post.increments('id').primary();
+      post.integer('user_id')
+      	// .references('id')
+       //  .inTable('users');
+      post.integer('category_id')
+        // .references('id')
+        // .inTable('categories');
+      post.string('title', 100);
+      post.text('content', 'mediumtext');
+      post.timestamps();
+    }).then(function (table) {
+      console.log('Created Table', table);
+    });
+  }
+});
 
-db['posts_categories'] = posts_categories;
-
-
-db.Comment.belongsTo(db.Post);
-db.Post.hasMany(db.Comment);
-
-db.Post.belongsTo(db.User);
-db.User.hasMany(db.Post);
-
-// db.Category.belongsToMany(db.User, {through: "users_categories"});
-// db.User.belongsToMany(db.Category, {through: "users_categories"});
 
 
 module.exports = db;
 
 
 
-
-
-
-
-
-
-
-
+// DROP DATABASE alikeMe;
+// CREATE DATABASE alikeMe;
+// USE alikeMe;

@@ -1,9 +1,39 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../config/jwt_auth.js')
-const db = require('../database/config.js')
+// const db = require('../database/config.js')
 
 // router.use(auth);
+
+// router.post('/post', (req, res) => {
+// 	const newPost = req.body;
+// 	db.Post.create({
+// 		text: newPost.content,
+// 		user_id: newPost.user_id,
+// 	})
+// 	.then((post) => {
+// 			db.Category.findOne({where: {name: newPost.category}})
+// 			.then((categ)=> {
+// 				if(!categ) {
+// 					db.Category.create({
+// 						name: newPost.category
+// 					})
+// 					.then((category) => {
+// 						category.addPost(post).then((result) => {console.log('added post')})
+// 						res.json({success: "post submitted"});
+// 					})	
+// 				} else {
+// 					categ.addPost(post).then((result) => {console.log('added post')})
+// 					res.json({success: "post submitted"});
+// 				}
+// 			})
+// 	})
+// 	.catch((err) => {
+// 		res.json({error: "failed to create post"});
+// 	})
+// })
+
+
 
 
 router.post('/post', (req, res) => {
@@ -26,6 +56,7 @@ router.post('/post', (req, res) => {
 	// 	// console.log(err)
 	// 	res.json({error: "failed to create post"});
 	// })
+
 })
 
 // router.get('/posts', (req, res) => {
@@ -35,7 +66,6 @@ router.post('/post', (req, res) => {
 // 		}]
 // 	})
 // 	.then((posts) => {
-// 		// console.log(posts)
 // 		res.json({posts})
 // 	})
 // 	.catch((err) => {
@@ -45,73 +75,73 @@ router.post('/post', (req, res) => {
 // })
 
 
-router.get('/posts/:cat', (req, res) => {
-	console.log("REQ PAR", req.params.cat);
-	db.Post.findAll({
-		include: [{
-			model: db.Category,
-			// through: {
-  	// 		where: {
-			// 		id: req.params.cat
-			// 	}
-	  //   }
-		}]
-	})
-	.then((posts) => {
-		res.json({posts})
-	})
-	.catch((err) => {
-		res.json({err})
-		console.log(err)	
-	})
-})
-
-
-// router.get('/categories', (req, res) => {
-// 	db.Category.findAll({include: [{ 
-// 		model: db.Post, 
-// 		where: {
-// 			text: db.Sequelize.col('posts_categories')
-// 		}
-// 	}]})
-// 	.then((category) => {
-// 		res.json({category})
+// router.get('/posts/:cat', (req, res) => {
+// 	console.log("REQ PAR", req.params.cat);
+// 	db.Post.findAll({
+// 		include: [{
+// 			model: db.Category,
+// 			// through: {
+//   	// 		where: {
+// 			// 		id: req.params.cat
+// 			// 	}
+// 	  //   }
+// 		}]
+// 	})
+// 	.then((posts) => {
+// 		res.json({posts})
 // 	})
 // 	.catch((err) => {
+// 		res.json({err})
 // 		console.log(err)	
 // 	})
 // })
 
 
+// // router.get('/categories', (req, res) => {
+// // 	db.Category.findAll({include: [{ 
+// // 		model: db.Post, 
+// // 		where: {
+// // 			text: db.Sequelize.col('posts_categories')
+// // 		}
+// // 	}]})
+// // 	.then((category) => {
+// // 		res.json({category})
+// // 	})
+// // 	.catch((err) => {
+// // 		console.log(err)	
+// // 	})
+// // })
 
-router.post('/users/pref/:username', (req, res) => {
-	let username = req.params.username;
-	let prefs = req.body
-	db.User.update(prefs, {where: {username: username}})
-	.then((user) => ( res.send(user) )) 
-})
+
+
+// router.post('/users/pref/:username', (req, res) => {
+// 	let username = req.params.username;
+// 	let prefs = req.body
+// 	db.User.update(prefs, {where: {username: username}})
+// 	.then((user) => ( res.send(user) )) 
+// })
 
 
 
-// Get all users in DB
-router.get('/users/all', (req, res) => {
-	db.User.findAll()
-	.then((users) => ( res.send(users) ))
-})
+// // Get all users in DB
+// router.get('/users/all', (req, res) => {
+// 	db.User.findAll()
+// 	.then((users) => ( res.send(users) ))
+// })
 
-// Gets a specific user
-router.get('/users/:username', (req, res) => {
-	let username = req.params.username;
-	db.User.findOne({where: {username: username}})
-	.then((user) => ( res.send(user) )) 
-})
+// // Gets a specific user
+// router.get('/users/:username', (req, res) => {
+// 	let username = req.params.username;
+// 	db.User.findOne({where: {username: username}})
+// 	.then((user) => ( res.send(user) )) 
+// })
 
-router.post('/users/pref/:username', (req, res) => {
-	let username = req.params.username;
-	let prefs = req.body
-	db.User.update(prefs, {where: {username: username}})
-	.then((user) => ( res.send(user) )) 
-})
+// router.post('/users/pref/:username', (req, res) => {
+// 	let username = req.params.username;
+// 	let prefs = req.body
+// 	db.User.update(prefs, {where: {username: username}})
+// 	.then((user) => ( res.send(user) )) 
+// })
 
 
 module.exports = router;

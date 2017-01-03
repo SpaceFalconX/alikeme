@@ -1,10 +1,9 @@
 module.exports = (connection, Sequelize) => {
 	const Posts = connection.define('posts', {
-		id: {
-      type: Sequelize.UUID,
+    id: {
+      type: Sequelize.INTEGER,
       primaryKey: true,
-      defaultValue: Sequelize.UUIDV4,
-      allowNull: false
+      autoIncrement: true
     },
   	text: {
   		type: Sequelize.STRING, 
