@@ -44,6 +44,16 @@ const ProfileSetup = React.createClass({
 						<input className="btn btn-default" type="submit" value="Submit Post"/>
 					</form>
 				</div>
+					<hr/>
+					<form>
+						<h3> Set up your social media accounts </h3>
+						<h5> Twitter </h5>
+						Enter your <span className="fa fa-twitter"> </span> handle: 	
+						<input type="text" ref="twitter" placeholder="eg: janedoe"/> <br/>
+						<h5> Facebook </h5>
+						Enter your <span className="fa fa-facebook"> </span> username: 	
+						<input type="text" ref="facebook" placeholder="eg: joedoe"/>
+					</form>
 				{this.props.posts.map((post, index)=>{
 					this.renderPost(post, index)
 				})}
