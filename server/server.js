@@ -14,6 +14,8 @@ const user =  require('./routes/user_router.js');
 const twitter = require('./config/twitter.js')
 const category =  require('./routes/category_router.js');
 const post =  require('./routes/post_router.js');
+const user =  require('./routes/user_router.js');
+
 // const tag =  require('./routes/tag_router.js');
 
 
@@ -34,7 +36,7 @@ app.use(morgan('dev'));
 app.use('/auth', auth)
 app.use('/api', category)
 app.use('/api', post)
-// app.use('/api', user)
+app.use('/api', user)
 
 
 // WILD CARD - anything else direct to landing page 

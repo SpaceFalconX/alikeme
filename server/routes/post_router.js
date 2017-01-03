@@ -10,7 +10,7 @@ router.route('/posts')
 		Post.forge(req.body)
 		.save()
 		.then((post) => {
-			console.log("post created succesfully!", post)
+			console.log("SUCCESS! -> post created")
 			res.send("Success")
 		})
 	})
@@ -24,7 +24,7 @@ router.route('/posts')
 		.catch(function (err) {
       res.status(500).json({error: {message: err.message}});
     });
-	})
+	});
 
 
 module.exports = router;

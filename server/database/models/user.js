@@ -2,6 +2,7 @@ const db = require('../config.js');
 const bcrypt	= require('bcryptjs')
 const Post = require('./post.js')
 
+
 const User = db.Model.extend({
 	tableName: 'users',
 	hasTimestamps: true,
@@ -9,7 +10,7 @@ const User = db.Model.extend({
 		this.on('creating', this.hashPassword);
 	},
 	posts () {
-    return this.hasMany('Post');
+    return this.hasMany(Post);
   },
 	hashPassword () {
 		const context = this;

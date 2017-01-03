@@ -50,7 +50,7 @@ db.knex.schema.hasTable('posts').then(function(exists) {
       post.increments('id').primary();
       post.integer('user_id')
       	// .references('id')
-       //  .inTable('users');
+        // .inTable('users');
       post.integer('category_id')
         // .references('id')
         // .inTable('categories');
