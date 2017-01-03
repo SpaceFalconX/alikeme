@@ -20,9 +20,6 @@ class ProfileComponent extends React.Component {
     this.state.toggle === 'interest' ?
     this.setState({toggle: 'entry'}) :
     this.setState({toggle: 'interest'})
-
-    //this.props.dispatch(toggleView('postToggle'));
-    //why don't you WORK WTF
   }
 
   render() {

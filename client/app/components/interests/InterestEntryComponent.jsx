@@ -1,48 +1,49 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {browserHistory} from 'react-router';
 import Seed from '../../seed.js'
 
 class InterestEntry extends React.Component {
   
   doSomething () {
-   console.log('this.props ', this.props )
     if (this.props.context === "edit") {
       browserHistory.push('/editInterest/' + this.props.id)
     }
-    if (this.props.context === "view") {
+   if (this.props.context === "view") {
       browserHistory.push('/viewInterest/' + this.props.id)
-    }
+   }
   }
 
   render () {
-    let current = Seed.interests.filter((interest) => {
-      //console.log('INTEREST ENTRY: ' ,++count, ' ', interest) //deleteME
-      return interest.id === this.props.id
+
+    let current;
+
+    current = this.props.posts.filter((entry) => {
+      return entry.post_id === parseInt(this.props.id)
     })[0]
 
-    //CSS STYLES
-    let CSS_card = { 
-      boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
-      transition: '0.3s',
-      borderRadius: '5px',
-      paddingLeft:  '20px'
+    if(!current){ //check seed js
+      current = Seed.interests.filter((entry) => {
+        return entry.post_id === parseInt(this.props.id)
+      })[0]
     }
-    let CSS_category = {
-      width: '250px',
-      alignContent: 'center',
-      color: '#3396FF',
-      marginBottom: '5px'
-    }
-
+    
     return (
-      <div onClick={this.doSomething.bind(this)} style={CSS_card}>
+      <div onClick={this.doSomething.bind(this)}>
         <h3>{current.title}</h3>
-        <p className="lead">{current.description}</p>
-        <p style={CSS_category}><small>Category:</small> {current.category}</p>
-        <p>@{current.user}</p>
+        <p>{current.content}</p>
+        <p><small>Categories:</small> {current.category.join(", ")}</p>
+        <p>@{current.username}</p>
+        <p><small>{current.post_id}</small></p>
       </div>
     )
   }
 }
 
-export default InterestEntry
+function mapStateToProps(state) {
+  return {
+    posts: state.userPosts
+  };
+}
+
+export default connect(mapStateToProps)(InterestEntry)

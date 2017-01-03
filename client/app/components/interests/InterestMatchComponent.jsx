@@ -1,29 +1,37 @@
 import React from 'react'
 import EntryComponent from './InterestEntryComponent.jsx'
 import BackButton from '../backButton.jsx'
+import {connect} from 'react-redux';
 import Seed from '../../seed.js'
 
 class InterestMatch extends React.Component {
   render () {
+    let current;
 
-    let current = Seed.interests.filter((interest) => {
-      return interest.id === parseInt(this.props.params.id)
+    current = this.props.posts.filter((entry) => {
+      return entry.post_id === parseInt(this.props.params.id)
     })[0]
 
-    let matches = Seed.interests.filter((interest) => {
-      return interest.category === current.category && interest.id !== current.id
+    if(!current){ //check seed js
+      current = Seed.interests.filter((entry) => {
+        return entry.post_id === parseInt(this.props.params.id)
+      })[0]
+    }
+
+    let seedMatches = Seed.interests.filter((entry) => {
+      return entry.category[0] === current.category[0] && entry.username !== current.username
     }).map((entry) => {
       return (
-        <EntryComponent key={entry.id} id={entry.id} context="view" />
+        <EntryComponent key={entry.post_id} id={entry.post_id} context="view" />
       )
     })
 
     return (
       <div>
         <h1>viewing your post</h1>
-        <EntryComponent id={current.id}/>
+        <EntryComponent id={this.props.params.id}/>
         <h1>your matches</h1>
-        {matches}
+        {seedMatches}
         <h2>edit/delete</h2>
         something else here
         <br />
@@ -33,4 +41,10 @@ class InterestMatch extends React.Component {
   }
 }
 
-export default InterestMatch
+function mapStateToProps(state) {
+  return {
+    posts: state.userPosts
+  };
+}
+
+export default connect(mapStateToProps)(InterestMatch)
