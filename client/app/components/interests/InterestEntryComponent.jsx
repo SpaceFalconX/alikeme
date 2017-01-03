@@ -5,12 +5,15 @@ import Seed from '../../seed.js'
 
 class InterestEntry extends React.Component {
   
-  doSomething () {
+  doSomething (username) {
     if (this.props.context === "edit") {
       browserHistory.push('/editInterest/' + this.props.id)
     }
    if (this.props.context === "view") {
       browserHistory.push('/viewInterest/' + this.props.id)
+   }
+   if(this.props.context === "navToProfile") {
+      browserHistory.push('/profile/' + username)
    }
   }
 
@@ -27,9 +30,11 @@ class InterestEntry extends React.Component {
         return entry.post_id === parseInt(this.props.id)
       })[0]
     }
+
+    console.log(current.username)
     
     return (
-      <div onClick={this.doSomething.bind(this)}>
+      <div onClick={this.doSomething.bind(this, current.username)}>
         <h3>{current.title}</h3>
         <p>{current.content}</p>
         <p><small>Categories:</small> {current.category.join(", ")}</p>
