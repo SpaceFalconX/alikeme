@@ -15,7 +15,6 @@ const twitter = require('./config/twitter.js')
 const category =  require('./routes/category_router.js');
 const post =  require('./routes/post_router.js');
 const user =  require('./routes/user_router.js');
-
 // const tag =  require('./routes/tag_router.js');
 
 

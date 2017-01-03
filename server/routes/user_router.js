@@ -10,6 +10,7 @@ router.route('/user/posts/:id')
 		User.where('id', req.params.id)
 		.fetch({withRelated: ['posts']})
 		.then((user) => {
+			console.log('USER', user, req.params.id)
 		  console.log(user.related('posts').toJSON());
 		  res.json({user})
 		})

@@ -7,11 +7,11 @@ db.plugin(cascadeDelete);
 db.plugin('registry');
 
 knex.migrate.latest({directory: path.join(__dirname, 'migrations')})
-.then(function() {
+.then(() => {
   return knex.seed.run({directory: path.join(__dirname, 'seeds')});
 })
-.then(function() {
-	console.log("SUCCESS: migrations and seed data")
+.then(() => {
+	console.log("SUCCESS: migrations and seed data completed")
 });
 
 module.exports = db;

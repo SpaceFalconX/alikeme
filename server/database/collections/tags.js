@@ -5,4 +5,4 @@ const Tags = db.Collection.extend({
   model: Tag
 });
 
-module.exports = Tags;
+module.exports = db.collection('Tags', Tags);
