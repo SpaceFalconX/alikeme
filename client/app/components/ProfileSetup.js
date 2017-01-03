@@ -25,7 +25,9 @@ const ProfileSetup = React.createClass({
 		const category = this.refs.category.value;
 		const user_id = this.props.user.id;
 		const username = this.props.user.username;
-		let postData = {user_id, username, content, title, category}
+		const twitterHandle = this.refs.twitter.value
+		const facebookUsername = this.refs.facebook.value
+		let postData = {user_id, username, content, title, category, twitterHandle, facebookUsername}
 		this.props.dispatch(submitNewPost(postData));
 		this.refs.newPostForm.reset();
 	},
@@ -42,6 +44,13 @@ const ProfileSetup = React.createClass({
 						<input className="form-group" type="text" ref="category" placeholder="category"/><br/>
 						<textarea className="form-group" type="text" ref="content" placeholder="new post"/><br/>
 						<input className="btn btn-default" type="submit" value="Submit Post"/>
+						<h3> Set up your social media accounts </h3>
+						<h5> Twitter </h5>
+						Enter your <span className="fa fa-twitter"> </span> handle: 	
+						<input type="text" ref="twitter" placeholder="eg: janedoe"/> <br/>
+						<h5> Facebook </h5>
+						Enter your <span className="fa fa-facebook"> </span> username: 	
+						<input type="text" ref="facebook" placeholder="eg: joedoe"/>
 					</form>
 				</div>
 				{this.props.posts.map((post, index)=>{

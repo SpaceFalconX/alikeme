@@ -46,6 +46,7 @@
     "redux-thunk": "^2.1.0",
     "sequelize": "^3.28.0",
     "style-loader": "^0.13.1",
+    "twit": "^2.2.5",
     "underscore": "^1.8.3",
     "webpack": "^1.14.0",
     "webpack-dev-middleware": "^1.6.1",
