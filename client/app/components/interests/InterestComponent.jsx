@@ -1,25 +1,40 @@
 import React from 'react'
+import EntryComponentSeed from './InterestEntryComponent-Seeded.jsx'
 import EntryComponent from './InterestEntryComponent.jsx'
+import {connect} from 'react-redux';
 import Seed from '../../seed.js'
 
 class InterestComponent extends React.Component {
 
   render () {
-
-    let current = Seed.interests.filter((interest) => {
-      return interest.user === this.props.username
+    let seeded = Seed.interests.filter((interest) => {
+      return interest.username === this.props.username
     }).map((entry) => {
       return (
-        <EntryComponent key={entry.id} id={entry.id} context="edit" title={entry.title} description={entry.description} category={entry.category} />
+        <EntryComponent key={entry.post_id} id={entry.post_id} context="edit" type="seed" />
       );
     })
 
+    let posted = this.props.posts.map((entry) => {
+      return (
+        <EntryComponent key={entry.post_id} id={entry.post_id} context="edit" />
+      )
+    }).reverse()
+
     return (
       <div>
-        {current}
+        {posted}
+        {seeded}
       </div>
     )
   }
 }
 
-export default InterestComponent
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+    posts: state.userPosts
+  };
+}
+
+export default connect(mapStateToProps)(InterestComponent)

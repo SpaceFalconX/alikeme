@@ -17,13 +17,9 @@ class ProfileComponent extends React.Component {
   }
 
   toggle () {
-    console.log(this.props)
     this.state.toggle === 'interest' ?
     this.setState({toggle: 'entry'}) :
     this.setState({toggle: 'interest'})
-
-    //this.props.dispatch(toggleView('postToggle'));
-    //why don't you WORK WTF
   }
 
   render() {
@@ -44,8 +40,6 @@ class ProfileComponent extends React.Component {
               <h4 onClick={this.toggle.bind(this)}>switch to interest</h4>
             </div>
         }
-
-
 
         <h2>my posts</h2>
         <Interests username={this.props.params.username} / >

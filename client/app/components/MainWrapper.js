@@ -20,13 +20,12 @@ const Main = React.createClass({
 })
 
 
-//map Redux state to React props
 function mapStatetoProps (state) {
 	console.log('STORE STATE', state)
 	return {
 		user: state.user,
 		isAuthenticated: state.user.isAuthenticated,
-		posts: state.userPosts,
+		posts: state.userPosts,	
 		preferences: state.preferences
 	}
 }

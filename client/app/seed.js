@@ -1,68 +1,68 @@
 export default {
-  choices: ['coffee', 'founder', 'developer', 'clubbing', 'concerts', 'dating'],
+  choices: [['coffee'], 'founder', ['developer'], 'clubbing', 'concerts', ['dating']],
   interests: [
     {
-      id: 1000,
+      post_id: Math.random() * 1000000000000000000,
       title: 'looking for coffee!',
-      description: 'I am Isaac and I want coffee',
-      category: 'coffee',
-      user: 'isaac'
+      content: 'I am Isaac and I want coffee',
+      category: ['coffee'],
+      username: 'isaac'
     },
     {
-      id: 1001,
+      post_id: Math.random() * 1000000000000000000,
       title: 'looking for work!',
-      description: 'I am Isaac and I want a job',
-      category: 'developer',
-      user: 'isaac'
+      content: 'I am Isaac and I want a job',
+      category: ['developer'],
+      username: 'isaac'
     },
     {
-      id: 1002,
+      post_id: Math.random() * 1000000000000000000,
       title: 'looking for a date!',
-      description: 'I am Isaac and I want a hot date',
-      category: 'dating',
-      user: 'isaac'
+      content: 'I am Isaac and I want a hot date',
+      category: ['dating'],
+      username: 'isaac'
     },
     {
-      id: 1003,
+      post_id: Math.random() * 1000000000000000000,
       title: 'looking for coffee!!',
-      description: 'I am Sevda and I want to get coffee with someone',
-      category: 'coffee',
-      user: 'sevda'
+      content: 'I am Sevda and I want to get coffee with someone',
+      category: ['coffee'],
+      username: 'sevda'
     },
     {
-      id: 1004,
+      post_id: Math.random() * 1000000000000000000,
       title: 'hiring',
-      description: 'I need developers bitch',
-      category: 'developer',
-      user: 'sevda'
+      content: 'I need developers bitch',
+      category: ['developer'],
+      username: 'sevda'
     },
     {
-      id: 1005,
+      post_id: Math.random() * 1000000000000000000,
       title: 'looking for a date!!',
-      description: 'I am Sevda and I am looking for a hot date',
-      category: 'dating',
-      user: 'sevda'
+      content: 'I am Sevda and I am looking for a hot date',
+      category: ['dating'],
+      username: 'sevda'
     },
         {
-      id: 1006,
+      post_id: Math.random() * 1000000000000000000,
       title: 'looking 4 coffee',
-      description: 'I am Wasiff and I want to drink a lot of caffeine',
-      category: 'coffee',
-      user: 'wasiff'
+      content: 'I am Wasiff and I want to drink a lot of caffeine',
+      category: ['coffee'],
+      username: 'wasiff'
     },
     {
-      id: 1007,
+      post_id: Math.random() * 1000000000000000000,
       title: 'looking 4 work',
-      description: 'I am Wasiff and I am a full stack web developer looking for work',
-      category: 'developer',
-      user: 'wasiff'
+      content: 'I am Wasiff and I am a full stack web developer looking for work',
+      category: ['developer'],
+      username: 'wasiff'
     },
     {
-      id: 1008,
+      post_id: Math.random() * 1000000000000000000,
       title: 'looking 4 a date',
-      description: 'I am Wasiff and I am looking for a hot date',
-      category: 'dating',
-      user: 'wasiff'
+      content: 'I am Wasiff and I am looking for a hot date',
+      category: ['dating'],
+      username: 'wasiff'
     }
   ]
 }
