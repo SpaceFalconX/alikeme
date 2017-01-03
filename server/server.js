@@ -12,20 +12,13 @@ const db = require('./database/config.js');
 const auth = require('./routes/auth_router.js');
 const user =  require('./routes/user_router.js');
 const twitter = require('./config/twitter.js')
+const category =  require('./routes/category_router.js');
+const post =  require('./routes/post_router.js');
+// const tag =  require('./routes/tag_router.js');
 
 
 // APP SETUP & MIDDLEWARE
 const app = express();
-
-
-// app.set('bookshelf', bookshelf);
-
-// const allowCrossDomain = function(req, res, next) {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   next();
-// };
-
-// app.use(allowCrossDomain);
 const compiler = webpack(config);
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
@@ -39,7 +32,9 @@ app.use(morgan('dev'));
 
 // ALL ROUTES
 app.use('/auth', auth)
-app.use('/api', user)
+app.use('/api', category)
+app.use('/api', post)
+// app.use('/api', user)
 
 
 // WILD CARD - anything else direct to landing page 
@@ -70,22 +65,6 @@ T.get('statuses/user_timeline', options, (err, data) => {
 
 
 
-
-// SEED DB & DISABLE FORIEGN KEY CONSTRAINTS
-// db.connection.query('SET FOREIGN_KEY_CHECKS = 0', {raw: true})
-// .then(() => { 
-// 	db.connection.sync({force: true})
-// 	.then(() => {
-// 		seed(db)
-// 		.then(() => {
-// 			console.log("App connected to DB") 
-// 			app.listen(4000, () => (
-// 				console.log("App running on port 4000")
-// 			))
-// 		})
-// 		.catch((err) => { console.log(err)})
-// 	})
-// });
 
 
 

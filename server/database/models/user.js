@@ -1,5 +1,6 @@
 const db = require('../config.js');
 const bcrypt	= require('bcryptjs')
+const Post = require('./post.js')
 
 const User = db.Model.extend({
 	tableName: 'users',
@@ -7,6 +8,9 @@ const User = db.Model.extend({
 	initialize () {
 		this.on('creating', this.hashPassword);
 	},
+	posts () {
+    return this.hasMany('Post');
+  },
 	hashPassword () {
 		const context = this;
 		return new Promise((resolve, reject) => {
@@ -26,26 +30,5 @@ const User = db.Model.extend({
 	}
 })
 
-module.exports = User;
+module.exports = db.model('User', User);
 
-
-// var User = db.Model.extend({
-
-//   tableName: 'users',
-//   hasTimestamps: true,
-//   initialize: function() {
-//     this.on('creating', this.hashPassword);
-//   },
-//   comparePassword: function(attemptedPassword, callback) {
-//     bcrypt.compare(attemptedPassword, this.get('password'), function(err, isMatch) {
-//       callback(isMatch);
-//     });
-//   },
-//   hashPassword: function() {
-//     var cipher = Promise.promisify(bcrypt.hash);
-//     return cipher(this.get('password'), null, null).bind(this)
-//       .then(function(hash) {
-//         this.set('password', hash);
-//       });
-//   }
-//   });

@@ -1,13 +1,12 @@
+const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 
-
+const config = require('../config/config.js');
 const User = require('../database/models/user.js');
 const Users = require('../database/collections/users.js');
-const config = require('../config/config.js');
 
-const express = require('express');
 const router = express.Router();
 
 router.post('/signup', (req, res) => {
