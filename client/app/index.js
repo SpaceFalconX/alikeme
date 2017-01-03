@@ -13,6 +13,7 @@ import Login from './components/Login.js'
 import InterestMatch from './components/interests/InterestMatchComponent.jsx'
 import InterestView from './components/interests/InterestViewComponent.jsx'
 import Browse from './components/BrowseComponent.jsx'
+import Settings from './components/settingsComponent.jsx'
 import Navbar from './components/Navbar.js'
 
 const Root = (
@@ -26,6 +27,7 @@ const Root = (
 				<Route path='/editInterest/:id' component={InterestMatch} />
         <Route path='/viewInterest/:id' component={InterestView} />
         <Route path='/browse' component={Browse} />
+				<Route path='/settings' component={Settings} />
 			</Route>
 		</Router>
 	</Provider>

@@ -18,11 +18,10 @@ class InterestEntry extends React.Component {
   }
 
   render () {
-
     let current;
 
     current = this.props.posts.filter((entry) => {
-      return entry.post_id === parseInt(this.props.id)
+      return parseInt(entry.post_id) === parseInt(this.props.id)
     })[0]
 
     if(!current){ //check seed js
@@ -31,8 +30,6 @@ class InterestEntry extends React.Component {
       })[0]
     }
 
-    console.log(current.username)
-    
     return (
       <div onClick={this.doSomething.bind(this, current.username)}>
         <h3>{current.title}</h3>

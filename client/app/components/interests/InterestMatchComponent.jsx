@@ -1,5 +1,6 @@
 import React from 'react'
 import EntryComponent from './InterestEntryComponent.jsx'
+import EditComponent from './editInterestComponent.jsx'
 import BackButton from '../backButton.jsx'
 import {connect} from 'react-redux';
 import Seed from '../../seed.js'
@@ -9,12 +10,14 @@ class InterestMatch extends React.Component {
     let current;
 
     current = this.props.posts.filter((entry) => {
-      return entry.post_id === parseInt(this.props.params.id)
+      return parseInt(entry.post_id) === parseInt(this.props.params.id)
     })[0]
+
+    console.log("SHOULD BE HERE", current)
 
     if(!current){ //check seed js
       current = Seed.interests.filter((entry) => {
-        return entry.post_id === parseInt(this.props.params.id)
+        return parseInt(entry.post_id) === parseInt(this.props.params.id)
       })[0]
     }
 
@@ -33,7 +36,7 @@ class InterestMatch extends React.Component {
         <h1>your matches</h1>
         {seedMatches}
         <h2>edit/delete</h2>
-        something else here
+        <EditComponent id={this.props.params.id} />
         <br />
         <BackButton />
       </div>

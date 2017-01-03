@@ -18,7 +18,9 @@ class Tags extends React.Component {
 
   render () {
     let domTags = this.props.tags.map((tag) => {
-      return <p key={tag} onClick={this.handleTag.bind(this, "remove", {tag})}> {tag} </p>
+      return (
+          <p key={tag} onClick={this.handleTag.bind(this, "remove", {tag})}> {tag} </p>
+      )
     })
 
     return (

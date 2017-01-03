@@ -28,7 +28,7 @@ const ProfileSetup = React.createClass({
 		const twitterHandle = this.refs.twitter.value
 		const facebookUsername = this.refs.facebook.value
 		let postData = {user_id, username, content, title, category, twitterHandle, facebookUsername}
-		this.props.dispatch(submitNewPost(postData));
+		//this.props.dispatch(submitNewPost(postData));
 		this.refs.newPostForm.reset();
 	},
 

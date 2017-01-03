@@ -8,7 +8,7 @@ import { filterFeed } from '../actions/actionCreator.js'
 class BrowseComponent extends React.Component {
   constructor(props) {
     super() 
-    //storing search term for filtering
+    
     this.state = {
       searchTerm : ''
     }
@@ -17,6 +17,7 @@ class BrowseComponent extends React.Component {
   filter (e) {
     e.preventDefault()
     this.setState({searchTerm:this.refs.search.value})
+    this.refs.search.value = ""
   }
   
   render () {
@@ -39,16 +40,15 @@ class BrowseComponent extends React.Component {
       )
     })
 
-    let CSS_widthOfInputBox = {
-      width:'400px'
-    }
-
     return (
       <div>
         <h1>browse</h1>
             <div className="input-group">
-              <span className="input-group-addon glyphicon glyphicon-search" id="sizing-addon2">lOOk for?</span>
-              <input onChange={this.filter.bind(this)} ref='search' style={CSS_widthOfInputBox} className="form-control" placeholder='filter by category' type="text" aria-describedby="sizing-addon2" />
+              <span>search</span>
+              <form onSubmit={this.filter.bind(this)}>
+              <input ref='search' placeholder='filter by category' type="text" />
+              <button>search</button>
+              </form>
             </div>
             {storeResults}
             {seedResults}
