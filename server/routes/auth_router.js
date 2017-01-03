@@ -22,60 +22,41 @@ router.post('/signup', (req, res) => {
 			const newUser = new User({ username, email, password})
 			.save()
 			.then((user) => {
-				const token = jwt.sign({
-    				user: _.omit(user.attributes, 'password'),
-    			}, config.jwtSecret)
-				console.log(`NEW USER: ${user.get('username')}`)
+				const token = generateToken(user);
+				console.log(`SIGNUP SUCCESS: ${user.get('username')}`)
 				res.status(201).send({token});
 			})
 		} 
 	})
 })
 
-// app.post('/signup', function(req, res) {
-//   var username = req.body.username;
-//   var password = req.body.password;
 
-//   new User({ username: username })
-//     .fetch()
-//     .then(function(user) {
-//       if (!user) {
-//         // ADVANCED VERSION -- see user model
-//         var newUser = new User({
-//           username: username,
-//           password: password
-//         });
-//         newUser.save()
-//           .then(function(newUser) {
-//             util.createSession(req, res, newUser);
-//           });
-//       } else {
-//         console.log('Account already exists');
-//         res.redirect('/signup');
-//       }
-//     });
-// });
+router.post('/login', (req, res) => {
+	let {username, password} = req.body;
+	new User ({username: username})
+	.fetch()
+	.then((user) => {
+		if(!user) {
+			res.status(400).json({error: "go to signup"})
+		} else {
+			user.checkPassword(password)
+			.then((match) => {
+				const token = generateToken(user);
+				console.log(`LOG IN SUCCESS: ${user.get('username')}`)
+				res.status(200).send({token});
+			})
+			.catch((err)=> {
+				res.status(401).json({error: "incorrect password"})
+			})
+		} 
+	})
+})
 
-// router.post('/login', (req, res) => {
-// 	let {username, password} = req.body;
-// 	User.findOne({where: {username: username}})
-// 	.then((user) => {
-// 		if(!user) {
-// 			res.status(400).json({error: "go to signup"})
-// 		} else {
-// 			bcrypt.compare(password, user.password, (err, match) => {
-//     		if(!match) {
-//     			res.sendStatus(401)
-//     		} else {
-//     			const token = jwt.sign({
-//     				user: _.omit(user.dataValues, 'password'),
-//     			}, config.jwtSecret)
-// 					console.log(`LOGGED IN USER: ${user.username} has logged in`)
-// 					res.status(200).send({token});
-// 				}
-//     	})
-// 		} 
-// 	})
-// })
+// Helper function
+const generateToken = (user) => {
+	return jwt.sign({
+		user: _.omit(user.attributes, 'password'),
+	}, config.jwtSecret)
+}
 
 module.exports = router;
