@@ -1,56 +1,18 @@
-const Sequelize = require('sequelize');
-const _ = require('underscore');
+const knexfile = require('./knexfile.js');
+const path = require('path')
+const knex = require('knex')(knexfile.development);
+const db = require('bookshelf')(knex);
+const cascadeDelete = require('bookshelf-cascade-delete');
+db.plugin(cascadeDelete);
+db.plugin('registry');
 
-const connection = new Sequelize('alike_me','root','123',  {
-	define: {
-    underscored: true
-  },
-  pool: false
-});
-
-// DB connection
-const db = {};
-db.Sequelize = Sequelize;
-db.connection = connection;
-
-// Models
-const User = require('./models/user_model.js');
-const Comment = require('./models/comment_model.js');
-const Post = require('./models/post_model.js');
-const Category = require('./models/category_model.js');
-
-db.User = User(connection, Sequelize);
-db.Comment = Comment(connection, Sequelize);
-db.Post = Post(connection, Sequelize);
-db.Category = Category(connection, Sequelize);
-
-const posts_categories = db.connection.define('posts_categories', {
-  id: {
-    type: db.Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  }
-}, {
-	underscored: true
+knex.migrate.latest({directory: path.join(__dirname, 'migrations')})
+.then(() => {
+  return knex.seed.run({directory: path.join(__dirname, 'seeds')});
 })
-
-
-// Relations 
-db.Post.belongsToMany(db.Category, {through: posts_categories});
-db.Category.belongsToMany(db.Post, {through: posts_categories});
-
-db['posts_categories'] = posts_categories;
-
-
-db.Comment.belongsTo(db.Post);
-db.Post.hasMany(db.Comment);
-
-db.Post.belongsTo(db.User);
-db.User.hasMany(db.Post);
-
-// db.Category.belongsToMany(db.User, {through: "users_categories"});
-// db.User.belongsToMany(db.Category, {through: "users_categories"});
-
+.then(() => {
+	console.log("SUCCESS: migrations and seed data completed")
+});
 
 module.exports = db;
 
@@ -59,8 +21,90 @@ module.exports = db;
 
 
 
+// const _ = require('underscore');
+
+// const knex = require('knex')({
+//   client: 'mysql',
+//   connection: {
+//     host     : 'localhost',
+//     user     : 'root',
+//     password : '123',
+//     database : 'alikeMe',
+//     charset  : 'utf8'
+//   }
+// });
+
+// var knexfile = require('./knexfile.js');
+// var knex = require('knex')(knexfile.development);
+
+// var bookshelf = require('bookshelf')(knex);
+// bookshelf.plugin('registry');
+
+// module.exports = bookshelf;
+
+// db.knex.schema.hasTable('users').then(function(exists) {
+//   if (!exists) {
+//     db.knex.schema.createTable('users', function (user) {
+//       user.increments('id').primary();
+//       user.string('username', 100).unique();
+//       user.string('email', 254).unique();
+//       user.string('password', 100);
+//       user.timestamps();
+//     }).then(function (table) {
+//       console.log('Created Table', table);
+//     });
+//   }
+// });
+
+// db.knex.schema.hasTable('categories').then(function(exists) {
+//   if (!exists) {
+//     db.knex.schema.createTable('categories', function (category) {
+//       category.increments('id').primary();
+//       category.string('name', 100).unique();
+//       category.timestamps();
+//     }).then(function (table) {
+//       console.log('Created Table', table);
+//     });
+//   }
+// });
+
+
+// db.knex.schema.hasTable('posts').then(function(exists) {
+//   if (!exists) {
+//     db.knex.schema.createTable('posts', function (post) {
+//       post.increments('id').primary();
+//       post.integer('user_id')
+//       	// .references('id')
+//         // .inTable('users');
+//       post.integer('category_id')
+//         // .references('id')
+//         // .inTable('categories');
+//       post.string('title', 100);
+//       post.text('content', 'mediumtext');
+//       post.timestamps();
+//     }).then(function (table) {
+//       console.log('Created Table', table);
+//     });
+//   }
+// });
+
+// db.knex.schema.hasTable('tags').then(function(exists) {
+//   if (!exists) {
+//     db.knex.schema.createTable('tags', function (tag) {
+//       tag.increments('id').primary();
+//       tag.string('name', 100).unique();
+//       tag.timestamps();
+//     }).then(function (table) {
+//       console.log('Created Table', table);
+//     });
+//   }
+// });
 
 
 
 
 
+
+// DROP DATABASE alikeMe;
+// CREATE DATABASE alikeMe;
+// USE alikeMe;
