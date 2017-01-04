@@ -1,14 +1,14 @@
 
 exports.up = (knex, Promise) => {
   return knex.schema.createTable('posts', (post) => {
-    post.increments('id').primary().notNullable();
-    post.integer('user_id').notNullable();
-    post.integer('category_id').notNullable();
+    post.increments('id').primary();
+    post.integer('user_id').unsigned().notNullable();
+    post.integer('category_id').unsigned().notNullable();
     post.string('title', 100).notNullable();
     post.text('content', 'mediumtext').notNullable();
     post.timestamps();
   })
-  .then(()=>{
+  .then(() => {
   	console.log('POSTS table created!')
   })
   ;

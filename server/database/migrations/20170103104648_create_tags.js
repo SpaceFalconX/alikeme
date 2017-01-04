@@ -1,7 +1,7 @@
 
 exports.up = (knex, Promise) => {
   return knex.schema.createTable('tags', (tag) => {
-    tag.increments('id').primary().notNullable();
+    tag.increments('id').primary();
     tag.string('name', 100).unique().notNullable();
   })
   .then(() => {
@@ -10,5 +10,5 @@ exports.up = (knex, Promise) => {
 };
 
 exports.down = (knex, Promise) => {
-    return knex.schema.dropTable('tags');
+   return knex.schema.dropTable('tags');
 };

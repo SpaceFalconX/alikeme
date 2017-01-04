@@ -15,7 +15,7 @@ const Post = db.Model.extend({
     return this.belongsTo('Category');
   },
   tags () {
-  	return this.belongsToMany('Tag').through(Posts_tag)
+  	return this.belongsToMany('Tag').through('Posts_tag')
   }
 })
 
