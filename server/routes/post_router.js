@@ -22,18 +22,26 @@ router.route('/posts')
 				const newTagsNames = JSON.parse(tags)
 				const tagsToSave = _.difference(newTagsNames, allTagsNames);
 				const promisedTags = tagsToSave.map((tagName) => {
-					return Tag.posts({name: tagName}).save();
+					return new Tag({name: tagName}).posts().attach(post);
 				})
 				Promise.all(promisedTags)
-				.then((tags) => {
-					Promise.all()
-					res.json(tags)
+				.then((result) => {
+					console.log("RESULT", result)
 				})
 			})
 		})
 	})
 
+// var admin1 = new Admin({username: 'user1', password: 'test'});
+// var admin2 = new Admin({username: 'user2', password: 'test'});
 
+// Promise.all([admin1.save(), admin2.save()])
+//   .then(function() {
+//     return Promise.all([
+//     new Site({id: 1}).admins().attach([admin1, admin2]),
+//     new Site({id: 2}).admins().attach(admin2)
+//   ]);
+// })
 
 
 	.get((req, res) => {
