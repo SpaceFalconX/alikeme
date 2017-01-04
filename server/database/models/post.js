@@ -1,9 +1,9 @@
 const db = require('../config.js');
+
 const User = require('./user.js')
 const Category = require('./category.js')
 const Tag = require('./tag.js')
-const Posts_tags = require('./posts_tags.js')
-
+const Posts_tag = require('./posts_tag.js')
 
 const Post = db.Model.extend({
   tableName: 'posts',
@@ -15,10 +15,8 @@ const Post = db.Model.extend({
     return this.belongsTo('Category');
   },
   tags () {
-  	return this.belongsToMany('Tag').through('Posts_tags')
+  	return this.belongsToMany('Tag').through(Posts_tag)
   }
-}, {  
-    dependents: ['tags']
 })
 
 module.exports = db.model('Post', Post);

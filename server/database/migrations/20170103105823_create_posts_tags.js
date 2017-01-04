@@ -2,8 +2,11 @@
 exports.up = (knex, Promise) => {
   return knex.schema.createTable('posts_tags', (joinTable) => {
     joinTable.increments('id').primary();
-    joinTable.integer('post_id').unique().notNullable();
-    joinTable.integer('tag_id').unique().notNullable();
+    joinTable.integer('post_id').notNullable();
+    joinTable.integer('tag_id').notNullable();
+  })
+  .then(()=>{
+  	console.log('POSTS_TAGS table created!')
   })
 };
 

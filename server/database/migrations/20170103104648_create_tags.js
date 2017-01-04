@@ -4,6 +4,9 @@ exports.up = (knex, Promise) => {
     tag.increments('id').primary().notNullable();
     tag.string('name', 100).unique().notNullable();
   })
+  .then(() => {
+  	console.log('TAGS table created!')
+  })
 };
 
 exports.down = (knex, Promise) => {

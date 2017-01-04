@@ -1,4 +1,5 @@
 const db = require('../config.js');
+
 const Post = require('./post.js')
 
 const Category = db.Model.extend({

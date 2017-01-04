@@ -7,7 +7,11 @@ exports.up = (knex, Promise) => {
     post.string('title', 100).notNullable();
     post.text('content', 'mediumtext').notNullable();
     post.timestamps();
-  });
+  })
+  .then(()=>{
+  	console.log('POSTS table created!')
+  })
+  ;
 };
 
 exports.down = (knex, Promise) => {

@@ -33,6 +33,8 @@ exports.seed = (knex, Promise) => {
     knex('posts_tags').insert({id: 2, post_id: 2, tag_id: 2}),
     knex('posts_tags').insert({id: 3, post_id: 3, tag_id: 7}),
     knex('posts_tags').insert({id: 4, post_id: 4, tag_id: 5}),
-    knex('posts_tags').insert({id: 5, post_id: 5, tag_id: 4})
+    knex('posts_tags').insert({id: 5, post_id: 5, tag_id: 4}),
+    knex('posts_tags').insert({id: 6, post_id: 5, tag_id: 5}),
+    knex('posts_tags').insert({id: 7, post_id: 5, tag_id: 7})
   )
 };
