@@ -10,7 +10,7 @@ const User = db.Model.extend({
 		this.on('creating', this.hashPassword);
 	},
 	posts () {
-    return this.hasMany(Post);
+    return this.hasMany('Post');
   },
 	hashPassword () {
 		const context = this;

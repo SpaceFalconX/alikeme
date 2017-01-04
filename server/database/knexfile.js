@@ -8,8 +8,7 @@ module.exports = {
       password : '123',
       database : 'alike_me',
       charset  : 'utf8'
-    },
-    debug: true
+    }
   }
 }
 
