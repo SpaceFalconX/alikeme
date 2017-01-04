@@ -12,9 +12,8 @@ const auth = require('./routes/auth_router.js');
 const category =  require('./routes/category_router.js');
 const post =  require('./routes/post_router.js');
 const user =  require('./routes/user_router.js');
-// const tag =  require('./routes/tag_router.js');
-
 const twitterApi = require('./routes/twitter_route.js')
+const personality_insights = require('./config/ibm_watson.js')
 
 // APP SETUP & MIDDLEWARE
 const app = express();
@@ -45,15 +44,3 @@ app.get('*', (req, res) => (
 app.listen(4000, () => (
 	console.log("App running on port 4000")
 ))
-
-// TWITTER API
-
-
-
-
-
-
-
-
-
-
