@@ -6,9 +6,9 @@ const cascadeDelete = require('bookshelf-cascade-delete');
 db.plugin(cascadeDelete);
 db.plugin('registry');
 
-knex.migrate.latest({directory: path.join(__dirname, 'migrations')})
+knex.migrate.latest({directory: path.resolve(__dirname, 'migrations')})
 .then(() => {
-  knex.seed.run({directory: path.join(__dirname, 'seeds')})
+  knex.seed.run({directory: path.resolve(__dirname, 'seeds')})
   .then(() => {
   	console.log("Migration completed.")
 	});

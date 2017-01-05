@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const User = require('../database/models/user.js');
 const Users = require('../database/collections/users.js');
-const Friend = require('../database/models/friend.js');
-// const Friends = require('../database/collections/friends.js');
+const Follower_following = require('../database/models/follower_following.js');
+const Followers_followings = require('../database/collections/followers_followings.js');
+const Promise  = require('bluebird');
 
-
+// Fetch all user posts by user id
 router.route('/user/posts/:id')
-	// Fetch all user posts by user id
 	.get((req, res) => {
 		User.where('id', req.params.id)
 		.fetch({withRelated: ['posts']})
@@ -21,14 +21,13 @@ router.route('/user/posts/:id')
 		});
 	})
 
-router.route('/user/friends')
-	// Fetch all friends by user id
+// Fetch all user's following by user id
+router.route('/user/following/:id')
 	.get((req, res) => {
 		User.where('id', req.params.id)
-		.fetch({withRelated: ['posts']})
+		.fetch({withRelated: ['following']})
 		.then((user) => {
-		  console.log(user.related('posts').toJSON());
-		  res.json(user.related('posts'))
+		  res.json(user.related('following'))
 		})
 		.catch((err) => {
 			console.error(err);
@@ -36,28 +35,45 @@ router.route('/user/friends')
 		});
 	})
 
-	// Fetch all friends by user id
-	
-router.route('/user/addfriend')
+// Fetch all user's followers by user id
+router.route('/user/followers/:id')
+	.get((req, res) => {
+		User.where('id', req.params.id)
+		.fetch({withRelated: ['followers']})
+		.then((user) => {
+		  res.json(user.related('followers'))
+		})
+		.catch((err) => {
+			console.error(err);
+			res.json({error: {message: err.message}})
+		});
+	})
+
+// Follow a user
+router.route('/user/followUser')
 	.post((req, res) => {
-		const {user_id, friend_id} = req.body
-		User.where('id', user_id)
-		.fetch()
-		.then((user) => {
-			new Friend({id: friend_id}).attach(user);
-			res.json(user);
+		const {follower_id, followed_id} = req.body;
+		if(follower_id === followed_id) {
+			return res.status(400).send({error: "Cannot follow yourself."})
+		}
+		User.forge({id: follower_id})
+		.fetch({require: true})
+		.then((follower) => {
+			User.forge({id: followed_id})
+			.fetch({require: true})
+			.then((followed) => {
+				follower.following().attach(followed)
+				.then(() => { res.sendStatus(201) })
+				.catch((err) => { res.status(400).send({error: err.message})})
+			})
+			.catch((err) => {
+				res.status(400).send({error: err.message})
+			})
+		})
+		.catch((err) => {
+			res.status(400).send({error: err.message})
 		})
 	})
-// 	var admin1 = new Admin({username: 'user1', password: 'test'});
-// var admin2 = new Admin({username: 'user2', password: 'test'});
-
-// Promise.all([admin1.save(), admin2.save()])
-//   .then(function() {
-//     return Promise.all([
-//     new Site({id: 1}).admins().attach([admin1, admin2]),
-//     new Site({id: 2}).admins().attach(admin2)
-//   ]);
-
 
 module.exports = router;
 

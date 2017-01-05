@@ -12,6 +12,16 @@ router.get('/personality', (req, res) => {
           res.status(400).send({error: err.message})
         }
         res.status(200).send(result)
+    })
+  })
+  .catch((err) => {
+    res.status(404).send({error: err.message})
+  })
+})
+
+module.exports = router
+
+
         //   traits.Openness = response.tree.children[0].children[0].children[0].percentage
         //   traits.Conscientiousness = response.tree.children[0].children[0].children[1].percentage
         //   traits.Extraversion = response.tree.children[0].children[0].children[2].percentage
@@ -25,11 +35,3 @@ router.get('/personality', (req, res) => {
         //   console.log(`Extraversion', ${response.tree.children[0].children[0].children[2].percentage}`)
         //   console.log(`Agreeableness', ${response.tree.children[0].children[0].children[3].percentage}`)
         //   console.log(`Emotional range', ${response.tree.children[0].children[0].children[4].percentage}`)
-    })
-  })
-  .catch((err) => {
-    res.status(404).send({error: err.message})
-  })
-})
-
-module.exports = router
