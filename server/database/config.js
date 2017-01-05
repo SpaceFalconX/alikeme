@@ -8,16 +8,16 @@ db.plugin('registry');
 
 knex.migrate.latest({directory: path.join(__dirname, 'migrations')})
 .then(() => {
-  return knex.seed.run({directory: path.join(__dirname, 'seeds')});
+  knex.seed.run({directory: path.join(__dirname, 'seeds')})
+  .then(() => {
+  	console.log("Migration completed.")
+	});
 })
-.then(() => {
-	console.log("SUCCESS: migrations and seed data completed")
-});
 
 module.exports = db;
 
 
-
+// table.unique(['LoginID', 'Email']);
 
 
 
@@ -74,7 +74,7 @@ module.exports = db;
 //     db.knex.schema.createTable('posts', function (post) {
 //       post.increments('id').primary();
 //       post.integer('user_id')
-//       	// .references('id')
+//        // .references('id')
 //         // .inTable('users');
 //       post.integer('category_id')
 //         // .references('id')

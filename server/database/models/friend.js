@@ -1,8 +1,8 @@
 const db = require('../config.js');
 
 const Friend = db.Model.extend({
-  tableName: 'users',
+  tableName: 'friends',
 })
 
-module.exports = Friend;
+module.exports = db.model('Friend', Friend);
 
