@@ -2,8 +2,8 @@
 exports.up = (knex, Promise) => {
   return knex.schema.createTable('posts', (post) => {
     post.increments('id').primary();
-    post.integer('user_id').unsigned().notNullable();
-    post.integer('category_id').unsigned().notNullable();
+    post.integer('user_id').unsigned().references('id').inTable('users');
+    post.integer('category_id').unsigned().references('id').inTable('categories');
     post.string('title', 100).notNullable();
     post.text('content', 'mediumtext').notNullable();
     post.timestamps();

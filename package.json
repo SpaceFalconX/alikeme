@@ -53,6 +53,7 @@
     "twit": "^2.2.5",
     "underscore": "^1.8.3",
     "webpack": "^1.14.0",
+    "watson-developer-cloud": "*",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.10.0",
     "when": "^3.7.7"
