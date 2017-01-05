@@ -1,6 +1,7 @@
 const db = require('../config.js');
 const bcrypt	= require('bcryptjs')
 const Post = require('./post.js')
+const Friend = require('./Friend.js')
 
 
 const User = db.Model.extend({
@@ -11,6 +12,9 @@ const User = db.Model.extend({
 	},
 	posts () {
     return this.hasMany('Post');
+  },
+  friends () {
+    return this.belongsToMany('User').through('Friend')
   },
 	hashPassword () {
 		const context = this;
