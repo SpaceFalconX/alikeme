@@ -5,7 +5,6 @@ import Navbar from './Navbar'
 
 //React.cloneElement will clone/propogate props down through the children elements
 const Main = React.createClass({
-
 	render() {
 		return (
 			<div>
@@ -19,14 +18,19 @@ const Main = React.createClass({
 	}
 })
 
+const defaultState = {
+	user: {},
+	isAuthenticated: false,
+	posts: [],
+	categories: [],
+}
 
-function mapStatetoProps (state) {
-	console.log('STORE STATE', state)
+function mapStatetoProps (state=defaultState) {
 	return {
 		user: state.user,
 		isAuthenticated: state.user.isAuthenticated,
-		posts: state.userPosts,	
-		preferences: state.preferences
+		posts: state.userPosts,
+		categories: state.categories
 	}
 }
 

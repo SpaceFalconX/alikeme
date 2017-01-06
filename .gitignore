@@ -2,8 +2,9 @@
 
 # dependencies
 node_modules
+/node_modules
 client/public
-
+/client/public
 # testing
 coverage
 

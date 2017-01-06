@@ -28,7 +28,7 @@ const ProfileSetup = React.createClass({
 		const twitterHandle = this.refs.twitter.value
 		const facebookUsername = this.refs.facebook.value
 		let postData = {user_id, username, content, title, category, twitterHandle, facebookUsername}
-		//this.props.dispatch(submitNewPost(postData));
+		this.props.dispatch(submitNewPost(postData));
 		this.refs.newPostForm.reset();
 	},
 
@@ -37,7 +37,7 @@ const ProfileSetup = React.createClass({
 			<div>
 				<h2>ProfileSetup</h2><hr/>
 				<div className="block">
-					<h3> Hello {this.props.user.username}!</h3>	
+					<h3> Hello {this.props.user.username}!</h3>
 					<form ref="newPostForm" onSubmit={this.handleSubmit}>
 						<h4> Make your first post and start matching up </h4>
 						<input className="form-group" type="text" ref="title" placeholder="Title"/><br/>
@@ -46,10 +46,10 @@ const ProfileSetup = React.createClass({
 						<input className="btn btn-default" type="submit" value="Submit Post"/>
 						<h3> Set up your social media accounts </h3>
 						<h5> Twitter </h5>
-						Enter your <span className="fa fa-twitter"> </span> handle: 	
+						Enter your <span className="fa fa-twitter"> </span> handle:
 						<input type="text" ref="twitter" placeholder="eg: janedoe"/> <br/>
 						<h5> Facebook </h5>
-						Enter your <span className="fa fa-facebook"> </span> username: 	
+						Enter your <span className="fa fa-facebook"> </span> username:
 						<input type="text" ref="facebook" placeholder="eg: joedoe"/>
 					</form>
 				</div>

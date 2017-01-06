@@ -1,7 +1,7 @@
 import React from 'react'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {addTag, removeTag} from '../../actions/tagActions.js'
+import {addTag, removeTag} from '../../actions/tag_actions.js'
 
 class Tags extends React.Component {
 

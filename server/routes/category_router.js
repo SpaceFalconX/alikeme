@@ -10,10 +10,11 @@ router.route('/categories')
     Categories.forge()
     .fetch()
     .then((collection) => {
-      res.json({data: collection});
+      console.log(collection.toJSON())
+      res.send(collection.toJSON());
     })
     .catch((err) => {
-      res.status(500).json({data: {message: err.message}});
+      res.status(500).json({error: err.message});
     });
   })
   // Create a new Category
@@ -21,11 +22,11 @@ router.route('/categories')
     Category.forge({name: req.body.name})
     .save()
     .then((category) => {
-      res.json({data: {category}});
+      res.json("Success!");
     })
     .catch((err) => {
-      res.status(500).json({data: {message: err.message}});
-    }); 
+      res.status(500).json({error: err.message});
+    });
   })
 
 // Delete a category (name params)

@@ -21,6 +21,8 @@ router.route('/user/posts/:id')
 		});
 	})
 
+
+
 // Fetch all user's following by user id
 router.route('/user/following/:id')
 	.get((req, res) => {

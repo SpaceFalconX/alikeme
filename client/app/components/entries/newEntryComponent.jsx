@@ -29,4 +29,4 @@ class newEntryComponent extends React.Component {
   }
 }
 
-export default newEntryComponent
+export default newEntryComponent;
