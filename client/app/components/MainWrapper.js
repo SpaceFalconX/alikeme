@@ -23,8 +23,7 @@ const defaultState = {
 	isAuthenticated: false,
 	posts: [],
 	categories: [],
-	tags: [],
-	apiStatus: false
+	tags: []
 }
 
 function mapStatetoProps (state=defaultState) {
@@ -34,7 +33,6 @@ function mapStatetoProps (state=defaultState) {
 		tags: state.tags,
 		posts: state.posts,
 		categories: state.categories,
-		apiStatus: state.apiStatus
 	}
 }
 

@@ -51,7 +51,7 @@ router.get('/:userid', (req, res) => {
 				delete result[i].tags[j]['_pivot_tag_id'];
 			}
 		}
-		res.json(result)
+		res.send(result)
 	})
 	.catch((err) => {
     res.status(500).json({error: {message: err.message}});
@@ -75,10 +75,15 @@ router.post('/new', (req, res) => {
 				return Tag.forge({name: tagName}).save();
 			})
 			return Promise.all(promisedTags)
-			.then((results) => {
-				post.tags().attach(results);
-				console.log("RESULTS", results)
-				res.sendStatus(201);
+			.then((result) => {
+				post.tags().attach(result);
+				console.log("RESULTS", result)
+				const resp = {};
+				resp.tags = result
+				resp['created_at'] = post['created_at']
+				resp['created_at'] = post['created_at']
+				console.log("RESP", resp)
+				res.send(resp);
 			})
 			.catch((err) => {
 				console.log(err);

@@ -14,21 +14,11 @@ class ProfileComponent extends React.Component {
   componentWillMount() {
     if(!this.props.categories.length) {
       this.props.dispatch(fetchCategories());
-      this.setState({toggle: "Entry"})
     }
+    console.log("this", this.props.user.id)
     this.props.dispatch(fetchUserPostsFromDb(this.props.user.id))
   }
-  // componentWillUpdate(nextProps, nextState) {
-  //   console.log("ALLLLLL", nextProps.createPost)
-  //   if(this.createPost) {
-  //     nextProps.dispatch(fetchUserPostsFromDb(this.props.user.id));
-  //   }
-  // }
-  toggle () {
-    this.state.toggle === 'Interest' ?
-    this.setState({toggle: 'Entry'}) :
-    this.setState({toggle: 'Interest'})
-  }
+
   render () {
     return (
       <div>

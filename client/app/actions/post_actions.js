@@ -1,23 +1,10 @@
 import axios from 'axios'
 import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_POSTS} from './index.js'
 
-export function createPost() {
+export function createPost(newPost) {
 	return {
 		type: CREATE_NEW_POST,
-	}
-}
-
-export function updatePost(updatedPost) {
-	return {
-		type: UPDATE_POST,
-		updatedPost
-	}
-}
-
-export function deletePost(deletedPost) {
-	return {
-		type: DELETE_POST,
-		deletedPost
+		newPost
 	}
 }
 
@@ -34,13 +21,16 @@ export function submitNewPost (newPost) {
 	return (dispatch) => {
 		return axios.post('/api/post/new', newPost)
 		.then((resp) => {
-			dispatch(createPost())
+			console.log("create post data shape:", resp.data, newPost)
+			newPost.tags = resp.data.tags;
+			dispatch(createPost(newPost))
 		})
 		.catch((err) => {
 			console.log(`Error submit new post ${err}`);
 		})
 	}
 }
+
 
 export function fetchPostsFromDb() {
  return (dispatch) => {
@@ -57,11 +47,28 @@ export function fetchUserPostsFromDb(userid) {
  return (dispatch) => {
 	 return axios.get(`/api/post/${userid}`)
 	 .then((resp) => {
+	 	console.log(resp)
 		 dispatch(fetchPosts(resp.data))
 	 })
 	 .catch((err)=> {console.log(err)})
  }
 }
+
+
+export function updatePost(updatedPost) {
+	return {
+		type: UPDATE_POST,
+		updatedPost
+	}
+}
+
+export function deletePost(deletedPost) {
+	return {
+		type: DELETE_POST,
+		deletedPost
+	}
+}
+
 
 export function updatePostToDb (updatedPost) {
 	return (dispatch) => {
