@@ -11,8 +11,10 @@ import {fetchCategories} from '../actions/category_actions.js'
 class ProfileComponent extends React.Component {
 
   componentWillMount() {
-    this.props.dispatch(fetchCategories());
-    this.setState({toggle: "Entry"})
+    if(!this.props.categories.length) {
+      this.props.dispatch(fetchCategories());
+      this.setState({toggle: "Entry"})
+    }
   }
 
   toggle () {

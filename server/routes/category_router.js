@@ -1,10 +1,10 @@
-const express = require('express');
-const router = express.Router();
 const Category = require('../database/models/category.js')
 const Categories = require('../database/collections/categories.js')
 
+const express = require('express');
+const router = express.Router();
 
-router.route('/categories')
+router.route('/')
   // Fetch all categories - category collection
   .get((req, res) => {
     Categories.forge()
@@ -30,7 +30,7 @@ router.route('/categories')
   })
 
 // Delete a category (name params)
-router.route('/categories/:name')
+router.route('/:name')
   .delete((req, res) => {
     Category.forge({name: req.params.name})
     .fetch({require: true})
