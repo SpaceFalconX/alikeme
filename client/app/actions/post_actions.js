@@ -1,10 +1,9 @@
 import axios from 'axios'
 import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_POSTS} from './index.js'
 
-export function createPost(newPost) {
+export function createPost() {
 	return {
 		type: CREATE_NEW_POST,
-		newPost
 	}
 }
 
@@ -35,7 +34,7 @@ export function submitNewPost (newPost) {
 	return (dispatch) => {
 		return axios.post('/api/post/new', newPost)
 		.then((resp) => {
-			dispatch(createPost(newPost))
+			dispatch(createPost())
 		})
 		.catch((err) => {
 			console.log(`Error submit new post ${err}`);
@@ -58,7 +57,6 @@ export function fetchUserPostsFromDb(userid) {
  return (dispatch) => {
 	 return axios.get(`/api/post/${userid}`)
 	 .then((resp) => {
-		 console.log('resp.data...... ', resp.data)
 		 dispatch(fetchPosts(resp.data))
 	 })
 	 .catch((err)=> {console.log(err)})

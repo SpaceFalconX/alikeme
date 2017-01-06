@@ -11,7 +11,6 @@ import {fetchUserPostsFromDb} from '../actions/post_actions.js'
 //make code reuseable for logged in and non-logged in users
 
 class ProfileComponent extends React.Component {
-
   componentWillMount() {
     if(!this.props.categories.length) {
       this.props.dispatch(fetchCategories());
@@ -19,6 +18,12 @@ class ProfileComponent extends React.Component {
     }
     this.props.dispatch(fetchUserPostsFromDb(this.props.user.id))
   }
+  // componentWillUpdate(nextProps, nextState) {
+  //   console.log("ALLLLLL", nextProps.createPost)
+  //   if(this.createPost) {
+  //     nextProps.dispatch(fetchUserPostsFromDb(this.props.user.id));
+  //   }
+  // }
   toggle () {
     this.state.toggle === 'Interest' ?
     this.setState({toggle: 'Entry'}) :

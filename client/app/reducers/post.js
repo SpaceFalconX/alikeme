@@ -1,18 +1,20 @@
+
+export function createPost (state, action) {
+	switch(action.type) {
+		case 'CREATE_NEW_POST':
+			return true;
+		default :
+			return false;
+	}
+	return false;
+}
+
 export function posts (state=[], action) {
 	//todo -> set state default to seed js
 	// change params
-
 	switch(action.type) {
-		case 'CREATE_NEW_POST':
-			return [
-				...state, {
-					title: action.newPost.title,
-					content: action.newPost.content,
-					category: action.newPost.category.name,
-					username: action.newPost.username,
-					user_id: action.newPost.user_id,
-				}
-			]
+		// case 'CREATE_NEW_POST':
+		// 	return Obj.assign({}, ...state);
 		case 'UPDATE_POST':
 			return state.map((post) => {
 					if(parseInt(post.post_id) !== parseInt(action.updatedPost.post_id)) {
@@ -42,4 +44,6 @@ export function posts (state=[], action) {
 	}
 	return state;
 }
+
+
 

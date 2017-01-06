@@ -9,7 +9,6 @@ class InterestEntry extends React.Component {
   }
 
   renderTags () {
-    console.log("THIS PROPS", this.props.post)
     return this.props.post.tags.map((tag, index) => {
       return (<Link key={index}><span className="label label-info" style={this.postStyle()}>{tag.name}</span></Link>)
     })
