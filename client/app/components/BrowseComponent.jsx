@@ -2,13 +2,13 @@ import React from 'react';
 import EntryComponent from './interests/InterestEntryComponent.jsx'
 import Seed from '../seed.js'
 import {connect} from 'react-redux';
-import { filterFeed } from '../actions/actionCreator.js'
+import { filterFeed } from '../actions/auth_actions.js'
 
 
 class BrowseComponent extends React.Component {
   constructor(props) {
-    super() 
-    
+    super()
+
     this.state = {
       searchTerm : ''
     }
@@ -19,7 +19,7 @@ class BrowseComponent extends React.Component {
     this.setState({searchTerm:this.refs.search.value})
     this.refs.search.value = ""
   }
-  
+
   render () {
 
     let seedResults = Seed.interests.filter(interest => {

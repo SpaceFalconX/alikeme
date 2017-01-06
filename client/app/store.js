@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger'
 import reducer from './reducers/index.js'
 import setAuthorizationToken from './utils/setAuthorizationToken.js'
-import {setUser} from './actions/actionCreator.js'
+import {setUser} from './actions/auth_actions.js'
 
 
 /**
@@ -20,7 +20,6 @@ const enhancers = compose(
 )
 
 // Store Creation
-
 const store = createStore(reducer, enhancers);
 
 // Chekcing and Setting for tokens for every request

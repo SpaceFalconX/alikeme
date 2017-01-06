@@ -16,6 +16,10 @@ const NewInterest = React.createClass({
       </div>
     )
   },
+  addNewTag(e) {
+    e.preventDefault();
+    this.props.dispatch(addTag(this.refs.tag.value))
+  },
 
   handleSubmit(e) {
     e.preventDefault();
@@ -25,6 +29,7 @@ const NewInterest = React.createClass({
     const user_id = this.props.user.id;
     const username = this.props.user.username;
     let postData = {user_id, username, content, title, category}
+    console.log("POSTDATA", postData)
     this.props.dispatch(submitNewPost(postData));
     this.refs.newPostForm.reset();
   },
@@ -53,10 +58,11 @@ const NewInterest = React.createClass({
             </select>
           </div>
           <div className ="form-group">
-            <label>Add tags</label>
-            <textarea className="form-control" type="text" ref="content" placeholder="new post"/>
+            <label>tags</label>
+            <input className="form-inline" type="text" ref="tag" placeholder="new post"/>
+            <button className="btn btn-sm" onClick={this.addNewTag}>Add tag</button>
           </div>
-          <button className="btn btn-default">Submit Post</button>
+          <input type="submit" className="btn btn-default" value="Submit Post" />
           </form>
         </div>
         {this.props.posts.map((post, index)=>{
@@ -71,16 +77,6 @@ export default NewInterest;
 
 
 
-//   handleTag(toggle, str, e) {
-//     e.preventDefault();
-//     if(toggle === "add"){
-//       this.props.addTag(this.refs.tags.value);
-//     }
-//     if(toggle === "remove"){
-//       this.props.removeTag(str.tag);
-//     }
-//     this.refs.tags.value = "";
-//   }
 // class NewInterest extends React.Component {
 
 //   handleSubmit(e) {

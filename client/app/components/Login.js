@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router'
-import {loginApiRequest} from '../actions/actionCreator.js'
+import {loginApiRequest} from '../actions/auth_actions.js'
 
 const Login = React.createClass({
 	componentWillUpdate(nextProps, nextState) {
@@ -47,7 +47,7 @@ const Login = React.createClass({
 				</form>
 				<div>
 						<p>New to Alike.me?</p>
-						<Link to="/">Go to Signup Page</Link> 
+						<Link to="/">Go to Signup Page</Link>
 				</div>
 			</div>
 		)

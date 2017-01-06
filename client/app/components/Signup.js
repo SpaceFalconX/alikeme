@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router'
-import {signupApiRequest, signupUser} from '../actions/actionCreator.js'
+import {signupApiRequest, signupUser} from '../actions/auth_actions.js'
 
 const Signup = React.createClass({
 	componentWillUpdate(nextProps, nextState) {
