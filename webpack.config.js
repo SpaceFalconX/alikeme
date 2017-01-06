@@ -15,21 +15,11 @@ var config = {
     filename: 'bundle.js',
     publicPath: '/public/'
   },
-  eslint: {
-  configFile: './.eslintrc'
-  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
   module : {
-    // preLoaders: [
-    //   {
-    //     test: /\.js$/,
-    //     exclude: /node_modules/,
-    //     loader: 'eslint-loader'
-    //   },
-    // ],
     loaders : [
       {
         test : /\.jsx?/,
@@ -41,11 +31,6 @@ var config = {
         include: path.join(__dirname, 'client/app'),
         loader: 'style-loader!css-loader'
       }
-      // {
-      //   test: /\.js$/,
-      //   exclude: /node_modules/,
-      //   loader: 'eslint-loader'
-      // }
     ]
   },
   node: {

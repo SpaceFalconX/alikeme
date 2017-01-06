@@ -37,27 +37,30 @@ export function submitNewPost (newPost) {
 			console.log(`Error on submit new post: ${err}`);
 		})
 	}
+  console.log(fetchedPosts);
+  return {
+  type: FETCH_POSTS,
+  fetchedPosts,
+};
 }
 
+
 export function fetchPostsFromDb() {
- return (dispatch) => {
-	 return axios.get('/api/post')
+  return dispatch => axios.get('/api/post')
 	 .then((resp) => {
-		 dispatch(fetchPosts(resp.data))
+		 console.log('resp.data...... ', resp.data);
+		 dispatch(fetchPosts(resp.data));
 	 })
-	 .catch((err)=> {console.log(err)})
- }
+	 .catch((err) => { console.log(err) ;});
 }
 
 export function fetchUserPostsFromDb(userid) {
- return (dispatch) => {
-	 return axios.get(`/api/post/${userid}`)
+  return dispatch => axios.get(`/api/post/${userid}`)
 	 .then((resp) => {
 	 	console.log(resp)
 		 dispatch(fetchUserPosts(resp.data))
 	 })
-	 .catch((err)=> {console.log(err)})
- }
+	 .catch((err) => { console.log(err); });
 }
 
 
@@ -67,35 +70,31 @@ export function fetchUserPostsFromDb(userid) {
 
 
 export function updatePost(updatedPost) {
-	return {
-		type: UPDATE_POST,
-		updatedPost
-	}
+  return {
+  type: UPDATE_POST,
+  updatedPost,
+};
 }
 
 export function deletePost(deletedPost) {
-	return {
-		type: DELETE_POST,
-		deletedPost
-	}
+  return {
+  type: DELETE_POST,
+  deletedPost,
+};
 }
 
 
-export function updatePostToDb (updatedPost) {
-	return (dispatch) => {
-		return axios.put('/api/post', updatedPost)
+export function updatePostToDb(updatedPost) {
+  return dispatch => axios.put('/api/post', updatedPost)
 		.then((resp) => {
-			dispatch(updatePost(updatedPost))
-		})
-	}
+  dispatch(updatePost(updatedPost));
+});
 }
 
-export function deletePostFromDb (deletedPost) {
-	return (dispatch) => {
-		return axios.delete('/api/post', deletedPost)
+export function deletePostFromDb(deletedPost) {
+  return dispatch => axios.delete('/api/post', deletedPost)
 		.then((resp) => {
-			dispatch(deletePost(deletedPost))
-		})
-	}
+  dispatch(deletePost(deletedPost));
+});
 }
 
