@@ -88,7 +88,7 @@ export default ProfileComponent;
 //       )
 //     } else {
 //       return (
-//         <img src={this.props.user.profilePicture} />
+//         <img src={this.props.user.profilePicture}  />
 //       )
 //     }
 //   }

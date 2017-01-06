@@ -1,0 +1,19 @@
+{
+  parser: "babel-eslint",
+  "extends": "airbnb-base",
+  "plugins": [
+    "react"
+  ],
+  "globals": {
+    "jQuery": true,
+    "$": true
+  },
+  "rules": {
+    "no-unused-vars": 0,
+    "max-len": [1, 80, 2, {ignoreComments: true}]
+  },
+    "env": {
+    "browser": true,
+    "node": true
+  },
+}

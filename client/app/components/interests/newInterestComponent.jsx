@@ -45,7 +45,7 @@ const NewInterest = React.createClass({
             <label>PostTitle</label>
             <input className="form-control" type="text" ref="title" placeholder="Title"/>
           </div>
-          <div className ="form-group">
+          <div className="form-group">
             <label>Content</label>
             <textarea className="form-control" type="text" ref="content" placeholder="new post"/>
           </div>
