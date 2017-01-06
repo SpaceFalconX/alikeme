@@ -28,6 +28,9 @@ export function submitNewPost (newPost) {
 		.then((resp) => {
 			dispatch(createPost(newPost))
 		})
+		.catch((err) => {
+			console.log(`Error submit new post ${err}`);
+		})
 	}
 }
 

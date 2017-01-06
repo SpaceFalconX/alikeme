@@ -2,7 +2,7 @@
 exports.up = (knex, Promise) => {
   return knex.schema.createTable('categories', (category) => {
     category.increments('id').primary();
-    category.string('name', 100).unique().notNullable();
+    category.string('name').unique().notNullable();
   })
   .then(()=>{
   	console.log('CATEGORIES table created!')
