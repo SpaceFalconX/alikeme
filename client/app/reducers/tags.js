@@ -1,36 +1,25 @@
-export function tags (state= {
-  tags: []
-}, action) {
-
+export function tags (state=[], action) {
   if(action.type === 'ADD_TAG'){
-    if(state.tags.indexOf(action.tag) !== -1) {
+    console.log("STATE", state)
+    if(state.indexOf(action.tag) !== -1) {
       return state
     }
-    return {
-      ...state,
-      tags: [...state.tags, action.tag]
-    }
+    return [...state, action.tag ]
   }
 
-  if(action.type === 'REMOVE_TAG'){
+  if(action.type === 'REMOVE_TAG') {
     if(state.tags.indexOf(action.tag) === -1) {
-      return state
+      return state;
     }
-    return {
-      ...state,
-      tags: [
-        ...state.tags.slice(0, state.tags.indexOf(action.tag)),
-        ...state.tags.slice(state.tags.indexOf(action.tag) + 1)
-      ],
-    }
+    return [
+        ...state,
+        ...state.slice(0, state.indexOf(action.tag)),
+        ...state.slice(state.indexOf(action.tag) + 1)
+      ]
   }
 
   if(action.type === 'CLEAR_TAGS') {
-    return {
-      ...state,
-      tags: []
-    }
+    return [];
   }
-
   return state
 }

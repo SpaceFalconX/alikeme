@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router'
-import {logoutClick} from '../actions/actionCreator.js'
+import {logoutClick} from '../actions/auth_actions.js'
 
 const Navbar = React.createClass({
 	logout () {

@@ -24,7 +24,7 @@ export function deletePost(deletedPost) {
 
 export function submitNewPost (newPost) {
 	return (dispatch) => {
-		return axios.post('/api/post', newPost)
+		return axios.post('/api/post/new', newPost)
 		.then((resp) => {
 			dispatch(createPost(newPost))
 		})
@@ -33,7 +33,7 @@ export function submitNewPost (newPost) {
 
 export function updatePostToDb (updatedPost) {
 	return (dispatch) => {
-		return axios.post('/api/post', updatedPost)
+		return axios.put('/api/post', updatedPost)
 		.then((resp) => {
 			dispatch(updatePost(updatedPost))
 		})
@@ -42,7 +42,7 @@ export function updatePostToDb (updatedPost) {
 
 export function deletePostFromDb (deletedPost) {
 	return (dispatch) => {
-		return axios.post('/api/post', deletedPost)
+		return axios.delete('/api/post', deletedPost)
 		.then((resp) => {
 			dispatch(deletePost(deletedPost))
 		})
