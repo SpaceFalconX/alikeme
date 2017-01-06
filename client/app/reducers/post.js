@@ -35,6 +35,8 @@ export function userPosts (state=[], action) {
 					return post
 				}
 			})
+		case 'FETCH_POST':
+		  return //	
 		default :
 			return state;
 	}	
