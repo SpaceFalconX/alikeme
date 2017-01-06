@@ -22,7 +22,7 @@ class BrowseComponent extends React.Component {
 
   componentWillMount() {
     //call dispatch to fetch data from server
-    this.props.dispatch(fetchPostsFromDb)
+    this.props.dispatch(fetchPostsFromDb())
   } 
   
   render () {
@@ -61,10 +61,4 @@ class BrowseComponent extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    posts: state.userPosts
-  };
-}
-
-export default connect(mapStateToProps)(BrowseComponent)
+export default BrowseComponent;

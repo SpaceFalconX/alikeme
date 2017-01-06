@@ -9,10 +9,10 @@ const Post = db.Model.extend({
   tableName: 'posts',
   hasTimestamps: true,  
   user () {
-    return this.belongsTo('User');
+    return this.belongsTo('User', 'author');
   },
   category () {
-    return this.belongsTo('Category');
+    return this.belongsTo('Category', 'category_name');
   },
   tags () {
   	return this.belongsToMany('Tag').through('Posts_tag')

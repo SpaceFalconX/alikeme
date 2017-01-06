@@ -62,8 +62,9 @@ export function deletePostFromDb (deletedPost) {
 }
 
 export function fetchPostsFromDb() {
+console.log('FETCH')
  return (dispatch) => {
-	 return axios.get('/api/post')
+	 return axios.get('/api/post/all')
 	 .then((resp) => {
 		 console.log('resp.data...... ', resp.data)
 		 dispatch(fetchPosts(resp.data))
