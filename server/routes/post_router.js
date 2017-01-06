@@ -64,11 +64,9 @@ router.post('/new', (req, res) => {
 	Post.forge({content, title, user_id, category_id})
 	.save()
 	.then((post) => {
-		console.log("POST", post)
 		Tags.forge()
 		.fetch()
 		.then((allTags) => {
-			console.log("ALL TAGS")
 			const allTagsNames = allTags.pluck('name');
 			const promisedTags = _.difference(tags, allTagsNames)
 			.map((tagName, index) => {
@@ -77,12 +75,10 @@ router.post('/new', (req, res) => {
 			return Promise.all(promisedTags)
 			.then((result) => {
 				post.tags().attach(result);
-				console.log("RESULTS", result)
 				const resp = {};
 				resp.tags = result
 				resp['created_at'] = post['created_at']
 				resp['created_at'] = post['created_at']
-				console.log("RESP", resp)
 				res.send(resp);
 			})
 			.catch((err) => {

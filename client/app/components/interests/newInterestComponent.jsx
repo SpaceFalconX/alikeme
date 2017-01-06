@@ -24,7 +24,6 @@ const NewInterest = React.createClass({
     const user_id = this.props.user.id;
     const tags = this.props.tags;
     let postData = {user_id, username, category, content, title, category_id, tags}
-    console.log(postData)
     this.props.dispatch(submitNewPost(postData));
     this.refs.newPostForm.reset();
   },
