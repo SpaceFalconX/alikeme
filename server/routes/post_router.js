@@ -16,7 +16,7 @@ router.get('/all', (req, res) => {
 		let result = collection.toJSON();
 		console.log('RESULT', result)
 		for(let i = 0; i < result.length; i++) {
-			result[i] = _.omit(result[i],['user', 'tags'])
+			result[i] = _.omit(result[i],['user'])
 			for(let j = 0; j < result[i].tags.length; j++) {
 				delete result[i].tags[j]['_pivot_id'];
 				delete result[i].tags[j]['_pivot_post_id'];

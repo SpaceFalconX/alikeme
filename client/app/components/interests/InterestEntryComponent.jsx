@@ -37,10 +37,10 @@ class InterestEntry extends React.Component {
 
     return (
       <div>
-        <h3>{this.props.posts.title}</h3>
-        <p>{this.props.posts.content}</p>
-        <p><small>Category</small> {this.props.posts.category.name}</p>
-        <p>@{this.props.posts.user.username}</p>
+        <h3>{this.props.post.title}</h3>
+        <p>{this.props.post.content}</p>
+        <p><small>Category</small> {this.props.post['category_name']}</p>
+        <p>@{this.props.post.author}</p>
         <p><small>
           {this.renderTags}</small></p>
       </div>

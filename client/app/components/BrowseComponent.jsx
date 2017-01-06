@@ -35,12 +35,12 @@ class BrowseComponent extends React.Component {
     //   )
     // })               {seedResults}
 
-    let storeResults = this.props.posts.filter(interest => {
-      return interest.category.indexOf(this.state.searchTerm) !== -1
+    let storeResults = this.props.posts.filter(post => {
+      return post['category_name'].indexOf(this.state.searchTerm) !== -1
     })
-    .map((interest) => {
+    .map((post) => {
       return (
-        <EntryComponent key={interest.post_id} id={interest.post_id} context="view" />
+        <EntryComponent key={post.id} context="view" post={post} />
       )
     })
 
