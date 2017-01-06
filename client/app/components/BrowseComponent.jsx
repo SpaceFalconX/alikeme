@@ -21,31 +21,21 @@ class BrowseComponent extends React.Component {
   }
 
   componentWillMount() {
-    //call dispatch to fetch data from server
     this.props.dispatch(fetchPostsFromDb())
-  } 
-  
-  render () {
-    // let seedResults = Seed.interests.filter(interest => {
-    //   return interest.category.indexOf(this.state.searchTerm) !== -1
-    // })
-    // .map((interest) => {
-    //   return (
-    //     <EntryComponent key={interest.post_id} id={interest.post_id} context="view" />
-    //   )
-    // })               {seedResults}
+  }
 
-    let storeResults = this.props.posts.filter(post => {
-      return post['category_name'].indexOf(this.state.searchTerm) !== -1
-    })
-    .map((post) => {
-      return (
-        <EntryComponent key={post.id} context="view" post={post} />
-      )
-    })
+  render () {
+    // let storeResults = this.props.posts.filter(post => {
+    //   return post.category.name.indexOf(this.state.searchTerm) !== -1
+    // })
+    // .map((post) => {
+    //   return (
+    //     <EntryComponent key={post.id} context="view" post={post} />
+    //   )
+    // })
 
     return (
-      <div>
+      <div  className="list-group">
         <h1>browse</h1>
             <div className="input-group">
               <span>search</span>
@@ -54,8 +44,13 @@ class BrowseComponent extends React.Component {
               <button>search</button>
               </form>
             </div>
-            {storeResults}
-
+            <div className='container'>
+              {this.props.posts.map((post) => {
+                return (
+                  <EntryComponent key={post.id} post={post} />
+                )})
+              }
+            </div>
       </div>
     )
   }

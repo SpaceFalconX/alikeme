@@ -11,18 +11,21 @@ const express = require('express');
 const router = express.Router();
 router.get('/all', (req, res) => {
 	Posts.forge()
-	.fetch({withRelated: ['user', 'tags']})
+	.fetch({withRelated: ['user', 'category', 'tags']})
 	.then((collection) => {
 		let result = collection.toJSON();
 		console.log('RESULT', result)
 		for(let i = 0; i < result.length; i++) {
-			result[i] = _.omit(result[i],['user'])
-			for(let j = 0; j < result[i].tags.length; j++) {
-				delete result[i].tags[j]['_pivot_id'];
-				delete result[i].tags[j]['_pivot_post_id'];
-				delete result[i].tags[j]['_pivot_tag_id'];
+				result[i] = _.pick(result[i],
+					['title', 'created_at', 'updated_at', 'content', 'id',
+					 'user.username', 'user.id', 'category.id', 'category.name', 'tags', ]
+					)
+				for(let j = 0; j < result[i].tags.length; j++) {
+					delete result[i].tags[j]['_pivot_id'];
+					delete result[i].tags[j]['_pivot_post_id'];
+					delete result[i].tags[j]['_pivot_tag_id'];
+				}
 			}
-		}
 		res.json(result)
 	})
 	.catch((err) => {
