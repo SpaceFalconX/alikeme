@@ -56,34 +56,41 @@ router.get('/:userid', (req, res) => {
 });
 
 router.post('/new', (req, res) => {
-	const {content, title, user_id, category_id, tags} = req.body;
-	Post.forge({content, title, user_id, category_id})
+	console.log("req.body", req.body)
+	const {content, title, author, category, tags} = req.body;
+	Post.forge({content, title, author, category})
 	.save()
 	.then((post) => {
+		console.log("POST", post)
 		Tags.forge()
 		.fetch()
 		.then((allTags) => {
+			console.log("ALL TAGS", typeof tags)
 			const allTagsNames = allTags.pluck('name');
-			const newTagsNames = JSON.parse(tags)
-			const promisedTags = _.difference(newTagsNames, allTagsNames)
+			// const newTagsNames = JSON.parse(tags)
+			const promisedTags = _.difference(tags, allTagsNames)
 			.map((tagName, index) => {
 				return Tag.forge({name: tagName}).save();
 			})
 			return Promise.all(promisedTags)
 			.then((results) => {
 				post.tags().attach(results);
+				console.log("RESULTS", results)
 				res.sendStatus(201);
 			})
 			.catch((err) => {
-	    	res.status(500).json({error: {message: err.message}});
+				console.log(err);
+	    	res.status(500).send({error: {message: err.message}});
 	  	});
 		})
 		.catch((err) => {
-    	res.status(500).json({error: {message: err.message}});
+			console.log(err);
+    	res.status(500).send({error: {message: err.message}});
   	});
 	})
 	.catch((err) => {
-  	res.status(400).json({error: {message: err.message}});
+		console.log(err);
+  	res.status(400).send({error: {message: err.message}});
 	});
 })
 
