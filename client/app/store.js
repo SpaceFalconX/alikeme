@@ -10,9 +10,9 @@ import setAuthorizationToken from './utils/setAuthorizationToken.js'
 import {setUser} from './actions/actionCreator.js'
 
 
-/** 
-Devtools extension Redux - should be applied as a store enhancer 
-not as a middleware. 
+/**
+Devtools extension Redux - should be applied as a store enhancer
+not as a middleware.
 */
 const enhancers = compose(
 	applyMiddleware(thunk),
@@ -20,6 +20,7 @@ const enhancers = compose(
 )
 
 // Store Creation
+
 const store = createStore(reducer, enhancers);
 
 // Chekcing and Setting for tokens for every request
@@ -28,7 +29,7 @@ if(localStorage.token) {
 	store.dispatch(setUser(jwt.decode(localStorage.token).user));
 }
 
-//Hot reload Redux
+//Hot reload Redux reducers
 if(module.hot) {
   module.hot.accept('./reducers/',() => {
     const nextRootReducer = require('./reducers/index').default;

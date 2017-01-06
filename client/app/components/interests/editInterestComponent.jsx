@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import Seed from '../../seed.js'
 import {browserHistory} from 'react-router'
-import {addTag, removeTag, clearTags} from '../../actions/tagActions.js'
+import {addTag, removeTag, clearTags} from '../../actions/tag_actions.js'
 import {updatePostToDb, deletePostFromDb} from '../../actions/post_actions.js'
 
 class NewInterest extends React.Component {

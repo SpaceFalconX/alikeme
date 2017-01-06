@@ -23,6 +23,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: config.output.publicPath
 }));
 app.use(require('webpack-hot-middleware')(compiler));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan('dev'))
@@ -36,7 +37,7 @@ app.use('/api', post)
 app.use('/api', user)
 
 
-// WILD CARD - anything else direct to landing page 
+// WILD CARD - anything else direct to landing page
 app.get('*', (req, res) => (
   res.sendFile(path.resolve(__dirname, '../client/app', 'index.html'))
 ));

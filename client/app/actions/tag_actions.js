@@ -1,19 +1,21 @@
+import {ADD_TAG, REMOVE_TAG, CLEAR_TAGS}from './index.js'
+
 export function addTag (tag) {
   return {
-    type: 'ADD_TAG',
+    type: ADD_TAG,
     tag
   }
 }
 
 export function removeTag (tag) {
   return {
-    type: 'REMOVE_TAG',
+    type: REMOVE_TAG,
     tag
   }
 }
 
 export function clearTags () {
   return {
-    type: 'CLEAR_TAGS'
+    type: CLEAR_TAGS
   }
 }

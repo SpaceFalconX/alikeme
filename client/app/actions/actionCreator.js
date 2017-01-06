@@ -18,7 +18,6 @@ export function logoutClick (user) {
 }
 
 export function signupApiRequest (userData) {
-	console.log(userData)
 	return function (dispatch) {
 		return axios.post('/auth/signup', userData)
 		.then((resp) => {
@@ -38,7 +37,6 @@ export function loginApiRequest (userData) {
 	return function (dispatch) {
 		return axios.post('/auth/login', userData)
 		.then((resp) => {
-			console.log(resp)
 			var token = resp.data.token;
 			localStorage.setItem('token', token);
 			setAuthorizationToken(token);

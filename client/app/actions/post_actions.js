@@ -1,22 +1,23 @@
 import axios from 'axios'
+import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_POSTS} from './index.js'
 
 export function createPost(newPost) {
 	return {
-		type: 'CREATE_NEW_POST',
+		type: CREATE_NEW_POST,
 		newPost
 	}
 }
 
 export function updatePost(updatedPost) {
 	return {
-		type: 'UPDATE_POST',
+		type: UPDATE_POST,
 		updatedPost
 	}
 }
 
 export function deletePost(deletedPost) {
 	return {
-		type: 'DELETE_POST',
+		type: DELETE_POST,
 		deletedPost
 	}
 }
