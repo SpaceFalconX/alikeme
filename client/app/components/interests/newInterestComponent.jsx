@@ -27,11 +27,15 @@ const NewInterest = React.createClass({
     const content = this.refs.content.value;
     const title = this.refs.title.value;
     const category = this.refs.category.value;
-    const author = this.props.user.username;
+    const category_id = this.props.categories.find((category)=> {
+      return this.refs.category.value === category.name
+    }).id
+    const username = this.props.user.username;
+    const user_id = this.props.user.id;
     const tags = this.props.tags;
-    let postData = {author, content, title, category, tags}
+    let postData = {user_id, username, category, content, title, category_id, tags}
     this.props.dispatch(submitNewPost(postData));
-    // this.refs.newPostForm.reset();
+    this.refs.newPostForm.reset();
   },
 
   render() {

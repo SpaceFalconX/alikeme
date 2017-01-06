@@ -43,6 +43,28 @@ export function submitNewPost (newPost) {
 	}
 }
 
+export function fetchPostsFromDb() {
+ return (dispatch) => {
+	 return axios.get('/api/post')
+	 .then((resp) => {
+		 console.log('resp.data...... ', resp.data)
+		 dispatch(fetchPosts(resp.data))
+	 })
+	 .catch((err)=> {console.log(err)})
+ }
+}
+
+export function fetchUserPostsFromDb(userid) {
+ return (dispatch) => {
+	 return axios.get(`/api/post/${userid}`)
+	 .then((resp) => {
+		 console.log('resp.data...... ', resp.data)
+		 dispatch(fetchPosts(resp.data))
+	 })
+	 .catch((err)=> {console.log(err)})
+ }
+}
+
 export function updatePostToDb (updatedPost) {
 	return (dispatch) => {
 		return axios.put('/api/post', updatedPost)
@@ -61,14 +83,3 @@ export function deletePostFromDb (deletedPost) {
 	}
 }
 
-export function fetchPostsFromDb() {
-console.log('FETCH')
- return (dispatch) => {
-	 return axios.get('/api/post/all')
-	 .then((resp) => {
-		 console.log('resp.data...... ', resp.data)
-		 dispatch(fetchPosts(resp.data))
-	 })
-	 .catch((err)=> {console.log(err)})
- }
-}
