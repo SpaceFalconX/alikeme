@@ -22,6 +22,15 @@ export function deletePost(deletedPost) {
 	}
 }
 
+// dont need to export this function
+export function fetchPosts(fetchedPosts) {
+	console.log(fetchedPosts)
+	return {
+		type: FETCH_POSTS,
+		fetchedPosts
+	}
+}
+
 export function submitNewPost (newPost) {
 	return (dispatch) => {
 		return axios.post('/api/post/new', newPost)
@@ -50,4 +59,16 @@ export function deletePostFromDb (deletedPost) {
 			dispatch(deletePost(deletedPost))
 		})
 	}
+}
+
+export function fetchPostsFromDb() {
+console.log('FETCH')
+ return (dispatch) => {
+	 return axios.get('/api/post/all')
+	 .then((resp) => {
+		 console.log('resp.data...... ', resp.data)
+		 dispatch(fetchPosts(resp.data))
+	 })
+	 .catch((err)=> {console.log(err)})
+ }
 }

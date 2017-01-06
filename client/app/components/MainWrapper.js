@@ -30,9 +30,9 @@ function mapStatetoProps (state=defaultState) {
 	return {
 		user: state.user,
 		isAuthenticated: state.user.isAuthenticated,
-		posts: state.userPosts,
-		categories: state.categories,
-		tags: state.tags
+		tags: state.tags,
+		posts: state.posts,
+		categories: state.categories
 	}
 }
 

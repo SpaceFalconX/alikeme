@@ -3,7 +3,7 @@ exports.up = (knex, Promise) => {
   return knex.schema.createTable('posts', (post) => {
     post.increments('id').primary();
     post.string('author').references('username').inTable('users');
-    post.string('category').references('name').inTable('categories');
+    post.string('category_name').references('name').inTable('categories');
     post.string('title', 100).notNullable();
     post.text('content', 'mediumtext').notNullable();
     post.timestamps();

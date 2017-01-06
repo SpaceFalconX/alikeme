@@ -20,11 +20,11 @@ exports.seed = (knex, Promise) => {
         knex('categories').insert({id: 2, name: 'veggies'}),
         knex('categories').insert({id: 3, name: 'grains'}),
 
-        knex('posts').insert({id: 1, content: 'an apple a day keeps the doctor away', title: 'FruitMania', author: 'sevda', category: 'fruits' }),
-        knex('posts').insert({id: 2, content: 'orange me pretty', title: 'Orange!', author: 'sevda', category: 'fruits' }),
-        knex('posts').insert({id: 3, content: 'anyone fancy an artcihoke?', title: 'VeggieMania', author: 'isaac', category: 'veggies'}),
-        knex('posts').insert({id: 4, content: 'Brussel Sprouts yoohooo', title: 'brussel', author: 'sevda', category: 'veggies'}),
-        knex('posts').insert({id: 5, content: 'wholegrains are good for you', title: 'GrainyPost', author: 'isaac', category: 'grains'}),
+        knex('posts').insert({id: 1, content: 'an apple a day keeps the doctor away', title: 'FruitMania', author: 'sevda', category_name: 'fruits' }),
+        knex('posts').insert({id: 2, content: 'orange me pretty', title: 'Orange!', author: 'sevda', category_name: 'fruits' }),
+        knex('posts').insert({id: 3, content: 'anyone fancy an artcihoke?', title: 'VeggieMania', author: 'isaac', category_name: 'veggies'}),
+        knex('posts').insert({id: 4, content: 'Brussel Sprouts yoohooo', title: 'brussel', author: 'sevda', category_name: 'veggies'}),
+        knex('posts').insert({id: 5, content: 'wholegrains are good for you', title: 'GrainyPost', author: 'isaac', category_name: 'grains'}),
 
         knex('tags').insert({id: 1, name: 'apples'}),
         knex('tags').insert({id: 2, name: 'oranges'}),
