@@ -2,7 +2,12 @@ import React from 'react';
 import EntryComponent from './interests/InterestEntryComponent.jsx'
 //import Seed from '../seed.js'
 import {connect} from 'react-redux';
+<<<<<<< f10b61d334a563b3344e50d33ba2a783b2f9ea5a
 import { filterFeed } from '../actions/auth_actions.js'
+=======
+import { filterFeed } from '../actions/actionCreator.js'
+import { fetchPostsFromDb } from '../actions/post_actions.js'
+>>>>>>> set-up fetchPosts
 
 
 class BrowseComponent extends React.Component {
@@ -22,7 +27,7 @@ class BrowseComponent extends React.Component {
 
   componentWillMount() {
     //call dispatch to fetch data from server
-    dispatch(fetchPosts)
+    this.props.dispatch(fetchPostsFromDb)
   } 
   
   render () {

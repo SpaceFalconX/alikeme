@@ -36,7 +36,8 @@ export function userPosts (state=[], action) {
 				}
 			})
 		case 'FETCH_POST':
-		  return //	
+		  console.log('inside reducer...')
+		  return Object.assign({}, state, { posts: action.posts })
 		default :
 			return state;
 	}	

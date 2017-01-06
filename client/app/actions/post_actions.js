@@ -60,12 +60,12 @@ export function deletePostFromDb (deletedPost) {
 }
 
 export function fetchPostsFromDb() {
- console.log('hello from action creator')
+ console.log('hello from post_action')
  return () => {
 	 return axios.get('/api/post')
 	 .then((resp) => {
+		 console.log('resp.data...... ', resp.data)
 		 dispatch(fetchPost(resp.data))
 	 })
  }
- 
 }
