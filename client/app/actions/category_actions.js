@@ -4,7 +4,7 @@ import {FETCH_CATEGORIES} from './index.js';
 
 export function fetchCategories() {
   return (dispatch) => {
-    return axios.get('/api/categories')
+    return axios.get('/api/category')
     .then((resp) => {
       dispatch(fetchAll(resp.data))
     })

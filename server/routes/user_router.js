@@ -7,24 +7,27 @@ const Followers_followings = require('../database/collections/followers_followin
 const Promise  = require('bluebird');
 
 // Fetch all user posts by user id
-router.route('/user/posts/:id')
+router.route('/posts/:id')
 	.get((req, res) => {
 		User.where('id', req.params.id)
-		.fetch({withRelated: ['posts']})
+		.fetch({withRelated: ['posts.category', 'posts.tags']})
 		.then((user) => {
-		  console.log(user.related('posts').toJSON());
-		  res.json(user.related('posts'))
-		})
-		.catch((err) => {
-			console.error(err);
-			res.json({error: {message: err.message}})
-		});
-	})
+			res.json(user)
+  });
+});
+	// 	  console.log(user.related('posts').toJSON());
+	// 	  res.json(user.related('posts'))
+	// 	})
+	// 	.catch((err) => {
+	// 		console.error(err);
+	// 		res.json({error: {message: err.message}})
+	// 	});
+	// })
 
 
 
 // Fetch all user's following by user id
-router.route('/user/following/:id')
+router.route('/following/:id')
 	.get((req, res) => {
 		User.where('id', req.params.id)
 		.fetch({withRelated: ['following']})
@@ -38,7 +41,7 @@ router.route('/user/following/:id')
 	})
 
 // Fetch all user's followers by user id
-router.route('/user/followers/:id')
+router.route('/followers/:id')
 	.get((req, res) => {
 		User.where('id', req.params.id)
 		.fetch({withRelated: ['followers']})
@@ -52,7 +55,7 @@ router.route('/user/followers/:id')
 	})
 
 // Follow a user
-router.route('/user/followUser')
+router.route('/followuser')
 	.post((req, res) => {
 		const {follower_id, followed_id} = req.body;
 		if(follower_id === followed_id) {

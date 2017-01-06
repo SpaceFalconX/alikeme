@@ -28,13 +28,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan('dev'))
 
-
 // ALL ROUTES
 app.use('/auth', auth)
-app.use('/api', watson)
-app.use('/api', category)
-app.use('/api', post)
-app.use('/api', user)
+app.use('/api/watson', watson)
+app.use('/api/category', category)
+app.use('/api/post', post)
+app.use('/api/user', user)
 
 
 // WILD CARD - anything else direct to landing page

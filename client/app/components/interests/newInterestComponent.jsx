@@ -7,10 +7,6 @@ import {browserHistory, Link} from 'react-router'
 
 
 const NewInterest = React.createClass({
-  navToProfile () {
-    browserHistory.push('/profile/' + this.props.user.username)
-  },
-
   renderPost(post, index) {
     return (
       <div key={index}>
@@ -28,7 +24,7 @@ const NewInterest = React.createClass({
     const category = this.refs.category.value;
     const user_id = this.props.user.id;
     const username = this.props.user.username;
-    let postData = {user_id, username, content, title, category, twitterLink, facebookLink}
+    let postData = {user_id, username, content, title, category}
     this.props.dispatch(submitNewPost(postData));
     this.refs.newPostForm.reset();
   },
@@ -51,7 +47,7 @@ const NewInterest = React.createClass({
           <div className ="form-group">
             <label>Select a Category</label>
             <select ref="category">
-              {this.props.categories.map((category) => {
+              {this.props.categories.map((category, index) => {
                 return <option key={category.id}>{category.name}</option>
               })}
             </select>
