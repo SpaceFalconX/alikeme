@@ -1,4 +1,4 @@
-export function userPosts (state=[], action) {
+export function posts (state=[], action) {
 	//todo -> set state default to seed js
 	// change params
 	
@@ -35,9 +35,9 @@ export function userPosts (state=[], action) {
 					return post
 				}
 			})
-		case 'FETCH_POST':
-		  console.log('inside reducer...')
-		  return Object.assign({}, state, { posts: action.posts })
+		case 'FETCH_POSTS':
+		  console.log('inside reducer...', state, action.fetchedPosts)
+		  return [...state, ...action.fetchedPosts]
 		default :
 			return state;
 	}	
