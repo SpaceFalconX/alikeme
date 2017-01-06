@@ -32,7 +32,7 @@ function mapStatetoProps (state=defaultState) {
 		isAuthenticated: state.user.isAuthenticated,
 		tags: state.tags,
 		posts: state.posts,
-		categories: state.categories
+		categories: state.categories,
 	}
 }
 

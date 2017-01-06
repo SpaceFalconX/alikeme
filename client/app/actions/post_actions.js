@@ -8,6 +8,53 @@ export function createPost(newPost) {
 	}
 }
 
+// dont need to export this function
+export function fetchPosts(fetchedPosts) {
+	console.log(fetchedPosts)
+	return {
+		type: FETCH_POSTS,
+		fetchedPosts
+	}
+}
+
+export function submitNewPost (newPost) {
+	return (dispatch) => {
+		return axios.post('/api/post/new', newPost)
+		.then((resp) => {
+			console.log("create post data shape:", resp.data, newPost)
+			newPost.tags = resp.data.tags;
+			dispatch(createPost(newPost))
+		})
+		.catch((err) => {
+			console.log(`Error submit new post ${err}`);
+		})
+	}
+}
+
+
+export function fetchPostsFromDb() {
+ return (dispatch) => {
+	 return axios.get('/api/post')
+	 .then((resp) => {
+		 console.log('resp.data...... ', resp.data)
+		 dispatch(fetchPosts(resp.data))
+	 })
+	 .catch((err)=> {console.log(err)})
+ }
+}
+
+export function fetchUserPostsFromDb(userid) {
+ return (dispatch) => {
+	 return axios.get(`/api/post/${userid}`)
+	 .then((resp) => {
+	 	console.log(resp)
+		 dispatch(fetchPosts(resp.data))
+	 })
+	 .catch((err)=> {console.log(err)})
+ }
+}
+
+
 export function updatePost(updatedPost) {
 	return {
 		type: UPDATE_POST,
@@ -22,26 +69,6 @@ export function deletePost(deletedPost) {
 	}
 }
 
-// dont need to export this function
-export function fetchPosts(fetchedPosts) {
-	console.log(fetchedPosts)
-	return {
-		type: FETCH_POSTS,
-		fetchedPosts
-	}
-}
-
-export function submitNewPost (newPost) {
-	return (dispatch) => {
-		return axios.post('/api/post/new', newPost)
-		.then((resp) => {
-			dispatch(createPost(newPost))
-		})
-		.catch((err) => {
-			console.log(`Error submit new post ${err}`);
-		})
-	}
-}
 
 export function updatePostToDb (updatedPost) {
 	return (dispatch) => {
@@ -61,14 +88,3 @@ export function deletePostFromDb (deletedPost) {
 	}
 }
 
-export function fetchPostsFromDb() {
-console.log('FETCH')
- return (dispatch) => {
-	 return axios.get('/api/post/all')
-	 .then((resp) => {
-		 console.log('resp.data...... ', resp.data)
-		 dispatch(fetchPosts(resp.data))
-	 })
-	 .catch((err)=> {console.log(err)})
- }
-}

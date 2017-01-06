@@ -11,7 +11,7 @@ const reducer = combineReducers({
 	posts,
   tags,
   categories,
-  routing: routerReducer,
+  routing: routerReducer
 })
 
 export default reducer;

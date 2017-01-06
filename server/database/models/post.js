@@ -7,12 +7,12 @@ const Posts_tag = require('./posts_tag.js')
 
 const Post = db.Model.extend({
   tableName: 'posts',
-  hasTimestamps: true,  
+  hasTimestamps: true,
   user () {
-    return this.belongsTo('User', 'author');
+    return this.belongsTo('User');
   },
   category () {
-    return this.belongsTo('Category', 'category_name');
+    return this.belongsTo('Category');
   },
   tags () {
   	return this.belongsToMany('Tag').through('Posts_tag')

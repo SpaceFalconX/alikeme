@@ -1,19 +1,27 @@
 export function posts (state=[], action) {
-	//todo -> set state default to seed js
-	// change params
-	
 	switch(action.type) {
 		case 'CREATE_NEW_POST':
-			return [
-				...state, {
-					title: action.newPost.title,
-					content: action.newPost.content,
-					category: action.newPost.category,
-					username: action.newPost.username,
-					user_id: action.newPost.user_id,
-					post_id: Math.random() * 1000000000000000000
-				}
-			]
+			console.log("newPost payload", action.newPost)
+			const { user_id, username, category,
+							content, title, category_id, tags} = action.newPost;
+			let newState =   {
+		    title: title,
+		    created_at: Date.now(),
+		    updated_at: Date.now(),
+		    content: content,
+		    id: 1,
+		    user: {
+		      username: username,
+		      id: user_id
+		    },
+		    category: {
+		      id: category_id,
+		      name: category
+		    },
+		    tags: tags
+		  }
+		  console.log("!!!!!!!!", newState)
+			return [...state, newState];
 		case 'UPDATE_POST':
 			return state.map((post) => {
 					if(parseInt(post.post_id) !== parseInt(action.updatedPost.post_id)) {
@@ -27,7 +35,7 @@ export function posts (state=[], action) {
 						user_id: action.updatedPost.user_id,
 						post_id: action.updatedPost.post_id
 					}
-					return post
+					return post;
 			})
 		case 'DELETE_POST':
 			return state.filter((post) => {
@@ -40,7 +48,9 @@ export function posts (state=[], action) {
 		  return [...state, ...action.fetchedPosts]
 		default :
 			return state;
-	}	
+	}
 	return state;
 }
+
+
 

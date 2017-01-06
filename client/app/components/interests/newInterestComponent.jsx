@@ -7,15 +7,6 @@ import {browserHistory, Link} from 'react-router'
 
 
 const NewInterest = React.createClass({
-  renderPost(post, index) {
-    return (
-      <div key={index}>
-        <p><strong>{post.author}</strong>
-        {post.content}
-        </p>
-      </div>
-    )
-  },
   addNewTag(e) {
     e.preventDefault();
     this.props.dispatch(addTag(this.refs.tag.value))
@@ -23,15 +14,19 @@ const NewInterest = React.createClass({
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log("REFS", this.refs)
     const content = this.refs.content.value;
     const title = this.refs.title.value;
     const category = this.refs.category.value;
-    const author = this.props.user.username;
+    const category_id = this.props.categories.find((category)=> {
+      return this.refs.category.value === category.name
+    }).id
+    const username = this.props.user.username;
+    const user_id = this.props.user.id;
     const tags = this.props.tags;
-    let postData = {author, content, title, category, tags}
+    let postData = {user_id, username, category, content, title, category_id, tags}
+    console.log(postData)
     this.props.dispatch(submitNewPost(postData));
-    // this.refs.newPostForm.reset();
+    this.refs.newPostForm.reset();
   },
 
   render() {
@@ -45,7 +40,7 @@ const NewInterest = React.createClass({
             <label>PostTitle</label>
             <input className="form-control" type="text" ref="title" placeholder="Title"/>
           </div>
-          <div className ="form-group">
+          <div className="form-group">
             <label>Content</label>
             <textarea className="form-control" type="text" ref="content" placeholder="new post"/>
           </div>
@@ -65,9 +60,6 @@ const NewInterest = React.createClass({
           <input type="submit" className="btn btn-default" value="Submit Post" />
           </form>
         </div>
-        {this.props.posts.map((post, index)=>{
-          return this.renderPost(post, index)
-        })}
       </div>
     )
   }
