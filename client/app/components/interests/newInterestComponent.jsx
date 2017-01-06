@@ -7,15 +7,6 @@ import {browserHistory, Link} from 'react-router'
 
 
 const NewInterest = React.createClass({
-  renderPost(post, index) {
-    return (
-      <div key={index}>
-        <p><strong>{post.author}</strong>
-        {post.content}
-        </p>
-      </div>
-    )
-  },
   addNewTag(e) {
     e.preventDefault();
     this.props.dispatch(addTag(this.refs.tag.value))
@@ -69,9 +60,6 @@ const NewInterest = React.createClass({
           <input type="submit" className="btn btn-default" value="Submit Post" />
           </form>
         </div>
-        {this.props.posts.map((post, index)=>{
-          return this.renderPost(post, index)
-        })}
       </div>
     )
   }
