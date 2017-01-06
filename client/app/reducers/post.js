@@ -1,7 +1,6 @@
 export function posts (state=[], action) {
 	switch(action.type) {
 		case 'CREATE_NEW_POST':
-			console.log("newPost payload", action.newPost)
 			const { user_id, username, category,
 							content, title, category_id, tags} = action.newPost;
 			let newState =   {
@@ -20,7 +19,6 @@ export function posts (state=[], action) {
 		    },
 		    tags: tags
 		  }
-		  console.log("!!!!!!!!", newState)
 			return [...state, newState];
 		case 'UPDATE_POST':
 			return state.map((post) => {

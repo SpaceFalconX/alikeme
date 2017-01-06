@@ -21,7 +21,6 @@ export function submitNewPost (newPost) {
 	return (dispatch) => {
 		return axios.post('/api/post/new', newPost)
 		.then((resp) => {
-			console.log("create post data shape:", resp.data, newPost)
 			newPost.tags = resp.data.tags;
 			dispatch(createPost(newPost))
 		})
