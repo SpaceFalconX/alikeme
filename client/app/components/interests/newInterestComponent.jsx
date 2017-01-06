@@ -21,16 +21,6 @@ const NewInterest = React.createClass({
     )
   },
 
-  //   handleTag(toggle, str, e) {
-//     e.preventDefault();
-//     if(toggle === "add"){
-//       this.props.addTag(this.refs.tags.value);
-//     }
-//     if(toggle === "remove"){
-//       this.props.removeTag(str.tag);
-//     }
-//     this.refs.tags.value = "";
-//   }
   handleSubmit(e) {
     e.preventDefault();
     const content = this.refs.content.value;
@@ -61,8 +51,8 @@ const NewInterest = React.createClass({
           <div className ="form-group">
             <label>Select a Category</label>
             <select ref="category">
-              {this.props.categories.map((choice) => {
-                return <option key={choice}>{choice}</option>
+              {this.props.categories.map((category) => {
+                return <option key={category.id}>{category.name}</option>
               })}
             </select>
           </div>
@@ -74,7 +64,7 @@ const NewInterest = React.createClass({
           </form>
         </div>
         {this.props.posts.map((post, index)=>{
-          this.renderPost(post, index)
+          return this.renderPost(post, index)
         })}
       </div>
     )
@@ -83,6 +73,18 @@ const NewInterest = React.createClass({
 
 export default NewInterest;
 
+
+
+//   handleTag(toggle, str, e) {
+//     e.preventDefault();
+//     if(toggle === "add"){
+//       this.props.addTag(this.refs.tags.value);
+//     }
+//     if(toggle === "remove"){
+//       this.props.removeTag(str.tag);
+//     }
+//     this.refs.tags.value = "";
+//   }
 // class NewInterest extends React.Component {
 
 //   handleSubmit(e) {
@@ -141,23 +143,3 @@ export default NewInterest;
 // }
 
 
-
-
-
-// function mapStateToProps(state) {
-//   return {
-//     tags: state.tags.tags,
-//     user: state.user
-//   };
-// }
-
-// function matchDispatchToProps(dispatch){
-//   return bindActionCreators({
-//     addTag,
-//     removeTag,
-//     clearTags,
-//     submitNewPost
-//   }, dispatch);
-// }
-
-// export default connect(mapStateToProps, matchDispatchToProps)(NewInterest);

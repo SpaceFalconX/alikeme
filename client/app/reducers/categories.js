@@ -1,12 +1,8 @@
-// import {FETCH_CATEGORIES} from '../actions/index.js';
-
-// const INITIAL_STATE = { categories: [] }
+import {FETCH_CATEGORIES} from '../actions/index.js';
 
 export function categories (state=[], action) {
-  console.log(action.type, action)
   switch(action.type) {
-    case 'FETCH_CATEGORIES':
-    // console.log([state, ...action.categories])
+    case FETCH_CATEGORIES:
       return state.concat(...action.categories)
     default:
       return state;
