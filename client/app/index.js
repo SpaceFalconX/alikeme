@@ -13,6 +13,7 @@ import Login from './components/Login.js'
 import Browse from './components/Browse.jsx'
 import Settings from './components/Settings.js'
 import Navbar from './components/Navbar.js'
+import Sidebar from './components/Sidebar.js'
 
 const Root = (
 	<Provider store={store}>
