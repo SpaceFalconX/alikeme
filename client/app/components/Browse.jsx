@@ -14,6 +14,7 @@ class Browse extends React.Component {
     }
   }
 
+
   filter (e) {
     e.preventDefault()
     this.setState({searchTerm:this.refs.search.value})
@@ -24,11 +25,10 @@ class Browse extends React.Component {
     this.props.dispatch(fetchPostsFromDb())
   }
 
-  componentWillUnmount() {
-    this.props.dispatch(fetchUserPostsFromDb(this.props.user.id))
-  }
-
   render () {
+    let sorted = this.props.allPosts.sort((a,b) => {
+      return a.id < b.id
+    })
     return (
       <div  className="list-group">
         <h1>browse</h1>
@@ -40,10 +40,11 @@ class Browse extends React.Component {
               </form>
             </div>
             <div className='container'>
-              {this.props.posts.map((post) => {
-                return (
-                  <Post key={post.id} post={post} />
-                )})
+              { sorted.map((post) => {
+                  return (
+                    <Post key={post.id} post={post} />
+                  )
+                })
               }
             </div>
       </div>

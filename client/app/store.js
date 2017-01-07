@@ -8,6 +8,7 @@ import logger from 'redux-logger'
 import reducer from './reducers/index.js'
 import setAuthorizationToken from './utils/setAuthorizationToken.js'
 import {setUser} from './actions/auth_actions.js'
+import {fetchUserPostsFromDb } from './actions/post_actions.js'
 import {fetchCategories} from './actions/category_actions.js'
 
 
@@ -26,6 +27,8 @@ const store = createStore(reducer, enhancers);
 if(localStorage.token) {
 	setAuthorizationToken(localStorage.token);
 	store.dispatch(setUser(jwt.decode(localStorage.token).user));
+  store.dispatch(fetchUserPostsFromDb(jwt.decode(localStorage.token).user.id));
+  // store.dispatch(fetchPostsFromDb());
 }
 
 //Hot reload Redux reducers

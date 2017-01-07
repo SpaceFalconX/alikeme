@@ -22,8 +22,10 @@ const NewPostForm = React.createClass({
     const username = this.props.user.username;
     const user_id = this.props.user.id;
     const tags = this.props.tags;
-    let postData = {user_id, username, category, content, title, category_id, tags}
-    this.props.dispatch(submitNewPost(postData));
+    var postData = {user_id, username, category, content, title, category_id, tags}
+    console.log("POST DATA", postData)
+
+    this.props.dispatch(submitNewPost({...postData}));
     this.refs.newPostForm.reset();
   },
 

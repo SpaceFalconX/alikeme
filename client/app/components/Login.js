@@ -13,14 +13,17 @@ const Login = React.createClass({
 		let userData = {username, password}
 		this.props.dispatch(loginApiRequest(userData))
 		.then(() => {
-			this.props.dispatch(fetchUserPostsFromDb(this.props.user.id))
-			.then(() => {
-				console.log("this.props.user.username", username)
-			this.props.router.push({pathname:`/profile/${username}`})
-		 	})
-			.catch((err) => {
-				console.log(err)
-			})
+			console.log("is auth?",this.props.user.isAuthenticated)
+			if(this.props.user.isAuthenticated) {
+				this.props.dispatch(fetchUserPostsFromDb(this.props.user.id))
+				.then(() => {
+					console.log("this.props.user.username", username)
+				this.props.router.push({pathname:`/profile/${username}`})
+			 	})
+				.catch((err) => {
+					console.log(err)
+				})
+			}
 		})
 		this.refs.loginForm.reset();
 	},

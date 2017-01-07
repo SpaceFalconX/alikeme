@@ -11,19 +11,22 @@ import {fetchUserPostsFromDb} from '../actions/post_actions.js'
 class Profile extends React.Component {
   componentWillMount() {
     if(this.props.categories.length === 0) {
-      console.log("this.props.categories.length", this.props.categories.length)
       this.props.dispatch(fetchCategories());
     }
   }
 
   render () {
+    let sorted = this.props.userPosts.sort((a,b) => {
+      return a.id < b.id
+    })
     return (
       <div>
         <NewPostForm {...this.props} />
-          {this.props.posts.map((post) => {
-            return (
-              <Post key={post.id} user={this.props.user} post={post} />
-            )})
+          { sorted.map((post) => {
+              return (
+                <Post key={post.id} user={this.props.user} post={post} />
+              )
+            })
           }
       </div>
     )

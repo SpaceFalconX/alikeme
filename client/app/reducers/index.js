@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import {auth} from './auth.js'
-import {posts} from './post.js'
+import {userPosts, allPosts} from './post.js'
 import {tags} from './tags.js'
 import {categories} from './categories.js'
 import {routerReducer} from 'react-router-redux';
@@ -9,7 +9,8 @@ import {LOGOUT_USER} from '../actions/index.js';
 //combine all Reducers
 const appReducer = combineReducers({
   user: auth,
-  posts,
+  userPosts,
+  allPosts,
   tags,
   categories,
   routing: routerReducer
@@ -18,7 +19,8 @@ const appReducer = combineReducers({
 
 const defaultState = {
   user: { isAuthenticated: false},
-  posts: [{}],
+  userPosts: [],
+  allPosts: [],
   categories: [],
   tags: []
 }

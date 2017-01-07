@@ -1,8 +1,8 @@
 import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS} from '../actions/index.js'
-const initialState = [{}];
 export function createNewPost (newPost) {
-	const { user_id, username, category, id,
-					content, title, category_id, tags,
+  console.log("NEW POST", newPost)
+	const { user_id, username, category,category_id, id,
+					content, title, tags,
 					created_at, updated_at} = newPost;
 	return {
     title: title,
@@ -22,16 +22,28 @@ export function createNewPost (newPost) {
   }
 }
 
-export function posts (state=initialState, action) {
-	// console.log(`STATE:${state}, ACTION:${action.type}`)
+export function userPosts (state=[], action) {
+	// console.log(`STATE:${state}, ACTION:${action.type},
+ //              newPost:${action.newPost}, fetchedUserPosts:${action.fetchedUserPosts}`)
 	switch(action.type) {
 		case CREATE_NEW_POST:
-			return [...state, createNewPost(action.newPost)]
+			return [...state, action.newPost];
 		case FETCH_USER_POSTS:
-		  return action.fetchedUserPosts;
-		case FETCH_ALL_POSTS:
-		  return action.fetchedPosts;
+      return [...state, ...action.fetchedUserPosts];
 		default :
 			return state;
 	}
+  return state;
 }
+
+export function allPosts (state=[], action) {
+  switch(action.type) {
+    case FETCH_ALL_POSTS:
+      return [...state, ...action.fetchedPosts];
+    default :
+      return state;
+  }
+  return state;
+}
+
+

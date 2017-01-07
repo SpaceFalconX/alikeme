@@ -22,7 +22,7 @@ class Post extends React.Component {
              style={{height: '10%',}} className="media-photo" />
           </Link>
           <span className="pull-right"><em>
-            { moment(this.props.post['created_at']).subtract(3, 'days').calendar() }
+            { moment(this.props.post.created_at).subtract(3, 'days').calendar() }
           </em></span>
           <div className="media-body">
             <h4 className="list-group-item-heading">{this.props.post.title}</h4>
@@ -31,7 +31,6 @@ class Post extends React.Component {
         </div>
         <div className="panel-body">
           <span className="glyphicon glyphicon-user" aria-hidden="true" style={this.postStyle()}></span>
-          <Link>{this.props.post.user.username}</Link>
           | <span className="glyphicon glyphicon-share" aria-hidden="true" style={this.postStyle()}> </span>
             <Link>39 Shares</Link>
           | <span className="glyphicon glyphicon-tags" aria-hidden="true" style={this.postStyle()}></span>

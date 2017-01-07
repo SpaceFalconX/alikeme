@@ -2,6 +2,7 @@ import axios from 'axios'
 import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST,FETCH_ALL_POSTS, FETCH_USER_POSTS} from './index.js'
 
 export function createPost(newPost) {
+	console.log("NEW POST ACTION CERATOR", newPost)
 	return {
 		type: CREATE_NEW_POST,
 		newPost
@@ -22,11 +23,15 @@ export function fetchUserPosts(fetchedUserPosts) {
 }
 
 export function submitNewPost (newPost) {
+	console.log("submit", newPost)
 	return (dispatch) => {
 		return axios.post('/api/post/new', newPost)
-		.then((resp) => {
-			newPost.tags = resp.data.tags;
-			dispatch(createPost(newPost))
+		.then(({data}) => {
+			console.log("data:", data)
+
+			let result = Object.assign({}, newPost, ...data)
+			console.log("object assign:", result)
+			dispatch(createPost(result))
 		})
 		.catch((err) => {
 			console.log(`Error on submit new post: ${err}`);

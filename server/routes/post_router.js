@@ -75,6 +75,7 @@ router.post('/new', (req, res) => {
 				post.tags().attach(result);
 				const resp = {};
 				resp.tags = result
+				resp.id = post.id
 				resp['created_at'] = post['created_at']
 				resp['created_at'] = post['created_at']
 				res.send(resp);

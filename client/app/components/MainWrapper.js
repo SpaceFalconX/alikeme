@@ -21,7 +21,8 @@ const Main = React.createClass({
 
 export const defaultState = {
 	user: { isAuthenticated: false },
-	posts: [{}],
+	userPosts: [],
+	allPosts: [],
 	categories: [],
 	tags: []
 }
@@ -29,10 +30,10 @@ export const defaultState = {
 function mapStatetoProps (state=defaultState) {
 	return {
 		user: state.user,
-		isAuthenticated: state.user.isAuthenticated,
 		tags: state.tags,
-		posts: state.posts,
 		categories: state.categories,
+		userPosts: state.userPosts,
+		allPosts: state.allPosts,
 	}
 }
 

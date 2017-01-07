@@ -25,7 +25,7 @@ router.post('/signup', (req, res) => {
 				console.log(`SIGNUP SUCCESS: ${user.get('username')}`)
 				res.status(201).send({token});
 			})
-		} 
+		}
 	})
 })
 
@@ -36,7 +36,7 @@ router.post('/login', (req, res) => {
 	.fetch()
 	.then((user) => {
 		if(!user) {
-			res.status(400).json({error: "go to signup"})
+			res.status(400).send({error: "go to signup"})
 		} else {
 			user.checkPassword(password)
 			.then((match) => {
@@ -47,7 +47,7 @@ router.post('/login', (req, res) => {
 			.catch((err)=> {
 				res.status(401).json({error: "incorrect password"})
 			})
-		} 
+		}
 	})
 })
 
