@@ -1,32 +1,29 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import NewInterest from './interests/newInterestComponent.jsx'
-import NewEntry from './entries/newEntryComponent.jsx'
-import Interests from './interests/InterestComponent.jsx'
-import InterestEntry from './interests/InterestEntryComponent.jsx'
+import Post from './Post.js'
+import NewPostForm from './NewPost.js'
 import {fetchCategories} from '../actions/category_actions.js'
 import {fetchUserPostsFromDb} from '../actions/post_actions.js'
 
 //todo
 //make code reuseable for logged in and non-logged in users
 
-class ProfileComponent extends React.Component {
+class Profile extends React.Component {
   componentWillMount() {
     if(!this.props.categories.length) {
       this.props.dispatch(fetchCategories());
     }
-    console.log("this", this.props.user.id)
     this.props.dispatch(fetchUserPostsFromDb(this.props.user.id))
   }
 
   render () {
     return (
       <div>
-        <NewInterest {...this.props} />
+        <NewPostForm {...this.props} />
         <div className='container'>
           {this.props.posts.map((post) => {
             return (
-              <InterestEntry key={post.id} user={this.props.user} post={post} />
+              <Post key={post.id} user={this.props.user} post={post} />
             )})
           }
         </div>
@@ -35,7 +32,7 @@ class ProfileComponent extends React.Component {
   }
 }
 
-export default ProfileComponent;
+export default Profile;
 
 
 

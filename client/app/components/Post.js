@@ -1,16 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {browserHistory, Link} from 'react-router';
-import Seed from '../../seed.js'
 
-class InterestEntry extends React.Component {
+class Post extends React.Component {
   postStyle () {
     return {margin: '0px 3px 0px 3px',}
   }
 
   renderTags () {
     return this.props.post.tags.map((tag, index) => {
-      return (<Link key={index}><span className="label label-info" style={this.postStyle()}>{tag.name}</span></Link>)
+      return (<Link key={tag.id}><span className="label label-info" style={this.postStyle()}>{tag.name}</span></Link>)
     })
   }
 
@@ -43,7 +42,7 @@ class InterestEntry extends React.Component {
   }
 }
 
-export default InterestEntry;
+export default Post;
 
   // doSomething (username) {
   //   if (this.props.context === "edit") {

@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router'
 import {connect} from 'react-redux'
+
 import Navbar from './Navbar'
 
 //React.cloneElement will clone/propogate props down through the children elements
@@ -18,10 +19,9 @@ const Main = React.createClass({
 	}
 })
 
-const defaultState = {
-	user: {},
-	isAuthenticated: false,
-	posts: [],
+export const defaultState = {
+	user: { isAuthenticated: false },
+	posts: [{}],
 	categories: [],
 	tags: []
 }
@@ -40,3 +40,4 @@ function mapStatetoProps (state=defaultState) {
 const MainWrapper = connect(mapStatetoProps)(Main);
 
 export default MainWrapper;
+

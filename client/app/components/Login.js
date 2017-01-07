@@ -5,9 +5,9 @@ import {loginApiRequest} from '../actions/auth_actions.js'
 const Login = React.createClass({
 	componentWillUpdate(nextProps, nextState) {
 		if(nextProps.user.isAuthenticated===true) {
-			nextProps.router.push({pathname:`/profile/${nextProps.user.username}`})
+			nextProps.router.push({pathname:`/profile/${nextProps.user.id}`})
 		} else {
-			console.log('Login error...')
+			console.log('Not Authenticated...')
 		}
 	},
 
@@ -16,7 +16,9 @@ const Login = React.createClass({
 		const username = this.refs.username.value;
 		const password = this.refs.password.value;
 		let userData = {username, password}
-		this.props.dispatch(loginApiRequest(userData));
+		this.props.dispatch(loginApiRequest(userData)).then((result) => {
+			console.log("LOGIN SUCCESS?", result)
+		})
 		this.refs.loginForm.reset();
 	},
 
