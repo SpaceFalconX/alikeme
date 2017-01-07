@@ -29,7 +29,7 @@ export function submitNewPost (newPost) {
 		.then(({data}) => {
 			console.log("data:", data)
 
-			let result = Object.assign({}, newPost, ...data)
+			let result = {...newPost, ...data}
 			console.log("object assign:", result)
 			dispatch(createPost(result))
 		})
