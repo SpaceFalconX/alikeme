@@ -15,8 +15,9 @@ const Login = React.createClass({
 		.then(() => {
 			this.props.dispatch(fetchUserPostsFromDb(this.props.user.id))
 			.then(() => {
-				this.props.router.push({pathname:`/profile/${this.props.user.username}`})
-			})
+				console.log("this.props.user.username", username)
+			this.props.router.push({pathname:`/profile/${username}`})
+		 	})
 			.catch((err) => {
 				console.log(err)
 			})

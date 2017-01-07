@@ -22,7 +22,6 @@ export function fetchUserPosts(fetchedUserPosts) {
 }
 
 export function submitNewPost (newPost) {
-	console.log("NEW POST", newPost)
 	return (dispatch) => {
 		return axios.post('/api/post/new', newPost)
 		.then((resp) => {

@@ -23,7 +23,7 @@ const Root = (
 				<Route path='/setup/:username' component={ProfileSetup} />
 				<Route path='/profile/:username' component={Profile} />
         <Route path='/browse/:username' component={Browse} />
-				<Route path='/settings/:username' component={Settings} />
+				<Route path='/editProfile/:username' component={Settings} />
 			</Route>
 		</Router>
 	</Provider>
