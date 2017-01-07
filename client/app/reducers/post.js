@@ -29,11 +29,12 @@ export function posts (state=initialState, action) {
 		case CREATE_NEW_POST:
 			return [...state, createNewPost(action.newPost)]
 		case FETCH_USER_POSTS:
+      console.log("payload:", action.fetchedUserPosts)
 		  return action.fetchedUserPosts;
 		case FETCH_ALL_POSTS:
+      console.log("payload:", action.fetchedUserPosts)
 		  return action.fetchedPosts;
 		default :
 			return state;
 	}
-	return state;
 }

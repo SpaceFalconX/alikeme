@@ -8,7 +8,6 @@ export function createPost(newPost) {
 	}
 }
 export function fetchPosts(fetchedPosts) {
-	console.log("ALL POSTS", fetchedPosts)
 	return {
 		type: FETCH_ALL_POSTS,
 		fetchedPosts
@@ -16,7 +15,6 @@ export function fetchPosts(fetchedPosts) {
 }
 
 export function fetchUserPosts(fetchedUserPosts) {
-	console.log("USER POSTS", fetchedUserPosts)
 	return {
 		type: FETCH_USER_POSTS,
 		fetchedUserPosts
@@ -29,7 +27,6 @@ export function submitNewPost (newPost) {
 		return axios.post('/api/post/new', newPost)
 		.then((resp) => {
 			newPost.tags = resp.data.tags;
-			console.log("NEW POST PAYLOAD", newPost)
 			dispatch(createPost(newPost))
 		})
 		.catch((err) => {

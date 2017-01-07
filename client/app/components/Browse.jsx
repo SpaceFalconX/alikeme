@@ -2,7 +2,7 @@ import React from 'react';
 import Post from './Post.js'
 import {connect} from 'react-redux';
 import { filterFeed } from '../actions/auth_actions.js'
-import { fetchPostsFromDb } from '../actions/post_actions.js'
+import { fetchPostsFromDb, fetchUserPostsFromDb} from '../actions/post_actions.js'
 
 
 class Browse extends React.Component {
@@ -17,11 +17,15 @@ class Browse extends React.Component {
   filter (e) {
     e.preventDefault()
     this.setState({searchTerm:this.refs.search.value})
-    this.refs.search.value = ""
+    this.refs.search.value = "";
   }
 
   componentWillMount() {
     this.props.dispatch(fetchPostsFromDb())
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(fetchUserPostsFromDb(this.props.user.id))
   }
 
   render () {

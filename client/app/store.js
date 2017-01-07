@@ -22,9 +22,6 @@ const enhancers = compose(
 
 // Store Creation
 const store = createStore(reducer, enhancers);
-store.dispatch(fetchCategories()).then(() => {
-  console.log("FETCHED CATEGORIES IN STORE")
-})
 // Chekcing and Setting for tokens for every request
 if(localStorage.token) {
 	setAuthorizationToken(localStorage.token);

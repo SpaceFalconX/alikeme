@@ -19,11 +19,11 @@ const Root = (
 		<Router history={history}>
 			<Route path="/" component={MainWrapper}>
 				<IndexRoute component={Signup}></IndexRoute>
-				<Route path="/login" component={Login} />
-				<Route path="/setup/:username" component={ProfileSetup} />
-				<Route path="/profile/:id" component={Profile} />
-        <Route path='/browse' component={Browse} />
-				<Route path='/settings' component={Settings} />
+				<Route path='/login' component={Login} />
+				<Route path='/setup/:username' component={ProfileSetup} />
+				<Route path='/profile/:username' component={Profile} />
+        <Route path='/browse/:username' component={Browse} />
+				<Route path='/settings/:username' component={Settings} />
 			</Route>
 		</Router>
 	</Provider>
