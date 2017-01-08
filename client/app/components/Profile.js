@@ -8,7 +8,7 @@ import {fetchCategories} from '../actions/category_actions.js'
 import {fetchUserPostsFromDb, getPostsByUsername} from '../actions/post_actions.js'
 
 class Profile extends React.Component {
-  componentWillMount() {
+  componentWillMount () {
     this.props.dispatch(getPostsByUsername(this.props.params.username))
     if(this.props.params.username !== this.props.user.username){ //if does not match logged in user
       browserHistory.push('/profile/' + this.props.params.username) //reroute to a public profile
@@ -37,8 +37,6 @@ class Profile extends React.Component {
 }
 
 export default Profile;
-
-
 
 // class ProfileComponent extends React.Component {
 

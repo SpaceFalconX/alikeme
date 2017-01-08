@@ -14,7 +14,7 @@ class Post extends React.Component {
     })
   }
 
-  usernameContext () {
+  usernameContext () { //pass session user in instead for better checking
     if(this.props.post.username) {
       return this.props.post.username
     }
@@ -24,7 +24,7 @@ class Post extends React.Component {
   matchORViewContext () {
     //fix logic here! doesn't work with public profiles
     if(this.props.contextUser && this.props.contextUser !== this.usernameContext()) {
-      //go to public post
+      //go to public post, or just stay here for now
       return (
         <Link to={'/profile/' + this.usernameContext()}> click to view {this.usernameContext()}'s profile</Link>
       )
@@ -32,7 +32,7 @@ class Post extends React.Component {
     //go to matches post
     //matches post will also have an edit link
     return (
-      <Link to={'/' + this.usernameContext()}> click to view {this.usernameContext()}'s profile</Link>
+      <Link to={'/' + this.usernameContext()}> click to view your profile</Link>
     )
   }
 

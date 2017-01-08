@@ -11,16 +11,15 @@ class PublicProfile extends React.Component {
   userPosts () {
     return this.props.userPosts.map((post) => {
       return (
-        <Post key={post.id} post={post} />
+        <Post key={post.id} post={post} contextUser={this.props.user.username}/>
       )
     })
   }
+
   render () {
-    console.log(this.props) //needs an id to match with username
     return (
       <div>
       <h1>{this.props.params.username}'s profile</h1>
-      look at all this stuff
       {this.userPosts()}
       </div>
     )
