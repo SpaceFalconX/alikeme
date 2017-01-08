@@ -39,7 +39,7 @@ export function userPosts (state=[], action) {
 export function allPosts (state=[], action) {
   switch(action.type) {
     case FETCH_ALL_POSTS:
-      return [].concat(action.fetchedPosts);
+      return action.fetchedPosts;
     default :
       return state;
   }

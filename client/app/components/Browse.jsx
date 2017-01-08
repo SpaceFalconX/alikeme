@@ -8,12 +8,10 @@ import { fetchPostsFromDb, fetchUserPostsFromDb} from '../actions/post_actions.j
 class Browse extends React.Component {
   constructor(props) {
     super()
-
     this.state = {
       searchTerm : ''
     }
   }
-
 
   filter (e) {
     e.preventDefault()
@@ -26,6 +24,7 @@ class Browse extends React.Component {
   }
 
   render () {
+    console.log(this.props)
     let sorted = this.props.allPosts.sort((a,b) => {
       return a.id < b.id
     })
@@ -42,7 +41,7 @@ class Browse extends React.Component {
             <div className="list-group">
               { sorted.map((post) => {
                   return (
-                    <Post key={post.id} post={post} />
+                    <Post key={post.id} post={post} contextUser={this.props.user.username} />
                   )
                 })
               }

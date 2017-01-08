@@ -8,6 +8,7 @@ export function createPost(newPost) {
 		newPost
 	}
 }
+
 export function fetchPosts(fetchedPosts) {
 	return {
 		type: FETCH_ALL_POSTS,
@@ -57,11 +58,11 @@ export function fetchPostsFromDb() {
 export function fetchUserPostsFromDb(userid) {
   return dispatch => axios.get(`/api/post/${userid}`)
 	 .then((resp) => {
-	 	console.log(resp)
+	 	//console.log(resp)
 		 dispatch(fetchUserPosts(resp.data))
 	 })
-	 .catch((err) => { console.log(err); });
-}
+	 .catch((err)=> {console.log(err)})
+ }
 
 
 

@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Post from './Post.js'
 import NewPostForm from './NewPost.js'
+
 import {fetchCategories} from '../actions/category_actions.js'
 import {fetchUserPostsFromDb} from '../actions/post_actions.js'
 
@@ -24,7 +25,7 @@ class Profile extends React.Component {
         <NewPostForm {...this.props} />
           { sorted.map((post) => {
               return (
-                <Post key={post.id} user={this.props.user} post={post} />
+                <Post key={post.id} post={post} />
               )
             })
           }
