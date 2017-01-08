@@ -8,6 +8,7 @@ import store, {history} from './store.js'
 import MainWrapper from './components/MainWrapper.js'
 import Signup from './components/Signup.js'
 import Profile from './components/Profile.js'
+import PublicProfile from './components/PublicProfile.js'
 import ProfileSetup from './components/ProfileSetup.js'
 import Login from './components/Login.js'
 import Browse from './components/Browse.jsx'
@@ -21,8 +22,9 @@ const Root = (
 			<Route path="/" component={MainWrapper}>
 				<IndexRoute component={Signup}></IndexRoute>
 				<Route path='/login' component={Login} />
+				<Route path='/:username' component={Profile} />
 				<Route path='/setup/:username' component={ProfileSetup} />
-				<Route path='/profile/:username' component={Profile} />
+				<Route path='/profile/:username' component={PublicProfile} />
         <Route path='/browse/:username' component={Browse} />
 				<Route path='/editProfile/:username' component={Settings} />
 			</Route>
