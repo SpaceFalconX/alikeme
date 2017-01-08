@@ -2,7 +2,7 @@ import axios from 'axios'
 import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST,FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS} from './index.js'
 
 export function createPost(newPost) {
-	console.log("NEW POST ACTION CERATOR", newPost)
+	//console.log("NEW POST ACTION CERATOR", newPost)
 	return {
 		type: CREATE_NEW_POST,
 		newPost
@@ -70,14 +70,16 @@ export function fetchPostsFromDb() {
 }
 
 export function fetchUserPostsFromDb(userid) {
-  return dispatch => axios.get(`/api/post/${userid}`)
-	 .then((resp) => {
-	 	//console.log(resp)
-		 dispatch(fetchUserPosts(resp.data))
-	 })
-	 .catch((err)=> {console.log(err)})
- }
 
+	console.log('called with', userid)
+	return (dispatch) => {
+		return axios.get(`/api/post/${userid}`)
+		.then((resp) => {
+			dispatch(fetchUserPosts(resp.data))
+		})
+		.catch((err)=> {console.log(err)})
+	}
+}
 
 ////////buildling
 export function filterPostsFromDb(categoryid) {
@@ -88,6 +90,31 @@ export function filterPostsFromDb(categoryid) {
 		 dispatch(filterPosts(resp.data))
 	 })
 	 .catch((err)=> {console.log(err)})
+ }
+}
+
+// export function filterTagsfromDb(tag){
+// 	return (dispatch) => {
+// 	return axios.post('/api/post/tags', {})
+// 		.then((resp) => {
+// 			console.log('db data back', resp.data)
+// 			//dispatch(filterPosts(resp.data))
+// 		})
+// 		.catch((err)=> {console.log(err)})
+// 	}
+// }
+
+//get by username instead of id, calls get by id after db query
+//initialize on load of public and user profile view
+
+export function getPostsByUsername (username) {
+	return (dispatch) => {
+		return axios.post('/api/post/getUserId', {username})
+		.then((resp) => {
+			console.log('db data back', resp.data)
+			dispatch(fetchUserPostsFromDb(resp.data))
+		})
+		.catch((err)=> {console.log(err)})
  }
 }
 

@@ -33,6 +33,10 @@ class Browse extends React.Component {
     this.refs.search.value = "";
   }
 
+  // filterByTag () {
+  //   this.props.dispatch(filterTagsfromDb())
+  // }
+
   componentWillMount() {
     if(this.props.allPosts.length === 0){
       this.props.dispatch(fetchPostsFromDb())
@@ -59,7 +63,6 @@ class Browse extends React.Component {
   }
 
   render () {
-    console.log(this.props)
     let sorted = this.props.allPosts.sort((a,b) => {
       return a.id < b.id
     })

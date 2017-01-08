@@ -29,7 +29,8 @@ export function userPosts (state=[], action) {
 		case CREATE_NEW_POST:
 			return [...state, action.newPost];
 		case FETCH_USER_POSTS:
-      return [...state, ...action.fetchedUserPosts];
+      //return [...state, ...action.fetchedUserPosts];
+      return action.fetchedUserPosts
 		default :
 			return state;
 	}

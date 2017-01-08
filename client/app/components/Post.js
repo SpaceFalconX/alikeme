@@ -22,6 +22,7 @@ class Post extends React.Component {
   }
 
   matchORViewContext () {
+    //fix logic here! doesn't work with public profiles
     if(this.props.contextUser && this.props.contextUser !== this.usernameContext()) {
       //go to public post
       return (
@@ -31,7 +32,7 @@ class Post extends React.Component {
     //go to matches post
     //matches post will also have an edit link
     return (
-      <Link to={'/' + this.usernameContext()}> click to view your MATCHES BABY! (sike it just goes to your profile)</Link>
+      <Link to={'/' + this.usernameContext()}> click to view {this.usernameContext()}'s profile</Link>
     )
   }
 
@@ -53,10 +54,8 @@ class Post extends React.Component {
           </div>
         </div>
         <div className="panel-body">
-          <span className="glyphicon glyphicon-user" aria-hidden="true" style={this.postStyle()}></span>
-          | <span className="glyphicon glyphicon-share" aria-hidden="true" style={this.postStyle()}> </span>
-          | <span className="glyphicon glyphicon-tags" aria-hidden="true" style={this.postStyle()}></span>
-            <span>{this.renderTags()}</span>
+          <span className="glyphicon glyphicon-tags" aria-hidden="true" style={this.postStyle()}></span>
+          <span>{this.renderTags()}</span>
           | <span>Posted in <Link className="badge">{this.props.post.category.name}</Link></span>
         </div>
       </div>

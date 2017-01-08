@@ -2,6 +2,8 @@ const Post = require('../database/models/post.js')
 const Posts = require('../database/collections/posts.js')
 const Tag = require('../database/models/tag.js')
 const Tags = require('../database/collections/tags.js')
+const User = require('../database/models/user.js')
+const Users = require('../database/collections/users.js')
 
 const Promise = require('bluebird')
 const _ = require('lodash');
@@ -56,7 +58,30 @@ router.get('/:userid', (req, res) => {
   });
 });
 
-/////////////building
+
+//todo -create get route which finds user by username, then gets posts by id
+//OR pass id into public profile on client side,
+//except some use cases (cold navigating to profile instead of clicking on a post) won't allow this
+
+router.post('/getUserId', (req, res) => {
+	console.log('searching for username', req.body.username)
+	Users.forge()
+	.query({where: {username: req.body.username}})
+	.fetch()
+	.then((result) => {
+		result = result.toJSON()[0].id
+		console.log('result', result)
+		res.json(result)
+	})
+	.catch((err) => {
+    res.status(500).json({error: {message: err.message}});
+  });
+})
+
+
+
+/////////////FILTERING////////////////////////////////////////////////////////////
+
 router.post('/categories', (req, res) => {
 	console.log("REQ BODY", req.body)
 	Posts.forge()
@@ -80,6 +105,34 @@ router.post('/categories', (req, res) => {
     res.status(500).json({error: {message: err.message}});
   });
 });
+
+// router.post('/tags', (req, res) => {
+// 	console.log("REQ BODY", req.body)
+// 	Tags.forge()
+// 	//.query({where: {category_id: req.body.categoryid}}) //(where: {k: 'v}, orWhere: {k: 'v'}), etc...
+// 	//{withRelated: ['user', 'category', 'posts']}
+// 	.fetch()
+// 	.then((collection) => {
+// 		let result = collection.toJSON();
+// 		for(let i = 0; i < result.length; i++) {
+// 			result[i] = _.pick(result[i],
+// 				['title', 'created_at', 'updated_at', 'content', 'id',
+// 				 'user.username', 'user.id','category.id', 'category.name', 'tags'])
+// 			for(let j = 0; j < result[i].tags.length; j++) {
+// 				delete result[i].tags[j]['_pivot_id'];
+// 				delete result[i].tags[j]['_pivot_post_id'];
+// 				delete result[i].tags[j]['_pivot_tag_id'];
+// 			}
+// 		}
+// 		res.send(result)
+// 	})
+// 	.catch((err) => {
+//     res.status(500).json({error: {message: err.message}});
+//   });
+// });
+
+//////////////////////////////////////////////////////////////////////////////////
+
 
 router.post('/new', (req, res) => {
 	console.log("req.body", req.body)
