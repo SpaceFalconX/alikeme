@@ -12,7 +12,7 @@ class Browse extends React.Component {
       filter: [],
       filtering: false
     }
-    //if filter is off, then clear and render all 
+    //if filter is off, then clear and render all
     //if filter is on, concat
   }
 
@@ -71,7 +71,7 @@ class Browse extends React.Component {
   }
 
   render () {
-    let sorted = this.props.allPosts.sort((a,b) => {
+    let sorted = this.props.allPosts.posts.sort((a,b) => {
       return a.id < b.id
     })
     return (
@@ -87,7 +87,6 @@ class Browse extends React.Component {
 
             {this.filterTags()}
             <div className='container'>
-
               { sorted.map((post) => {
                   return (
                     <Post key={post.id} post={post} contextUser={this.props.user.username} />

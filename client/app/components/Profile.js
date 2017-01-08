@@ -6,6 +6,10 @@ import NewPostForm from './NewPost.js'
 import {getWatsonData} from '../actions/watson_actions.js'
 import {fetchCategories} from '../actions/category_actions.js'
 import {fetchUserPostsFromDb, getPostsByUsername} from '../actions/post_actions.js'
+import {fetchCategories} from '../actions/category_actions.js'
+import _ from 'underscore'
+//todo
+//make code reuseable for logged in and non-logged in users
 
 class Profile extends React.Component {
   componentWillMount () {
@@ -20,13 +24,16 @@ class Profile extends React.Component {
   }
 
   render () {
-    let sorted = this.props.userPosts.sort((a,b) => {
-      return a.id < b.id
-    })
+    const posts = this.props.userPosts.posts
+
+    console.log("RENDER", posts)
+    let sorted = _.sortBy(posts, 'id')
+    console.log(sorted)
     return (
       <div className="col-md-6">
         <NewPostForm {...this.props} />
-          { sorted.map((post) => {
+          {
+            posts.map((post) => {
               return (
                 <Post key={post.id} post={post} />
               )

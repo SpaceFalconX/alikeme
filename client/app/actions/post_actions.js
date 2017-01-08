@@ -62,7 +62,7 @@ export function fetchPostsFromDb() {
   return dispatch => axios.get('/api/post')
 	 .then((resp) => {
 		 console.log('resp.data...... ', resp.data);
-		 dispatch(fetchPosts(resp.data));
+		 dispatch(fetchPosts(resp.data));=
 	 })
 	 .catch((err) => { console.log(err) ;});
 }
@@ -81,7 +81,7 @@ export function fetchUserPostsFromDb(userid) {
 ////////buildling
 export function filterPostsFromDb(categoryid) {
  return (dispatch) => {
- return axios.post('/api/post/categories', {categoryid})
+ 	return axios.post('/api/post/categories', {categoryid})
 	 .then((resp) => {
 		 console.log('db data back', resp.data)
 		 dispatch(filterPosts(resp.data))
@@ -126,7 +126,7 @@ export function deletePost(deletedPost) {
 		type: DELETE_POST,
 		deletedPost
 	}
-}   
+}
 
 export function updatePostToDb(updatedPost) {
   return dispatch => axios.put('/api/post', updatedPost)

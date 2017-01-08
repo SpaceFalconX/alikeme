@@ -22,8 +22,14 @@ const appReducer = combineReducers({
 
 const defaultState = {
   user: { isAuthenticated: false},
-  userPosts: [],
-  allPosts: [],
+  userPosts: {
+    posts: [],
+    filterBy: "all"
+  },
+  allPosts: {
+    posts: [],
+    filterBy: "all"
+  },
   categories: [],
   tags: [],
   matches: []
