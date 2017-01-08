@@ -22,7 +22,6 @@ class Post extends React.Component {
   }
 
   matchORViewContext () {
-    //fix logic here! doesn't work with public profiles
     if(this.props.contextUser && this.props.contextUser !== this.usernameContext()) {
       //go to public post, or just stay here for now
       return (
@@ -32,7 +31,7 @@ class Post extends React.Component {
     //go to matches post
     //matches post will also have an edit link
     return (
-      <Link to={'/' + this.usernameContext()}> click to view your profile</Link>
+      <Link to={'/matches/' + this.props.post.id}> click to view matches and edit</Link>
     )
   }
 
