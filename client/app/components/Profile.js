@@ -20,7 +20,7 @@ class Profile extends React.Component {
       return a.id < b.id
     })
     return (
-      <div>
+      <div className="col-md-6">
         <NewPostForm {...this.props} />
           { sorted.map((post) => {
               return (
