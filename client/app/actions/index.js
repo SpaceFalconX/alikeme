@@ -11,5 +11,6 @@ export const SET_USER = 'SET_USER'
 export const LOGOUT_USER = 'LOGOUT_USER'
 export const REFRESH_STATS = 'REFRESH_STATS';
 export const FILTER_POSTS = 'FILTER_POSTS'
+export const CLEAR_POSTS = 'CLEAR_POSTS'
 
 

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST,FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS} from './index.js'
+import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST,FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS} from './index.js'
 
 export function createPost(newPost) {
 	console.log("NEW POST ACTION CERATOR", newPost)
@@ -27,6 +27,12 @@ export function filterPosts(filteredPosts) {
 	return {
 		type: FILTER_POSTS,
 		filteredPosts
+	}
+}
+
+export function clearPosts () {
+	return {
+		type: CLEAR_POSTS
 	}
 }
 

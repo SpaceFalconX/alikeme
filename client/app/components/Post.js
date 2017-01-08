@@ -23,9 +23,16 @@ class Post extends React.Component {
 
   matchORViewContext () {
     if(this.props.contextUser && this.props.contextUser !== this.usernameContext()) {
-        return "click to view"
+      //go to public post
+      return (
+        <Link to={'/profile/' + this.usernameContext()}> click to view {this.usernameContext()}'s profile</Link>
+      )
     }
-        return "click to view your MATCHES BABY!"
+    //go to matches post
+    //matches post will also have an edit link
+    return (
+      <Link to={'/' + this.usernameContext()}> click to view your MATCHES BABY! (sike it just goes to your profile)</Link>
+    )
   }
 
   render () {

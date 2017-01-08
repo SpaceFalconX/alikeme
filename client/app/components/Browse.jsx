@@ -2,15 +2,18 @@ import React from 'react';
 import Post from './Post.js'
 import {connect} from 'react-redux';
 import {fetchCategories} from '../actions/category_actions.js'
-import { fetchPostsFromDb, filterPostsFromDb} from '../actions/post_actions.js'
+import { fetchPostsFromDb, filterPostsFromDb, clearPosts} from '../actions/post_actions.js'
 
 
 class Browse extends React.Component {
   constructor (props) {
     super()
     this.state = {
-      filter: null
+      filter: [],
+      filtering: false
     }
+    //if filter is off, then clear and render all 
+    //if filter is on, concat
   }
 
   filter (e) {
@@ -19,8 +22,14 @@ class Browse extends React.Component {
       return this.refs.search.value === category.name
     })[0]
     //todo - if search.length === 0 then dispatch a different filter to filter by tag instead
-    this.props.dispatch(filterPostsFromDb(search.id))
-    this.setState({filter: this.refs.search.value})
+    if(!this.state.filtering){
+      this.props.dispatch(clearPosts()) //clear initial all results to prevent dupes
+      this.setState({filtering: true})
+    }
+    if(this.state.filter.indexOf(this.refs.search.value) === -1){
+      this.props.dispatch(filterPostsFromDb(search.id))
+    }
+    this.setState({filter: this.state.filter.concat(this.refs.search.value)})
     this.refs.search.value = "";
   }
 
@@ -34,21 +43,23 @@ class Browse extends React.Component {
   }
 
   clearFilter () {
-    this.setState({filter: null})
+    this.setState({filter: [], filtering: false})
     this.props.dispatch(fetchPostsFromDb())
   }
 
   filterTags () {
-    if(!this.state.filter){
+    if(!this.state.filter.length) {
       return
     }
-    return (
-      <div onClick={this.clearFilter.bind(this)}>FILTERING BY {this.state.filter.toUpperCase()} - CLICK TO CLEAR</div>
-    )
-
+    return this.state.filter.map((tag) => {
+      return (
+        <div key={tag}>{tag}</div>
+      )
+    }).concat(<div key="clear" onClick={this.clearFilter.bind(this)}>CLEAR</div>)
   }
 
   render () {
+    console.log(this.props)
     let sorted = this.props.allPosts.sort((a,b) => {
       return a.id < b.id
     })
