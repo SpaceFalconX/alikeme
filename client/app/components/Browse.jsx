@@ -1,11 +1,11 @@
 import React from 'react';
-import EntryComponent from './interests/InterestEntryComponent.jsx'
+import Post from './Post.js'
 import {connect} from 'react-redux';
 import { filterFeed } from '../actions/auth_actions.js'
-import { fetchPostsFromDb } from '../actions/post_actions.js'
+import { fetchPostsFromDb, fetchUserPostsFromDb} from '../actions/post_actions.js'
 
 
-class BrowseComponent extends React.Component {
+class Browse extends React.Component {
   constructor(props) {
     super()
 
@@ -14,10 +14,11 @@ class BrowseComponent extends React.Component {
     }
   }
 
+
   filter (e) {
     e.preventDefault()
     this.setState({searchTerm:this.refs.search.value})
-    this.refs.search.value = ""
+    this.refs.search.value = "";
   }
 
   componentWillMount() {
@@ -25,15 +26,9 @@ class BrowseComponent extends React.Component {
   }
 
   render () {
-    // let storeResults = this.props.posts.filter(post => {
-    //   return post.category.name.indexOf(this.state.searchTerm) !== -1
-    // })
-    // .map((post) => {
-    //   return (
-    //     <EntryComponent key={post.id} context="view" post={post} />
-    //   )
-    // })
-
+    let sorted = this.props.allPosts.sort((a,b) => {
+      return a.id < b.id
+    })
     return (
       <div  className="list-group">
         <h1>browse</h1>
@@ -45,10 +40,11 @@ class BrowseComponent extends React.Component {
               </form>
             </div>
             <div className='container'>
-              {this.props.posts.map((post) => {
-                return (
-                  <EntryComponent key={post.id} post={post} />
-                )})
+              { sorted.map((post) => {
+                  return (
+                    <Post key={post.id} post={post} />
+                  )
+                })
               }
             </div>
       </div>
@@ -56,4 +52,4 @@ class BrowseComponent extends React.Component {
   }
 }
 
-export default BrowseComponent;
+export default Browse;

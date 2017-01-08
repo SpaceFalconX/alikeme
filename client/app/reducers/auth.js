@@ -5,6 +5,7 @@ export function auth (state={}, action) {
 				{}, state.user, action.user,
 				{ isAuthenticated: !!Object.keys(action.user).length }
 			);
+
 		default :
 			return state;
 	}

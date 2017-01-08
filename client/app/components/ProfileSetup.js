@@ -53,9 +53,6 @@ const ProfileSetup = React.createClass({
 						<input type="text" ref="facebook" placeholder="eg: joedoe"/>
 					</form>
 				</div>
-				{this.props.posts.map((post, index)=>{
-					this.renderPost(post, index)
-				})}
 			</div>
 		)
 	}

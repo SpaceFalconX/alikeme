@@ -1,22 +1,30 @@
 import React from 'react'
 import {Link} from 'react-router'
 import {loginApiRequest} from '../actions/auth_actions.js'
+import {fetchUserPostsFromDb} from '../actions/post_actions.js'
+import {fetchCategories} from '../actions/category_actions.js'
 
 const Login = React.createClass({
-	componentWillUpdate(nextProps, nextState) {
-		if(nextProps.user.isAuthenticated===true) {
-			nextProps.router.push({pathname:`/profile/${nextProps.user.username}`})
-		} else {
-			console.log('Login error...')
-		}
-	},
 
 	handleSubmit(e) {
 		e.preventDefault();
 		const username = this.refs.username.value;
 		const password = this.refs.password.value;
 		let userData = {username, password}
-		this.props.dispatch(loginApiRequest(userData));
+		this.props.dispatch(loginApiRequest(userData))
+		.then(() => {
+			console.log("is auth?",this.props.user.isAuthenticated)
+			if(this.props.user.isAuthenticated) {
+				this.props.dispatch(fetchUserPostsFromDb(this.props.user.id))
+				.then(() => {
+					console.log("this.props.user.username", username)
+				this.props.router.push({pathname:`/profile/${username}`})
+			 	})
+				.catch((err) => {
+					console.log(err)
+				})
+			}
+		})
 		this.refs.loginForm.reset();
 	},
 

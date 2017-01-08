@@ -14,7 +14,6 @@ router.get('/', (req, res) => {
 	.fetch({withRelated: ['user', 'category', 'tags']})
 	.then((collection) => {
 		let result = collection.toJSON();
-		console.log('RESULT', result)
 		for(let i = 0; i < result.length; i++) {
 				result[i] = _.pick(result[i],
 					['title', 'created_at', 'updated_at', 'content', 'id',
@@ -39,7 +38,6 @@ router.get('/:userid', (req, res) => {
 	.query({where: {user_id: req.params.userid}})
 	.fetch({withRelated: ['user', 'category', 'tags']})
 	.then((collection) => {
-		console.log("COLLECTION",collection)
 		let result = collection.toJSON();
 		for(let i = 0; i < result.length; i++) {
 			result[i] = _.pick(result[i],
@@ -77,6 +75,7 @@ router.post('/new', (req, res) => {
 				post.tags().attach(result);
 				const resp = {};
 				resp.tags = result
+				resp.id = post.id
 				resp['created_at'] = post['created_at']
 				resp['created_at'] = post['created_at']
 				res.send(resp);

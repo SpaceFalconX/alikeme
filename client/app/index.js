@@ -10,10 +10,8 @@ import Signup from './components/Signup.js'
 import Profile from './components/Profile.js'
 import ProfileSetup from './components/ProfileSetup.js'
 import Login from './components/Login.js'
-import InterestMatch from './components/interests/InterestMatchComponent.jsx'
-import InterestView from './components/interests/InterestViewComponent.jsx'
-import Browse from './components/BrowseComponent.jsx'
-import Settings from './components/settingsComponent.jsx'
+import Browse from './components/Browse.jsx'
+import Settings from './components/Settings.js'
 import Navbar from './components/Navbar.js'
 
 const Root = (
@@ -21,16 +19,16 @@ const Root = (
 		<Router history={history}>
 			<Route path="/" component={MainWrapper}>
 				<IndexRoute component={Signup}></IndexRoute>
-				<Route path="/login" component={Login} />
-				<Route path="/setup/:username" component={ProfileSetup} />
-				<Route path="/profile/:username" component={Profile} />
-				<Route path='/editInterest/:id' component={InterestMatch} />
-        <Route path='/viewInterest/:id' component={InterestView} />
-        <Route path='/browse' component={Browse} />
-				<Route path='/settings' component={Settings} />
+				<Route path='/login' component={Login} />
+				<Route path='/setup/:username' component={ProfileSetup} />
+				<Route path='/profile/:username' component={Profile} />
+        <Route path='/browse/:username' component={Browse} />
+				<Route path='/editProfile/:username' component={Settings} />
 			</Route>
 		</Router>
 	</Provider>
 )
+
+
 
 render(Root, document.getElementById('app'))

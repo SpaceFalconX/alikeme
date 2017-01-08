@@ -1,4 +1,4 @@
-import React from 'react'
+Zimport React from 'react'
 import EntryComponentSeed from './InterestEntryComponent-Seeded.jsx'
 import EntryComponent from './InterestEntryComponent.jsx'
 import {connect} from 'react-redux';
@@ -10,7 +10,7 @@ class InterestComponent extends React.Component {
     if (!this.props.user.username || this.props.user.username !== this.props.username) {
       context = 'view'
     }
-    
+
     let seeded = Seed.interests
     .filter((interest) => {
       return interest.username === this.props.username

@@ -1,19 +1,25 @@
 import axios from 'axios'
 import setAuthorizationToken from '../utils/setAuthorizationToken.js'
 import jwt from 'jsonwebtoken'
+import {SET_USER, LOGOUT_USER} from './index.js';
 
 export function setUser (user) {
 	return {
-		type: 'SET_USER',
+		type: SET_USER,
 		user
+	}
+}
+
+export function logoutUser () {
+	return {
+		type: LOGOUT_USER,
 	}
 }
 
 export function logoutClick (user) {
 	return function (dispatch) {
 		delete localStorage.token;
-		user = {};
-		dispatch(setUser(user));
+		dispatch(logoutUser());
 	}
 }
 
