@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST,FETCH_ALL_POSTS, FETCH_USER_POSTS} from './index.js'
+import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST,FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS} from './index.js'
 
 export function createPost(newPost) {
 	console.log("NEW POST ACTION CERATOR", newPost)
@@ -22,6 +22,14 @@ export function fetchUserPosts(fetchedUserPosts) {
 		fetchedUserPosts
 	}
 }
+
+export function filterPosts(filteredPosts) {
+	return {
+		type: FILTER_POSTS,
+		filteredPosts
+	}
+}
+
 
 export function submitNewPost (newPost) {
 	console.log("submit", newPost)
@@ -65,10 +73,17 @@ export function fetchUserPostsFromDb(userid) {
  }
 
 
-
-
-
-
+////////buildling
+export function filterPostsFromDb(categoryid) {
+ return (dispatch) => {
+ return axios.post('/api/post/categories', {categoryid})
+	 .then((resp) => {
+		 console.log('db data back', resp.data)
+		 dispatch(filterPosts(resp.data))
+	 })
+	 .catch((err)=> {console.log(err)})
+ }
+}
 
 export function updatePost(updatedPost) {
   return {

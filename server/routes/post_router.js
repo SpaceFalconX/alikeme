@@ -56,6 +56,31 @@ router.get('/:userid', (req, res) => {
   });
 });
 
+/////////////building
+router.post('/categories', (req, res) => {
+	console.log("REQ BODY", req.body)
+	Posts.forge()
+	.query({where: {category_id: req.body.categoryid}}) //(where: {k: 'v}, orWhere: {k: 'v'}), etc...
+	.fetch({withRelated: ['user', 'category', 'tags']})
+	.then((collection) => {
+		let result = collection.toJSON();
+		for(let i = 0; i < result.length; i++) {
+			result[i] = _.pick(result[i],
+				['title', 'created_at', 'updated_at', 'content', 'id',
+				 'user.username', 'user.id','category.id', 'category.name', 'tags'])
+			for(let j = 0; j < result[i].tags.length; j++) {
+				delete result[i].tags[j]['_pivot_id'];
+				delete result[i].tags[j]['_pivot_post_id'];
+				delete result[i].tags[j]['_pivot_tag_id'];
+			}
+		}
+		res.send(result)
+	})
+	.catch((err) => {
+    res.status(500).json({error: {message: err.message}});
+  });
+});
+
 router.post('/new', (req, res) => {
 	console.log("req.body", req.body)
 	const {content, title, user_id, category_id, tags} = req.body;

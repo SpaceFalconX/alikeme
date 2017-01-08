@@ -1,4 +1,4 @@
-import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS} from '../actions/index.js'
+import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS} from '../actions/index.js'
 export function createNewPost (newPost) {
   console.log("NEW POST", newPost)
 	const { user_id, username, category,category_id, id,
@@ -40,6 +40,8 @@ export function allPosts (state=[], action) {
   switch(action.type) {
     case FETCH_ALL_POSTS:
       return action.fetchedPosts;
+    case FILTER_POSTS:
+      return action.filteredPosts
     default :
       return state;
   }

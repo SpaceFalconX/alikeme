@@ -1,26 +1,35 @@
 import React from 'react';
 import Post from './Post.js'
 import {connect} from 'react-redux';
-import { filterFeed } from '../actions/auth_actions.js'
-import { fetchPostsFromDb, fetchUserPostsFromDb} from '../actions/post_actions.js'
+import {fetchCategories} from '../actions/category_actions.js'
+import { fetchPostsFromDb, filterPostsFromDb} from '../actions/post_actions.js'
 
 
 class Browse extends React.Component {
   constructor(props) {
     super()
-    this.state = {
-      searchTerm : ''
-    }
+    // this.state = {
+    //   searchTerm : ''
+    // }
   }
 
   filter (e) {
     e.preventDefault()
-    this.setState({searchTerm:this.refs.search.value})
+    let search = this.props.categories.filter((category) => {
+      return this.refs.search.value === category.name
+    })[0]
+    console.log(search.id)
+    this.props.dispatch(filterPostsFromDb(search.id))
     this.refs.search.value = "";
   }
 
   componentWillMount() {
-    this.props.dispatch(fetchPostsFromDb())
+    // if(this.props.allPosts.length === 0){
+    //   this.props.dispatch(fetchPostsFromDb())
+    // }
+    if(this.props.categories.length === 0) {
+      this.props.dispatch(fetchCategories());
+    }
   }
 
   render () {
