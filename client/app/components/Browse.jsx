@@ -1,28 +1,73 @@
 import React from 'react';
 import Post from './Post.js'
 import {connect} from 'react-redux';
-import { filterFeed } from '../actions/auth_actions.js'
-import { fetchPostsFromDb, fetchUserPostsFromDb} from '../actions/post_actions.js'
+import {fetchCategories} from '../actions/category_actions.js'
+import { fetchPostsFromDb, filterPostsFromDb, filterTagsfromDb, clearPosts} from '../actions/post_actions.js'
 
 
 class Browse extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super()
-
     this.state = {
-      searchTerm : ''
+      filter: [],
+      filtering: false
     }
+    //if filter is off, then clear and render all 
+    //if filter is on, concat
   }
-
 
   filter (e) {
     e.preventDefault()
-    this.setState({searchTerm:this.refs.search.value})
+    if(!this.state.filtering){
+      this.props.dispatch(clearPosts()) //clear initial all results to prevent dupes
+      this.setState({filtering: true})
+    }
+
+    let search = this.props.categories.filter((category) => {
+      return this.refs.search.value === category.name
+    })[0]
+
+    if(!search && this.state.filter.indexOf(this.refs.search.value) === -1) {
+      console.log('no category results, searching by tag')
+      this.props.dispatch(filterTagsfromDb(this.refs.search.value))
+    }
+
+    if(search && this.state.filter.indexOf(this.refs.search.value) === -1){
+      console.log('searching by category')
+      this.props.dispatch(filterPostsFromDb(search.id))
+    }
+
+    this.setState({filter: this.state.filter.concat(this.refs.search.value)})
     this.refs.search.value = "";
   }
 
+  // filterByTag () {
+  //   this.props.dispatch(filterTagsfromDb())
+  // }
+
   componentWillMount() {
+    if(this.props.allPosts.length === 0){
+      this.props.dispatch(fetchPostsFromDb())
+    }
+    if(this.props.categories.length === 0) {
+      this.props.dispatch(fetchCategories());
+    }
+  }
+
+  clearFilter () {
+    this.setState({filter: [], filtering: false})
     this.props.dispatch(fetchPostsFromDb())
+  }
+
+  filterTags () {
+    if(!this.state.filter.length) {
+      return
+    }
+    return this.state.filter.map((tag) => {
+      return (
+        <div key={tag}>{tag}</div>
+      )
+    }).concat(<div key="clear" onClick={this.clearFilter.bind(this)}>CLEAR</div>)
   }
 
   render () {
@@ -39,10 +84,13 @@ class Browse extends React.Component {
               <button>search</button>
               </form>
             </div>
-            <div className="list-group">
+
+            {this.filterTags()}
+            <div className='container'>
+
               { sorted.map((post) => {
                   return (
-                    <Post key={post.id} post={post} />
+                    <Post key={post.id} post={post} contextUser={this.props.user.username} />
                   )
                 })
               }

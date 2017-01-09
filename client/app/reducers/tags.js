@@ -8,14 +8,9 @@ export function tags (state=[], action) {
   }
 
   if(action.type === 'REMOVE_TAG') {
-    if(state.tags.indexOf(action.tag) === -1) {
-      return state;
-    }
-    return [
-        ...state,
-        ...state.slice(0, state.indexOf(action.tag)),
-        ...state.slice(state.indexOf(action.tag) + 1)
-      ]
+    return state.filter((tag) => {
+      return tag !== action.tag
+    })
   }
 
   if(action.type === 'CLEAR_TAGS') {

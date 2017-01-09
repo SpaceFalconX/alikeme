@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {browserHistory, Link} from 'react-router';
 import moment from 'moment'
+
 class Post extends React.Component {
   postStyle () {
     return {margin: '0px 3px 0px 3px',}
@@ -13,28 +14,47 @@ class Post extends React.Component {
     })
   }
 
+  usernameContext () { //pass session user in instead for better checking
+    if(this.props.post.username) {
+      return this.props.post.username
+    }
+    return this.props.post.user.username
+  }
+
+  matchORViewContext () {
+    if(this.props.contextUser && this.props.contextUser !== this.usernameContext()) {
+      //go to public post, or just stay here for now
+      return (
+        <Link to={'/profile/' + this.usernameContext()}> click to view {this.usernameContext()}'s profile</Link>
+      )
+    }
+    //go to matches post
+    //matches post will also have an edit link
+    return (
+      <Link to={'/matches/' + this.props.post.id}> click to view matches and edit</Link>
+    )
+  }
+
   render () {
     return (
       <div className="panel panel-default">
         <div className="panel-body">
           <Link className="pull-left">
-            <img src="http://2.bp.blogspot.com/-5nGzg5T-9qA/T6ZbL9JF0iI/AAAAAAAACF8/TvTnURwsNb0/s1600/anonymous3.png"
-             style={{height: '10%',}} className="media-photo" />
+            <img src="#" className="media-photo" />
           </Link>
           <span className="pull-right"><em>
-            { moment(this.props.post.created_at).subtract(3, 'days').calendar() }
+          { moment(this.props.post.created_at).calendar() }
           </em></span>
           <div className="media-body">
             <h4 className="list-group-item-heading">{this.props.post.title}</h4>
-            <p className="list-group-item-text">{this.props.post.content}</p>
+            <p className="list-group-item-text"><b>{this.props.post.content}</b></p>
+            <p><i>-{this.usernameContext()}</i></p>
+            <p>{this.matchORViewContext()}</p>
           </div>
         </div>
         <div className="panel-body">
-          <span className="glyphicon glyphicon-user" aria-hidden="true" style={this.postStyle()}></span>
-          | <span className="glyphicon glyphicon-share" aria-hidden="true" style={this.postStyle()}> </span>
-            <Link>39 Shares</Link>
-          | <span className="glyphicon glyphicon-tags" aria-hidden="true" style={this.postStyle()}></span>
-            <span>{this.renderTags()}</span>
+          <span className="glyphicon glyphicon-tags" aria-hidden="true" style={this.postStyle()}></span>
+          <span>{this.renderTags()}</span>
           | <span>Posted in <Link className="badge">{this.props.post.category.name}</Link></span>
         </div>
       </div>

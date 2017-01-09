@@ -1,15 +1,18 @@
 import React from 'react';
+import {browserHistory} from 'react-router'
 import {connect} from 'react-redux';
 import Post from './Post.js'
 import NewPostForm from './NewPost.js'
-import {fetchCategories} from '../actions/category_actions.js'
-import {fetchUserPostsFromDb} from '../actions/post_actions.js'
 
-//todo
-//make code reuseable for logged in and non-logged in users
+import {fetchCategories} from '../actions/category_actions.js'
+import {fetchUserPostsFromDb, getPostsByUsername} from '../actions/post_actions.js'
 
 class Profile extends React.Component {
-  componentWillMount() {
+  componentWillMount () {
+    this.props.dispatch(getPostsByUsername(this.props.params.username))
+    if(this.props.params.username !== this.props.user.username){ //if does not match logged in user
+      browserHistory.push('/profile/' + this.props.params.username) //reroute to a public profile
+    }
     if(this.props.categories.length === 0) {
       this.props.dispatch(fetchCategories());
     }
@@ -24,7 +27,7 @@ class Profile extends React.Component {
         <NewPostForm {...this.props} />
           { sorted.map((post) => {
               return (
-                <Post key={post.id} user={this.props.user} post={post} />
+                <Post key={post.id} post={post} />
               )
             })
           }
@@ -34,8 +37,6 @@ class Profile extends React.Component {
 }
 
 export default Profile;
-
-
 
 // class ProfileComponent extends React.Component {
 

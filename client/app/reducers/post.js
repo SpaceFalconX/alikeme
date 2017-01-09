@@ -1,4 +1,4 @@
-import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS} from '../actions/index.js'
+import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS} from '../actions/index.js'
 export function createNewPost (newPost) {
   console.log("NEW POST", newPost)
 	const { user_id, username, category,category_id, id,
@@ -29,7 +29,8 @@ export function userPosts (state=[], action) {
 		case CREATE_NEW_POST:
 			return [...state, action.newPost];
 		case FETCH_USER_POSTS:
-      return [...state, ...action.fetchedUserPosts];
+      //return [...state, ...action.fetchedUserPosts];
+      return action.fetchedUserPosts
 		default :
 			return state;
 	}
@@ -39,7 +40,11 @@ export function userPosts (state=[], action) {
 export function allPosts (state=[], action) {
   switch(action.type) {
     case FETCH_ALL_POSTS:
-      return [].concat(action.fetchedPosts);
+      return action.fetchedPosts;
+    case FILTER_POSTS:
+      return state.concat(action.filteredPosts);
+    case CLEAR_POSTS:
+      return [];
     default :
       return state;
   }

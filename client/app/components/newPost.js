@@ -1,14 +1,21 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
+import DomTags from './tagsComponent.jsx' //WRAPPER FILE MESSES THIS UP.
 import {addTag, removeTag, clearTags} from '../actions/tag_actions.js'
 import {submitNewPost} from '../actions/post_actions.js'
 import {browserHistory, Link} from 'react-router'
 
 
 const NewPostForm = React.createClass({
+  
   addNewTag(e) {
     e.preventDefault();
     this.props.dispatch(addTag(this.refs.tag.value))
+    this.refs.tag.value = ""
+  },
+
+  dispatchRemoveTag (tag) {
+    this.props.dispatch(removeTag(tag.tag))
   },
 
   handleSubmit(e) {
@@ -23,10 +30,18 @@ const NewPostForm = React.createClass({
     const user_id = this.props.user.id;
     const tags = this.props.tags;
     var postData = {user_id, username, category, content, title, category_id, tags}
-    console.log("POST DATA", postData)
 
     this.props.dispatch(submitNewPost({...postData}));
+    this.props.dispatch(clearTags())
     this.refs.newPostForm.reset();
+  },
+
+  domTags () {
+    return this.props.tags.map((tag) => {
+      return (
+        <div className="label label-info"  key={tag} onClick={this.dispatchRemoveTag.bind(this, {tag})}> {tag} </div>
+      )
+    })
   },
 
   render() {
@@ -52,6 +67,9 @@ const NewPostForm = React.createClass({
               })}
             </select>
           </div>
+          <div>
+          {this.domTags()}
+          </div>
           <div className ="form-group">
             <label>tags</label>
             <input className="form-inline" type="text" ref="tag" placeholder="new post"/>
@@ -66,8 +84,6 @@ const NewPostForm = React.createClass({
 })
 
 export default NewPostForm;
-
-
 
 // class NewPost extends React.Component {
 
