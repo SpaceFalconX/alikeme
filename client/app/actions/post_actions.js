@@ -36,7 +36,6 @@ export function clearPosts () {
 	}
 }
 
-
 export function submitNewPost (newPost) {
 	console.log("submit", newPost)
 	return (dispatch) => {
@@ -93,16 +92,15 @@ export function filterPostsFromDb(categoryid) {
  }
 }
 
-// export function filterTagsfromDb(tag){
-// 	return (dispatch) => {
-// 	return axios.post('/api/post/tags', {})
-// 		.then((resp) => {
-// 			console.log('db data back', resp.data)
-// 			//dispatch(filterPosts(resp.data))
-// 		})
-// 		.catch((err)=> {console.log(err)})
-// 	}
-// }
+export function filterTagsfromDb(tag){
+	return (dispatch) => {
+	return axios.post('/api/post/tags', {tag})
+		.then((resp) => {
+			console.log('db data back', resp.data)
+		})
+		.catch((err)=> {console.log(err)})
+	}
+}
 
 //get by username instead of id, calls get by id after db query
 //initialize on load of public and user profile view
@@ -126,12 +124,20 @@ export function updatePost(updatedPost) {
 }
 
 export function deletePost(deletedPost) {
+<<<<<<< 4a68d4f2917f269232af3c558d1e3a9181907adf
   return {
   type: DELETE_POST,
   deletedPost,
 };
 }
 
+=======
+	return {
+		type: DELETE_POST,
+		deletedPost
+	}
+}   
+>>>>>>> rebase
 
 export function updatePostToDb(updatedPost) {
   return dispatch => axios.put('/api/post', updatedPost)

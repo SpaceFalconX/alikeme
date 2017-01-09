@@ -2,7 +2,7 @@ import React from 'react';
 import Post from './Post.js'
 import {connect} from 'react-redux';
 import {fetchCategories} from '../actions/category_actions.js'
-import { fetchPostsFromDb, filterPostsFromDb, clearPosts} from '../actions/post_actions.js'
+import { fetchPostsFromDb, filterPostsFromDb, filterTagsfromDb, clearPosts} from '../actions/post_actions.js'
 
 
 class Browse extends React.Component {
@@ -18,17 +18,25 @@ class Browse extends React.Component {
 
   filter (e) {
     e.preventDefault()
-    let search = this.props.categories.filter((category) => {
-      return this.refs.search.value === category.name
-    })[0]
-    //todo - if search.length === 0 then dispatch a different filter to filter by tag instead
     if(!this.state.filtering){
       this.props.dispatch(clearPosts()) //clear initial all results to prevent dupes
       this.setState({filtering: true})
     }
-    if(this.state.filter.indexOf(this.refs.search.value) === -1){
+
+    let search = this.props.categories.filter((category) => {
+      return this.refs.search.value === category.name
+    })[0]
+
+    if(!search && this.state.filter.indexOf(this.refs.search.value) === -1) {
+      console.log('no category results, searching by tag')
+      this.props.dispatch(filterTagsfromDb(this.refs.search.value))
+    }
+
+    if(search && this.state.filter.indexOf(this.refs.search.value) === -1){
+      console.log('searching by category')
       this.props.dispatch(filterPostsFromDb(search.id))
     }
+
     this.setState({filter: this.state.filter.concat(this.refs.search.value)})
     this.refs.search.value = "";
   }

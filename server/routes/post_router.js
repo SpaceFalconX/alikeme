@@ -58,19 +58,14 @@ router.get('/:userid', (req, res) => {
   });
 });
 
-
-//todo -create get route which finds user by username, then gets posts by id
-//OR pass id into public profile on client side,
-//except some use cases (cold navigating to profile instead of clicking on a post) won't allow this
-
 router.post('/getUserId', (req, res) => {
-	console.log('searching for username', req.body.username)
+	//console.log('searching for username', req.body.username)
 	Users.forge()
 	.query({where: {username: req.body.username}})
 	.fetch()
 	.then((result) => {
 		result = result.toJSON()[0].id
-		console.log('result', result)
+		//console.log('result', result)
 		res.json(result)
 	})
 	.catch((err) => {
@@ -78,11 +73,9 @@ router.post('/getUserId', (req, res) => {
   });
 })
 
-
-
 /////////////FILTERING////////////////////////////////////////////////////////////
 
-router.post('/categories', (req, res) => {
+router.post('/categories', (req, res) => { //filter by category
 	console.log("REQ BODY", req.body)
 	Posts.forge()
 	.query({where: {category_id: req.body.categoryid}}) //(where: {k: 'v}, orWhere: {k: 'v'}), etc...
@@ -106,33 +99,27 @@ router.post('/categories', (req, res) => {
   });
 });
 
-// router.post('/tags', (req, res) => {
-// 	console.log("REQ BODY", req.body)
-// 	Tags.forge()
-// 	//.query({where: {category_id: req.body.categoryid}}) //(where: {k: 'v}, orWhere: {k: 'v'}), etc...
-// 	//{withRelated: ['user', 'category', 'posts']}
-// 	.fetch()
-// 	.then((collection) => {
-// 		let result = collection.toJSON();
-// 		for(let i = 0; i < result.length; i++) {
-// 			result[i] = _.pick(result[i],
-// 				['title', 'created_at', 'updated_at', 'content', 'id',
-// 				 'user.username', 'user.id','category.id', 'category.name', 'tags'])
-// 			for(let j = 0; j < result[i].tags.length; j++) {
-// 				delete result[i].tags[j]['_pivot_id'];
-// 				delete result[i].tags[j]['_pivot_post_id'];
-// 				delete result[i].tags[j]['_pivot_tag_id'];
-// 			}
-// 		}
-// 		res.send(result)
-// 	})
-// 	.catch((err) => {
-//     res.status(500).json({error: {message: err.message}});
-//   });
-// });
+router.post('/tags', (req, res) => { //filter by tag.....how
+	//use join table to find all post_ids that have the tag id being queried by
+	//then run something to send all those posts back
+
+	console.log("REQ BODY", req.body)
+	Tags.forge()
+	.query({where: {name: req.body.tag}}) //(where: {k: 'v}, orWhere: {k: 'v'}), etc...
+	//{withRelated: ['user', 'category', 'posts']}
+	.fetch()
+	.then((tag) => {
+		tag = tag.toJSON()[0].id
+		console.log(tag)
+
+		res.json(tag)
+	})
+	.catch((err) => {
+    res.status(500).json({error: {message: err.message}});
+  });
+});
 
 //////////////////////////////////////////////////////////////////////////////////
-
 
 router.post('/new', (req, res) => {
 	console.log("req.body", req.body)

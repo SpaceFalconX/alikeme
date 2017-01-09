@@ -36,5 +36,4 @@ const Root = (
 	</Provider>
 )
 
-
 render(Root, document.getElementById('app'))

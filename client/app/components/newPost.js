@@ -32,6 +32,7 @@ const NewPostForm = React.createClass({
     var postData = {user_id, username, category, content, title, category_id, tags}
 
     this.props.dispatch(submitNewPost({...postData}));
+    this.props.dispatch(clearTags())
     this.refs.newPostForm.reset();
   },
 
@@ -83,8 +84,6 @@ const NewPostForm = React.createClass({
 })
 
 export default NewPostForm;
-
-
 
 // class NewPost extends React.Component {
 
