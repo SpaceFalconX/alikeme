@@ -41,9 +41,6 @@ class Browse extends React.Component {
     this.refs.search.value = "";
   }
 
-  // filterByTag () {
-  //   this.props.dispatch(filterTagsfromDb())
-  // }
 
   componentWillMount() {
     console.log("props categories", this.props.categories)
@@ -71,7 +68,7 @@ class Browse extends React.Component {
   }
 
   render () {
-    let sorted = this.props.allPosts.posts.sort((a,b) => {
+    let sorted = this.props.allPosts.sort((a,b) => {
       return a.id < b.id
     })
     return (

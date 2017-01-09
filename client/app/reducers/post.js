@@ -1,7 +1,4 @@
 import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS} from '../actions/index.js'
-export function createNewPost (newPost) {
-  console.log("NEW POST", newPost)
-
 
 export function createNewPost (state=[], action) {
   // console.log("HELPER POST", action.newPost,"HELPER STATE", state)
@@ -33,6 +30,7 @@ export function userPosts (state=[], action) {
 			return [...state, action.newPost];
 		case FETCH_USER_POSTS:
       //return [...state, ...action.fetchedUserPosts];
+      console.log(action.fetchedUserPosts)
       return action.fetchedUserPosts
 // =======
 //     console.log("STATE", state, action)
@@ -63,7 +61,6 @@ export function userPosts (state=[], action) {
 export function allPosts (state=[], action) {
   switch(action.type) {
     case FETCH_ALL_POSTS:
-<<<<<<< HEAD
       return action.fetchedPosts;
     case FILTER_POSTS:
       return state.concat(action.filteredPosts);
@@ -72,9 +69,8 @@ export function allPosts (state=[], action) {
 // =======
 //       return Object.assign({}, state, {posts: fetchedPosts})
 // >>>>>>> refactor  store state shape
-=======
-      return Object.assign({}, state, {posts: action.fetchedPosts})
->>>>>>> to pull
+      // return Object.assign({}, state, {posts: action.fetchedPosts})
+
     default :
       return state;
   }

@@ -24,7 +24,7 @@ class Profile extends React.Component {
   }
 
   render () {
-    const posts = this.props.userPosts.posts
+    const posts = this.props.userPosts
     let sorted = _.sortBy(posts, 'id')
     return (
       <div className="col-md-6">

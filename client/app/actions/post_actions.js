@@ -41,37 +41,30 @@ export function submitNewPost (newPost) {
 	return (dispatch) => {
 		return axios.post('/api/post/new', newPost)
 		.then(({data}) => {
-			console.log("data:", data)
-
 			let result = {...newPost, ...data}
-			console.log("object assign:", result)
 			dispatch(createPost(result))
 		})
 		.catch((err) => {
 			console.log(`Error on submit new post: ${err}`);
 		})
 	}
-  console.log(fetchedPosts);
-  return {
-  type: FETCH_POSTS,
-  fetchedPosts,
-};
 }
 
 export function fetchPostsFromDb() {
   return dispatch => axios.get('/api/post')
 	 .then((resp) => {
 		 console.log('resp.data...... ', resp.data);
-		 dispatch(fetchPosts(resp.data));=
+		 dispatch(fetchPosts(resp.data))
 	 })
 	 .catch((err) => { console.log(err) ;});
 }
 
 export function fetchUserPostsFromDb(userid) {
-	// console.log('called with', userid)
+	console.log('called with', userid)
 	return (dispatch) => {
 		return axios.get(`/api/post/${userid}`)
 		.then((resp) => {
+			console.log(resp.data)
 			dispatch(fetchUserPosts(resp.data))
 		})
 		.catch((err)=> {console.log(err)})
