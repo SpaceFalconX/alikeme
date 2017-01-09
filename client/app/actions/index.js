@@ -9,5 +9,4 @@ export const REMOVE_TAG = 'REMOVE_TAG'
 export const CLEAR_TAGS = 'CLEAR_TAGS'
 export const SET_USER = 'SET_USER'
 export const LOGOUT_USER = 'LOGOUT_USER'
-
-
+export const REFRESH_STATS = 'REFRESH_STATS';

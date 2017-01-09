@@ -30,7 +30,7 @@ class Browse extends React.Component {
       return a.id < b.id
     })
     return (
-      <div  className="list-group">
+      <div className="col-md-6" >
         <h1>browse</h1>
             <div className="input-group">
               <span>search</span>
@@ -39,7 +39,7 @@ class Browse extends React.Component {
               <button>search</button>
               </form>
             </div>
-            <div className='container'>
+            <div className="list-group">
               { sorted.map((post) => {
                   return (
                     <Post key={post.id} post={post} />
