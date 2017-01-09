@@ -16,7 +16,9 @@ const Signup = React.createClass({
 		const username = this.refs.username.value;
 		const email = this.refs.email.value;
 		const password = this.refs.password.value;
-		let userData = {username, email, password}
+		const twitterLink = this.refs.twitter.value;
+		const facebookLink = this.refs.facebook.value;
+		let userData = {username, email, password, twitterLink, facebookLink}
 		this.props.dispatch(signupApiRequest(userData));
 		// this.refs.signupForm.reset();
 	},
@@ -32,6 +34,12 @@ const Signup = React.createClass({
 					<input className="form-group" type="email" ref="email" placeholder="email"/><br/>
 					<label>Password:</label><br/>
 					<input className="form-group" type="password" ref="password" placeholder="password"/><br/>
+					<label>Twitter handle:</label><br/>
+					<span className="fa fa-twitter"></span>
+					<input className="form-group" type="text" ref="twitter" placeholder="eg: janedoe"/><br/>
+					<label>Facebook url:</label><br/>
+					<span className="fa fa-facebook"></span>
+					<input className="form-group" type="text" ref="facebook" placeholder="eg: janedoe"/><br/>
 					<input className="btn btn-default" type="submit" value="Signup"/>
 				</form>
 				<div>

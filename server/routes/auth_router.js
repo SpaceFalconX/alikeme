@@ -10,7 +10,7 @@ const Users = require('../database/collections/users.js');
 const router = express.Router();
 
 router.post('/signup', (req, res) => {
-	const {username, password, email} = req.body
+	const {username, password, email, twitterLink, facebookLink} = req.body
 	console.log('REQ.BODY', req.body)
 	new User ({username: username})
 	.fetch()
@@ -18,7 +18,7 @@ router.post('/signup', (req, res) => {
 		if(user) {
 			return res.sendStatus(401);
 		} else {
-			const newUser = new User({ username, email, password})
+			const newUser = new User({ username, email, password, twitterLink, facebookLink})
 			.save()
 			.then((user) => {
 				const token = generateToken(user);
