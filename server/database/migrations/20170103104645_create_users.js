@@ -5,8 +5,13 @@ exports.up = (knex, Promise) => {
     user.string('username', 254).unique().notNullable();
     user.string('email', 254).unique().notNullable();
     user.string('password', 254).notNullable();
-    user.string('twitterLink', 254).unique();
-    user.string('facebookLink', 254).unique();
+    user.string('twitterLink', 254);
+    user.string('facebookLink', 254);
+    user.float('openness').unsigned();
+    user.float('conscientiousness').unsigned();
+    user.float('extraversion').unsigned();
+    user.float('agreeableness').unsigned();
+    user.float('emotionalRange').unsigned();
     user.timestamps();
   })
   .then(() => {

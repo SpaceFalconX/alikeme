@@ -5,7 +5,7 @@ export function setTwitter(twitter) {
 		type: SET_TWITTER,
 		twitter
 	}
-}   
+}
 
 export function setTwitterToDb(body) {
   return dispatch => axios.post('/api/twitter/setTwitter', body)
@@ -14,3 +14,4 @@ export function setTwitterToDb(body) {
     //console.log('bitch')
   });
 }
+

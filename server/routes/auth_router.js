@@ -21,6 +21,9 @@ router.post('/signup', (req, res) => {
 			const newUser = new User({ username, email, password, twitterLink, facebookLink})
 			.save()
 			.then((user) => {
+				// if(twitterLink !== 'NULL') {
+				// 	// CALL THE GET TWITTER FEED FUNC
+				// }
 				const token = generateToken(user);
 				console.log(`SIGNUP SUCCESS: ${user.get('username')}`)
 				res.status(201).send({token});
@@ -39,13 +42,18 @@ router.post('/login', (req, res) => {
 		} else {
 			user.checkPassword(password)
 			.then((match) => {
-				const token = generateToken(user);
-				console.log(`LOG IN SUCCESS: ${user.get('username')}`)
-				res.status(200).send({token});
+				console.log("MATHC", match)
+					const token = generateToken(user);
+					console.log(`LOG IN SUCCESS: ${user.get('username')}`)
+					res.status(200).send({token});
+				// } else {
+				// 	res.status(403).json({error: "incorrect password"})
+				// }
+
 			})
-			.catch((err)=> {
-				res.status(401).json({error: "incorrect password"})
-			})
+			// .catch((err)=> {
+			// 	res.status(401).json({error: "incorrect password"})
+			// })
 		}
 	})
 })

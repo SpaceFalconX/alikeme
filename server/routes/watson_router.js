@@ -18,11 +18,12 @@ router.post('/personality', (req, res) => {
         }
         personality = {};
         let trait = result.tree.children[0].children[0];
-        personality.Openness = trait.children[0].percentage
-        personality.Conscientiousness = trait.children[1].percentage
-        personality.Extraversion = trait.children[2].percentage
-        personality.Agreeableness = trait.children[3].percentage
-        personality['Emotional range'] = trait.children[4].percentage
+        personality.openness = trait.children[0].percentage
+        personality.conscientiousness = trait.children[1].percentage
+        personality.extraversion = trait.children[2].percentage
+        personality.agreeableness = trait.children[3].percentage
+        personality.emotionalRange = trait.children[4].percentage
+        console.log(typeof personality.extraversion)
         res.status(200).send(personality)
     })
   })
