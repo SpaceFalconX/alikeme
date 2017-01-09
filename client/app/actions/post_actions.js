@@ -124,20 +124,11 @@ export function updatePost(updatedPost) {
 }
 
 export function deletePost(deletedPost) {
-<<<<<<< 4a68d4f2917f269232af3c558d1e3a9181907adf
-  return {
-  type: DELETE_POST,
-  deletedPost,
-};
-}
-
-=======
 	return {
 		type: DELETE_POST,
 		deletedPost
 	}
 }   
->>>>>>> rebase
 
 export function updatePostToDb(updatedPost) {
   return dispatch => axios.put('/api/post', updatedPost)
