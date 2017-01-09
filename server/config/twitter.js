@@ -8,16 +8,10 @@ const _ = require('underscore');
 const Twit  = require('twit');
 const T = new Twit(twitter);
 
-const options = {
-	screen_name: 'hackreactor',
-	include_rts: false,
-  count: 100 
-}
-
 const getTwitterFeed = (params) => {
    return new Promise ((res, rej)=>{
     T.get('statuses/user_timeline', params, (err, feed) => {
-			if (err) { 
+			if (err) {
         rej(err);
       } else {
         const twitterFeed = _.pluck(feed, 'text').join()

@@ -12,8 +12,6 @@ class Browse extends React.Component {
       filter: [],
       filtering: false
     }
-    //if filter is off, then clear and render all 
-    //if filter is on, concat
   }
 
   filter (e) {
@@ -41,15 +39,11 @@ class Browse extends React.Component {
     this.refs.search.value = "";
   }
 
-  // filterByTag () {
-  //   this.props.dispatch(filterTagsfromDb())
-  // }
 
   componentWillMount() {
     console.log("props categories", this.props.categories)
     this.props.dispatch(fetchPostsFromDb())
-
-    if(this.props.categories.length === 0) {
+      if(this.props.categories.length === 0) {
       this.props.dispatch(fetchCategories());
     }
   }
@@ -87,7 +81,6 @@ class Browse extends React.Component {
 
             {this.filterTags()}
             <div className='container'>
-
               { sorted.map((post) => {
                   return (
                     <Post key={post.id} post={post} contextUser={this.props.user.username} />

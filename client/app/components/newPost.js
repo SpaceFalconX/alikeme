@@ -6,7 +6,7 @@ import {browserHistory, Link} from 'react-router'
 
 
 const NewPostForm = React.createClass({
-  
+
   addNewTag(e) {
     e.preventDefault();
     this.props.dispatch(addTag(this.refs.tag.value))

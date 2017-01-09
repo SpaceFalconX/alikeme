@@ -40,6 +40,7 @@ router.get('/:userid', (req, res) => {
 	.query({where: {user_id: req.params.userid}})
 	.fetch({withRelated: ['user', 'category', 'tags']})
 	.then((collection) => {
+		console.log(collection.toJSON())
 		let result = collection.toJSON();
 		for(let i = 0; i < result.length; i++) {
 			result[i] = _.pick(result[i],
