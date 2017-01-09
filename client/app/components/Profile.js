@@ -25,10 +25,7 @@ class Profile extends React.Component {
 
   render () {
     const posts = this.props.userPosts.posts
-
-    console.log("RENDER", posts)
     let sorted = _.sortBy(posts, 'id')
-    console.log(sorted)
     return (
       <div className="col-md-6">
         <NewPostForm {...this.props} />

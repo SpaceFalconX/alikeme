@@ -1,14 +1,10 @@
-<<<<<<< HEAD
 import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS} from '../actions/index.js'
 export function createNewPost (newPost) {
   console.log("NEW POST", newPost)
-=======
-import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS} from '../actions/index.js'
 
 
 export function createNewPost (state=[], action) {
   // console.log("HELPER POST", action.newPost,"HELPER STATE", state)
->>>>>>> refactor  store state shape
 	const { user_id, username, category,category_id, id,
 					content, title, tags,
 					created_at, updated_at} = action.newPost;
@@ -43,6 +39,11 @@ export function userPosts (state=[], action) {
 //       // console.log("CREATE POSTS STATE", Object.assign({}, state, { posts: createNewPost(state, action)} ))
 //       return Object.assign({}, state, { posts: createNewPost(state, action)} );
 //       return state;
+// =======
+//     console.log("STATE", state, action)
+//       return Object.assign({}, state, { posts: createNewPost(state, action)} );
+//       return state;
+// >>>>>>> to pull
 
 //     case FETCH_USER_POSTS:
 //       const {fetchedUserPosts} = action
@@ -62,6 +63,7 @@ export function userPosts (state=[], action) {
 export function allPosts (state=[], action) {
   switch(action.type) {
     case FETCH_ALL_POSTS:
+<<<<<<< HEAD
       return action.fetchedPosts;
     case FILTER_POSTS:
       return state.concat(action.filteredPosts);
@@ -70,6 +72,9 @@ export function allPosts (state=[], action) {
 // =======
 //       return Object.assign({}, state, {posts: fetchedPosts})
 // >>>>>>> refactor  store state shape
+=======
+      return Object.assign({}, state, {posts: action.fetchedPosts})
+>>>>>>> to pull
     default :
       return state;
   }
