@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router'
 import {signupApiRequest, signupUser} from '../actions/auth_actions.js'
+import {getWatsonData} from '../actions/watson_actions.js'
 
 const Signup = React.createClass({
 	componentWillUpdate(nextProps, nextState) {
@@ -18,9 +19,20 @@ const Signup = React.createClass({
 		const password = this.refs.password.value;
 		const twitterLink = this.refs.twitter.value;
 		const facebookLink = this.refs.facebook.value;
-		let userData = {username, email, password, twitterLink, facebookLink}
-		this.props.dispatch(signupApiRequest(userData));
-		// this.refs.signupForm.reset();
+		//let userData = {username, email, password, twitterLink, facebookLink}
+		this.props.dispatch(getWatsonData(twitterLink)).then((res) => {
+			console.log('signup res', res)
+			const agreeableness = res.agreeableness
+			const conscientiousness = res.conscientiousness
+			const emotionalRange = res.emotionalRange
+			const extraversion = res.extraversion
+			const openness = res.openness
+			let userData = {
+				username, email, password, twitterLink, facebookLink,
+				agreeableness, conscientiousness, emotionalRange, extraversion, openness
+			}
+			this.props.dispatch(signupApiRequest(userData));
+		})
 	},
 
 	render() {

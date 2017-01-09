@@ -37,7 +37,6 @@ app.use('/api/post', post)
 app.use('/api/user', user)
 app.use('/api/twitter', twitter)
 
-
 // WILD CARD - anything else direct to landing page
 app.get('*', (req, res) => (
   res.sendFile(path.resolve(__dirname, '../client/app', 'index.html'))

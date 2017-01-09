@@ -10,7 +10,10 @@ const Users = require('../database/collections/users.js');
 const router = express.Router();
 
 router.post('/signup', (req, res) => {
-	const {username, password, email, twitterLink, facebookLink} = req.body
+	const {
+		username, password, email, twitterLink, facebookLink, 
+		agreeableness, conscientiousness, emotionalRange, extraversion, openness
+	} = req.body
 	console.log('REQ.BODY', req.body)
 	new User ({username: username})
 	.fetch()
@@ -18,12 +21,12 @@ router.post('/signup', (req, res) => {
 		if(user) {
 			return res.sendStatus(401);
 		} else {
-			const newUser = new User({ username, email, password, twitterLink, facebookLink})
+			const newUser = new User({
+				username, email, password, twitterLink, facebookLink,
+				agreeableness, conscientiousness, emotionalRange, extraversion, openness
+			})
 			.save()
 			.then((user) => {
-				// if(twitterLink !== 'NULL') {
-				// 	// CALL THE GET TWITTER FEED FUNC
-				// }
 				const token = generateToken(user);
 				console.log(`SIGNUP SUCCESS: ${user.get('username')}`)
 				res.status(201).send({token});

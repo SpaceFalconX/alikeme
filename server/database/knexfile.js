@@ -5,7 +5,7 @@ module.exports = {
     connection: {
       host     : 'localhost',
       user     : 'root',
-      password : 'io',
+      password : '123',
       database : 'alike_me',
       charset  : 'utf8'
     }
