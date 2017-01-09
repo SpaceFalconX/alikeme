@@ -46,9 +46,9 @@ class Browse extends React.Component {
   // }
 
   componentWillMount() {
-    if(this.props.allPosts.length === 0){
-      this.props.dispatch(fetchPostsFromDb())
-    }
+    console.log("props categories", this.props.categories)
+    this.props.dispatch(fetchPostsFromDb())
+
     if(this.props.categories.length === 0) {
       this.props.dispatch(fetchCategories());
     }

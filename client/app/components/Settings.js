@@ -1,6 +1,17 @@
 import React from 'react';
+import {setTwitterToDb} from '../actions/twitter_actions.js'
 
 class Settings extends React.Component {
+  handleSubmit(e) {
+    console.log('called', this.props.user.username, this.refs.twitter.value)
+    e.preventDefault();
+    const twitter = this.refs.twitter.value;
+    const username = this.props.user.username;
+    var postData = {username, twitter}
+    this.props.dispatch(setTwitterToDb(postData));
+    this.refs.twitter.value = ""
+  }
+
   render () {
     return (
       <div>
@@ -8,10 +19,10 @@ class Settings extends React.Component {
       			<h3> Configure social media accounts </h3>
 						<h5> Twitter </h5>
 						Enter your <span className="fa fa-twitter"> </span> handle:
-						<input type="text" ref="twitter" placeholder="eg: janedoe"/> <br/>
-						<h5> Facebook </h5>
-						Enter your <span className="fa fa-facebook"> </span> username:
-						<input type="text" ref="facebook" placeholder="eg: joedoe"/>
+            <form onSubmit={this.handleSubmit.bind(this)}>
+            <input type="text" ref="twitter" placeholder="eg: janedoe"/>
+            </form> <br/>
+            <button className="btn btn-sm" onClick={this.handleSubmit.bind(this)}>UPDATE</button>
       </div>
     )
   }

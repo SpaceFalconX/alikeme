@@ -1,5 +1,7 @@
 import React  from 'react'
 import Post from './Post.js'
+import {getMatches} from '../actions/match_actions.js'
+// import {getPostsByUsername} from '../actions/post_actions.js'
 
 class Matches extends React.Component {
   displayCurrent () {
@@ -11,8 +13,15 @@ class Matches extends React.Component {
       )
     })
   }
-  
-  //todo -ACTUALLY BUILD THE THING THAT MATCHES THINGS
+
+  //todo - run in componentWillMount as well ONLY if props.userposts is not null
+
+  componentWillReceiveProps(nextProps) {
+    let post = nextProps.userPosts.filter((p) => {
+      return p.id === parseInt(this.props.params.postid)
+    })[0]
+    this.props.dispatch(getMatches({post}))
+  }
 
   render () {
     return (

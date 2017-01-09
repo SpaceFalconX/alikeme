@@ -7,23 +7,27 @@ const twitter = {
 const _ = require('underscore');
 const Twit  = require('twit');
 const T = new Twit(twitter);
-const options = { 
+
+const options = {
 	screen_name: 'hackreactor',
 	include_rts: false,
   count: 100 
 }
 
-const getTwitterFeed = () => {
+const getTwitterFeed = (params) => {
    return new Promise ((res, rej)=>{
-    T.get('statuses/user_timeline', options, (err, feed) => {
+    T.get('statuses/user_timeline', params, (err, feed) => {
 			if (err) { 
         rej(err);
       } else {
         const twitterFeed = _.pluck(feed, 'text').join()
+        console.log(twitterFeed)
         res(twitterFeed);
       }
 		})
    })
  }
+
+//getTwitterFeed(options)
 
 module.exports = getTwitterFeed;

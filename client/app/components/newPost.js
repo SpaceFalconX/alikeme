@@ -1,6 +1,5 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
-import DomTags from './tagsComponent.jsx' //WRAPPER FILE MESSES THIS UP.
 import {addTag, removeTag, clearTags} from '../actions/tag_actions.js'
 import {submitNewPost} from '../actions/post_actions.js'
 import {browserHistory, Link} from 'react-router'

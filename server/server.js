@@ -13,6 +13,7 @@ const category =  require('./routes/category_router.js');
 const post =  require('./routes/post_router.js');
 const user =  require('./routes/user_router.js');
 const watson = require('./routes/watson_router.js')
+const twitter = require('./routes/twitter_router.js')
 
 // APP SETUP & MIDDLEWARE
 const app = express();
@@ -34,6 +35,7 @@ app.use('/api/watson', watson)
 app.use('/api/category', category)
 app.use('/api/post', post)
 app.use('/api/user', user)
+app.use('/api/twitter', twitter)
 
 
 // WILD CARD - anything else direct to landing page
