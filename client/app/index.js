@@ -26,6 +26,7 @@ const Root = (
 				<Route path='/login' component={Login} />
 				<Route path='/:username' component={Profile} />
 				<Route path='/setup/:username' component={ProfileSetup} />
+				<Route path='/settings/:username' component={Settings} />
 				<Route path='/profile/:username' component={PublicProfile} />
         <Route path='/browse/:username' component={Browse} />
 				<Route path='/matches/:postid' component={Matches} />

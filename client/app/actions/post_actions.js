@@ -58,7 +58,6 @@ export function submitNewPost (newPost) {
 };
 }
 
-
 export function fetchPostsFromDb() {
   return dispatch => axios.get('/api/post')
 	 .then((resp) => {
@@ -69,8 +68,7 @@ export function fetchPostsFromDb() {
 }
 
 export function fetchUserPostsFromDb(userid) {
-
-	console.log('called with', userid)
+	// console.log('called with', userid)
 	return (dispatch) => {
 		return axios.get(`/api/post/${userid}`)
 		.then((resp) => {
@@ -109,7 +107,7 @@ export function getPostsByUsername (username) {
 	return (dispatch) => {
 		return axios.post('/api/post/getUserId', {username})
 		.then((resp) => {
-			console.log('db data back', resp.data)
+			//console.log('db data back', resp.data)
 			dispatch(fetchUserPostsFromDb(resp.data))
 		})
 		.catch((err)=> {console.log(err)})

@@ -135,8 +135,12 @@ router.post('/new', (req, res) => {
 			.map((tagName, index) => {
 				return Tag.forge({name: tagName}).save();
 			})
+				console.log('tags', tags)
+				console.log('promisedTags', promisedTags)
 			return Promise.all(promisedTags)
 			.then((result) => {
+				//need to query for tags instead of chaining on promised tags
+				console.log('result', result)
 				post.tags().attach(result);
 				const resp = {};
 				resp.tags = result
@@ -160,5 +164,22 @@ router.post('/new', (req, res) => {
   	res.status(400).send({error: {message: err.message}});
 	});
 })
+
+
+////////////////MATCHING
+router.post('/matches', (req, res) => { //filter by category
+	console.log("REQ BODY FOR MATCHES", req.body.post.category.id)
+	Posts.forge()
+	.query({where: {category_id: req.body.post.category.id}}) //(where: {k: 'v}, orWhere: {k: 'v'}), etc...
+	.fetch({withRelated: ['user', 'category', 'tags']})
+	.then((collection) => {
+		collection = collection.toJSON();
+		console.log('COLLECTION BACK', collection)
+		res.json(collection)
+	})
+	.catch((err) => {
+    res.status(500).json({error: {message: err.message}});
+  });
+});
 
 module.exports = router;
