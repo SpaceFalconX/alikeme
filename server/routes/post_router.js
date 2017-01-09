@@ -136,14 +136,15 @@ router.post('/new', (req, res) => {
 			.map((tagName, index) => {
 				return Tag.forge({name: tagName}).save();
 			})
-				console.log('tags', tags)
-				console.log('promisedTags', promisedTags)
+			console.log('tags', tags)
+			console.log('promisedTags', promisedTags)
 			return Promise.all(promisedTags)
 			.then((result) => {
 				//need to query for tags instead of chaining on promised tags
 				console.log('result', result)
 				post.tags().attach(result);
 				const resp = {};
+				console.log('tags in resp', tags)
 				resp.tags = result
 				resp.id = post.id
 				resp['created_at'] = post['created_at']
