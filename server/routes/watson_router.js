@@ -4,8 +4,14 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('/personality', (req, res) => {
-  getTwitterFeed().then((feed)=> {
+router.post('/personality', (req, res) => {
+  console.log('req body', req.body.twitter)
+  let options = {
+	  screen_name: req.body.twitter,
+	  include_rts: false,
+    count: 100 
+  }
+  getTwitterFeed(options).then((feed)=> {
     personality_insights.profile({ text: feed }, (err, result) => {
         if (err) { 
           res.status(400).send({error: err.message})

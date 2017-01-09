@@ -3,7 +3,7 @@ import {browserHistory} from 'react-router'
 import {connect} from 'react-redux';
 import Post from './Post.js'
 import NewPostForm from './NewPost.js'
-
+import {getWatsonData} from '../actions/watson_actions.js'
 import {fetchCategories} from '../actions/category_actions.js'
 import {fetchUserPostsFromDb, getPostsByUsername} from '../actions/post_actions.js'
 
@@ -16,6 +16,7 @@ class Profile extends React.Component {
     if(this.props.categories.length === 0) {
       this.props.dispatch(fetchCategories());
     }
+    this.props.dispatch(getWatsonData(this.props.user.twitterLink))
   }
 
   render () {
