@@ -12,8 +12,6 @@ class Browse extends React.Component {
       filter: [],
       filtering: false
     }
-    //if filter is off, then clear and render all
-    //if filter is on, concat
   }
 
   filter (e) {
@@ -45,8 +43,7 @@ class Browse extends React.Component {
   componentWillMount() {
     console.log("props categories", this.props.categories)
     this.props.dispatch(fetchPostsFromDb())
-
-    if(this.props.categories.length === 0) {
+      if(this.props.categories.length === 0) {
       this.props.dispatch(fetchCategories());
     }
   }
