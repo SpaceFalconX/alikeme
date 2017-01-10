@@ -16,14 +16,14 @@ class Matches extends React.Component {
 
   displayMatches () {
     return this.props.matches.map((match) => {
-      return (
+      return ( //todo -replace this one too
         <Post key={match.originalPost.id} post={match.originalPost} />
       )
     })
   }
 
   render () {
-    if(this.props.userPosts.length > 0 && this.props.matches.length === 0) {
+    if(this.props.userPosts.length > 0 && this.props.matches.length === 0) { //todo - clear matches on page leave
       let post = this.props.userPosts.filter((p) => {
         return p.id === parseInt(this.props.params.postid)
       })[0]
