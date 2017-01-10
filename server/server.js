@@ -42,6 +42,11 @@ app.get('*', (req, res) => (
   res.sendFile(path.resolve(__dirname, '../client/app', 'index.html'))
 ));
 
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
+})
+
 app.listen(4000, () => (
 	console.log("App running on port 4000")
 ))

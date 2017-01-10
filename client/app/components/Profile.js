@@ -11,8 +11,8 @@ import _ from 'underscore'
 class Profile extends React.Component {
   componentWillMount () {
     this.props.dispatch(getPostsByUsername(this.props.params.username))
-    if(this.props.params.username !== this.props.user.username){ //if does not match logged in user
-      browserHistory.push('/profile/' + this.props.params.username) //reroute to a public profile
+    if(this.props.params.username !== this.props.user.username){
+      browserHistory.push('/profile/' + this.props.params.username)
     }
     if(this.props.categories.length === 0) {
       this.props.dispatch(fetchCategories());

@@ -41,10 +41,7 @@ export function submitNewPost (newPost) {
 	return (dispatch) => {
 		return axios.post('/api/post/new', newPost)
 		.then(({data}) => {
-			console.log("DATA", data)
-			console.log("RESP", newPost)
 			let result = {...newPost, ...data}
-			console.log("RESULT", result);
 			dispatch(createPost(result))
 		})
 		.catch((err) => {
