@@ -68,7 +68,7 @@ router.get('/:username', (req, res) => {
 });
 
 router.post('/getUserId', (req, res) => {
-	//console.log('searching for username', req.body.username)
+	console.log('searching for username', req.body.username)
 	Users.forge()
 	.query({where: {username: req.body.username}})
 	.fetch()
