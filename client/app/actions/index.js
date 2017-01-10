@@ -3,6 +3,7 @@ export const UPDATE_POST = 'UPDATE_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const FETCH_ALL_POSTS = 'FETCH_ALL_POSTS';
 export const FETCH_USER_POSTS = 'FETCH_USER_POSTS';
+export const FETCH_PUBLIC_POSTS = 'FETCH_PUBLIC_POSTS';
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 export const ADD_TAG = 'ADD_TAG'
 export const REMOVE_TAG = 'REMOVE_TAG'

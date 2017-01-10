@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import {auth} from './auth.js'
-import {userPosts, allPosts} from './post.js'
+import {userPosts, allPosts, publicPosts} from './post.js'
 import {tags} from './tags.js'
 import {stats} from './stats.js'
 import {categories} from './categories.js'
@@ -13,6 +13,7 @@ const appReducer = combineReducers({
   user: auth,
   userPosts,
   allPosts,
+  publicPosts,
   tags,
   categories,
   matches,
@@ -27,6 +28,7 @@ const defaultState = {
   allPosts: [],
   categories: [],
   tags: [],
+  publicPosts: [],
   personalityMatches: []
 }
 

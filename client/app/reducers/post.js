@@ -1,4 +1,4 @@
-import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS} from '../actions/index.js'
+import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS, FETCH_PUBLIC_POSTS} from '../actions/index.js'
 
 export function createNewPost (action) {
   console.log("HELPER POST", action.newPost,"HELPER STATE")
@@ -26,7 +26,6 @@ export function createNewPost (action) {
 export function userPosts (state=[], action) {
 	switch(action.type) {
 		case CREATE_NEW_POST:
-      console.log(createNewPost(action))
 			return [...state, createNewPost(action)];
 		case FETCH_USER_POSTS:
       return action.fetchedUserPosts
@@ -36,6 +35,17 @@ export function userPosts (state=[], action) {
   return state;
 }
 
+
+export function publicPosts (state=[], action) {
+  console.log("action public", action, state)
+  switch(action.type) {
+    case FETCH_PUBLIC_POSTS:
+      return action.fetchedPublicPosts
+    default :
+      return state;
+  }
+  return state;
+}
 
 
 
@@ -47,11 +57,6 @@ export function allPosts (state=[], action) {
       return state.concat(action.filteredPosts);
     case CLEAR_POSTS:
       return [];
-// =======
-//       return Object.assign({}, state, {posts: fetchedPosts})
-// >>>>>>> refactor  store state shape
-      // return Object.assign({}, state, {posts: action.fetchedPosts})
-
     default :
       return state;
   }

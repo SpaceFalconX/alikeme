@@ -15,7 +15,7 @@ const Login = React.createClass({
 		.then(() => {
 			console.log("is auth?",this.props.user.isAuthenticated)
 			if(this.props.user.isAuthenticated) {
-				this.props.dispatch(fetchUserPostsFromDb(this.props.user.id))
+				this.props.dispatch(fetchUserPostsFromDb(this.props.user.username))
 				.then(() => {
 					console.log("this.props.user.username", username)
 				this.props.router.push({pathname:`/${username}`})
