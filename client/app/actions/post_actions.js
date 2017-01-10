@@ -107,6 +107,12 @@ export function getPostsByUsername (username) {
  }
 }
 
+
+
+
+
+
+
 export function updatePost(updatedPost) {
   return {
   type: UPDATE_POST,

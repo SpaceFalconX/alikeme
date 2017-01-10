@@ -17,8 +17,6 @@ class Profile extends React.Component {
     if(this.props.categories.length === 0) {
       this.props.dispatch(fetchCategories());
     }
-    //this.props.dispatch(getWatsonData(this.props.user.twitterLink))
-  }
 
   render () {
     const posts = this.props.userPosts
