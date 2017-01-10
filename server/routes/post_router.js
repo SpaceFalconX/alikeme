@@ -34,29 +34,37 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/:userid', (req, res) => {
-	console.log("REQ.PARAMS", req.params.userid)
-	Posts.forge()
-	.query({where: {user_id: req.params.userid}})
-	.fetch({withRelated: ['user', 'category', 'tags']})
-	.then((collection) => {
-		console.log(collection.toJSON())
-		let result = collection.toJSON();
-		for(let i = 0; i < result.length; i++) {
-			result[i] = _.pick(result[i],
-				['title', 'created_at', 'updated_at', 'content', 'id',
-				 'user.username', 'user.id','category.id', 'category.name', 'tags'])
-			for(let j = 0; j < result[i].tags.length; j++) {
-				delete result[i].tags[j]['_pivot_id'];
-				delete result[i].tags[j]['_pivot_post_id'];
-				delete result[i].tags[j]['_pivot_tag_id'];
-			}
+router.get('/:username', (req, res) => {
+	console.log("REQ.PARAMS", req.params.username)
+	User.where('username', req.params.username)
+	.fetch().then((user) => {
+		if(!user) {
+			res.status(404).send({err: 'Cannot find user'})
 		}
-		res.send(result)
+		Posts.forge()
+			.query({where: {user_id: user.id}})
+			.fetch({withRelated: ['user', 'category', 'tags']})
+			.then((collection) => {
+			console.log("USER ID", user.id)
+			let result = collection.toJSON();
+			for(let i = 0; i < result.length; i++) {
+				result[i] = _.pick(result[i],
+					['title', 'created_at', 'updated_at', 'content', 'id',
+					 'user.username', 'user.id','category.id', 'category.name', 'tags'])
+				for(let j = 0; j < result[i].tags.length; j++) {
+					delete result[i].tags[j]['_pivot_id'];
+					delete result[i].tags[j]['_pivot_post_id'];
+					delete result[i].tags[j]['_pivot_tag_id'];
+				}
+			}
+			console.log("result", result)
+			res.send(result)
+		})
+		.catch((err) => {
+	    res.status(500).json({error: {message: err.message}});
+	  });
 	})
-	.catch((err) => {
-    res.status(500).json({error: {message: err.message}});
-  });
+
 });
 
 router.post('/getUserId', (req, res) => {
@@ -66,7 +74,7 @@ router.post('/getUserId', (req, res) => {
 	.fetch()
 	.then((result) => {
 		result = result.toJSON()[0].id
-		//console.log('result', result)
+		console.log('result', result)
 		res.json(result)
 	})
 	.catch((err) => {

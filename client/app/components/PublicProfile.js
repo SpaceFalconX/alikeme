@@ -1,15 +1,15 @@
 import React from 'react';
 import Post from './Post.js'
-import {getPostsByUsername} from '../actions/post_actions.js'
+import {fetchPublicPostsFromDb} from '../actions/post_actions.js'
 
 
 class PublicProfile extends React.Component {
   componentWillMount () {
-    this.props.dispatch(getPostsByUsername(this.props.params.username))
+    console.log("pROPS", this.props.params.username)
+    this.props.dispatch(fetchPublicPostsFromDb(this.props.params.username))
   }
-
   userPosts () {
-    return this.props.userPosts.map((post) => {
+    return this.props.publicPosts.map((post) => {
       return (
         <Post key={post.id} post={post} contextUser={this.props.user.username}/>
       )

@@ -4,19 +4,19 @@ import {connect} from 'react-redux';
 import Post from './Post.js'
 import NewPostForm from './NewPost.js'
 import {getWatsonData} from '../actions/watson_actions.js'
-import {fetchUserPostsFromDb, getPostsByUsername} from '../actions/post_actions.js'
+import {fetchUserPostsFromDb} from '../actions/post_actions.js'
 import {fetchCategories} from '../actions/category_actions.js'
 import _ from 'underscore'
 
 class Profile extends React.Component {
   componentWillMount () {
-    this.props.dispatch(getPostsByUsername(this.props.params.username))
     if(this.props.params.username !== this.props.user.username){
       browserHistory.push('/profile/' + this.props.params.username)
     }
     if(this.props.categories.length === 0) {
       this.props.dispatch(fetchCategories());
     }
+  }
 
   render () {
     const posts = this.props.userPosts

@@ -24,9 +24,11 @@ const enhancers = compose(
 // Store Creation
 const store = createStore(reducer, enhancers);
 if(localStorage.token) {
+  const decoded = jwt.decode(localStorage.token)
 	setAuthorizationToken(localStorage.token);
-	store.dispatch(setUser(jwt.decode(localStorage.token).user));
-  store.dispatch(fetchUserPostsFromDb(jwt.decode(localStorage.token).user.id));
+	store.dispatch(setUser(decoded.user))
+  console.log("DECODED", decoded.user.username)
+  store.dispatch(fetchUserPostsFromDb(decoded.user.username));
 }
 
 //Hot reload Redux reducers
