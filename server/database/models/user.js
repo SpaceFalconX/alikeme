@@ -1,8 +1,9 @@
 const db = require('../config.js');
 const bcrypt	= require('bcryptjs')
 const Post = require('./post.js')
+const Users = require('../collections/users.js')
 const Follower_following = require('./follower_following.js')
-
+const _ = require('lodash');
 
 const User = db.Model.extend({
 	tableName: 'users',
@@ -19,6 +20,25 @@ const User = db.Model.extend({
   followers () {
   	return this.belongsToMany('User').through('Follower_following', 'followed_id', 'follower_id' )
   },
+  generateMatches () {
+    const context = this;
+    return this.fetchAll({columns: ['openness', 'conscientiousness', 'extraversion', 'agreeableness', 'emotionalRange', 'username']})
+    .then((response) => {
+      const allUsers = response.toJSON();
+      const distanceMap = allUsers.map((otherUser, index)=> {
+        let distance = 0.0;
+        for(var trait in otherUser) {
+          if(trait !== 'username') {
+            distance += Math.pow(context.get(trait) - otherUser[trait], 2);
+          }
+        }
+        return {distance: distance, match: otherUser.username };
+      })
+      return _.sortBy(distanceMap, 'distance');
+    })
+  },
+
+  /* UNCOMMENT AFTER SEED DATA NO LONGER NEEDED */
 	// hashPassword () {
 	// 	const context = this;
 	// 	return new Promise((resolve, reject) => {

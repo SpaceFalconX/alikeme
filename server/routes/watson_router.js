@@ -4,7 +4,6 @@ const readPersonality = require('../utils/helpers.js')
 const router = express.Router();
 
 router.post('/personality', (req, res) => {
-  console.log('req body', req.body.twitter)
   const options = {
     screen_name: req.body.twitter,
     include_rts: false,
@@ -58,3 +57,4 @@ module.exports = router
 //   .catch((err) => {
 //     res.status(404).send({error: err.message})
 //   })
+

@@ -13,8 +13,18 @@ router.route('/posts/:id')
 		.fetch({withRelated: ['posts.category', 'posts.tags']})
 		.then((user) => {
 			res.json(user)
+ 	  })
+	});
+
+router.route('/matches/:username')
+	.get((req, res) => {
+		User.where({username: req.params.username})
+		.fetch().then((user) => {
+			let parsedUser = user.toJSON()
+			user.generateMatches().then(result => res.json(result.slice(0, 4)))
+		})
   });
-});
+
 
 
 // Fetch all user's following by user id
