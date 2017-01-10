@@ -178,14 +178,55 @@ router.post('/new', (req, res) => {
 
 ////////////////MATCHING
 router.post('/matches', (req, res) => { //filter by category
-	console.log("REQ BODY FOR MATCHES", req.body.post.category.id)
+	console.log("REQ BODY FOR MATCHES", req.body)
 	Posts.forge()
 	.query({where: {category_id: req.body.post.category.id}}) //(where: {k: 'v}, orWhere: {k: 'v'}), etc...
 	.fetch({withRelated: ['user', 'category', 'tags']})
 	.then((collection) => {
-		collection = collection.toJSON();
-		console.log('COLLECTION BACK', collection)
-		res.json(collection)
+
+		let mappedCollection = collection.toJSON()
+		.filter((post) => {
+			return req.body.post.id !== post.id && req.body.post.user.id !== post.user.id
+		})
+		.map((post) => {
+			return {
+				tags: post.tags.map((tag) => {
+				return tag.name
+				}),
+				originalPost: post,
+				post_id: post.id,
+				openness : post.user.openness,
+      	conscientiousness: post.user.conscientiousness,
+      	extraversion: post.user.extraversion,
+      	agreeableness: post.user.agreeableness,
+      	emotionalRange: post.user.emotionalRange
+			}
+		})
+
+		let queryTags = req.body.post.tags.map((tag) => {
+			return tag.name
+		})
+
+		let RankedMatches = mappedCollection.map((post) => { //NEED TO SEND USER PERSONALITY OVER
+			let compatibilityScore = Math.abs(req.body.conscientiousness - post.conscientiousness)
+				+ Math.abs(req.body.extraversion - post.extraversion)
+				+ Math.abs(req.body.agreeableness - post.agreeableness)
+				+ Math.abs(req.body.emotionalRange - post.emotionalRange)
+			let relevantTags = _.intersection(post.tags, queryTags).length
+			let weightedScore = compatibilityScore - (relevantTags / 5)
+			return {
+				compatibilityScore,
+				relevantTags,
+				weightedScore,
+				originalPost: post.originalPost
+			}
+		})
+		.sort((a, b) => {
+			return a.weightedScore - b.weightedScore
+		})
+		.slice(0, 5)
+
+		res.json(RankedMatches)
 	})
 	.catch((err) => {
     res.status(500).json({error: {message: err.message}});
