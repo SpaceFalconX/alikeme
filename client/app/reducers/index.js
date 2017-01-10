@@ -4,7 +4,7 @@ import {userPosts, allPosts} from './post.js'
 import {tags} from './tags.js'
 import {stats} from './stats.js'
 import {categories} from './categories.js'
-import {matches} from './matches.js'
+import {matches, personalityMatches} from './matches.js'
 import {routerReducer} from 'react-router-redux';
 import {LOGOUT_USER} from '../actions/index.js';
 
@@ -16,8 +16,9 @@ const appReducer = combineReducers({
   tags,
   categories,
   matches,
-  routing: routerReducer,
-  stats
+  stats,
+  personalityMatches,
+  routing: routerReducer
 })
 
 const defaultState = {
@@ -26,7 +27,7 @@ const defaultState = {
   allPosts: [],
   categories: [],
   tags: [],
-  matches: []
+  personalityMatches: []
 }
 
 const reducer = (state, action) => {

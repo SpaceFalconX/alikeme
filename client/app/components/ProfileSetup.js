@@ -1,10 +1,15 @@
 import React from 'react'
 import {browserHistory, Link} from 'react-router'
 import {submitNewPost} from '../actions/post_actions.js'
+import {initUserMatches} from '../actions/match_actions.js'
+
 import FriendsList from './FriendsList.js'
 
 
 const ProfileSetup = React.createClass({
+	componentWillMount() {
+		this.props.dispatch(initUserMatches(this.props.user.username))
+	},
 
 	handleSubmit(e) {
 		e.preventDefault();
@@ -29,7 +34,11 @@ const ProfileSetup = React.createClass({
 					<h3> Start setting up your profile!</h3>
 					<div className="container">
 						<h3>Here are some suggested users to follow</h3>
-						<FriendsList {...this.props}/>
+						{
+							this.props.personalityMatches.map((match)=>{
+								return (<FriendsList match={match} user={this.props.user} />)
+							})
+						}
 					</div>
 				</div>
 			</div>

@@ -36,7 +36,11 @@ const FriendsList = React.createClass({
                     style={style.friendImg} />
                 </div>
                 <div className="media-body">
-                  <h4 className="media-heading margin-v-5"><a href="#">Adrian D.</a></h4>
+                  <div>
+                  <h4 className="media-heading margin-v-5 pull-left"><a href="#">{this.props.match.match}</a></h4>
+                  <h4 className="media-heading margin-v-5 pull-right"><a href="#">{this.props.match.distance}</a></h4>
+
+                  </div>
                   <div className="profile-icons">
                     <span><i className="fa fa-users"></i> 372</span>
                     <span><i className="fa fa-photo"></i> 43</span>
