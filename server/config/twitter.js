@@ -15,7 +15,6 @@ const getTwitterFeed = (params) => {
         rej(err);
       } else {
         const twitterFeed = _.pluck(feed, 'text').join()
-        console.log(twitterFeed)
         res(twitterFeed);
       }
 		})

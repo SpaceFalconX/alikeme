@@ -1,21 +1,14 @@
 import React from 'react'
 import {browserHistory, Link} from 'react-router'
 import {submitNewPost} from '../actions/post_actions.js'
+import {initUserMatches} from '../actions/match_actions.js'
+
+import FriendsList from './FriendsList.js'
 
 
 const ProfileSetup = React.createClass({
-	navToProfile () {
-    browserHistory.push('/profile/' + this.props.user.username)
-	},
-
-	renderPost(post, index) {
-		return (
-			<div key={index}>
-				<p><strong>{post.author}</strong>
-				{post.content}
-				</p>
-			</div>
-		)
+	componentWillMount() {
+		this.props.dispatch(initUserMatches(this.props.user.username))
 	},
 
 	handleSubmit(e) {
@@ -34,24 +27,19 @@ const ProfileSetup = React.createClass({
 
 	render() {
 		return (
-			<div>
+			<div className="col-md-9">
 				<h2>ProfileSetup</h2><hr/>
 				<div className="block">
 					<h3> Hello {this.props.user.username}!</h3>
-					<form ref="newPostForm" onSubmit={this.handleSubmit}>
-						<h4> Make your first post and start matching up </h4>
-						<input className="form-group" type="text" ref="title" placeholder="Title"/><br/>
-						<input className="form-group" type="text" ref="category" placeholder="category"/><br/>
-						<textarea className="form-group" type="text" ref="content" placeholder="new post"/><br/>
-						<input className="btn btn-default" type="submit" value="Submit Post"/>
-						<h3> Set up your social media accounts </h3>
-						<h5> Twitter </h5>
-						Enter your <span className="fa fa-twitter"> </span> handle:
-						<input type="text" ref="twitter" placeholder="eg: janedoe"/> <br/>
-						<h5> Facebook </h5>
-						Enter your <span className="fa fa-facebook"> </span> username:
-						<input type="text" ref="facebook" placeholder="eg: joedoe"/>
-					</form>
+					<h3> Start setting up your profile!</h3>
+					<div className="container">
+						<h3>Here are some suggested users to follow</h3>
+						{
+							this.props.personalityMatches.map((match)=>{
+								return (<FriendsList match={match} user={this.props.user} />)
+							})
+						}
+					</div>
 				</div>
 			</div>
 		)

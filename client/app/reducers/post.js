@@ -24,31 +24,12 @@ export function createNewPost (action) {
 }
 
 export function userPosts (state=[], action) {
-  console.log("CREATE NEW POST", state, action)
 	switch(action.type) {
 		case CREATE_NEW_POST:
       console.log(createNewPost(action))
 			return [...state, createNewPost(action)];
 		case FETCH_USER_POSTS:
-      console.log(action.fetchedUserPosts)
       return action.fetchedUserPosts
-// =======
-//     console.log("STATE", state, action)
-//       // console.log("CREATE POSTS STATE", Object.assign({}, state, { posts: createNewPost(state, action)} ))
-//       return Object.assign({}, state, { posts: createNewPost(state, action)} );
-//       return state;
-// =======
-//     console.log("STATE", state, action)
-//       return Object.assign({}, state, { posts: createNewPost(state, action)} );
-//       return state;
-// >>>>>>> to pull
-
-//     case FETCH_USER_POSTS:
-//       const {fetchedUserPosts} = action
-//       return Object.assign({}, state, {posts: fetchedUserPosts})
-//       return state;
-
-// >>>>>>> refactor  store state shape
 		default :
 			return state;
 	}

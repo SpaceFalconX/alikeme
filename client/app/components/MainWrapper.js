@@ -26,7 +26,9 @@ export const defaultState = {
 	userPosts: [],
 	allPosts: [],
 	categories: [],
-	tags: []
+	tags: [],
+	matches: [],
+	personalityMatches: []
 }
 
 function mapStatetoProps (state=defaultState) {
@@ -36,6 +38,7 @@ function mapStatetoProps (state=defaultState) {
 		categories: state.categories,
 		userPosts: state.userPosts,
 		allPosts: state.allPosts,
+		personalityMatches: state.personalityMatches
 	}
 }
 
