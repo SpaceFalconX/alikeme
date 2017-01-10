@@ -8,15 +8,15 @@ router.post('/setTwitter', (req, res) => {
   new User ({username: req.body.username})
 	.fetch()
 	.then((user) => {
-		if(!user) {
-			return res.sendStatus(401);
-		} else {
+		// if(!user) {
+		// 	return res.sendStatus(401);
+		// } else {
 			user.save({twitterLink: req.body.twitter})
 			.then((user) => {
 
 				res.sendStatus(201)
 			})
-		}
+		// }
 	})
 })
 
