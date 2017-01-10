@@ -47,10 +47,10 @@ const Sidebar = React.createClass({
           <img src="https://s-media-cache-ak0.pinimg.com/736x/ca/17/2e/ca172e61eb8d59a616730bef34276f7b.jpg" alt="hootington" style={imgStyle}/>
           <p className='lead' style={locationStyl}> <small> location set to: <br/> San Francisco, CA </small> </p>
           <h4> Stats <small title="The normalized percentile score for the characteristic. The range is 0 to 1. For example, if the percentage for Openness is 0.25, the author scored in the 25th percentile; the author is more open than 24% of the population and less open than 74% of the population."> *percentile </small> </h4>
-          <p> Openness: 80% </p>
-          <p> Conscientiousness: 80% </p> 
-          <p> Introversion/Extraversion: 80% </p> 
-          <p> Emotional range: 80% </p>  
+          <p> Openness: {(this.props.user.openness * 100).toFixed(0)}% </p>
+          <p> Conscientiousness: {(this.props.user.conscientiousness * 100).toFixed(0)}% </p> 
+          <p> Introversion/Extraversion: {(this.props.user.extraversion * 100).toFixed(0)}% </p> 
+    <p> Emotional range: {(this.props.user.emotionalRange * 100).toFixed(0)}% </p>  
         </div>
         <hr/>
         <h4 title="Click to refresh your stats based on what you've told us"> *Refresh Statics </h4> <br/>
