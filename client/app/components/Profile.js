@@ -19,6 +19,7 @@ class Profile extends React.Component {
   }
 
   render () {
+    console.log('RENDER USER POSTS FROM PROFILE', this.props.userPosts)
     const posts = this.props.userPosts
     let sorted = _.sortBy(posts, 'id')
     return (
