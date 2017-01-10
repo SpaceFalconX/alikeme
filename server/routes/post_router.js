@@ -188,7 +188,7 @@ router.post('/new', (req, res) => {
 router.post('/matches', (req, res) => { //filter by category
 	console.log("REQ BODY FOR MATCHES", req.body)
 	Posts.forge()
-	.query({where: {category_id: req.body.post.category.id}}) //(where: {k: 'v}, orWhere: {k: 'v'}), etc...
+	.query({where: {category_id: req.body.post.category.id}})
 	.fetch({withRelated: ['user', 'category', 'tags']})
 	.then((collection) => {
 
@@ -215,13 +215,13 @@ router.post('/matches', (req, res) => { //filter by category
 			return tag.name
 		})
 
-		let RankedMatches = mappedCollection.map((post) => { //NEED TO SEND USER PERSONALITY OVER
+		let RankedMatches = mappedCollection.map((post) => { //create personality score and tags score
 			let compatibilityScore = Math.abs(req.body.conscientiousness - post.conscientiousness)
 				+ Math.abs(req.body.extraversion - post.extraversion)
 				+ Math.abs(req.body.agreeableness - post.agreeableness)
 				+ Math.abs(req.body.emotionalRange - post.emotionalRange)
 			let relevantTags = _.intersection(post.tags, queryTags).length
-			let weightedScore = compatibilityScore - (relevantTags / 5)
+			let weightedScore = compatibilityScore - (relevantTags / 5) //subtract number of matching tags from compatibilityScore
 			return {
 				compatibilityScore,
 				relevantTags,
@@ -229,7 +229,7 @@ router.post('/matches', (req, res) => { //filter by category
 				originalPost: post.originalPost
 			}
 		})
-		.sort((a, b) => {
+		.sort((a, b) => { //sort by lowest number
 			return a.weightedScore - b.weightedScore
 		})
 		.slice(0, 5)
