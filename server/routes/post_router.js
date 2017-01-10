@@ -141,7 +141,7 @@ router.post('/new', (req, res) => {
 				.query('whereIn', 'name', tags)
 				.fetch()
 				.then((some) => {
-					return Promise.join(some.map((tag)=>{
+					return Promise.all(some.map((tag)=>{
 						return post.tags().attach(tag);
 					})).then(()=> {
 							const resp = {};

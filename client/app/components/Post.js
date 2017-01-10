@@ -10,7 +10,7 @@ class Post extends React.Component {
 
   renderTags () {
     return this.props.post.tags.map((tag, index) => {
-      return (<Link key={tag.id}><span className="label label-info" style={this.postStyle()}>{tag.name}</span></Link>)
+      return (<Link key={index}><span className="label label-info" style={this.postStyle()}>{tag.name}</span></Link>)
     })
   }
 
