@@ -80,7 +80,7 @@ class Browse extends React.Component {
             </div>
 
             {this.filterTags()}
-            <div className='container'>
+            <div className="row">
               { sorted.map((post) => {
                   return (
                     <Post key={post.id} post={post} contextUser={this.props.user.username} />

@@ -28,12 +28,12 @@ const NewPostForm = React.createClass({
     const username = this.props.user.username;
     const user_id = this.props.user.id;
     const tags = this.props.tags;
-    var postData = {user_id, username, category, content, title, category_id, tags}
-
-    this.props.dispatch(submitNewPost({...postData}));
-    this.props.dispatch(clearTags())
-    this.refs.newPostForm.reset();
-  },
+    const postData = {user_id, username, category, content, title, category_id, tags}
+    console.log("POSTDATA", postData)
+    this.props.dispatch(submitNewPost(postData))
+    // this.props.dispatch(clearTags())
+    // this.refs.newPostForm.reset();
+    },
 
   domTags () {
     return this.props.tags.map((tag) => {
@@ -45,10 +45,9 @@ const NewPostForm = React.createClass({
 
   render() {
     return (
-      <div>
-        <h2>Create a new Post!</h2><hr/>
         <div className="block">
           <h3> Hello {this.props.user.username}!</h3>
+          <h4> Create a new Post!</h4><hr/>
           <form ref="newPostForm" onSubmit={this.handleSubmit}>
           <div className ="form-group">
             <label>PostTitle</label>
@@ -77,7 +76,6 @@ const NewPostForm = React.createClass({
           <input type="submit" className="btn btn-default" value="Submit Post" />
           </form>
         </div>
-      </div>
     )
   }
 })

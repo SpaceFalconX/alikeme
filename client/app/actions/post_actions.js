@@ -37,11 +37,14 @@ export function clearPosts () {
 }
 
 export function submitNewPost (newPost) {
-	console.log("submit", newPost)
+	console.log("SUBMIT POST", newPost)
 	return (dispatch) => {
 		return axios.post('/api/post/new', newPost)
 		.then(({data}) => {
+			console.log("DATA", data)
+			console.log("RESP", newPost)
 			let result = {...newPost, ...data}
+			console.log("RESULT", result);
 			dispatch(createPost(result))
 		})
 		.catch((err) => {
@@ -56,7 +59,7 @@ export function fetchPostsFromDb() {
 		 console.log('resp.data...... ', resp.data);
 		 dispatch(fetchPosts(resp.data))
 	 })
-	 .catch((err) => { console.log(err) ;});
+	 .catch((err) => { console.log(err) });
 }
 
 export function fetchUserPostsFromDb(userid) {

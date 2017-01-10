@@ -1,6 +1,5 @@
 export function tags (state=[], action) {
   if(action.type === 'ADD_TAG'){
-    console.log("STATE", state)
     if(state.indexOf(action.tag) !== -1) {
       return state
     }

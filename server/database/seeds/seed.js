@@ -28,6 +28,9 @@ exports.seed = (knex, Promise) => {
         knex('posts').insert({id: 3, content: 'anyone fancy an artcihoke?', title: 'VeggieMania', user_id: 2, category_id: 2}),
         knex('posts').insert({id: 4, content: 'Brussel Sprouts yoohooo', title: 'brussel', user_id: 1, category_id: 2}),
         knex('posts').insert({id: 5, content: 'wholegrains are good for you', title: 'GrainyPost', user_id: 2, category_id: 3}),
+         knex('posts').insert({id: 6, content: 'SPINACH lover', title: 'verde', user_id: 1, category_id: 2}),
+        knex('posts').insert({id: 7, content: 'Rice', title: 'Loving that rice!', user_id: 3, category_id: 3}),
+
 
         knex('tags').insert({id: 1, name: 'apples'}),
         knex('tags').insert({id: 2, name: 'oranges'}),

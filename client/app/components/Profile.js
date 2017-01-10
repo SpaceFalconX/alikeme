@@ -28,6 +28,7 @@ class Profile extends React.Component {
     return (
       <div className="col-md-6">
         <NewPostForm {...this.props} />
+        <div className="container">
           {
             posts.map((post) => {
               return (
@@ -35,6 +36,7 @@ class Profile extends React.Component {
               )
             })
           }
+        </div>
       </div>
     )
   }

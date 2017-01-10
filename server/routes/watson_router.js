@@ -23,7 +23,6 @@ router.post('/personality', (req, res) => {
         personality.extraversion = trait.children[2].percentage
         personality.agreeableness = trait.children[3].percentage
         personality.emotionalRange = trait.children[4].percentage
-        console.log(typeof personality.extraversion)
         res.status(200).send(personality)
     })
   })

@@ -10,7 +10,7 @@ class Post extends React.Component {
 
   renderTags () {
     return this.props.post.tags.map((tag, index) => {
-      return (<Link key={tag.id}><span className="label label-info" style={this.postStyle()}>{tag.name}</span></Link>)
+      return (<Link key={index}><span className="label label-info" style={this.postStyle()}>{tag.name}</span></Link>)
     })
   }
 
@@ -37,27 +37,27 @@ class Post extends React.Component {
 
   render () {
     return (
-      <div className="panel panel-default">
-        <div className="panel-body">
-          <Link className="pull-left">
-            <img src="#" className="media-photo" />
-          </Link>
-          <span className="pull-right"><em>
-          { moment(this.props.post.created_at).calendar() }
-          </em></span>
-          <div className="media-body">
-            <h4 className="list-group-item-heading">{this.props.post.title}</h4>
-            <p className="list-group-item-text"><b>{this.props.post.content}</b></p>
-            <p><i>-{this.usernameContext()}</i></p>
-            <p>{this.matchORViewContext()}</p>
+        <div className="panel panel-default">
+          <div className="panel-body">
+            <Link className="pull-left">
+              <img src="#" className="media-photo" />
+            </Link>
+            <span className="pull-right"><em>
+            { moment(this.props.post.created_at).calendar() }
+            </em></span>
+            <div className="media-body">
+              <h4 className="list-group-item-heading">{this.props.post.title}</h4>
+              <p className="list-group-item-text"><b>{this.props.post.content}</b></p>
+              <p><i>-{this.usernameContext()}</i></p>
+              <p>{this.matchORViewContext()}</p>
+            </div>
+          </div>
+          <div className="panel-body">
+            <span className="glyphicon glyphicon-tags" aria-hidden="true" style={this.postStyle()}></span>
+            <span>{this.renderTags()}</span>
+            | <span>Posted in <Link className="badge">{this.props.post.category.name}</Link></span>
           </div>
         </div>
-        <div className="panel-body">
-          <span className="glyphicon glyphicon-tags" aria-hidden="true" style={this.postStyle()}></span>
-          <span>{this.renderTags()}</span>
-          | <span>Posted in <Link className="badge">{this.props.post.category.name}</Link></span>
-        </div>
-      </div>
     )
   }
 }

@@ -15,15 +15,6 @@ router.route('/posts/:id')
 			res.json(user)
   });
 });
-	// 	  console.log(user.related('posts').toJSON());
-	// 	  res.json(user.related('posts'))
-	// 	})
-	// 	.catch((err) => {
-	// 		console.error(err);
-	// 		res.json({error: {message: err.message}})
-	// 	});
-	// })
-
 
 
 // Fetch all user's following by user id
@@ -55,7 +46,7 @@ router.route('/followers/:id')
 	})
 
 // Follow a user
-router.route('/followuser')
+router.route('/follow')
 	.post((req, res) => {
 		const {follower_id, followed_id} = req.body;
 		if(follower_id === followed_id) {
