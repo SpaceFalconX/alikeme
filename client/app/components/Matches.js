@@ -5,6 +5,7 @@ import {getMatches} from '../actions/match_actions.js'
 
 class Matches extends React.Component {
   displayCurrent () {
+    console.log(this.props.userPosts)
     return this.props.userPosts.filter((post) => {
       return post.id === parseInt(this.props.params.postid)
     }).map((post) => {
@@ -15,6 +16,8 @@ class Matches extends React.Component {
   }
 
   //todo - run in componentWillMount as well ONLY if props.userposts is not null
+  // componentWillMount () {
+  // }
 
   componentWillReceiveProps(nextProps) {
     let post = nextProps.userPosts.filter((p) => {
