@@ -35,7 +35,7 @@ const Login = React.createClass({
 
 	render() {
 		return (
-			<div>
+			<div className="col-md-6">
 				<h2>Login</h2>
 				<form ref="loginForm" onSubmit={this.handleSubmit}>
 					<label>Username:</label><br/>

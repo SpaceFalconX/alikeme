@@ -123,7 +123,6 @@ router.post('/tags', (req, res) => { //filter by tag.....how
 //////////////////////////////////////////////////////////////////////////////////
 
 router.post('/new', (req, res) => {
-	console.log("req.body", req.body)
 	const {content, title, user_id, category_id, tags} = req.body;
 	Post.forge({content, title, user_id, category_id})
 	.save()
@@ -136,20 +135,29 @@ router.post('/new', (req, res) => {
 			.map((tagName, index) => {
 				return Tag.forge({name: tagName}).save();
 			})
-			console.log('tags', tags)
-			console.log('promisedTags', promisedTags)
 			return Promise.all(promisedTags)
 			.then((result) => {
-				//need to query for tags instead of chaining on promised tags
-				console.log('result', result)
-				post.tags().attach(result);
-				const resp = {};
-				console.log('tags in resp', tags)
-				resp.tags = result
-				resp.id = post.id
-				resp['created_at'] = post['created_at']
-				resp['created_at'] = post['created_at']
-				res.send(resp);
+				Tags.forge()
+				.query('whereIn', 'name', tags)
+				.fetch()
+				.then((some) => {
+					return Promise.join(some.map((tag)=>{
+						return post.tags().attach(tag);
+					})).then(()=> {
+							const resp = {};
+							resp.tags = tags;
+							resp.id = post.id;
+							res.send(resp);
+					})
+					.catch((err) => {
+						console.log(err);
+			    	res.status(500).send({error: {message: err.message}});
+			  	});
+				})
+				.catch((err) => {
+					console.log(err);
+		    	res.status(500).send({error: {message: err.message}});
+		  	});
 			})
 			.catch((err) => {
 				console.log(err);
