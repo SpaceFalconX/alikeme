@@ -14,7 +14,7 @@ router.post('/signup', (req, res) => {
 		username, password, email, twitterLink, facebookLink, 
 		agreeableness, conscientiousness, emotionalRange, extraversion, openness
 	} = req.body
-	console.log('REQ.BODY', req.body)
+	//console.log('REQ.BODY', req.body)
 	new User ({username: username})
 	.fetch()
 	.then((user) => {

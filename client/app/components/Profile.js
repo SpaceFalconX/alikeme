@@ -7,8 +7,6 @@ import {getWatsonData} from '../actions/watson_actions.js'
 import {fetchUserPostsFromDb, getPostsByUsername} from '../actions/post_actions.js'
 import {fetchCategories} from '../actions/category_actions.js'
 import _ from 'underscore'
-//todo
-//make code reuseable for logged in and non-logged in users
 
 class Profile extends React.Component {
   componentWillMount () {
@@ -19,7 +17,7 @@ class Profile extends React.Component {
     if(this.props.categories.length === 0) {
       this.props.dispatch(fetchCategories());
     }
-    this.props.dispatch(getWatsonData(this.props.user.twitterLink))
+    //this.props.dispatch(getWatsonData(this.props.user.twitterLink))
   }
 
   render () {

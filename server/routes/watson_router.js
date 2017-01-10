@@ -31,4 +31,19 @@ router.post('/personality', (req, res) => {
   })
 })
 
+// router.post('/getUserId', (req, res) => {
+// 	//console.log('searching for username', req.body.username)
+// 	Users.forge()
+// 	.query({where: {username: req.body.username}})
+// 	.fetch()
+// 	.then((result) => {
+// 		result = result.toJSON()[0].id
+// 		//console.log('result', result)
+// 		res.json(result)
+// 	})
+// 	.catch((err) => {
+//     res.status(500).json({error: {message: err.message}});
+//   });
+// })
+
 module.exports = router

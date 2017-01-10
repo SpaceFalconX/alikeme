@@ -2,6 +2,12 @@ import React from 'react';
 import {setTwitterToDb} from '../actions/twitter_actions.js'
 
 class Settings extends React.Component {
+  
+  //TODO
+  //get watson values with updated handle
+  //create route to store new handle and updated values
+  //create action/reducer on user store to update after process completed
+
   handleSubmit(e) {
     console.log('called', this.props.user.username, this.refs.twitter.value)
     e.preventDefault();

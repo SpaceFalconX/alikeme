@@ -20,7 +20,12 @@ class Matches extends React.Component {
     let post = nextProps.userPosts.filter((p) => {
       return p.id === parseInt(this.props.params.postid)
     })[0]
-    this.props.dispatch(getMatches({post}))
+    let agreeableness = this.props.user.agreeableness
+    let conscientiousness = this.props.user.conscientiousness
+    let emotionalRange = this.props.user.emotionalRange
+    let extraversion = this.props.user.extraversion
+    let openness = this.props.user.openness
+    this.props.dispatch(getMatches({post, agreeableness, conscientiousness, emotionalRange, extraversion, openness}))
   }
 
   render () {

@@ -13,8 +13,6 @@ module.exports = {
 }
 
 
-
-
 /*** UNCOMMENT IN PRODUCTION ***/
 // staging: {
 //   client: 'postgresql',

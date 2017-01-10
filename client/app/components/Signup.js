@@ -19,9 +19,8 @@ const Signup = React.createClass({
 		const password = this.refs.password.value;
 		const twitterLink = this.refs.twitter.value;
 		const facebookLink = this.refs.facebook.value;
-		//let userData = {username, email, password, twitterLink, facebookLink}
 		this.props.dispatch(getWatsonData(twitterLink)).then((res) => {
-			console.log('signup res', res)
+			// console.log('signup res', res)
 			const agreeableness = res.agreeableness
 			const conscientiousness = res.conscientiousness
 			const emotionalRange = res.emotionalRange
