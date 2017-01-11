@@ -7,6 +7,8 @@ const twitter = {
 const _ = require('underscore');
 const Twit  = require('twit');
 const T = new Twit(twitter);
+const Promise = require('bluebird');
+
 
 const getTwitterFeed = (params) => {
    return new Promise ((res, rej)=>{

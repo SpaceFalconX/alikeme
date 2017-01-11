@@ -9,8 +9,15 @@ router.post('/personality', (req, res) => {
     include_rts: false,
     count: 100
   }
-  readPersonality(options).then((personality) => {
+  readPersonality(options)
+  .then((personality, err) => {
+    if(err) {
+      return res.sendStatus(401).json({error})
+    }
     res.status(201).send(personality)
+  })
+  .catch(() => {
+    return res.status(403);
   })
 })
 

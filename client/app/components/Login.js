@@ -3,6 +3,8 @@ import {Link} from 'react-router'
 import {loginApiRequest} from '../actions/auth_actions.js'
 import {fetchUserPostsFromDb} from '../actions/post_actions.js'
 import {fetchCategories} from '../actions/category_actions.js'
+import {getWatsonData} from '../actions/watson_actions.js'
+
 
 const Login = React.createClass({
 
@@ -13,16 +15,20 @@ const Login = React.createClass({
 		let userData = {username, password}
 		this.props.dispatch(loginApiRequest(userData))
 		.then(() => {
-			console.log("is auth?",this.props.user.isAuthenticated)
 			if(this.props.user.isAuthenticated) {
-				this.props.dispatch(fetchUserPostsFromDb(this.props.user.username))
-				.then(() => {
-					console.log("this.props.user.username", username)
-				this.props.router.push({pathname:`/${username}`})
-			 	})
-				.catch((err) => {
-					console.log(err)
-				})
+				const {twitterLink, openness, username} = this.props.user;
+				if(twitterLink && !openness) {
+					this.props.dispatch(getWatsonData(twitterLink))
+						.then(() => {
+						this.props.dispatch(fetchUserPostsFromDb(username))
+						.then(() => {
+							this.props.router.push({pathname:`/${username}`})
+						})
+				 	})
+					.catch((err) => {
+						console.log(err)
+					})
+				}
 			}
 		})
 		this.refs.loginForm.reset();

@@ -20,7 +20,6 @@ const Signup = React.createClass({
 		const twitterLink = this.refs.twitter.value;
 		const facebookLink = this.refs.facebook.value;
 		this.props.dispatch(getWatsonData(twitterLink)).then((res) => {
-			// console.log('signup res', res)
 			const agreeableness = res.agreeableness
 			const conscientiousness = res.conscientiousness
 			const emotionalRange = res.emotionalRange
