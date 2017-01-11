@@ -27,7 +27,6 @@ if(localStorage.token) {
   const decoded = jwt.decode(localStorage.token)
 	setAuthorizationToken(localStorage.token);
 	store.dispatch(setUser(decoded.user))
-  console.log("DECODED", decoded.user.username)
   store.dispatch(fetchUserPostsFromDb(decoded.user.username));
 }
 

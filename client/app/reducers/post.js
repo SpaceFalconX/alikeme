@@ -1,7 +1,6 @@
 import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS, FETCH_PUBLIC_POSTS} from '../actions/index.js'
 
 export function createNewPost (action) {
-  console.log("HELPER POST", action.newPost,"HELPER STATE")
 	const { user_id, username, category,category_id, id,
 					content, title, tags,
 					created_at, updated_at} = action.newPost;
@@ -37,7 +36,6 @@ export function userPosts (state=[], action) {
 
 
 export function publicPosts (state=[], action) {
-  console.log("action public", action, state)
   switch(action.type) {
     case FETCH_PUBLIC_POSTS:
       return action.fetchedPublicPosts

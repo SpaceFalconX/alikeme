@@ -13,12 +13,9 @@ export function refreshStats(userData) {
 
 
 export function fetchUserDataFromWatson(userData) {
-  console.log('inside fetUserDataFromWatson 1')
   return function (dispatch) {
-    console.log('inside fetUserDataFromWatson 2', userData)
     return axios.get('/api/watson', userData)
     .then(resp => {
-      console.log('dispatch action about to be called')
       dispatch(refreshStats(userData))
     })
     .catch(err => console.log('Err ', err))

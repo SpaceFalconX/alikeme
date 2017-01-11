@@ -1,9 +1,19 @@
 import React from 'react'
 import {browserHistory, Link} from 'react-router'
+import {followClick} from '../actions/auth_actions.js'
+
 
 const FriendsList = React.createClass({
-  onClick(e) {
+  followUser(e) {
+    console.log(e)
     e.preventDefault();
+    console.log(this.props.match.id)
+    this.props.dispatch(followClick(this.props.user.id, this.props.match.id))
+  },
+
+  visitProfile (e) {
+    e.preventDefault()
+    this.props.router.push(`/profile/${this.props.match.username}`)
   },
 
   render() {
@@ -21,14 +31,15 @@ const FriendsList = React.createClass({
         padding: '10px 15px',
         backgroundColor:' #ffffff',
         borderTop: '1px solid #e2e9e6',
-        borderBottomRightRadius: '-1',
-        borderBottomLeftRadius: '-1'
+        borderBottomRightRadius: '5%',
+        borderBottomLeftRadius: '5%'
       }
     }
+    const {username, distance} = this.props.match
     return (
-      <div >
-        <div className="col-md-3">
-          <div className="panel panel-default" style={style.panel}>
+      <div  className="">
+        <div className="col-md-6">
+          <div className="panel panel-default thumbnail" style={style.panel}>
             <div className="panel-heading">
               <div className="media">
                 <div className="pull-left">
@@ -36,15 +47,12 @@ const FriendsList = React.createClass({
                     style={style.friendImg} />
                 </div>
                 <div className="media-body">
-                  <div>
                   <h4 className="media-heading margin-v-5 pull-left">
-                    <a href="#">{this.props.match.match}</a>
-                     </h4>
-                  <h4 className="media-heading margin-v-5 pull-right">
-                    <a href="#">{this.props.match.distance}</a>
+                    <Link onClick={this.visitProfile}> Match: {username}</Link>
                   </h4>
-
-                  </div>
+                  <h4 className="media-heading margin-v-5 pull-right">
+                    <a href="#">{Math.round((1 - distance) * 100)}%</a>
+                  </h4>
                   <div className="profile-icons">
                     <span><i className="fa fa-users"></i> 372</span>
                     <span><i className="fa fa-photo"></i> 43</span>
@@ -54,7 +62,7 @@ const FriendsList = React.createClass({
               </div>
             </div>
             <div className="panel-footer" style={style.panelFooter}>
-              <a href="#" className="btn btn-default btn-sm">Follow <i className="fa fa-share"></i></a>
+              <button ref="follower" className="btn btn-default" onClick={this.followUser}>Follow <i className="fa fa-share"></i></button>
             </div>
           </div>
         </div>
