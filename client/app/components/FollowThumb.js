@@ -6,7 +6,7 @@ import {followClick} from '../actions/auth_actions.js'
 const FollowThumb = React.createClass({
   visitProfile (e) {
     e.preventDefault()
-    this.props.router.push(`/profile/${this.props.match.username}`)
+    this.props.router.push(`/profile/${this.props.follower.username}`)
   },
 
   render() {
@@ -29,10 +29,8 @@ const FollowThumb = React.createClass({
       }
     }
     // const {otherUser} = this.props.otherUser;
-    const {username} = this.props.follower
+    const {follower} = this.props;
     return (
-      <div className="container">
-        <div className="col-md-4">
           <div className="thumbnail" style={style.panel}>
             <div className="panel-heading">
               <div className="media">
@@ -41,24 +39,19 @@ const FollowThumb = React.createClass({
                     style={style.friendImg} />
                 </div>
                 <div className="media-body">
-                  <h4 className="media-heading margin-v-5 pull-left">
-                    <Link onClick={this.visitProfile}>@{username}</Link>
-                  </h4>
-                  <h4 className="media-heading margin-v-5 pull-right">
-                    <strong>{Math.round((1 - 10) * 100)}% alike me</strong>
-                  </h4>
+                  <h5 className="media-heading margin-v-5 pull-left">
+                    <Link onClick={this.visitProfile}>@{follower.username}</Link>
+                  </h5>
                   <br/>
                   <div className="pull-left">
-                    <span><i className="fa fa-users"></i> 372</span>
-                    <span><i className="fa fa-photo"></i> 43</span>
-                    <span><i className="fa fa-video-camera"></i> 3</span>
+                    <span><i className="fa fa-users"></i> 372 </span>
+                    <span><i className="fa fa-photo"></i> 43 </span>
+                    <span><i className="fa fa-video-camera"></i> 3 </span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        </div>
       )
   }
 })

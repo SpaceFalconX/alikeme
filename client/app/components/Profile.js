@@ -29,21 +29,34 @@ class Profile extends React.Component {
     console.log("FOLLOWERS")
     const {personalityMatches} = this.props;
     return (
-        <div >
-          <div className="col-md-6">
-            <NewPostForm {...this.props} />
-            {
-              posts.map((post) => {
-                return (
-                  <Post key={post.id} post={post} />
-                )
-              })
-            }
-          </div>
-          <div className="col-md-4">
-            {this.props.user.followers.map((follower, index)=>{
-              return (<FollowThumb key={index} follower={follower}  />)
-            })}
+        <div className="col-md-10" >
+         <div className="row" >
+            <div className="col-md-8">
+              <NewPostForm {...this.props} />
+              {
+                posts.map((post) => {
+                  return (
+                    <Post key={post.id} post={post} />
+                  )
+                })
+              }
+            </div>
+            <div className="col-md-4">
+              <h4>Followers</h4>
+              {
+                this.props.user.followers.map((follower, index)=>{
+                  return (<FollowThumb router={this.props.router} key={index} follower={follower}
+                    personalityMatches={personalityMatches} />)
+                })
+              }
+              <h4>Following</h4>
+              {
+                this.props.user.following.map((follower, index)=>{
+                  return (<FollowThumb router={this.props.router}key={index} follower={follower}
+                    personalityMatches={personalityMatches} />)
+                })
+              }
+            </div>
           </div>
       </div>
     )

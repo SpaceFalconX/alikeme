@@ -9,6 +9,8 @@ import reducer from './reducers/index.js'
 import setAuthorizationToken from './utils/setAuthorizationToken.js'
 import {setUser, getFollowers, getFollowing} from './actions/auth_actions.js'
 import {fetchUserPostsFromDb } from './actions/post_actions.js'
+import {initUserMatches } from './actions/match_actions.js'
+
 import {fetchCategories} from './actions/category_actions.js'
 
 
@@ -30,6 +32,7 @@ if(localStorage.token) {
   store.dispatch(fetchUserPostsFromDb(decoded.user.username));
   store.dispatch(getFollowers(decoded.user.id))
   store.dispatch(getFollowing(decoded.user.id))
+  store.dispatch(initUserMatches(decoded.user.username))
 }
 
 //Hot reload Redux reducers
