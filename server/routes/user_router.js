@@ -52,6 +52,7 @@ router.route('/followers/:id')
 		User.where('id', req.params.id)
 		.fetch({withRelated: ['followers']})
 		.then((user) => {
+			console.log(user.related('followers'))
 		  res.json(user.related('followers'))
 		})
 		.catch((err) => {
@@ -86,6 +87,8 @@ router.route('/follow')
 			res.status(400).send({error: err.message})
 		})
 	})
+
+
 
 module.exports = router;
 

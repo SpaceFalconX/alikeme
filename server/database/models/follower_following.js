@@ -1,5 +1,5 @@
 const db = require('../config.js');
-
+const User = require('./user.js')
 const Follower_following = db.Model.extend({
   tableName: 'followers_following',
 })

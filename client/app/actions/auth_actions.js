@@ -1,7 +1,7 @@
 import axios from 'axios'
 import setAuthorizationToken from '../utils/setAuthorizationToken.js'
 import jwt from 'jsonwebtoken'
-import {SET_USER, LOGOUT_USER, FOLLOW_USER} from './index.js';
+import {SET_USER, LOGOUT_USER, FOLLOW_USER, SHOW_FOLLOWERS, SHOW_FOLLOWING} from './index.js';
 
 export function setUser (user) {
 	return {
@@ -24,6 +24,23 @@ export function followUser (obj) {
 	}
 }
 
+export function followers (followers) {
+	console.log("in followers", followers )
+	return {
+		type: SHOW_FOLLOWERS,
+		followers
+	}
+}
+
+export function following (following) {
+	console.log("in following", following )
+	return {
+		type: SHOW_FOLLOWING,
+		following
+	}
+}
+
+
 export function logoutClick (user) {
 	return function (dispatch) {
 		delete localStorage.token;
@@ -35,12 +52,32 @@ export function followClick (follower_id, followed_id) {
 	return (dispatch) => {
 		return axios.post('/api/user/follow', {follower_id, followed_id})
 		.then((resp) => {
-			console.log("RESP", resp.data)
 			console.log("{follower_id, followed_id}", {follower_id, followed_id})
 			dispatch(followUser({follower_id, followed_id}))
 		})
 	}
 }
+
+export function getFollowers (id) {
+	return (dispatch) => {
+		return axios.get(`/api/user/followers/${id}`)
+		.then((resp) => {
+			console.log("RESP", resp.data)
+			dispatch(followers(resp.data))
+		})
+	}
+}
+
+export function getFollowing (id) {
+	return (dispatch) => {
+		return axios.get(`/api/user/following/${id}`)
+		.then((resp) => {
+			console.log("RESP", resp.data)
+			dispatch(following(resp.data))
+		})
+	}
+}
+
 
 export function signupApiRequest (userData) {
 	return function (dispatch) {

@@ -5,10 +5,16 @@ import Post from './Post.js'
 import NewPostForm from './NewPost.js'
 import {fetchUserPostsFromDb} from '../actions/post_actions.js'
 import {fetchCategories} from '../actions/category_actions.js'
+import {getFollowers, getFollowing} from '../actions/auth_actions.js'
+
 import _ from 'underscore'
 
 class Profile extends React.Component {
   componentWillMount () {
+    this.props.dispatch(getFollowers(this.props.user.id))
+    .then(()=> {
+      this.props.dispatch(getFollowing(this.props.user.id))
+    })
     if(this.props.params.username !== this.props.user.username){
       browserHistory.push('/profile/' + this.props.params.username)
     }
