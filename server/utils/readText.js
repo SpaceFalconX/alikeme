@@ -4,11 +4,8 @@ module.exports = (options) => {
   return new Promise ((resolve, reject) => {
       personality_insights.profile({ text: options }, (err, result) => {
         console.log("is this null?", result)
-        if(result === null) {
+        if (result === null || result === undefined) {
           resolve("error")
-        }
-        if (err) {
-          reject({error: err.message})
         }
         else {
           personality = {};
@@ -23,7 +20,10 @@ module.exports = (options) => {
       })
   })
   .catch((err) => {
-    res.status(404).send({error: err.message})
+    // reject("error")
+    //res.status(404).send({error: err.message})
+    console.log('error', err)
+    resolve("error")
   })
 }
 

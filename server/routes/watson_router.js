@@ -16,9 +16,9 @@ router.post('/twitter/personality', (req, res) => {
 })
 
 router.post('/text/personality', (req, res) => {
-  console.log('at least I made it to the request', req.body.text)
+  //console.log('at least I made it to the request', req.body.text)
   readText(req.body.text).then((personality) => {
-    console.log("made it this far!")
+    //console.log("made it this far!")
     readPersonality(options)
     .then((personality, err) => {
       if(err) {
