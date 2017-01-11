@@ -116,6 +116,24 @@ export function filterTagsfromDb(tag){
 //get by username instead of id, calls get by id after db query
 //initialize on load of public and user profile view
 
+// <<<<<<< 0020f8a14dfff93d31a9d668e5298e1068a0bccf
+// =======
+// export function getPostsByUsername (username) {
+// 	return (dispatch) => {
+// 		return axios.post('/api/post/getUserId', {username})
+// 		.then((resp) => {
+// 			console.log('db data back from getPostsByUsername', resp.data)
+// 			dispatch(fetchUserPostsFromDb(resp.data))
+// 		})
+// 		.catch((err)=> {console.log(err)})
+//  }
+// }
+
+
+
+
+
+// >>>>>>> test
 
 // export function getPostsByUsername (username) {
 // 	return (dispatch) => {

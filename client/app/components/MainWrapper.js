@@ -41,6 +41,7 @@ function mapStatetoProps (state=defaultState) {
 		allPosts: state.allPosts,
 		personalityMatches: state.personalityMatches,
 		publicPosts: state.publicPosts,
+		matches: state.matches
 	}
 }
 

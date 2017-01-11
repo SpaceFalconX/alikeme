@@ -1,6 +1,11 @@
 import {INIT_PERSONALITY_MATCHES} from '../actions/index.js'
+import {SET_MATCHES} from '../actions/index.js'
+
 
 export function matches (state=[], action) {
+  if(action.type === SET_MATCHES) {
+    return action.posts
+  }
   return state;
 }
 
