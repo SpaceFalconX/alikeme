@@ -2,7 +2,6 @@ import axios from 'axios'
 import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST,FETCH_ALL_POSTS, FETCH_USER_POSTS, FETCH_PUBLIC_POSTS, FILTER_POSTS, CLEAR_POSTS} from './index.js'
 
 export function createPost(newPost) {
-	//console.log("NEW POST ACTION CERATOR", newPost)
 	return {
 		type: CREATE_NEW_POST,
 		newPost

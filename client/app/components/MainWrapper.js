@@ -22,7 +22,11 @@ const Main = React.createClass({
 })
 
 export const defaultState = {
-	user: { isAuthenticated: false },
+	user: {
+		isAuthenticated: false,
+		following: [],
+		followers:[]
+	},
 	userPosts: [],
 	allPosts: [],
 	publicPosts: [],

@@ -18,10 +18,15 @@ router.route('/posts/:id')
 
 router.route('/matches/:username')
 	.get((req, res) => {
+		console.log(" req.params.username",  req.params.username)
 		User.where({username: req.params.username})
 		.fetch().then((user) => {
 			let parsedUser = user.toJSON()
-			user.generateMatches().then(result => res.json(result.slice(0, 4)))
+			console.log("user", user)
+			user.generateMatches().then(result => res.json(result.slice(1, 5)))
+		})
+		.catch((err)=>{
+			res.send({err: err.message})
 		})
   });
 
@@ -58,6 +63,7 @@ router.route('/followers/:id')
 // Follow a user
 router.route('/follow')
 	.post((req, res) => {
+	console.log("FOLLOW REQ.BODY", req.body)
 		const {follower_id, followed_id} = req.body;
 		if(follower_id === followed_id) {
 			return res.status(400).send({error: "Cannot follow yourself."})
