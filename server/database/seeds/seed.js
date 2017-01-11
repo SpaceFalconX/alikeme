@@ -36,9 +36,21 @@ exports.seed = (knex, Promise) => {
         knex('categories').insert({id: 2, name: 'veggies'}),
         knex('categories').insert({id: 3, name: 'grains'}),
 
-        knex('posts').insert({id: 1, content: 'an apple a day keeps the doctor away', title: 'FruitMania', user_id: 1, category_id: 1 }),
-        knex('posts').insert({id: 2, content: 'orange me pretty', title: 'Orange!', user_id: 1, category_id: 1 }),
-        knex('posts').insert({id: 3, content: 'anyone fancy an artcihoke?', title: 'VeggieMania', user_id: 2, category_id: 2}),
+        knex('posts').insert({
+          id: 1, 
+          content: `As a young child in the capital of North Korea, Sungju Lee lived a pampered life. But by the time he was a teenager, he was starving and fighting for survival in a street gang. It was one of many twists of fate on a journey that has led him to postgraduate studies at a British university. In the early 1990s, Sungju Lee was living comfortably with his parents in a three-bedroom apartment in Pyongyang. He attended school and Taekwondo classes, visited parks and rode on Ferris wheels. He assumed that, like his father, he would grow up to become an officer in the North Korean army. But in 1994, this life came to an abrupt end with the death of North Korea's founding father, Kim Il-Sung.`, 
+          title: 'FruitMania', user_id: 1, category_id: 1 
+        }),
+        knex('posts').insert({
+          id: 2, 
+          content: `Four and a half million Americans live in areas of these cities with the highest numbers of gun homicide, which are marked by intense poverty, low levels of education, and racial segregation. Geographically, these neighborhood areas are small: a total of about 1,200 neighborhood census tracts, which, laid side by side, would fit into an area just 42 miles wide by 42 miles long.`, 
+          title: 'Orange!', user_id: 1, category_id: 1 
+        }),
+        knex('posts').insert({
+          id: 3, 
+          content: `Alexander Bastrykin, a close aide to President Vladimir Putin and head of the federal investigative agency, who has led campaigns against domestic dissidents and foreign NGOs working in Russia. US officials say he was complicit in the Magnitsky case`, 
+          title: 'VeggieMania', user_id: 2, category_id: 2
+        }),
         knex('posts').insert({id: 4, content: 'Brussel Sprouts yoohooo', title: 'brussel', user_id: 1, category_id: 2}),
         knex('posts').insert({id: 5, content: 'wholegrains are good for you', title: 'GrainyPost', user_id: 2, category_id: 3}),
         knex('posts').insert({id: 6, content: 'SPINACH lover', title: 'verde', user_id: 1, category_id: 2}),
@@ -79,3 +91,9 @@ exports.seed = (knex, Promise) => {
     }
   })
 };
+
+
+
+
+
+
