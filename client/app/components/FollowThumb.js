@@ -3,14 +3,7 @@ import {browserHistory, Link} from 'react-router'
 import {followClick} from '../actions/auth_actions.js'
 
 
-const FriendsList = React.createClass({
-  followUser(e) {
-    console.log(e)
-    e.preventDefault();
-    console.log(this.props.match.id)
-    this.props.dispatch(followClick(this.props.user.id, this.props.match.id))
-  },
-
+const FollowThumb = React.createClass({
   visitProfile (e) {
     e.preventDefault()
     this.props.router.push(`/profile/${this.props.match.username}`)
@@ -35,13 +28,12 @@ const FriendsList = React.createClass({
         borderBottomLeftRadius: '5%'
       }
     }
-    const {username, distance} = this.props.match
-    let route = this.props.router.getCurrentLocation().pathname
-    const followButton = (<button ref="follower" className="btn btn-default" onClick={this.followUser}>Follow <i className="fa fa-share"></i></button>)
+    // const {otherUser} = this.props.otherUser;
+    const {username} = this.props.follower
     return (
-      <div  className="">
-        <div className="col-md-6">
-          <div className="panel panel-default thumbnail" style={style.panel}>
+      <div className="container">
+        <div className="col-md-4">
+          <div className="thumbnail" style={style.panel}>
             <div className="panel-heading">
               <div className="media">
                 <div className="pull-left">
@@ -50,12 +42,13 @@ const FriendsList = React.createClass({
                 </div>
                 <div className="media-body">
                   <h4 className="media-heading margin-v-5 pull-left">
-                    <Link onClick={this.visitProfile}> Match: {username}</Link>
+                    <Link onClick={this.visitProfile}>@{username}</Link>
                   </h4>
                   <h4 className="media-heading margin-v-5 pull-right">
-                    <a href="#">{Math.round((1 - distance) * 100)}%</a>
+                    <strong>{Math.round((1 - 10) * 100)}% alike me</strong>
                   </h4>
-                  <div className="profile-icons">
+                  <br/>
+                  <div className="pull-left">
                     <span><i className="fa fa-users"></i> 372</span>
                     <span><i className="fa fa-photo"></i> 43</span>
                     <span><i className="fa fa-video-camera"></i> 3</span>
@@ -63,17 +56,14 @@ const FriendsList = React.createClass({
                 </div>
               </div>
             </div>
-            <div className="panel-footer" style={style.panelFooter}>
-            {route === `/setup/${this.props.user.username}` ? followButton : '' }
-            </div>
           </div>
         </div>
-      </div>
-    )
+        </div>
+      )
   }
 })
 
-export default FriendsList;
+export default FollowThumb;
 
 
 

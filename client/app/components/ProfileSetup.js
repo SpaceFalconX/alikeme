@@ -9,12 +9,14 @@ import FriendsList from './FriendsList.js'
 const ProfileSetup = React.createClass({
 	componentWillMount() {
 		console.log("profile setup - will mount")
-		this.props.dispatch(initUserMatches(this.props.user.username))
+		if(!this.props.personalityMatches.length) {
+			this.props.dispatch(initUserMatches(this.props.user.username))
+		}
 	},
 
-	componentWillUnmount() {
-		this.props.dispatch(clearPersonalityMatches(this.props.personalityMatches))
-	},
+	// componentWillUnmount() {
+	// 	this.props.dispatch(clearPersonalityMatches(this.props.personalityMatches))
+	// },
 
 
 
