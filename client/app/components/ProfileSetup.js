@@ -1,7 +1,7 @@
 import React from 'react'
 import {browserHistory, Link} from 'react-router'
 import {submitNewPost} from '../actions/post_actions.js'
-import {initUserMatches} from '../actions/match_actions.js'
+import {initUserMatches, clearMatches} from '../actions/match_actions.js'
 
 import FriendsList from './FriendsList.js'
 
@@ -11,6 +11,12 @@ const ProfileSetup = React.createClass({
 		console.log("profile setup - will mount")
 		this.props.dispatch(initUserMatches(this.props.user.username))
 	},
+
+	componentWillUnmount() {
+		this.props.dispatch(clearMatches(this.props.personalityMatches))
+	},
+
+
 
 	handleSubmit(e) {
 		e.preventDefault();
