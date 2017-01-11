@@ -45,37 +45,31 @@ router.post('/login', (req, res) => {
 		} else {
 			user.checkPassword(password)
 			.then((match) => {
-					const userPosts = user.toJSON().posts.map((post) => {
-						return post.content
-					}).join(', ')
-					readText(userPosts).then((analysis) => { //uncomment me later
-						let updatedPersonality = {
-							openness: (user.toJSON().openness + analysis.openness)/2,
-							conscientiousness: (user.toJSON().conscientiousness + analysis.conscientiousness)/2,
-							extraversion: (user.toJSON().extraversion + analysis.extraversion)/2,
-							agreeableness: (user.toJSON().agreeableness + analysis.agreeableness)/2,
-							emotionalRange: (user.toJSON().emotionalRange + analysis.emotionalRange)/2
-						}
-						console.log("UPDATED PERSONALITY!", updatedPersonality)
-						user.save({
-							openness: updatedPersonality.openness,
-							conscientiousness: updatedPersonality.conscientiousness,
-							extraversion: updatedPersonality.extraversion,
-							agreeableness: updatedPersonality.agreeableness,
-							emotionalRange: updatedPersonality.emotionalRange
-						})
-						.then((success) => {
-							const token = generateToken(user);
-							console.log(`LOG IN SUCCESS: ${user.get('username')}`)
-							res.status(200).send({token});
-						})
-  				})
-					// const token = generateToken(user);
-					// console.log(`LOG IN SUCCESS: ${user.get('username')}`)
-					// res.status(200).send({token});
-				// } else {
-				// 	res.status(403).json({error: "incorrect password"})
-				// }
+				const userPosts = user.toJSON().posts.map((post) => {
+					return post.content
+				}).join(', ')
+				readText(userPosts).then((analysis) => { //uncomment me later
+					let updatedPersonality = {
+						openness: (user.toJSON().openness + analysis.openness)/2,
+						conscientiousness: (user.toJSON().conscientiousness + analysis.conscientiousness)/2,
+						extraversion: (user.toJSON().extraversion + analysis.extraversion)/2,
+						agreeableness: (user.toJSON().agreeableness + analysis.agreeableness)/2,
+						emotionalRange: (user.toJSON().emotionalRange + analysis.emotionalRange)/2
+					}
+					console.log("UPDATED PERSONALITY!", updatedPersonality)
+					user.save({
+						openness: updatedPersonality.openness,
+						conscientiousness: updatedPersonality.conscientiousness,
+						extraversion: updatedPersonality.extraversion,
+						agreeableness: updatedPersonality.agreeableness,
+						emotionalRange: updatedPersonality.emotionalRange
+					})
+					.then((success) => {
+						const token = generateToken(user);
+						console.log(`LOG IN SUCCESS: ${user.get('username')}`)
+						res.status(200).send({token});
+					})
+				})
 			})
 			// .catch((err)=> {
 			// 	res.status(401).json({error: "incorrect password"})
