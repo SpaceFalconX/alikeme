@@ -5,7 +5,6 @@ import {fetchUserPostsFromDb} from '../actions/post_actions.js'
 import {fetchCategories} from '../actions/category_actions.js'
 
 const Login = React.createClass({
-
 	handleSubmit(e) {
 		e.preventDefault();
 		const username = this.refs.username.value;

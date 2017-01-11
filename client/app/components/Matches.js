@@ -42,9 +42,9 @@ class Matches extends React.Component {
 
     return (
       <div>
-        <h1>Matches for post #{this.props.params.postid}</h1>
         {this.displayCurrent()}
         <hr />
+        <h1>Alike-Minded Posts</h1>
         {this.displayMatches()}
         <hr />
       </div>

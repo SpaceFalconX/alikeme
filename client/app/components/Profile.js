@@ -3,7 +3,6 @@ import {browserHistory} from 'react-router'
 import {connect} from 'react-redux';
 import Post from './Post.js'
 import NewPostForm from './NewPost.js'
-import {getWatsonData} from '../actions/watson_actions.js'
 import {fetchUserPostsFromDb} from '../actions/post_actions.js'
 import {fetchCategories} from '../actions/category_actions.js'
 import _ from 'underscore'

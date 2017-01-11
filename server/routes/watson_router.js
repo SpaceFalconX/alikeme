@@ -1,15 +1,24 @@
 
 const express = require('express');
-const readPersonality = require('../utils/helpers.js')
+const readTwitter = require('../utils/helpers.js')
+const readText = require('../utils/readText.js')
 const router = express.Router();
 
-router.post('/personality', (req, res) => {
+router.post('/twitter/personality', (req, res) => {
   const options = {
     screen_name: req.body.twitter,
     include_rts: false,
     count: 100
   }
-  readPersonality(options).then((personality) => {
+  readTwitter(options).then((personality) => {
+    res.status(201).send(personality)
+  })
+})
+
+router.post('/text/personality', (req, res) => {
+  console.log('at least I made it to the request', req.body.text)
+  readText(req.body.text).then((personality) => {
+    console.log("made it this far!")
     res.status(201).send(personality)
   })
 })

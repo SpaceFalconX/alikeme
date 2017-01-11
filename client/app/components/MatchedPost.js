@@ -14,16 +14,7 @@ class MatchedPost extends React.Component {
     })
   }
 
-  usernameContext () { //pass session user in instead for better checking
-    if(this.props.post.username) {
-      console.log('its rite')
-      return this.props.post.username
-    }
-    console.log('its rong')
-    return this.props.post.user.username
-  }
-
-  render () { //worst 5 best 0
+  render () {
     return (
         <div className="panel panel-default">
           <div className="panel-body">
