@@ -22,17 +22,17 @@ const User = db.Model.extend({
   },
   generateMatches () {
     const context = this;
-    return this.fetchAll({columns: ['openness', 'conscientiousness', 'extraversion', 'agreeableness', 'emotionalRange', 'username']})
+    return this.fetchAll({columns: ['openness', 'conscientiousness', 'extraversion', 'agreeableness', 'emotionalRange', 'username', 'id']})
     .then((response) => {
       const allUsers = response.toJSON();
       const distanceMap = allUsers.map((otherUser, index)=> {
         let distance = 0.0;
         for(var trait in otherUser) {
-          if(trait !== 'username') {
+          if(trait !== 'username' && trait !== 'id') {
             distance += Math.pow(context.get(trait) - otherUser[trait], 2);
           }
         }
-        return {distance: distance, match: otherUser.username };
+        return {distance: distance, username: otherUser.username, id: otherUser.id };
       })
       return _.sortBy(distanceMap, 'distance');
     })

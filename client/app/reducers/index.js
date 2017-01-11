@@ -23,7 +23,11 @@ const appReducer = combineReducers({
 })
 
 const defaultState = {
-  user: { isAuthenticated: false},
+  user: {
+    isAuthenticated: false,
+    followers: [],
+    following: []
+  },
   userPosts: [],
   allPosts: [],
   categories: [],

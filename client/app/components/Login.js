@@ -16,19 +16,13 @@ const Login = React.createClass({
 		this.props.dispatch(loginApiRequest(userData))
 		.then(() => {
 			if(this.props.user.isAuthenticated) {
-				const {twitterLink, openness, username} = this.props.user;
-				if(twitterLink && !openness) {
-					this.props.dispatch(getWatsonData(twitterLink))
-						.then(() => {
-						this.props.dispatch(fetchUserPostsFromDb(username))
-						.then(() => {
-							this.props.router.push({pathname:`/${username}`})
-						})
-				 	})
-					.catch((err) => {
-						console.log(err)
-					})
-				}
+				this.props.dispatch(fetchUserPostsFromDb(username))
+				.then(() => {
+					this.props.router.push({pathname:`/${username}`})
+				})
+				.catch((err) => {
+					console.log(err)
+				})
 			}
 		})
 		this.refs.loginForm.reset();
