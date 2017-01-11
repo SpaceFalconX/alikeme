@@ -1,11 +1,17 @@
 import axios from 'axios'
-import {SET_MATCHES, INIT_PERSONALITY_MATCHES} from './index.js'
+import {SET_MATCHES, INIT_PERSONALITY_MATCHES, CLEAR_MATCHES} from './index.js'
 
 export function setMatches(posts) {
 	return {
 		type: SET_MATCHES,
 		posts
 	}
+}
+
+export function clearMatches () {
+  return {
+    type: CLEAR_MATCHES
+  }
 }
 
 export function getMatches(post) {

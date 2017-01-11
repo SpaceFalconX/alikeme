@@ -1,6 +1,6 @@
 import React  from 'react'
 import Post from './Post.js'
-import {getMatches} from '../actions/match_actions.js'
+import {getMatches, clearMatches} from '../actions/match_actions.js'
 // import {getPostsByUsername} from '../actions/post_actions.js'
 
 class Matches extends React.Component {
@@ -22,8 +22,14 @@ class Matches extends React.Component {
     })
   }
 
+  componentWillUnmount () {
+    console.log('UNMOUNTING')
+    this.props.dispatch(clearMatches())
+    //todo- clear matches on unmount
+  }
+
   render () {
-    if(this.props.userPosts.length > 0 && this.props.matches.length === 0) { //todo - clear matches on page leave
+    if(this.props.userPosts.length > 0 && this.props.matches.length === 0) {
       let post = this.props.userPosts.filter((p) => {
         return p.id === parseInt(this.props.params.postid)
       })[0]
