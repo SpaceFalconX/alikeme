@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 
 const readText = require('../utils/readText.js')
+const readTwitter = require('../utils/helpers.js')
 const config = require('../config/config.js');
 const User = require('../database/models/user.js');
 const Users = require('../database/collections/users.js');
@@ -45,37 +46,45 @@ router.post('/login', (req, res) => {
 		} else {
 			user.checkPassword(password)
 			.then((match) => {
-					const userPosts = user.toJSON().posts.map((post) => {
-						return post.content
-					}).join(', ')
-					readText(userPosts).then((analysis) => { //uncomment me later
-						let updatedPersonality = {
-							openness: (user.toJSON().openness + analysis.openness)/2,
-							conscientiousness: (user.toJSON().conscientiousness + analysis.conscientiousness)/2,
-							extraversion: (user.toJSON().extraversion + analysis.extraversion)/2,
-							agreeableness: (user.toJSON().agreeableness + analysis.agreeableness)/2,
-							emotionalRange: (user.toJSON().emotionalRange + analysis.emotionalRange)/2
+				console.log('twitter handle', user.toJSON().twitterLink)
+				const userPosts = user.toJSON().posts.map((post) => {
+					return post.content
+				}).join(', ')
+				readText(userPosts).then((analysis) => { //uncomment me later
+					if(analysis === 'error') {
+						const token = generateToken(user);
+						console.log(`LOG IN SUCCESS BUT NO UPDATE: ${user.get('username')}`)
+						res.status(200).send({token});
+					} else {
+						const options = {
+							screen_name: user.toJSON().twitterLink,
+							include_rts: false,
+							count: 100
 						}
-						console.log("UPDATED PERSONALITY!", updatedPersonality)
-						user.save({
-							openness: updatedPersonality.openness,
-							conscientiousness: updatedPersonality.conscientiousness,
-							extraversion: updatedPersonality.extraversion,
-							agreeableness: updatedPersonality.agreeableness,
-							emotionalRange: updatedPersonality.emotionalRange
+						readTwitter(options).then((twitterAnalysis) => {
+							let updatedPersonality = {
+								openness: (twitterAnalysis.openness + analysis.openness)/2,
+								conscientiousness: (twitterAnalysis.conscientiousness + analysis.conscientiousness)/2,
+								extraversion: (twitterAnalysis.extraversion + analysis.extraversion)/2,
+								agreeableness: (twitterAnalysis.agreeableness + analysis.agreeableness)/2,
+								emotionalRange: (twitterAnalysis.emotionalRange + analysis.emotionalRange)/2
+							}
+							console.log("UPDATED PERSONALITY!", updatedPersonality)
+							user.save({
+								openness: updatedPersonality.openness,
+								conscientiousness: updatedPersonality.conscientiousness,
+								extraversion: updatedPersonality.extraversion,
+								agreeableness: updatedPersonality.agreeableness,
+								emotionalRange: updatedPersonality.emotionalRange
+							})
+							.then((success) => {
+								const token = generateToken(user);
+								console.log(`LOG IN SUCCESS: ${user.get('username')}`)
+								res.status(200).send({token});
+							})
 						})
-						.then((success) => {
-							const token = generateToken(user);
-							console.log(`LOG IN SUCCESS: ${user.get('username')}`)
-							res.status(200).send({token});
-						})
-  				})
-					// const token = generateToken(user);
-					// console.log(`LOG IN SUCCESS: ${user.get('username')}`)
-					// res.status(200).send({token});
-				// } else {
-				// 	res.status(403).json({error: "incorrect password"})
-				// }
+					}
+				})
 			})
 			// .catch((err)=> {
 			// 	res.status(401).json({error: "incorrect password"})
