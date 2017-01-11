@@ -30,6 +30,13 @@ var config = {
         test: /\.styl$/,
         include: path.join(__dirname, 'client/app'),
         loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.(jpg|png)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[hash].[ext]'
+        }
       }
     ]
   },

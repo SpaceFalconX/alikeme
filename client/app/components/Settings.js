@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios'
 import {setTwitterToDb} from '../actions/twitter_actions.js'
 
 class Settings extends React.Component {
@@ -8,7 +9,7 @@ class Settings extends React.Component {
   //create route to store new handle and updated values
   //create action/reducer on user store to update after process completed
 
-  handleSubmit(e) {
+  handleSubmit (e) {
     console.log('called', this.props.user.username, this.refs.twitter.value)
     e.preventDefault();
     const twitter = this.refs.twitter.value;
@@ -18,17 +19,36 @@ class Settings extends React.Component {
     this.refs.twitter.value = ""
   }
 
+  handleImageUpload (e) {
+    e.preventDefault()
+    let data = new FormData()
+    data.append('file', document.getElementById('file').files[0])
+    axios.post('/api/upload/setUserName', {username: this.props.user.username})
+    .then((res) => {
+      axios.post('/api/upload/uploadProfilePicture', data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
   render () {
     return (
       <div>
       settings
-      			<h3> Configure social media accounts </h3>
-						<h5> Twitter </h5>
-						Enter your <span className="fa fa-twitter"> </span> handle:
-            <form onSubmit={this.handleSubmit.bind(this)}>
-            <input type="text" ref="twitter" placeholder="eg: janedoe"/>
-            </form> <br/>
-            <button className="btn btn-sm" onClick={this.handleSubmit.bind(this)}>UPDATE</button>
+        <h3> Configure social media accounts </h3>
+        <h5> Twitter </h5>
+        Enter your <span className="fa fa-twitter"> </span> handle:
+        <form onSubmit={this.handleSubmit.bind(this)}>
+        <input type="text" ref="twitter" placeholder="eg: janedoe"/>
+        </form> <br/>
+        <button className="btn btn-sm" onClick={this.handleSubmit.bind(this)}>UPDATE</button>
+
+        <h2>Update Profile Picture</h2>
+        <form onSubmit={this.handleImageUpload.bind(this)}>
+          <input id='file' type="file" encType="multipart/form-data" accept="image/*" ref="profilePicture" />
+          <button className="btn btn-sm">UPLOAD</button>
+        </form>
       </div>
     )
   }

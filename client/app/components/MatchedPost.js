@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {browserHistory, Link} from 'react-router';
 import moment from 'moment'
 
-class Post extends React.Component {
+class MatchedPost extends React.Component {
   postStyle () {
     return {margin: '0px 3px 0px 3px',}
   }
@@ -14,27 +14,6 @@ class Post extends React.Component {
     })
   }
 
-  usernameContext () { //pass session user in instead for better checking
-    if(this.props.post.username) {
-      return this.props.post.username
-    }
-    return this.props.post.user.username
-  }
-
-  matchORViewContext () {
-    if(this.props.contextUser && this.props.contextUser !== this.usernameContext()) {
-      //go to public post, or just stay here for now
-      return (
-        <Link to={'/profile/' + this.usernameContext()}> click to view {this.usernameContext()}'s profile</Link>
-      )
-    }
-    //go to matches post
-    //matches post will also have an edit link
-    return (
-      <Link to={'/matches/' + this.props.post.id}> click to view matches and edit</Link>
-    )
-  }
-
   render () {
     return (
         <div className="panel panel-default">
@@ -42,25 +21,28 @@ class Post extends React.Component {
             <Link className="pull-left">
               <img src="#" className="media-photo" />
             </Link>
-            <span className="pull-right"><em>
-            { moment(this.props.post.created_at).calendar() }
-            </em></span>
+            <span className="pull-right">
+              <em>
+                { moment(this.props.post.created_at).calendar() }
+              </em>
+              <p>{((5 - this.props.compatibilityScore)/5 * 100).toFixed()}% Personality Match</p>
+            </span>
             <div className="media-body">
               <h4 className="list-group-item-heading">{this.props.post.title}</h4>
               <p className="list-group-item-text"><b>{this.props.post.content}</b></p>
-              <p><i>-{this.usernameContext()}</i></p>
-              <p>{this.matchORViewContext()}</p>
+              <p><i>-{this.props.post.user.username}</i></p>
+              <Link to={'/profile/' + this.props.post.user.username}> click to view {this.props.post.user.username}'s profile</Link>
             </div>
           </div>
           <div className="panel-body">
             <span className="glyphicon glyphicon-tags" aria-hidden="true" style={this.postStyle()}></span>
             <span>{this.renderTags()}</span>
-            | <span>Posted in <Link className="badge">{this.props.post.category.name}</Link></span>
+            <span>Posted in <Link className="badge">{this.props.post.category.name}</Link></span>
           </div>
         </div>
     )
   }
 }
 
-export default Post;
+export default MatchedPost;
 
