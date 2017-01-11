@@ -1,7 +1,7 @@
 import React from 'react'
 import {browserHistory, Link} from 'react-router'
 import {submitNewPost} from '../actions/post_actions.js'
-import {initUserMatches, clearMatches} from '../actions/match_actions.js'
+import {initUserMatches, clearPersonalityMatches} from '../actions/match_actions.js'
 
 import FriendsList from './FriendsList.js'
 
@@ -13,7 +13,7 @@ const ProfileSetup = React.createClass({
 	},
 
 	componentWillUnmount() {
-		this.props.dispatch(clearMatches(this.props.personalityMatches))
+		this.props.dispatch(clearPersonalityMatches(this.props.personalityMatches))
 	},
 
 

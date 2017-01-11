@@ -19,15 +19,16 @@ router.post('/text/personality', (req, res) => {
   console.log('at least I made it to the request', req.body.text)
   readText(req.body.text).then((personality) => {
     console.log("made it this far!")
-  readPersonality(options)
-  .then((personality, err) => {
-    if(err) {
-      return res.sendStatus(401).json({error})
-    }
-    res.status(201).send(personality)
-  })
-  .catch(() => {
-    return res.status(403);
+    readPersonality(options)
+    .then((personality, err) => {
+      if(err) {
+        return res.sendStatus(401).json({error})
+      }
+      res.status(201).send(personality)
+    })
+    .catch(() => {
+      return res.status(403);
+    })
   })
 })
 

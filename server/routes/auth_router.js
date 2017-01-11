@@ -49,6 +49,11 @@ router.post('/login', (req, res) => {
 					return post.content
 				}).join(', ')
 				readText(userPosts).then((analysis) => { //uncomment me later
+					if(analysis === 'error') {
+						const token = generateToken(user);
+						console.log(`LOG IN SUCCESS: ${user.get('username')}`)
+						res.status(200).send({token});
+					}
 					let updatedPersonality = {
 						openness: (user.toJSON().openness + analysis.openness)/2,
 						conscientiousness: (user.toJSON().conscientiousness + analysis.conscientiousness)/2,
