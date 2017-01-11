@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router'
 import {signupApiRequest, signupUser} from '../actions/auth_actions.js'
-import {getWatsonData} from '../actions/watson_actions.js'
+import {getWatsonTwitterData} from '../actions/watson_actions.js'
 
 const Signup = React.createClass({
 	componentWillUpdate(nextProps, nextState) {
@@ -19,7 +19,7 @@ const Signup = React.createClass({
 		const password = this.refs.password.value;
 		const twitterLink = this.refs.twitter.value;
 		const facebookLink = this.refs.facebook.value;
-		this.props.dispatch(getWatsonData(twitterLink)).then((res) => {
+		this.props.dispatch(getWatsonTwitterData(twitterLink)).then((res) => {
 			const agreeableness = res.agreeableness
 			const conscientiousness = res.conscientiousness
 			const emotionalRange = res.emotionalRange

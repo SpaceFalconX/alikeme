@@ -1,6 +1,7 @@
 import React  from 'react'
 import Post from './Post.js'
-import {getMatches} from '../actions/match_actions.js'
+import MatchedPost from './MatchedPost.js'
+import {getMatches, clearMatches} from '../actions/match_actions.js'
 // import {getPostsByUsername} from '../actions/post_actions.js'
 
 class Matches extends React.Component {
@@ -17,13 +18,17 @@ class Matches extends React.Component {
   displayMatches () {
     return this.props.matches.map((match) => {
       return ( //todo -replace this one too
-        <Post key={match.originalPost.id} post={match.originalPost} />
+        <MatchedPost key={match.originalPost.id} post={match.originalPost} compatibilityScore={match.compatibilityScore} />
       )
     })
   }
 
+  componentWillUnmount () {
+    this.props.dispatch(clearMatches())
+  }
+
   render () {
-    if(this.props.userPosts.length > 0 && this.props.matches.length === 0) { //todo - clear matches on page leave
+    if(this.props.userPosts.length > 0 && this.props.matches.length === 0) {
       let post = this.props.userPosts.filter((p) => {
         return p.id === parseInt(this.props.params.postid)
       })[0]
@@ -37,9 +42,9 @@ class Matches extends React.Component {
 
     return (
       <div>
-        <h1>Matches for post #{this.props.params.postid}</h1>
         {this.displayCurrent()}
         <hr />
+        <h1>Alike-Minded Posts</h1>
         {this.displayMatches()}
         <hr />
       </div>

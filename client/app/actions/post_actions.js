@@ -81,7 +81,6 @@ export function fetchPublicPostsFromDb(username) {
 	}
 }
 
-
 export function fetchPostsFromDb() {
   return dispatch => axios.get('/api/post')
 	 .then((resp) => {
@@ -91,7 +90,6 @@ export function fetchPostsFromDb() {
 	 .catch((err) => { console.log(err) });
 }
 
-////////buildling
 export function filterPostsFromDb(categoryid) {
  return (dispatch) => {
  	return axios.post('/api/post/categories', {categoryid})
@@ -128,10 +126,6 @@ export function filterTagsfromDb(tag){
 // 		.catch((err)=> {console.log(err)})
 //  }
 // }
-
-
-
-
 
 // >>>>>>> test
 
