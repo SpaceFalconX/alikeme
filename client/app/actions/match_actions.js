@@ -30,7 +30,7 @@ export function initMatches(matches) {
   }
 }
 
-export function clearMatches(matches) {
+export function clearPersonalityMatches(matches) {
   return {
     type: CLEAR_PERSONALITY_MATCHES,
     matches
