@@ -16,6 +16,13 @@ router.post('/setTwitter', (req, res) => {
 				res.sendStatus(201)
 			})
 		// }
+		if(!user) {
+			return res.sendStatus(401);
+		}
+		user.save({twitterLink: req.body.twitter})
+		.then((user) => {
+			res.sendStatus(201)
+		})
 	})
 })
 

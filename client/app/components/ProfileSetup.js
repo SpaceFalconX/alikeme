@@ -32,11 +32,11 @@ const ProfileSetup = React.createClass({
 				<div className="block">
 					<h3> Hello {this.props.user.username}!</h3>
 					<h3> Start setting up your profile!</h3>
+					<h3>Here are some suggested users to follow</h3>
 					<div className="container">
-						<h3>Here are some suggested users to follow</h3>
 						{
-							this.props.personalityMatches.map((match)=>{
-								return (<FriendsList match={match} user={this.props.user} />)
+							this.props.personalityMatches.map((match, index)=>{
+								return (<FriendsList key={index} match={match} user={this.props.user} />)
 							})
 						}
 					</div>

@@ -21,8 +21,8 @@ const FriendsList = React.createClass({
         padding: '10px 15px',
         backgroundColor:' #ffffff',
         borderTop: '1px solid #e2e9e6',
-        borderBottomRightRadius: '-1',
-        borderBottomLeftRadius: '-1'
+        borderBottomRightRadius: '5%',
+        borderBottomLeftRadius: '5%'
       }
     }
     return (
@@ -41,7 +41,7 @@ const FriendsList = React.createClass({
                     <a href="#">{this.props.match.match}</a>
                      </h4>
                   <h4 className="media-heading margin-v-5 pull-right">
-                    <a href="#">{this.props.match.distance}</a>
+                    <a href="#">{Math.round((1 - this.props.match.distance) * 100)}%</a>
                   </h4>
 
                   </div>
