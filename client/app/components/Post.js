@@ -2,8 +2,22 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {browserHistory, Link} from 'react-router';
 import moment from 'moment'
+import axios from 'axios'
 
 class Post extends React.Component {
+
+  constructor(props) {
+    super()
+    this.state = {
+      profilePicture: () => {
+        if(this.props.post.username) {
+          return 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.post.username + '.jpg'
+        }
+        return 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.post.user.username + '.jpg'
+      }
+    }
+  }
+
   postStyle () {
     return {margin: '0px 3px 0px 3px',}
   }
@@ -23,24 +37,34 @@ class Post extends React.Component {
 
   matchORViewContext () {
     if(this.props.contextUser && this.props.contextUser !== this.usernameContext()) {
-      //go to public post, or just stay here for now
       return (
         <Link to={'/profile/' + this.usernameContext()}> click to view {this.usernameContext()}'s profile</Link>
       )
     }
-    //go to matches post
-    //matches post will also have an edit link
     return (
       <Link to={'/matches/' + this.props.post.id}> click to view matches and edit</Link>
     )
   }
 
   render () {
+    const imgStyle = {
+      height: '40px',
+      width: '40px',
+      borderRadius: '50%',
+      border: '2px, solid, #000'
+    }
+
+    const handleError = () => {
+      this.setState({profilePicture: () => {
+        return "http://www.topcareer.jp/inter_blog/wp-content/uploads/100_100_empty.gif"
+      }})
+    }
+
     return (
         <div className="panel panel-default">
           <div className="panel-body">
             <Link className="pull-left">
-              <img src="#" className="media-photo" />
+              <img src={this.state.profilePicture()} className="media-photo" style={imgStyle} onError={handleError}/>
             </Link>
             <span className="pull-right"><em>
             { moment(this.props.post.created_at).calendar() }
@@ -55,7 +79,7 @@ class Post extends React.Component {
           <div className="panel-body">
             <span className="glyphicon glyphicon-tags" aria-hidden="true" style={this.postStyle()}></span>
             <span>{this.renderTags()}</span>
-            | <span>Posted in <Link className="badge">{this.props.post.category.name}</Link></span>
+            <span>Posted in <Link className="badge">{this.props.post.category.name}</Link></span>
           </div>
         </div>
     )
