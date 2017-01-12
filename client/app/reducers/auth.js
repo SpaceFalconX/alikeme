@@ -8,7 +8,7 @@ export function auth (state={}, action) {
 				{ isAuthenticated: !!Object.keys(action.user).length }
 			);
 		case SHOW_FOLLOWING:
-			console.log("SHOW_FOLLOWING", action)
+			//console.log("SHOW_FOLLOWING", action)
 			return Object.assign(
 				{}, state, state.user,
 				{ followers: action.following}
