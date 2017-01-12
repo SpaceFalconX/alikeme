@@ -31,14 +31,11 @@ const Sidebar = React.createClass({
   // },
   componentWillMount () {
     this.state = {
-      profilePicture: () => {
-        return 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.user.username + '.jpg'
-      }
+      profilePicture: 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.user.username + '.jpg'
     }
   },
 
   render () {
-    console.log("state", this.state)
     const imgStyle = {
       height: '80px',
       width: '80px',
@@ -56,15 +53,13 @@ const Sidebar = React.createClass({
     }
     
     const handleError = () => {
-      this.setState({profilePicture: () => {
-        return "http://www.topcareer.jp/inter_blog/wp-content/uploads/100_100_empty.gif"
-      }})
+      this.setState({profilePicture: "http://www.topcareer.jp/inter_blog/wp-content/uploads/100_100_empty.gif"})
     }
 
     return (
       <div className="col-md-2">
         <div className="sidebar" style={fontStyl}>
-        <img src={this.state.profilePicture()} style={imgStyle} onError={handleError} />
+        <img src={this.state.profilePicture} style={imgStyle} onError={handleError} />
           <p className='lead' style={locationStyl}> <small> location set to: <br/> San Francisco, CA </small> </p>
           <h4> Stats <small title="The normalized percentile score for the characteristic. The range is 0 to 1. For example, if the percentage for Openness is 0.25, the author scored in the 25th percentile; the author is more open than 24% of the population and less open than 74% of the population."> *percentile </small> </h4>
           <p> Openness: {(this.props.user.openness * 100).toFixed(0)}% </p>

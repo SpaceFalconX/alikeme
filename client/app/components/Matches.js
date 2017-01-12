@@ -5,6 +5,18 @@ import {getMatches, clearMatches} from '../actions/match_actions.js'
 // import {getPostsByUsername} from '../actions/post_actions.js'
 
 class Matches extends React.Component {
+  // constructor(props) {
+  //   super()
+  //   this.state = {
+  //     profilePicture: () => {
+  //       if(this.props.post.username) {
+  //         return 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.post.username + '.jpg'
+  //       }
+  //       return 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.post.user.username + '.jpg'
+  //     }
+  //   }
+  // }
+
   displayCurrent () {
     return this.props.userPosts.filter((post) => {
       return post.id === parseInt(this.props.params.postid)
