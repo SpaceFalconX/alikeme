@@ -36,6 +36,8 @@ const FriendsList = React.createClass({
       }
     }
     const {username, distance} = this.props.match
+    let route = this.props.router.getCurrentLocation().pathname
+    const followButton = (<button ref="follower" className="btn btn-default" onClick={this.followUser}>Follow <i className="fa fa-share"></i></button>)
     return (
       <div  className="">
         <div className="col-md-6">
@@ -62,7 +64,7 @@ const FriendsList = React.createClass({
               </div>
             </div>
             <div className="panel-footer" style={style.panelFooter}>
-              <button ref="follower" className="btn btn-default" onClick={this.followUser}>Follow <i className="fa fa-share"></i></button>
+            {route === `/setup/${this.props.user.username}` ? followButton : '' }
             </div>
           </div>
         </div>

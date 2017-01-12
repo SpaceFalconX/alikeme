@@ -82,6 +82,7 @@ router.post('/getUserId', (req, res) => {
   });
 })
 
+
 /////////////FILTERING////////////////////////////////////////////////////////////
 
 router.post('/categories', (req, res) => { //filter by category
@@ -185,7 +186,7 @@ router.post('/new', (req, res) => {
 
 ////////////////MATCHING
 router.post('/matches', (req, res) => { //filter by category
-	console.log("REQ BODY FOR MATCHES", req.body)
+	// console.log("REQ BODY FOR MATCHES", req.body)
 	Posts.forge()
 	.query({where: {category_id: req.body.post.category.id}})
 	.fetch({withRelated: ['user', 'category', 'tags']})
@@ -232,7 +233,7 @@ router.post('/matches', (req, res) => { //filter by category
 			return a.weightedScore - b.weightedScore
 		})
 		.slice(0, 5)
-
+		console.log("MATHCES", RankedMatches)
 		res.json(RankedMatches)
 	})
 	.catch((err) => {

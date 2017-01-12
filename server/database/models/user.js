@@ -20,6 +20,9 @@ const User = db.Model.extend({
   followers () {
   	return this.belongsToMany('User').through('Follower_following', 'followed_id', 'follower_id' )
   },
+  countFollowers () {
+    return this.followers().toJSON()
+  },
   generateMatches () {
     const context = this;
     return this.fetchAll({columns: ['openness', 'conscientiousness', 'extraversion', 'agreeableness', 'emotionalRange', 'username', 'id']})

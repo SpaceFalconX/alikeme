@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router'
-import {loginApiRequest} from '../actions/auth_actions.js'
+import {loginApiRequest, getFollowers, getFollowing} from '../actions/auth_actions.js'
 import {fetchUserPostsFromDb} from '../actions/post_actions.js'
 import {fetchCategories} from '../actions/category_actions.js'
 import {getWatsonData} from '../actions/watson_actions.js'
@@ -17,7 +17,13 @@ const Login = React.createClass({
 			if(this.props.user.isAuthenticated) {
 				this.props.dispatch(fetchUserPostsFromDb(username))
 				.then(() => {
-					this.props.router.push({pathname:`/${username}`})
+					this.props.dispatch(getFollowers(this.props.user.id))
+			    .then(()=> {
+			      this.props.dispatch(getFollowing(this.props.user.id))
+			      .then(() => {
+							this.props.router.push({pathname:`/${username}`})
+			      })
+			    })
 				})
 				.catch((err) => {
 					console.log(err)

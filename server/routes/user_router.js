@@ -30,6 +30,26 @@ router.route('/matches/:username')
 		})
   });
 
+router.route('/count/:id')
+	.get((req, res) => {
+		return Promise.all(
+			[Followers_followings.forge()
+				.query('where','follower_id', '=', req.params.id)
+				.count(),
+			Followers_followings.forge()
+			.query('where','followed_id', '=', req.params.id)
+			.count()
+			]
+		)
+		.then((result) => {
+			console.log("result", result)
+		  res.json({followerCount: result[0], followingCount: result[1]})
+		})
+		.catch((err) => {
+			console.error(err);
+			res.json({error: {message: err.message}})
+		});
+	})
 
 
 // Fetch all user's following by user id
@@ -63,7 +83,6 @@ router.route('/followers/:id')
 // Follow a user
 router.route('/follow')
 	.post((req, res) => {
-	console.log("FOLLOW REQ.BODY", req.body)
 		const {follower_id, followed_id} = req.body;
 		if(follower_id === followed_id) {
 			return res.status(400).send({error: "Cannot follow yourself."})
@@ -86,6 +105,8 @@ router.route('/follow')
 			res.status(400).send({error: err.message})
 		})
 	})
+
+
 
 module.exports = router;
 

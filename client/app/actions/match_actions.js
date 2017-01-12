@@ -14,15 +14,6 @@ export function clearMatches () {
   }
 }
 
-export function getMatches(post) {
-  return dispatch => axios.post('/api/post/matches', post)
-	.then((resp) => {
-    console.log('server res', resp.data)
-    dispatch(setMatches(resp.data));
-  });
-}
-
-
 export function initMatches(matches) {
   return {
     type: INIT_PERSONALITY_MATCHES,
@@ -35,6 +26,14 @@ export function clearPersonalityMatches(matches) {
     type: CLEAR_PERSONALITY_MATCHES,
     matches
   }
+}
+
+export function getMatches(post) {
+  return dispatch => axios.post('/api/post/matches', post)
+  .then((resp) => {
+    console.log('server res', resp.data)
+    dispatch(setMatches(resp.data));
+  });
 }
 
 export function initUserMatches(username) {
