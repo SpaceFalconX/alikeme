@@ -29,10 +29,11 @@ export function fetchPublicPosts(fetchedPublicPosts) {
 	}
 }
 
-export function filterPosts(filteredPosts) {
+export function filterPosts(category) {
+	console.log("!!!", category)
 	return {
 		type: FILTER_POSTS,
-		filteredPosts
+		category
 	}
 }
 
@@ -83,15 +84,15 @@ export function fetchPostsFromDb() {
 	 .catch((err) => { console.log(err) });
 }
 
-export function filterPostsFromDb(categoryid) {
- return (dispatch) => {
- 	return axios.post('/api/post/categories', {categoryid})
-	 .then((resp) => {
-		 dispatch(filterPosts(resp.data))
-	 })
-	 .catch((err)=> {console.log(err)})
- }
-}
+// export function filterPostsFromDb(categoryName) {
+//  // return (dispatch) => {
+//  // 	return axios.post('/api/post/categories', {categoryName})
+// 	//  .then((resp) => {
+// 		 dispatch(filterPosts(categoryName))
+// 	//  })
+// 	//  .catch((err)=> {console.log(err)})
+//  // }
+// }
 
 export function filterTagsfromDb(tag){
 	return (dispatch) => {

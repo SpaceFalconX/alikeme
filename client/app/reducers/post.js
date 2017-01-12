@@ -52,7 +52,10 @@ export function allPosts (state=[], action) {
     case FETCH_ALL_POSTS:
       return action.fetchedPosts;
     case FILTER_POSTS:
-      return state.concat(action.filteredPosts);
+      console.log("STATE", state[0], action.category)
+      return state.filter((post) => {
+        return post.category.name === action.category;
+      })
     case CLEAR_POSTS:
       return [];
     default :
