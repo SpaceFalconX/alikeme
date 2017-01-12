@@ -11,10 +11,6 @@ import _ from 'lodash'
 
 class Profile extends React.Component {
   componentWillMount () {
-    this.props.dispatch(getFollowers(this.props.user.id))
-    .then(()=> {
-      this.props.dispatch(getFollowing(this.props.user.id))
-    })
     if(this.props.params.username !== this.props.user.username){
       browserHistory.push('/profile/' + this.props.params.username)
     }
@@ -24,6 +20,7 @@ class Profile extends React.Component {
   }
 
   render () {
+
     const posts = this.props.userPosts
     const {followers, following, username} = this.props.user;
     console.log("FOLLOWERS")
@@ -42,14 +39,14 @@ class Profile extends React.Component {
               }
             </div>
             <div className="col-md-4">
-              <h4>Followers</h4>
+              <h4>Following</h4>
               {
                 this.props.user.followers.map((follower, index)=>{
                   return (<FollowThumb router={this.props.router} key={index} follower={follower}
                     personalityMatches={personalityMatches} />)
                 })
               }
-              <h4>Following</h4>
+              <h4>Followers</h4>
               {
                 this.props.user.following.map((follower, index)=>{
                   return (<FollowThumb router={this.props.router}key={index} follower={follower}

@@ -10,7 +10,6 @@ import setAuthorizationToken from './utils/setAuthorizationToken.js'
 import {setUser, getFollowers, getFollowing} from './actions/auth_actions.js'
 import {fetchUserPostsFromDb } from './actions/post_actions.js'
 import {initUserMatches } from './actions/match_actions.js'
-
 import {fetchCategories} from './actions/category_actions.js'
 
 

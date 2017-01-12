@@ -1,6 +1,7 @@
 import React from 'react';
 import Post from './Post.js'
 import {connect} from 'react-redux';
+import {Link} from 'react-router'
 import {fetchCategories} from '../actions/category_actions.js'
 import { fetchPostsFromDb, filterPostsFromDb, filterTagsfromDb, clearPosts} from '../actions/post_actions.js'
 
@@ -65,9 +66,6 @@ class Browse extends React.Component {
   }
 
   render () {
-    let sorted = this.props.allPosts.sort((a,b) => {
-      return a.id < b.id
-    })
     return (
       <div className="col-md-6" >
         <h1>browse</h1>
@@ -80,8 +78,22 @@ class Browse extends React.Component {
             </div>
 
             {this.filterTags()}
+
+            <div>
+              {
+                this.props.categories.map((category, index) => {
+                  return (<div key={index} className="form-check">
+                    <label className="form-check-label">
+                      <input className="form-check-input" type="checkbox" value="" />
+                      <Link to={this.props.router.location.pathname + '/'+ category.name}>{category.name}</Link>
+                    </label>
+                  </div>
+                  )
+                })
+              }
+            </div>
             <div className="row">
-              { sorted.map((post) => {
+              { this.props.allPosts.map((post) => {
                   return (
                     <Post key={post.id} post={post} contextUser={this.props.user.username} />
                   )
