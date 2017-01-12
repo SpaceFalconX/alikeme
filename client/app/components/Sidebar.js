@@ -51,7 +51,7 @@ const Sidebar = React.createClass({
       fontSize: '20px',
       marginTop: '10px'
     }
-    
+
     const handleError = () => {
       this.setState({profilePicture: "http://www.topcareer.jp/inter_blog/wp-content/uploads/100_100_empty.gif"})
     }

@@ -11,6 +11,17 @@ const __ = require('underscore');
 const express = require('express');
 
 const router = express.Router();
+
+router.post('/star', (req, res) => {
+	new Post({id: req.body.id})
+	.save({stars: req.body.stars})
+	.then((post) => {
+		console.log("json ", post.toJSON());
+		res.json(post)
+	})
+})
+
+
 router.get('/', (req, res) => {
 	Posts.forge()
 	.fetch({withRelated: ['user', 'category', 'tags']})
@@ -183,6 +194,7 @@ router.post('/new', (req, res) => {
   	res.status(400).send({error: {message: err.message}});
 	});
 })
+
 
 ////////////////MATCHING
 router.post('/matches', (req, res) => { //filter by category

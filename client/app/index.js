@@ -29,8 +29,7 @@ const Root = (
 				<Route path='/setup/:username' component={ProfileSetup} />
 				<Route path='/settings/:username' component={Settings} />
 				<Route path='/profile/:username' component={PublicProfile} />
-        <Route path='/browse/:username' component={Browse} />
-        <Route path='/browse/:username/(:category)' component={Browse} />
+        <Route path='/browse/:username(/:category)' component={Browse} />
 				<Route path='/matches/:postid' component={Matches} />
 				<Route path='/edit/:postid' component={Edit} />
 				<Route path='/editProfile/:username' component={Settings} />
