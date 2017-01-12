@@ -65,8 +65,10 @@ class Browse extends React.Component {
                     <div key={index} className="form-check">
                     <label className="form-check-label">
                       <Link activeStyle={{
-                        color: 'black'
-                      }} to={'/browse/' + this.props.user.username + '/' + category.name}>{category.name}</Link>
+                        color: 'black',
+                        background: 'pink'
+                      }} to={'/browse/' + this.props.user.username + '/' + category.name}>
+                      {category.name}</Link>
                     </label>
                   </div>
                   )

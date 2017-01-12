@@ -10,6 +10,7 @@ exports.seed = (knex, Promise) => {
         knex('tags').del(),
         knex('categories').del(),
         knex('followers_following').del(),
+        knex('post_stars').del(),
         knex('users').del(),
 
         knex('users').insert({id: 1, username: 'sevda', email: 'sevda@g.com', password: '123', twitterLink: 'sevda_tw',
@@ -18,8 +19,18 @@ exports.seed = (knex, Promise) => {
         openness: 0.35 ,conscientiousness: 0.25, extraversion: 0.70, agreeableness: 0.45, emotionalRange: 0.55}),
         knex('users').insert({id: 3, username: 'wasiff', email: 'wassiff@g.com', password: '123',  twitterLink: 'wasiff_tw',
         openness: 0.90 ,conscientiousness: 0.49, extraversion: 0.58, agreeableness: 0.15, emotionalRange: 0.82}),
-        knex('users').insert({id: 4, username: 'timUrban', email: 'tim_urban@g.com', password: '123',  twitterLink: 'waitbutwhy'}),
-        knex('users').insert({id: 5, username: 'hackReactor', email: 'hack@g.com', password: '123',  twitterLink: 'HackReactor'}),
+        knex('users').insert({id: 4, username: 'timUrban', email: 'tim_urban@g.com', password: '123',  twitterLink: 'waitbutwhy',
+        openness: 0.90 ,conscientiousness: 0.49, extraversion: 0.58, agreeableness: 0.20, emotionalRange: 0.82}),
+        knex('users').insert({id: 5, username: 'hackReactor', email: 'hack@g.com', password: '123',  twitterLink: 'HackReactor',
+        openness: 0.45 ,conscientiousness: 0.36, extraversion: 0.53, agreeableness: 0.15, emotionalRange: 0.42}),
+
+        knex('followers_following').insert({id: 1, follower_id: 1, followed_id: 3}),
+        knex('followers_following').insert({id: 2, follower_id: 2, followed_id: 3}),
+        knex('followers_following').insert({id: 3, follower_id: 3, followed_id: 2}),
+        knex('followers_following').insert({id: 4, follower_id: 4, followed_id: 1}),
+        knex('followers_following').insert({id: 5, follower_id: 5, followed_id: 1}),
+        knex('followers_following').insert({id: 6, follower_id: 5, followed_id: 2}),
+        knex('followers_following').insert({id: 7, follower_id: 5, followed_id: 3}),
 
         knex('categories').insert({id: 1, name: 'fruits'}),
         knex('categories').insert({id: 2, name: 'veggies'}),
@@ -48,11 +59,23 @@ exports.seed = (knex, Promise) => {
         knex('posts_tags').insert({id: 4, post_id: 4, tag_id: 5}),
         knex('posts_tags').insert({id: 5, post_id: 5, tag_id: 4}),
         knex('posts_tags').insert({id: 6, post_id: 5, tag_id: 5}),
-        knex('posts_tags').insert({id: 7, post_id: 5, tag_id: 7})
+        knex('posts_tags').insert({id: 7, post_id: 5, tag_id: 7}),
+
+        knex('posts_stars').insert({star_id: 1, user_id: 3}),
+        knex('posts_stars').insert({star_id: 4, user_id: 3}),
+        knex('posts_stars').insert({star_id: 3, user_id: 2}),
+        knex('posts_stars').insert({star_id: 4, user_id: 1}),
+        knex('posts_stars').insert({star_id: 5, user_id: 1}),
+        knex('posts_stars').insert({star_id: 5, user_id: 5}),
+        knex('posts_stars').insert({star_id: 5, user_id: 3})
       )
       .then((seed) => {
         console.log(`Seeded db with ${seed.length} entries.`)
       })
+      .catch((err) => {
+        console.log(`Error: ${err}`)
+      })
+
     }
   })
 };

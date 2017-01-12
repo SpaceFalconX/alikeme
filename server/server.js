@@ -12,6 +12,7 @@ const auth = require('./routes/auth_router.js');
 const category =  require('./routes/category_router.js');
 const post =  require('./routes/post_router.js');
 const user =  require('./routes/user_router.js');
+const star =  require('./routes/star_router.js');
 const watson = require('./routes/watson_router.js')
 const twitter = require('./routes/twitter_router.js')
 const upload = require('./routes/upload_router.js')
@@ -35,7 +36,8 @@ app.use('/auth', auth)
 app.use('/api/watson', watson)
 app.use('/api/category', category)
 app.use('/api/post', post)
-app.use('/api/user', user)  
+app.use('/api/user', user)
+app.use('/api/star', star)
 app.use('/api/twitter', twitter)
 app.use('/api/upload', upload)
 

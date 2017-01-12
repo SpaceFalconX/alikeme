@@ -8,10 +8,10 @@ exports.up = (knex, Promise) => {
   })
 
   .then(() => {
-  	console.log('FRIENDS table created!')
+  	console.log('FOLLOWERS_FOLLOWING table created!')
   })
 };
 
 exports.down = (knex, Promise) => {
-  return knex.schema.dropTable('friends');
+  return knex.schema.dropTable('followers_following');
 };

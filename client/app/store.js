@@ -28,7 +28,7 @@ if(localStorage.token) {
   const decoded = jwt.decode(localStorage.token)
 	setAuthorizationToken(localStorage.token);
 	store.dispatch(setUser(decoded.user))
-  store.dispatch(fetchUserPostsFromDb(decoded.user.username));
+  store.dispatch(fetchUserPostsFromDb(decoded.user.username))
   store.dispatch(getFollowers(decoded.user.id))
   store.dispatch(getFollowing(decoded.user.id))
   store.dispatch(initUserMatches(decoded.user.username))

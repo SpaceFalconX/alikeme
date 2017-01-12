@@ -23,7 +23,7 @@ router.route('/matches/:username')
 		.fetch().then((user) => {
 			let parsedUser = user.toJSON()
 			console.log("user", user)
-			user.generateMatches().then(result => res.json(result.slice(1, 5)))
+			user.generateMatches().then(result => res.json(result.slice(1)))
 		})
 		.catch((err)=>{
 			res.send({err: err.message})

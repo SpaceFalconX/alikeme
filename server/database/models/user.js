@@ -20,9 +20,10 @@ const User = db.Model.extend({
   followers () {
   	return this.belongsToMany('User').through('Follower_following', 'followed_id', 'follower_id' )
   },
-  countFollowers () {
-    return this.followers().toJSON()
+  starredPosts () {
+    return this.belongsToMany('Post', 'posts_stars', 'user_id', 'star_id')
   },
+
   generateMatches () {
     const context = this;
     return this.fetchAll({columns: ['openness', 'conscientiousness', 'extraversion', 'agreeableness', 'emotionalRange', 'username', 'id']})
@@ -32,7 +33,7 @@ const User = db.Model.extend({
         let distance = 0.0;
         for(var trait in otherUser) {
           if(trait !== 'username' && trait !== 'id') {
-            distance += Math.pow(context.get(trait) - otherUser[trait], 2);
+            distance += Math.pow((context.get(trait) - otherUser[trait]), 2);
           }
         }
         return {distance: distance, username: otherUser.username, id: otherUser.id };

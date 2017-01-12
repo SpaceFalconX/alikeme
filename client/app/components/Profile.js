@@ -19,12 +19,22 @@ class Profile extends React.Component {
     }
   }
 
+  // componentWillReceiveProps(nextProps) {
+  //   const {followers, following, username} = this.props.user;
+  //   if(posts.length && followers.length && following.length) {
+  //     this.props.fetched = true;
+  //   }
+  // }
+
   render () {
 
     const posts = this.props.userPosts
     const {followers, following, username} = this.props.user;
     console.log("FOLLOWERS")
     const {personalityMatches} = this.props;
+    // if(!posts.length || !followers.length || !following.length || !categories.length ) {
+    //   return (<div>LOADING</div>)
+    // } else {
     return (
         <div className="col-md-10" >
          <div className="row" >
@@ -57,6 +67,7 @@ class Profile extends React.Component {
           </div>
       </div>
     )
+
   }
 }
 
