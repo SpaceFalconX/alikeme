@@ -147,4 +147,4 @@ export default Profile;
 //     )
 //   }
 // }
->>>>>>> follwoer/follwoing component
+// >>>>>>> follwoer/follwoing component

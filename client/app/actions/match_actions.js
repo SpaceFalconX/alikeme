@@ -31,7 +31,7 @@ export function clearPersonalityMatches(matches) {
 export function getMatches(post) {
   return dispatch => axios.post('/api/post/matches', post)
   .then((resp) => {
-    console.log('server res', resp.data)
+    //console.log('server res', resp.data)
     dispatch(setMatches(resp.data));
   });
 }
@@ -39,7 +39,7 @@ export function getMatches(post) {
 export function initUserMatches(username) {
   return dispatch => axios.get(`/api/user/matches/${username}`)
   .then((resp) => {
-    console.log('server res', resp.data)
+    //console.log('server res', resp.data)
     dispatch(initMatches(resp.data));
   });
 }
