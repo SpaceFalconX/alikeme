@@ -25,7 +25,7 @@ const Root = (
 			<Route path="/" component={MainWrapper}>
 				<IndexRoute component={Signup}></IndexRoute>
 				<Route path='/login' component={Login} />
-				<Route path='/message' component={Message} />
+				<Route path='/message/:userOne/:userTwo' component={Message} />
 				<Route path='/setup/:username' component={ProfileSetup} />
 				<Route path='/settings/:username' component={Settings} />
 				<Route path='/profile/:username' component={PublicProfile} />
