@@ -2,6 +2,7 @@ const express = require('express');
 const User = require('../database/models/user.js');
 const Users = require('../database/collections/users.js');
 const router = express.Router();
+//todo - read twitter here too
 
 router.post('/setTwitter', (req, res) => {
   console.log('setting to', req.body)

@@ -23,14 +23,35 @@ class Settings extends React.Component {
     e.preventDefault()
     let data = new FormData()
     data.append('file', document.getElementById('file').files[0])
+    console.log(data)
     axios.post('/api/upload/setUserName', {username: this.props.user.username})
     .then((res) => {
+      console.log("uploading picture")
+      console.log(data)
       axios.post('/api/upload/uploadProfilePicture', data)
+      .then((res) => {
+        console.log("UPLOADED BACK", res, res.data)
+      })
     })
     .catch((err) => {
       console.log(err)
     })
   }
+
+  // handleImageUpload (e) {
+  //   e.preventDefault()
+  //   let time = Date.now()
+  //   let data = new FormData()
+  //   data.append('file', document.getElementById('file').files[0])
+  //   axios.post('/api/upload/uploadProfilePicture', data)
+  //   .then((res) => {
+  //     console.log('yeah boy')
+  //     // axios.post('/api/upload/uploadProfilePicture', data)
+  //   })
+  //   .catch((err) => {
+  //     console.log(err)
+  //   })
+  // }
 
   render () {
     return (
