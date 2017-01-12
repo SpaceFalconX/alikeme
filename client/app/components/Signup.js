@@ -20,7 +20,7 @@ const Signup = React.createClass({
 		const email = this.refs.email.value;
 		const password = this.refs.password.value;
 		const twitterLink = this.refs.twitter.value;
-		const facebookLink = this.refs.facebook.value;
+	//	const facebookLink = this.refs.facebook.value;
 		this.props.dispatch(getWatsonTwitterData(twitterLink)).then((res) => {
 			const agreeableness = res.agreeableness
 			const conscientiousness = res.conscientiousness
@@ -28,7 +28,7 @@ const Signup = React.createClass({
 			const extraversion = res.extraversion
 			const openness = res.openness
 			let userData = {
-				username, email, password, twitterLink, facebookLink,
+				username, email, password, twitterLink,
 				agreeableness, conscientiousness, emotionalRange, extraversion, openness
 			}
 			this.props.dispatch(signupApiRequest(userData));
