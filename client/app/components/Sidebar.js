@@ -60,7 +60,7 @@ const Sidebar = React.createClass({
 	 const loggedInView = (
 			<div className="col-md-2">
         <div style={fontStyl}>
-			    <img src={this.state.profilePicture()} style={imgStyle} onError={handleError} />
+			    <img src={this.state.profilePicture} style={imgStyle} onError={handleError} />
            <p className='lead' style={locationStyl}> <small> location set to: <br/> San Francisco, CA </small> </p>
           <h4> Stats <small title="The normalized percentile score for the characteristic. The range is 0 to 100. For example, if the percentage for Openness is 25%, the author scored in the 25th percentile; the author is more open than 24% of the population and less open than 74% of the population."> *%percentile </small> </h4>
           <p> <strong> Openness: </strong> { +(this.props.user.openness * 100).toFixed(0) || ' ' }% </p>
