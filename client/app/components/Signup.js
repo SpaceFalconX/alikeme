@@ -36,9 +36,14 @@ const Signup = React.createClass({
 	},
 
 	render() {
+
+		const welcomeCSS = {
+			marginTop: '20px'
+		}
+
 		return (
 			<div>
-				<div className="col-md-12">
+				<div className="col-md-6">
 					<div className="jumbotron">
 						<h2>Signup</h2>
 						<form ref="signupForm" onSubmit={this.handleSubmit}>
@@ -51,12 +56,14 @@ const Signup = React.createClass({
 							<label>Twitter handle:</label><br/>
 							<span className="fa fa-twitter"></span>
 							<input className="form-group" type="text" ref="twitter" placeholder="eg: janedoe"/><br/>
-							<label>Facebook url:</label><br/>
-							<span className="fa fa-facebook"></span>
-							<input className="form-group" type="text" ref="facebook" placeholder="eg: janedoe"/><br/>
 							<input className="btn btn-default" type="submit" value="Signup"/>
 						</form>
+						</div>
 					</div>
+					<div className="col-md-6" style={welcomeCSS}>
+					<h2> Welcome to aLike.me </h2>
+					<br/>
+					<p className="lead"> aLike.me aims to limit uncertainty and sift through the noise human beings have generated to more accurately match you with things that you care about. It achieves this by leveraging a sophisticated analytical AI software that analyzes your posts and twitter text to get your personality model. </p>
 				</div>
 			</div>
 		)
@@ -87,3 +94,7 @@ export default Signup;
 	// 						<Link to="/login">Go to Login Page</Link>
 	// 				</div>
 	// 			</div>
+
+							// 	<label>Facebook url:</label><br/>
+							// <span className="fa fa-facebook"></span>
+							// <input className="form-group" type="text" ref="facebook" placeholder="eg: janedoe"/><br/>

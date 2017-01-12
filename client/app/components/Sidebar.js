@@ -75,7 +75,7 @@ const Sidebar = React.createClass({
 			<div className="col-md-2">
 				<div className="jumbotron">
           WELCOME TO aLike.me
-        <br/>
+       
 				</div>
 			</div>
 	 )
@@ -83,7 +83,7 @@ const Sidebar = React.createClass({
 
 
     return (
-      <div>	{ isAuthenticated ? loggedInView : noSideView } </div>
+      <div>	{ isAuthenticated ? loggedInView : '' } </div>
     )
   }
 })

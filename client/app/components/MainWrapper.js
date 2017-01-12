@@ -15,7 +15,7 @@ const Main = React.createClass({
 	const signedInUser = (
 				<div>
 					<h1>
-						<Link to="/">Alike.me</Link>
+						<Link to="/">aLike.me</Link>
 					</h1>
 					<Navbar user={this.props.user} dispatch={this.props.dispatch}/>
 					<Sidebar user={this.props.user} dispatch={this.props.dispatch}/>
