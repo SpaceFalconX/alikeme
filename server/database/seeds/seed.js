@@ -14,15 +14,42 @@ exports.seed = (knex, Promise) => {
         knex('users').del(),
 
         knex('users').insert({id: 1, username: 'sevda', email: 'sevda@g.com', password: '123', twitterLink: 'sevda_tw',
-            openness: 0.60  ,conscientiousness: 0.10, extraversion: 0.40, agreeableness: 0.20, emotionalRange: 0.80}),
+        openness: 0.60  ,conscientiousness: 0.10, extraversion: 0.40, agreeableness: 0.20, emotionalRange: 0.80}),
         knex('users').insert({id: 2, username: 'isaac', email: 'isaac@g.com', password: '123', twitterLink: 'isaac_tw',
         openness: 0.35 ,conscientiousness: 0.25, extraversion: 0.70, agreeableness: 0.45, emotionalRange: 0.55}),
         knex('users').insert({id: 3, username: 'wasiff', email: 'wassiff@g.com', password: '123',  twitterLink: 'wasiff_tw',
         openness: 0.90 ,conscientiousness: 0.49, extraversion: 0.58, agreeableness: 0.15, emotionalRange: 0.82}),
-        knex('users').insert({id: 4, username: 'timUrban', email: 'tim_urban@g.com', password: '123',  twitterLink: 'waitbutwhy',
-        openness: 0.90 ,conscientiousness: 0.49, extraversion: 0.58, agreeableness: 0.20, emotionalRange: 0.82}),
-        knex('users').insert({id: 5, username: 'hackReactor', email: 'hack@g.com', password: '123',  twitterLink: 'HackReactor',
-        openness: 0.45 ,conscientiousness: 0.36, extraversion: 0.53, agreeableness: 0.15, emotionalRange: 0.42}),
+        knex('users').insert({id: 4, username: 'elliott', email: 'elliott@g.com', password: '123',  twitterLink: 'eliott',
+        openness: 0.93 ,conscientiousness: 0.69, extraversion: 0.78, agreeableness: 0.65, emotionalRange: 0.92}),
+        knex('users').insert({id: 5, username: 'dan', email: 'dan@g.com', password: '123',  twitterLink: 'dan_tw',
+        openness: 0.30 ,conscientiousness: 0.49, extraversion: 0.58, agreeableness: 0.54, emotionalRange: 0.82}),
+        knex('users').insert({id: 6, username: 'eric', email: 'eric@g.com', password: '123',  twitterLink: 'eric_tw',
+        openness: 0.80 ,conscientiousness: 0.39, extraversion: 0.18, agreeableness: 0.22, emotionalRange: 0.72}),
+        knex('users').insert({id: 7, username: 'val', email: 'val@g.com', password: '123',  twitterLink: 'val_tw',
+        openness: 0.90 ,conscientiousness: 0.79, extraversion: 0.28, agreeableness: 0.22, emotionalRange: 0.82}),
+        knex('users').insert({id: 8, username: 'nate', email: 'ate@g.com', password: '123',  twitterLink: 'at_tw',
+        openness: 0.20 ,conscientiousness: 0.99, extraversion: 0.38, agreeableness: 0.21, emotionalRange: 0.52}),
+        knex('users').insert({id: 9, username: 'collin', email: 'col@g.com', password: '123',  twitterLink: 'collin_tw',
+        openness: 0.30 ,conscientiousness: 0.49, extraversion: 0.58, agreeableness: 0.20, emotionalRange: 0.42}),
+        knex('users').insert({id: 10, username: 'alisa', email: 'alisa@g.com', password: '123',  twitterLink: 'alisa_tw',
+        openness: 0.40 ,conscientiousness: 0.39, extraversion: 0.98, agreeableness: 0.19, emotionalRange: 0.92}),
+        knex('users').insert({id: 11, username: 'neil', email: 'neil@g.com', password: '123',  twitterLink: 'nico_tw',
+        openness: 0.50 ,conscientiousness: 0.79, extraversion: 0.88, agreeableness: 0.18, emotionalRange: 0.82}),
+        knex('users').insert({id: 12, username: 'paul', email: 'paul@g.com', password: '123',  twitterLink: 'paul_tw',
+        openness: 0.60 ,conscientiousness: 0.29, extraversion: 0.78, agreeableness: 0.17, emotionalRange: 0.72}),
+        knex('users').insert({id: 13, username: 'bei', email: 'bei@g.com', password: '123',  twitterLink: 'bei_tw',
+        openness: 0.70 ,conscientiousness: 0.39, extraversion: 0.68, agreeableness: 0.16, emotionalRange: 0.62}),
+        knex('users').insert({id: 14, username: 'nikshila', email: 'nic@g.com', password: '123',  twitterLink: 'nic_tw',
+        openness: 0.80 ,conscientiousness: 0.29, extraversion: 0.58, agreeableness: 0.15, emotionalRange: 0.52}),
+        knex('users').insert({id: 15, username: 'barktek', email: 'bartek@g.com', password: '123',  twitterLink: 'bartek_tw',
+        openness: 0.90 ,conscientiousness: 0.79, extraversion: 0.48, agreeableness: 0.14, emotionalRange: 0.42}),
+        knex('users').insert({id: 16, username: 'whiteshadow', email: 'whiteshadow@g.com', password: '123',  twitterLink: 'ws_tw',
+        openness: 0.01 ,conscientiousness: 0.01, extraversion: 0.01, agreeableness: 0.13, emotionalRange: 0.32}),
+        knex('users').insert({id: 17, username: 'bei', email: 'bei@g.com', password: '123',  twitterLink: 'bei_tw',
+        openness: 0.30 ,conscientiousness: 0.49, extraversion: 0.38, agreeableness: 0.12, emotionalRange: 0.22}),
+        knex('users').insert({id: 18, username: 'bei', email: 'bei@g.com', password: '123',  twitterLink: 'bei_tw',
+        openness: 0.20 ,conscientiousness: 0.89, extraversion: 0.28, agreeableness: 0.11, emotionalRange: 0.12}),
+
 
         knex('followers_following').insert({id: 1, follower_id: 1, followed_id: 3}),
         knex('followers_following').insert({id: 2, follower_id: 2, followed_id: 3}),
@@ -38,7 +65,9 @@ exports.seed = (knex, Promise) => {
 
         knex('posts').insert({
           id: 1, 
-          content: `As a young child in the capital of North Korea, Sungju Lee lived a pampered life. But by the time he was a teenager, he was starving and fighting for survival in a street gang. It was one of many twists of fate on a journey that has led him to postgraduate studies at a British university. In the early 1990s, Sungju Lee was living comfortably with his parents in a three-bedroom apartment in Pyongyang. He attended school and Taekwondo classes, visited parks and rode on Ferris wheels. He assumed that, like his father, he would grow up to become an officer in the North Korean army. But in 1994, this life came to an abrupt end with the death of North Korea's founding father, Kim Il-Sung.`, 
+          content: `As a young child in the capital of North Korea, Sungju Lee lived a pampered life. 
+          But by the time he was a teenager, he was starving and fighting for survival in a street gang. It was one of many twists of fate on a journey that has led him to postgraduate studies at a British university. In the early 1990s, Sungju Lee was living comfortably with his parents in a three-bedroom apartment in Pyongyang. He attended school and Taekwondo classes, visited parks and rode on Ferris wheels. He assumed that, like his father, he would grow up to become an officer in the North Korean army. 
+          But in 1994, this life came to an abrupt end with the death of North Korea's founding father, Kim Il-Sung.`, 
           title: 'FruitMania', user_id: 1, category_id: 1 
         }),
         knex('posts').insert({

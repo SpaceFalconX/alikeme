@@ -2,21 +2,32 @@ import React from 'react'
 import {Link} from 'react-router'
 import {connect} from 'react-redux'
 
+import Signup from './Signup'
 import Navbar from './Navbar'
 import Sidebar from './Sidebar'
 
 //React.cloneElement will clone/propogate props down through the children elements
 const Main = React.createClass({
 	render() {
+	
+	const isAuthenticated = this.props.user.isAuthenticated;
+
+	const signedInUser = (
+				<div>
+					<h1>
+						<Link to="/">Alike.me</Link>
+					</h1>
+					<Navbar user={this.props.user} dispatch={this.props.dispatch}/>
+					<Sidebar user={this.props.user} dispatch={this.props.dispatch}/>
+					{ React.cloneElement(this.props.children, this.props) }
+			  </div>
+	 )
+
+
 		return (
-			<div>
-				<h1>
-					<Link to="/">Alike.me</Link>
-				</h1>
-				<Navbar user={this.props.user} dispatch={this.props.dispatch}/>
-				<Sidebar user={this.props.user} dispatch={this.props.dispatch}/>
-				{React.cloneElement(this.props.children, this.props)}
-			</div>
+      <div>
+				{signedInUser}
+     </div>
 		)
 	}
 })
@@ -54,3 +65,4 @@ const MainWrapper = connect(mapStatetoProps)(Main);
 
 export default MainWrapper;
 
+//		{React.cloneElement(this.props.children, this.props)}
