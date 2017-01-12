@@ -11,7 +11,7 @@ class Message extends React.Component {
     }
   }
   componentWillMount () {
-    this.setState({channelName: [this.props.params.userOne, this.props.params.userTwo].sort().join("")})
+    this.setState({channelName: [this.props.params.user, this.props.user.username].sort().join("")})
   }
 
   componentDidMount () {
@@ -70,6 +70,19 @@ class Message extends React.Component {
   }
 
   render () {
+    // const imgStyle = {
+    //   height: '40px',
+    //   width: '40px',
+    //   borderRadius: '50%',
+    //   border: '2px, solid, #000'
+    // }
+
+    // const handleError = () => {
+    //   this.setState({profilePicture: () => {
+    //     return "http://www.topcareer.jp/inter_blog/wp-content/uploads/100_100_empty.gif"
+    //   }})
+    // }
+
     return (
       <div>
         <h1>messaging</h1>

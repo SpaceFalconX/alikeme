@@ -21,7 +21,7 @@ class PublicProfile extends React.Component {
     return (
       <div>
       <h1>{this.props.params.username}'s profile</h1>
-      <Link to={'/message/' + this.props.user.username + '/' + this.props.params.username}>MESSAGE {this.props.params.username}</Link>
+      <Link to={'/message/' + this.props.params.username}>MESSAGE {this.props.params.username}</Link>
       {this.userPosts()}
       </div>
     )
