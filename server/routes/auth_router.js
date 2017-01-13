@@ -37,6 +37,7 @@ router.post('/signup', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
+	console.log('here')
 	let {username, password} = req.body;
 	new User ({username: username})
 	.fetch({withRelated: ['posts']})
@@ -69,19 +70,25 @@ router.post('/login', (req, res) => {
 								agreeableness: (twitterAnalysis.agreeableness + analysis.agreeableness)/2,
 								emotionalRange: (twitterAnalysis.emotionalRange + analysis.emotionalRange)/2
 							}
-							console.log("UPDATED PERSONALITY!", updatedPersonality)
-							user.save({
-								openness: updatedPersonality.openness,
-								conscientiousness: updatedPersonality.conscientiousness,
-								extraversion: updatedPersonality.extraversion,
-								agreeableness: updatedPersonality.agreeableness,
-								emotionalRange: updatedPersonality.emotionalRange
-							})
-							.then((success) => {
+							if(isNaN(updatedPersonality.openness)) {
 								const token = generateToken(user);
-								console.log(`LOG IN SUCCESS: ${user.get('username')}`)
+								console.log(`LOG IN SUCCESS BUT NO UPDATE: ${user.get('username')}`)
 								res.status(200).send({token});
-							})
+							} else {
+								console.log("UPDATED PERSONALITY!", updatedPersonality)
+								user.save({
+									openness: updatedPersonality.openness,
+									conscientiousness: updatedPersonality.conscientiousness,
+									extraversion: updatedPersonality.extraversion,
+									agreeableness: updatedPersonality.agreeableness,
+									emotionalRange: updatedPersonality.emotionalRange
+								})
+								.then((success) => {
+									const token = generateToken(user);
+									console.log(`LOG IN SUCCESS: ${user.get('username')}`)
+									res.status(200).send({token});
+								})
+							}
 						})
 					}
 				})
