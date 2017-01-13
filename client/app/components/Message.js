@@ -7,40 +7,48 @@ class Message extends React.Component {
   constructor(props) {
     super()
     this.state = {
-      messageHistory: (<div> LOADING </div>),
+      messageHistory: [<div key='loading'> LOADING </div>],
       channelName: null
     }
   }
+
   componentWillMount () {
     this.setState({channelName: [this.props.params.user, this.props.user.username].sort().join("")})
+  }
+
+  handleNewMessage (message) {
+    let temp = this.state.messageHistory.concat([<div key={Math.random()}>{message}</div>]).slice(this.state.messageHistory.length -9)
+    this.setState({
+      messageHistory: temp
+    })
   }
 
   componentDidMount () {
     this.pubnub = new PubNub({
         publishKey: 'pub-c-f5e1b611-9e28-4b7a-85bc-53d8ffb17f95',
         subscribeKey: 'sub-c-45dd39e4-d8ee-11e6-a0b3-0619f8945a4f',
-    });
+    })
+    this.pubnub.addListener({
+      message: (m) => {
+        this.handleNewMessage(m.message)
+      }
+    })
     this.pubnub.subscribe({
-      channel: this.state.channelName
-    });
+      channels: [this.state.channelName]
+    })
     this.refresh()
   }
 
   componentWillUnmount () {
-    console.log('unmounting')
     this.pubnub.unsubscribeAll()
-    this.refresh = () => {
-      return
-    }
   }
 
   publish (e) {
     e.preventDefault()
-    this.setState({messageHistory: (<div>SENDING</div>)})
     this.pubnub.publish({
       channel: this.state.channelName,
       message: this.props.user.username + ": " + this.refs.message.value
-    }, () => {
+    }, (status, response) => {
       this.refs.message.value = ""
     })
   }
@@ -65,9 +73,6 @@ class Message extends React.Component {
           })
         }
     })
-    setTimeout(() => {
-      this.refresh()
-    }, 1000)
   }
 
   render () {

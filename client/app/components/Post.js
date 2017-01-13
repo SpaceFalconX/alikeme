@@ -17,7 +17,7 @@ class Post extends React.Component {
     })
   }
 
-  usernameContext () { //pass session user in instead for better checking
+  usernameContext () {
     if(this.props.post.username) {
       return this.props.post.username
     }

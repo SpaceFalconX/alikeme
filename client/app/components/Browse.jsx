@@ -8,13 +8,13 @@ import { fetchPostsFromDb, filterPosts, filterTagsfromDb, clearPosts} from '../a
 
 class Browse extends React.Component {
 
-    constructor (props) {
-      super()
-      this.state = {
-        filter: [],
-        filtering: false
-      }
+  constructor (props) {
+    super()
+    this.state = {
+      filter: [],
+      filtering: false
     }
+  }
 
   componentWillMount() {
     this.props.dispatch(fetchPostsFromDb());
