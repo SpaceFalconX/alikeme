@@ -48,7 +48,6 @@ const Sidebar = React.createClass({
     }
 
     const locationStyl = {
-      fontSize: '20px',
       marginTop: '10px'
     }
 
@@ -56,21 +55,38 @@ const Sidebar = React.createClass({
       this.setState({profilePicture: "http://www.topcareer.jp/inter_blog/wp-content/uploads/100_100_empty.gif"})
     }
 
-    return (
-      <div className="col-md-2">
-        <div className="sidebar" style={fontStyl}>
-        <img src={this.state.profilePicture} style={imgStyle} onError={handleError} />
-          <p className='lead' style={locationStyl}> <small> location set to: <br/> San Francisco, CA </small> </p>
-          <h4> Stats <small title="The normalized percentile score for the characteristic. The range is 0 to 1. For example, if the percentage for Openness is 0.25, the author scored in the 25th percentile; the author is more open than 24% of the population and less open than 74% of the population."> *percentile </small> </h4>
-          <p> Openness: {(this.props.user.openness * 100).toFixed(0)}% </p>
-          <p> Conscientiousness: {(this.props.user.conscientiousness * 100).toFixed(0)}% </p>
-          <p> Introversion/Extraversion: {(this.props.user.extraversion * 100).toFixed(0)}% </p>
-          <p> Emotional range: {(this.props.user.emotionalRange * 100).toFixed(0)}% </p>
+   const isAuthenticated = this.props.user.isAuthenticated;
+
+	 const loggedInView = (
+			<div className="col-md-2">
+        <div style={fontStyl}>
+			    <img src={this.state.profilePicture} style={imgStyle} onError={handleError} />
+           <p className='lead' style={locationStyl}> <small> location set to: <br/> San Francisco, CA </small> </p>
+          <h4> Stats <small title="The normalized percentile score for the characteristic. The range is 0 to 100. For example, if the percentage for Openness is 25%, the author scored in the 25th percentile; the author is more open than 24% of the population and less open than 74% of the population."> *%percentile </small> </h4>
+          <p> <strong> Openness: </strong> { +(this.props.user.openness * 100).toFixed(0) || ' ' }% </p>
+          <p> <strong> Conscientiousness: </strong> {  +(this.props.user.conscientiousness * 100).toFixed(0)  || ' ' }% </p>
+          <p> <strong> Introversion/Extraversion: </strong> {  +(this.props.user.extraversion * 100).toFixed(0) || ' ' }% </p>
+          <p> <strong> Emotional range: </strong> { +(this.props.user.emotionalRange * 100).toFixed(0) || ' ' }% </p>
         </div>
-        <hr/>
       </div>
+	 )
+
+	 const noSideView = (
+			<div className="col-md-2">
+				<div className="jumbotron">
+          WELCOME TO aLike.me
+       
+				</div>
+			</div>
+	 )
+
+
+
+    return (
+      <div>	{ isAuthenticated ? loggedInView : '' } </div>
     )
   }
 })
 
-export default Sidebar
+export default Sidebar;
+         
