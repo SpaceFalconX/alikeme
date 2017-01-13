@@ -9,15 +9,15 @@ const User = db.Model.extend({
 	tableName: 'users',
 	hasTimestamps: true,
 
-  initialize () {
-   // this.on('creating', this.hashPassword);
-   this.on('fetching', this.order)
-  },
+  // initialize () {
+  //  this.on('creating', this.hashPassword);
+  //  this.on('fetching', this.order)
+  // },
 
-  order () {
-    console.log("FETCHING FIRES?")
-    this.orderBy('-created_at');
-  },
+  // order () {
+  //   console.log("FETCHING FIRES?")
+  //   this.orderBy('-created_at');
+  // },
 
 	posts () {
     return this.hasMany('Post');

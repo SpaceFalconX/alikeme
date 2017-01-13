@@ -7,6 +7,15 @@ const Followers_followings = require('../database/collections/followers_followin
 const Promise  = require('bluebird');
 
 // Fetch all user posts by user id
+router.route('/:id')
+	.get((req, res) => {
+		User.where('id', req.params.id)
+		.fetch()
+		.then((user) => res.send(user))
+		.catch((err) => res.send(err))
+	})
+
+
 router.route('/posts/:id')
 	.get((req, res) => {
 		new User({id: req.params.id})

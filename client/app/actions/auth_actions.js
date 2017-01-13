@@ -17,7 +17,7 @@ export function logoutUser () {
 }
 
 export function followUser (obj) {
-	// console.log("in FOLLOW_USER", obj )
+	console.log("in FOLLOW_USER", obj )
 	return {
 		type: FOLLOW_USER,
 		obj
@@ -25,7 +25,7 @@ export function followUser (obj) {
 }
 
 export function followers (followers) {
-	// console.log("in followers", followers )
+	console.log("in followers", followers )
 	return {
 		type: SHOW_FOLLOWERS,
 		followers
@@ -33,7 +33,7 @@ export function followers (followers) {
 }
 
 export function following (following) {
-	// console.log("in following", following )
+	console.log("in following", following )
 	return {
 		type: SHOW_FOLLOWING,
 		following
@@ -51,9 +51,12 @@ export function logoutClick (user) {
 export function followClick (follower_id, followed_id) {
 	return (dispatch) => {
 		return axios.post('/api/user/follow', {follower_id, followed_id})
-		.then((resp) => {
-			// console.log("{follower_id, followed_id}", {follower_id, followed_id})
-			dispatch(followUser({follower_id, followed_id}))
+		.then(() => {
+			return axios.get(`/api/user/${followed_id}`)
+			.then(({data}) => {
+				console.log("resp follow click", data)
+				dispatch(followUser({...data, follower_id, followed_id}))
+			})
 		})
 	}
 }
