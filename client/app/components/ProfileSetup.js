@@ -18,8 +18,6 @@ const ProfileSetup = React.createClass({
 	// 	this.props.dispatch(clearPersonalityMatches(this.props.personalityMatches))
 	// },
 
-
-
 	handleSubmit(e) {
 		e.preventDefault();
 		const content = this.refs.content.value;

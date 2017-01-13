@@ -51,8 +51,6 @@ class Profile extends React.Component {
   //   }
   // }
 
-
-
   render () {
 
     const posts = this.props.userPosts
