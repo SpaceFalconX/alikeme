@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {browserHistory, Link} from 'react-router';
 import moment from 'moment'
+import UserPic from './userPicture.js'
 
 class MatchedPost extends React.Component {
   postStyle () {
@@ -19,7 +20,7 @@ class MatchedPost extends React.Component {
         <div className="panel panel-default">
           <div className="panel-body">
             <Link className="pull-left">
-              <img src="#" className="media-photo" />
+              <UserPic username={this.props.post.username} />
             </Link>
             <span className="pull-right">
               <em>

@@ -24,7 +24,14 @@ class UserPic extends React.Component {
       } else {
         return this.props.style
       }
+    }
 
+    const cName = () => {
+      if(!this.props.className) {
+        return "media-photo"
+      } else {
+        return this.props.className
+      }
     }
 
     const handleError = () => {
@@ -32,7 +39,7 @@ class UserPic extends React.Component {
     }
 
     return (
-      <img src={this.state.profilePicture} className="media-photo" className={this.props.className} style={imgStyle()} onError={handleError}/>
+      <img src={this.state.profilePicture} className={cName()} style={imgStyle()} onError={handleError}/>
     )
   }
 }

@@ -58,31 +58,31 @@ class Browse extends React.Component {
     return (
       <div className="col-md-6" >
         <h1>browse</h1>
-            <div>
-              {
-                this.props.categories.map((category, index) => {
-                  return (
-                    <div key={index} className="form-check">
-                    <label className="form-check-label">
-                      <Link activeStyle={{
-                        color: 'black',
-                        background: 'pink'
-                      }} to={'/browse/' + this.props.user.username + '/' + category.name}>
-                      {category.name}</Link>
-                    </label>
-                  </div>
-                  )
-                })
-              }
-            </div>
-            <div className="row">
-              { filtered.map((post) => {
-                  return (
-                    <Post key={post.id} post={post} contextUser={this.props.user.username} />
-                  )
-                })
-              }
-            </div>
+          <div>
+            {
+              this.props.categories.map((category, index) => {
+                return (
+                  <div key={index} className="form-check">
+                  <label className="form-check-label">
+                    <Link activeStyle={{
+                      color: 'black',
+                      background: 'pink'
+                    }} to={'/browse/' + this.props.user.username + '/' + category.name}>
+                    {category.name}</Link>
+                  </label>
+                </div>
+                )
+              })
+            }
+          </div>
+          <div className="row">
+            { filtered.map((post) => {
+                return (
+                  <Post key={post.id} post={post} contextUser={this.props.user.username} />
+                )
+              })
+            }
+          </div>
       </div>
     )
   }

@@ -40,7 +40,7 @@ class Post extends React.Component {
         <div className="panel panel-default">
           <div className="panel-body">
             <Link className="pull-left">
-            <UserPic username={this.usernameContext()} />
+              <UserPic username={this.usernameContext()} />
             </Link>
             <span className="pull-right"><em>
             { moment(this.props.post.created_at).calendar() }
