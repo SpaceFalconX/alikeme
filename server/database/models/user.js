@@ -8,9 +8,6 @@ const _ = require('lodash');
 const User = db.Model.extend({
 	tableName: 'users',
 	hasTimestamps: true,
-	// initialize () {
-	// 	this.on('creating', this.hashPassword);
-	// },
 	posts () {
     return this.hasMany('Post');
   },
@@ -41,6 +38,10 @@ const User = db.Model.extend({
       return _.sortBy(distanceMap, 'distance');
     })
   },
+
+  // initialize () {
+  //  this.on('creating', this.hashPassword);
+  // },
 
   /* UNCOMMENT AFTER SEED DATA NO LONGER NEEDED */
 	// hashPassword () {
