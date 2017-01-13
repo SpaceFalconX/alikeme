@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router'
 import {fetchCategories} from '../actions/category_actions.js'
 import { fetchPostsFromDb, filterPosts, filterTagsfromDb, clearPosts} from '../actions/post_actions.js'
-
+import NewPostForm from './NewPost.js'
 
 class Browse extends React.Component {
 
@@ -55,20 +55,23 @@ class Browse extends React.Component {
     const {category} = this.props.params
     const filtered = category === undefined ? this.props.allPosts :
     this.props.allPosts.filter(post => post.category.name === category);
-    const filterCSS = { 
+    const CARDS = { 
       float:'left',
       paddingLeft:'10px',
       paddingBottom: '5px'
     }
+    const FILTER = {paddingBottom: '50px'}
     return (
-      <div className="col-md-6" >
+    <div className="col-md-10">
+     <div className="row">      
+      <div className="col-md-8">
         <h1>browse</h1>
-            <div>
+            <div style={FILTER}>
               {
                 this.props.categories.map((category, index) => {
                   return (
                     <div key={index} className="form-check">
-                    <label className="form-check-label" style={filterCSS}>
+                    <label className="form-check-label" style={CARDS}>
                       <Link activeStyle={{
                         color: 'black',
                         background: 'pink'
@@ -88,7 +91,12 @@ class Browse extends React.Component {
                 })
               }
             </div>
-      </div>
+        </div>
+         <div className="col-md-4">
+           <NewPostForm {...this.props} />
+        </div>
+      </div>  
+    </div>
     )
   }
 }
