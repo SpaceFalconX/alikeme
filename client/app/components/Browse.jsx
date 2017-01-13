@@ -55,34 +55,39 @@ class Browse extends React.Component {
     const {category} = this.props.params
     const filtered = category === undefined ? this.props.allPosts :
     this.props.allPosts.filter(post => post.category.name === category);
+    const filterCSS = { 
+      float:'left',
+      paddingLeft:'10px',
+      paddingBottom: '5px'
+    }
     return (
       <div className="col-md-6" >
         <h1>browse</h1>
-          <div>
-            {
-              this.props.categories.map((category, index) => {
-                return (
-                  <div key={index} className="form-check">
-                  <label className="form-check-label">
-                    <Link activeStyle={{
-                      color: 'black',
-                      background: 'pink'
-                    }} to={'/browse/' + this.props.user.username + '/' + category.name}>
-                    {category.name}</Link>
-                  </label>
-                </div>
-                )
-              })
-            }
-          </div>
-          <div className="row">
-            { filtered.map((post) => {
-                return (
-                  <Post key={post.id} post={post} contextUser={this.props.user.username} />
-                )
-              })
-            }
-          </div>
+            <div>
+              {
+                this.props.categories.map((category, index) => {
+                  return (
+                    <div key={index} className="form-check">
+                    <label className="form-check-label" style={filterCSS}>
+                      <Link activeStyle={{
+                        color: 'black',
+                        background: 'pink'
+                      }} to={'/browse/' + this.props.user.username + '/' + category.name}>
+                      {category.name}</Link>
+                    </label>
+                  </div>
+                  )
+                })
+              }
+            </div>
+            <div className="row">
+              { filtered.map((post) => {
+                  return (
+                    <Post key={post.id} post={post} contextUser={this.props.user.username} />
+                  )
+                })
+              }
+            </div>
       </div>
     )
   }
