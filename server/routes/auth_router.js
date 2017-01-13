@@ -51,10 +51,10 @@ router.post('/login', (req, res) => {
 				const userPosts = user.toJSON().posts.map((post) => {
 					return post.content
 				}).join(', ')
-				readText(userPosts).then((analysis) => { //uncomment me later
+				readText(userPosts).then((analysis) => {
 					if(analysis === 'error') {
 						const token = generateToken(user);
-						console.log(`LOG IN SUCCESS BUT NO UPDATE: ${user.get('username')}`)
+						console.log(`LOG IN SUCCESS BUT NO TEXT UPDATE: ${user.get('username')}`)
 						res.status(200).send({token});
 					} else {
 						const options = {
@@ -72,7 +72,7 @@ router.post('/login', (req, res) => {
 							}
 							if(isNaN(updatedPersonality.openness)) {
 								const token = generateToken(user);
-								console.log(`LOG IN SUCCESS BUT NO UPDATE: ${user.get('username')}`)
+								console.log(`LOG IN SUCCESS BUT NO TWITTER UPDATE: ${user.get('username')}`)
 								res.status(200).send({token});
 							} else {
 								console.log("UPDATED PERSONALITY!", updatedPersonality)
