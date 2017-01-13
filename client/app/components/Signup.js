@@ -38,7 +38,7 @@ const Signup = React.createClass({
 	render() {
 
 		const welcomeCSS = {
-			marginTop: '20px'
+			marginTop: '20vh'
 		}
 
 		return (
