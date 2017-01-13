@@ -38,21 +38,6 @@ class Settings extends React.Component {
     })
   }
 
-  // handleImageUpload (e) {
-  //   e.preventDefault()
-  //   let time = Date.now()
-  //   let data = new FormData()
-  //   data.append('file', document.getElementById('file').files[0])
-  //   axios.post('/api/upload/uploadProfilePicture', data)
-  //   .then((res) => {
-  //     console.log('yeah boy')
-  //     // axios.post('/api/upload/uploadProfilePicture', data)
-  //   })
-  //   .catch((err) => {
-  //     console.log(err)
-  //   })
-  // }
-
   render () {
     return (
       <div>

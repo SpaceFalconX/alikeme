@@ -19,7 +19,7 @@ cloudinary.config({
 
 let username;
 
-router.post('/setUserNamesetUserName', (req, res) => {
+router.post('/setUserName', (req, res) => {
   username = req.body.username
   res.sendStatus(200)
 })

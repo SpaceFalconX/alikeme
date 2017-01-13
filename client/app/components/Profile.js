@@ -49,7 +49,7 @@ class Profile extends React.Component {
             </div>
             <div className="col-md-4">
               <h4>Following</h4>
-              {
+              { 
                 this.props.user.following.map((follower, index)=>{
                   return (<FollowThumb router={this.props.router} key={index} follower={follower}
                     personalityMatches={this.props.personalityMatches} />)
