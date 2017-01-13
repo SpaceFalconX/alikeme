@@ -1,5 +1,6 @@
 import React from 'react'
 import PubNub from 'pubnub'
+import UserPic from './userPicture.js'
 
 class Message extends React.Component {
 
@@ -70,27 +71,18 @@ class Message extends React.Component {
   }
 
   render () {
-    // const imgStyle = {
-    //   height: '40px',
-    //   width: '40px',
-    //   borderRadius: '50%',
-    //   border: '2px, solid, #000'
-    // }
-
-    // const handleError = () => {
-    //   this.setState({profilePicture: () => {
-    //     return "http://www.topcareer.jp/inter_blog/wp-content/uploads/100_100_empty.gif"
-    //   }})
-    // }
-
     return (
       <div>
         <h1>messaging</h1>
+        <UserPic username={this.props.params.user} />
+        <UserPic username={this.props.user.username} />
+        <div>
+          {this.state.messageHistory}
+        </div>
         <form onSubmit={this.publish.bind(this)}>
           <input type="text" ref="message"></input>
-          <button >test</button>
+          <button >send</button>
         </form>
-        {this.state.messageHistory}
       </div>
     )
   }
