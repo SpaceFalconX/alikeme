@@ -6,7 +6,7 @@ import NewPostForm from './NewPost.js'
 import FollowThumb from './FollowThumb.js'
 import {fetchUserPostsFromDb} from '../actions/post_actions.js'
 import {fetchCategories} from '../actions/category_actions.js'
-import {getFollowers, getFollowing} from '../actions/auth_actions.js'
+//import {getFollowers, getFollowing} from '../actions/auth_actions.js'
 import _ from 'lodash'
 
 class Profile extends React.Component {
@@ -19,12 +19,39 @@ class Profile extends React.Component {
     }
   }
 
+  displayFollowers () {
+    if(this.props.user.followers) {
+      return this.props.user.followers.map((follower, index)=>{
+        return (<FollowThumb router={this.props.router} key={index} follower={follower}
+          personalityMatches={this.props.personalityMatches} />)
+      })
+    } else {
+      return (
+        <div> LOADING </div>
+      )
+    }
+  }
+
+  displayFollowing () {
+    if (this.props.user.following) {
+      return this.props.user.following.map((follower, index)=>{
+        return (<FollowThumb router={this.props.router}key={index} follower={follower}
+          personalityMatches={this.props.personalityMatches} />)
+      })
+    } else {
+      return (
+        <div> LOADING </div>
+      )
+    }
+  }
   // componentWillReceiveProps(nextProps) {
   //   const {followers, following, username} = this.props.user;
   //   if(posts.length && followers.length && following.length) {
   //     this.props.fetched = true;
   //   }
   // }
+
+
 
   render () {
 
@@ -50,19 +77,9 @@ class Profile extends React.Component {
             </div>
             <div className="col-md-4">
               <h4>Following</h4>
-              {
-                this.props.user.followers.map((follower, index)=>{
-                  return (<FollowThumb router={this.props.router} key={index} follower={follower}
-                    personalityMatches={personalityMatches} />)
-                })
-              }
+              {this.displayFollowers()}
               <h4>Followers</h4>
-              {
-                this.props.user.following.map((follower, index)=>{
-                  return (<FollowThumb router={this.props.router}key={index} follower={follower}
-                    personalityMatches={personalityMatches} />)
-                })
-              }
+              {this.displayFollowing()}
             </div>
           </div>
       </div>
