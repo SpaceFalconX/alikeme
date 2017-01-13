@@ -8,6 +8,17 @@ const _ = require('lodash');
 const User = db.Model.extend({
 	tableName: 'users',
 	hasTimestamps: true,
+
+  initialize () {
+   // this.on('creating', this.hashPassword);
+   this.on('fetching', this.order)
+  },
+
+  order () {
+    console.log("FETCHING FIRES?")
+    this.orderBy('-created_at');
+  },
+
 	posts () {
     return this.hasMany('Post');
   },
@@ -20,7 +31,6 @@ const User = db.Model.extend({
   starredPosts () {
     return this.belongsToMany('Post', 'posts_stars', 'user_id', 'star_id')
   },
-
   generateMatches () {
     const context = this;
     return this.fetchAll({columns: ['openness', 'conscientiousness', 'extraversion', 'agreeableness', 'emotionalRange', 'username', 'id']})
@@ -39,9 +49,8 @@ const User = db.Model.extend({
     })
   },
 
-  // initialize () {
-  //  this.on('creating', this.hashPassword);
-  // },
+
+
 
   /* UNCOMMENT AFTER SEED DATA NO LONGER NEEDED */
 	// hashPassword () {
@@ -69,6 +78,7 @@ const User = db.Model.extend({
 		// })
 	}
 })
+
 
 module.exports = db.model('User', User);
 
