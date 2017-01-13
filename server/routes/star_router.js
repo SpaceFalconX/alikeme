@@ -8,20 +8,40 @@ const PostStar = require('../database/models/post_star.js');
 const PostStars = require('../database/collections/post_stars.js');
 const Promise  = require('bluebird');
 
-// Fetch all the users that sarred a particular post
-router.get('/post/:id', (req, res) => {
-  Post.forge({id: req.params.id})
+// Fetch a post by id and all the users that starred it
+router.get('/posts/:postid', (req, res) => {
+  Post.forge({id: req.params.postid})
   .fetch({withRelated: ['stars']})
-  .then((model) => res.send(model))
+  .then((post) => res.send(post))
   .catch((err) => res.send(err))
 });
 
-// Fetch all the particular posts starred by a parctilaur user
-router.get('/user/:id', (req, res) => {
-  User.forge({id: req.params.id})
+// Fetch a user by id and all the posts the user starred
+router.get('/users/:userid', (req, res) => {
+  User.forge({id: req.params.userid})
   .fetch({withRelated: ['starredPosts']})
-  .then((model) => res.send(model))
+  .then((user) => res.send(user))
   .catch((err) => res.send(err))
 });
+
+// Star a post
+router.post('/post',(req, res) => {
+  const {postid, userid} = req.body;
+  new Post({id: postid})
+  .fetch()
+  .then((post) => (
+    new User({id: userid})
+    .starredPosts()
+    .attach(post)
+    .then((user) => {
+      post.attributes.stars_count++;
+      post.save();
+    })
+    .then(() => res.send("Starred post!"))
+    .catch((err) => res.send(err))
+  ))
+  .catch((err) => res.send(err))
+})
+
 
 module.exports = router;

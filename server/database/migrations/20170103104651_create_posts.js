@@ -6,9 +6,9 @@ exports.up = (knex, Promise) => {
     post.integer('category_id').unsigned().references('id').inTable('categories');
     post.string('title', 100).notNullable();
     post.text('content', 'mediumtext').notNullable();
-    // post.integer('stars').unsigned();
-    post.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'))
-    post.timestamp('updated_at').notNullable().defaultTo(knex.raw('now()'))
+    post.integer('stars_count').unsigned().defaultTo(0);
+    post.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
+    post.timestamp('updated_at').notNullable().defaultTo(knex.fn.now());
   })
   .then(() => {
   	console.log('POSTS table created!')

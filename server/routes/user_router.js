@@ -9,7 +9,7 @@ const Promise  = require('bluebird');
 // Fetch all user posts by user id
 router.route('/posts/:id')
 	.get((req, res) => {
-		User.where('id', req.params.id)
+		new User({id: req.params.id})
 		.fetch({withRelated: ['posts.category', 'posts.tags']})
 		.then((user) => {
 			res.json(user)
