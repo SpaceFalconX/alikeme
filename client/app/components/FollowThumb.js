@@ -1,6 +1,7 @@
 import React from 'react'
 import {browserHistory, Link} from 'react-router'
 import {followClick} from '../actions/auth_actions.js'
+import UserPic from './userPicture.js'
 
 
 const FollowThumb = React.createClass({
@@ -35,8 +36,7 @@ const FollowThumb = React.createClass({
             <div className="panel-heading">
               <div className="media">
                 <div className="pull-left">
-                  <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="people" className="media-object img-circle"
-                    style={style.friendImg} />
+                <UserPic username={follower.username} className="media-object img-circle" style={style.friendImg} />
                 </div>
                 <div className="media-body">
                   <h5 className="media-heading margin-v-5 pull-left">

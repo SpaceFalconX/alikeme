@@ -93,8 +93,6 @@ export default Browse;
 // <Link to={'/browse/' + this.props.user.username + '/' + category.name}>
 //                       {category.name} </Link>
 
-
-
   // filterTags () {
   //   if(!this.state.filter.length) {
   //     return

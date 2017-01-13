@@ -13,11 +13,18 @@ class UserPic extends React.Component {
   }
 
   render () {
-    const imgStyle = {
-      height: '40px',
-      width: '40px',
-      borderRadius: '50%',
-      border: '2px, solid, #000'
+    const imgStyle = () => {
+      if(!this.props.style) {
+        return {
+          height: '40px',
+          width: '40px',
+          borderRadius: '50%',
+          border: '2px, solid, #000'
+        }
+      } else {
+        return this.props.style
+      }
+
     }
 
     const handleError = () => {
@@ -25,7 +32,7 @@ class UserPic extends React.Component {
     }
 
     return (
-      <img src={this.state.profilePicture} className="media-photo" style={imgStyle} onError={handleError}/>
+      <img src={this.state.profilePicture} className="media-photo" className={this.props.className} style={imgStyle()} onError={handleError}/>
     )
   }
 }
