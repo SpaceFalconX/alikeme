@@ -12,14 +12,16 @@ class PublicProfile extends React.Component {
   userPosts () {
     return this.props.publicPosts.map((post) => {
       return (
-        <Post key={post.id} post={post} contextUser={this.props.user.username}/>
+        <div key={post.id} className="row">
+          <Post post={post} contextUser={this.props.user.username}/>
+        </div>
       )
     })
   }
 
   render () {
     return (
-      <div>
+      <div className="col-md-6">
       <h1>{this.props.params.username}'s profile</h1>
       <Link to={'/message/' + this.props.params.username}>MESSAGE {this.props.params.username}</Link>
       {this.userPosts()}
