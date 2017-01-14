@@ -1,12 +1,12 @@
 {
-  "name": "watson-fun-app",
+  "name": "alike.me",
   "version": "1.0.0",
-  "description": "",
+  "description": "Find people like you",
   "main": "index.js",
   "scripts": {
     "dev": "node server/server.js",
     "build": "webpack -p",
-    "start": "nodemon server/server.js",
+    "start": "node server/server.js",
     "test": "jest"
   },
   "author": "",
