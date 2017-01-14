@@ -28,6 +28,11 @@ class Profile extends React.Component {
   render () {
     const posts = this.props.userPosts
     const {followers, following, username} = this.props.user;
+    for(let prop in this.props.user) {
+      if(this.props.user[prop] === undefined) {
+        this.props.user[prop] = [];
+      }
+    }
     const {personalityMatches} = this.props;
     return (
         <div className="col-md-10" >
