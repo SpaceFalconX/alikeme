@@ -21,7 +21,8 @@ const Signup = React.createClass({
 			username, email, password, twitterLink
 		}
 		let {user, router} = this.props
-		this.props.dispatch(signupApiRequest(userData)).then(()=> {
+		this.props.dispatch(signupApiRequest(userData))
+		.then(()=> {
 			if(user.isAuthenticated) {
 				console.log("user?", user)
 				router.push({pathname:`/setup/${user.username}`})

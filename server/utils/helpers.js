@@ -6,10 +6,10 @@ module.exports = (options) => {
     getTwitterFeed(options).then((feed)=> {
       personality_insights.profile({ text: feed }, (err, result) => {
         if (err || !result ) {
-          reject({error: err.message})
+          resolve(false)
         }
         if (result === null || result === undefined) {
-          reject("error")
+          resolve(false)
         } else {
           personality = {};
           let trait = result.tree.children[0].children[0];
@@ -23,11 +23,8 @@ module.exports = (options) => {
       })
     })
     .catch((err) => {
-      reject(err)
+      resolve(false)
     })
-  })
-  .catch((err) => {
-    return err;
   })
 }
 

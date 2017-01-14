@@ -13,14 +13,12 @@ const Users = require('../database/collections/users.js');
 const router = express.Router();
 
 router.post('/signup', (req, res) => {
-	const {
-		username, password, email, twitterLink
-	} = req.body
+	const { username, password, email, twitterLink} = req.body
 	new User ({username: username})
 	.fetch()
 	.then((user) => {
 		if(user) {
-			return res.sendStatus(401);
+			return res.status(401).send("SIGNUP ERROR USER EXISTS");
 		} else {
 			const options = {
 				screen_name: twitterLink,
@@ -29,11 +27,14 @@ router.post('/signup', (req, res) => {
 			}
 			getTwitterFeed(options)
 				.then((feed) => readText(feed))
-				.catch((text) => false)
 				.then((stats) => {
 					console.log("STATS", stats)
+					if(!stats) {
+						var stats = {openness: 0, conscientiousness:0 , extraversion: 0, agreeableness: 0, emotionalRange:0}
+					}
+					var {openness, conscientiousness, extraversion, agreeableness, emotionalRange} = stats
 					return new User({
-						username, email, password, twitterLink
+						username, email, password, twitterLink, openness, conscientiousness, extraversion, agreeableness, emotionalRange
 					}).save()
 					.then((user) => {
 						const token = generateToken(user);
