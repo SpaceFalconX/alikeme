@@ -65,7 +65,7 @@ class Browse extends React.Component {
     <div className="col-md-10">
      <div className="row">
       <div className="col-md-8">
-        <h1>browse</h1>
+        <h1>Browse</h1>
           <div style={FILTER}>
             {
               this.props.categories.map((category, index) =>
@@ -102,17 +102,3 @@ class Browse extends React.Component {
 }
 
 export default Browse;
-
-// <Link to={'/browse/' + this.props.user.username + '/' + category.name}>
-//                       {category.name} </Link>
-
-  // filterTags () {
-  //   if(!this.state.filter.length) {
-  //     return
-  //   }
-  //   return this.state.filter.map((tag) => {
-  //     return (
-  //       <div key={tag}>{tag}</div>
-  //     )
-  //   }).concat(<div key="clear" onClick={this.clearFilter.bind(this)}>CLEAR</div>)
-  // }

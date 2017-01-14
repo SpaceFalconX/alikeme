@@ -52,7 +52,6 @@ const NewPostForm = React.createClass({
     }
     return (
         <div className="block">
-          <h3> Hello {this.props.user.username}!</h3>
           <h5> Create a new Post</h5><hr/>
           <form ref="newPostForm" onSubmit={this.handleSubmit}>
           <div className ="form-group">
