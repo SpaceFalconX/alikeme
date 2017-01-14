@@ -1,7 +1,7 @@
 import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS, FETCH_PUBLIC_POSTS, INCREMENT_STARS} from '../actions/index.js'
 
 export function createNewPost (action) {
-	const { user_id, username, category, category_id, id, content, title, tags, created_at, updated_at} = action.newPost;
+	const { user_id, username, category, category_id, id, content, title, tags, created_at, updated_at} = action;
 	return {
     title: title,
     created_at: Date.now(),
@@ -24,7 +24,8 @@ export function createNewPost (action) {
 export function userPosts (state=[], action) {
 	switch(action.type) {
 		case CREATE_NEW_POST:
-			return [...state, createNewPost(action), ...state.tags,  {tags: action.newPost.tags} ];
+      const newStuff = createNewPost(action.newPost)
+			return [...state, {...newStuff, tags: newStuff.tags}];
 		case FETCH_USER_POSTS:
       return action.fetchedUserPosts
 		default :

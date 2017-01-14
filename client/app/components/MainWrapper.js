@@ -31,9 +31,6 @@ const Main = React.createClass({
 		}
 	},
 
-	componentWillUpdate() {
-		console.log("UPDATEEEEEEEE", this.props)
-	},
 	render() {
 	const isAuthenticated = this.props.user.isAuthenticated;
 
@@ -59,7 +56,7 @@ export const defaultState = {
 	user: {
 		isAuthenticated: false,
 		following: [],
-		followers:[]
+		followers: []
 	},
 	userPosts: [],
 	allPosts: [],
@@ -72,7 +69,7 @@ export const defaultState = {
 
 function mapStatetoProps (state=defaultState) {
 	return {
-		user: state.user,
+		user: Object.assign(state.user, ...state.user, {following: state.user.following, followers: state.user.followers}),
 		tags: state.tags,
 		categories: state.categories,
 		userPosts: state.userPosts,
