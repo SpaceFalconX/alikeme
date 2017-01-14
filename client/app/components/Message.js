@@ -178,8 +178,6 @@ class Message extends React.Component {
         <div className="col-md-6">
           <div className="header">
             <h1>Messaging {this.props.params.user}</h1>
-            <UserPic username={this.props.params.user} />
-            <UserPic username={this.props.params.username} />
           </div>
           <div style={messageStyle}>
             {this.state.messageHistory}
@@ -194,7 +192,6 @@ class Message extends React.Component {
   }
 
   render () {
-    console.log('ISS RENDERING')
     const convoStyle = {
       height: 400,
       overflow: 'scroll'

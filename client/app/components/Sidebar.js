@@ -29,13 +29,17 @@ const Sidebar = React.createClass({
 	// 	this.props.dispatch(fetchUserDataFromWatson(userData));
 	// 	this.refs.refreshForm.reset();
   // },
-  componentWillMount () {
+  // componentWillMount () {
+  //   // this.state = {
+  //   //   profilePicture: 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.user.username + '.jpg'
+  //   // }
+  // },
+
+  render () {
     this.state = {
       profilePicture: 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.user.username + '.jpg'
     }
-  },
-
-  render () {
+    
     const imgStyle = {
       height: '80px',
       width: '80px',
@@ -81,7 +85,7 @@ const Sidebar = React.createClass({
 	 )
 
 
-
+   console.log(this.props.user.username)
     return (
       <div>	{ isAuthenticated ? loggedInView : '' } </div>
     )

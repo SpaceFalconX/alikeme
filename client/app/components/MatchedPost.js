@@ -22,7 +22,7 @@ class MatchedPost extends React.Component {
         <div className="panel panel-default">
           <div className="panel-body">
             <Link className="pull-left">
-              <UserPic username={this.props.post.username} />
+              <UserPic username={this.props.post.user.username} />
             </Link>
             <span className="pull-right">
               <em>
