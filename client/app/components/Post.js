@@ -4,6 +4,7 @@ import {browserHistory, Link} from 'react-router';
 import moment from 'moment'
 import axios from 'axios'
 import UserPic from './userPicture.js'
+import StarButton from './StarButton.js'
 
 class Post extends React.Component {
   
@@ -48,7 +49,10 @@ class Post extends React.Component {
       boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
       transition: '0.3s'
     }
-
+    const MEDIA_BODY = {
+      paddingLeft: 'inherit',
+      paddingTop: 'inherit'
+    }
     return (
         <div className="panel panel-default" style={POST_CSS}>
           <div className="panel-body">
@@ -58,7 +62,7 @@ class Post extends React.Component {
             <span className="pull-right"><em>
             { moment(this.props.post.created_at).calendar() }
             </em></span>
-            <div className="media-body">
+            <div className="media-body" style={MEDIA_BODY}>
               <h4 className="list-group-item-heading">{this.props.post.title}</h4>
               <p className="list-group-item-text"><b>{this.props.post.content}</b></p>
               <p><i>-{this.props.post.user.username}</i></p>

@@ -36,7 +36,11 @@ const Signup = React.createClass({
 
 	render() {
 		const welcomeCSS = {
-			marginTop: '20vh'
+			marginTop: '20vh',
+			boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+      transition: '0.3s',
+			paddingLeft: '40px',
+			borderRadius: '5px 5px 0 0'
 		}
 
 		return (
@@ -61,7 +65,7 @@ const Signup = React.createClass({
 					<div className="col-md-6" style={welcomeCSS}>
 					<h2> Welcome to aLike.me </h2>
 					<br/>
-					<p className="lead"> aLike.me aims to limit uncertainty and sift through the noise human beings have generated to more accurately match you with things that you care about. It achieves this by leveraging a sophisticated analytical AI software that analyzes your posts and twitter text to get your personality model. </p>
+					<p className="lead"> Find people like you. </p>
 				</div>
 			</div>
 		)

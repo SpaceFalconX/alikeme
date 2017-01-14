@@ -44,35 +44,36 @@ const NewPostForm = React.createClass({
   },
 
   render() {
+    const FORM_CSS = {
+      paddingLeft: '20px'
+    }
+    const TAG_CSS = {
+      paddingBottom: '5px'
+    }
     return (
         <div className="block">
           <h3> Hello {this.props.user.username}!</h3>
-          <h4> Create a new Post!</h4><hr/>
+          <h5> Create a new Post</h5><hr/>
           <form ref="newPostForm" onSubmit={this.handleSubmit}>
           <div className ="form-group">
-            <label>PostTitle</label>
-            <input className="form-control" type="text" ref="title" placeholder="Title"/>
+            <input className="form-control" type="text" ref="title" placeholder="PostTitle"/>
           </div>
           <div className="form-group">
-            <label>Content</label>
-            <textarea className="form-control" type="text" ref="content" placeholder="new post"/>
+            <textarea className="form-control" type="text" ref="content" placeholder="Content"/>
           </div>
-          <div className ="form-group">
-            <label>Select a Category</label>
-            <select ref="category">
-              {this.props.categories.map((category, index) => {
-                return <option key={category.id}>{category.name}</option>
-              })}
-            </select>
-          </div>
-          <div>
-          {this.domTags()}
-          </div>
-          <div className ="form-group">
-            <label>tags</label>
-            <input className="form-inline" type="text" ref="tag" placeholder="new post"/>
-            <button className="btn btn-sm" onClick={this.addNewTag}>Add tag</button>
-          </div>
+              <div className="form-group">
+              <div style={TAG_CSS}>
+              {this.domTags()}
+              </div>
+                <input className="form-inline" type="text" ref="tag" placeholder="Add a new tag"/>
+                <button className="btn btn-sm" onClick={this.addNewTag}>Add tag</button>
+                <label style={FORM_CSS}>Select a Category</label>
+                <select ref="category">
+                  {this.props.categories.map((category, index) => {
+                    return <option key={category.id}>{category.name}</option>
+                  })}
+                </select>
+              </div>
           <input type="submit" className="btn btn-default" value="Submit Post" />
           </form>
         </div>
