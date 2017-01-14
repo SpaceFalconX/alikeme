@@ -29,12 +29,11 @@ const NewPostForm = React.createClass({
     const user_id = this.props.user.id;
     const tags = this.props.tags;
     const postData = {user_id, username, category, content, title, category_id, tags}
-    console.log("POSTDATA", postData)
-    this.props.dispatch(submitNewPost(postData)).then(()=> {
-      this.props.dispatch(clearTags())
-      this.refs.newPostForm.reset();
-    })
-    },
+    this.props.dispatch(submitNewPost(postData))
+    //TODO:
+    .then(()=> this.refs.newPostForm.reset());
+    this.props.dispatch(clearTags())
+  },
 
   domTags () {
     return this.props.tags.map((tag) => {
@@ -83,61 +82,5 @@ const NewPostForm = React.createClass({
 
 export default NewPostForm;
 
-// class NewPost extends React.Component {
-
-//   handleSubmit(e) {
-//     e.preventDefault();
-//     const content = this.refs.content.value;
-//     const title = this.refs.title.value
-//     const category = [this.refs.category.value].concat(this.props.tags)
-//     const user_id = this.props.user.id;
-// 		const username = this.props.user.username;
-//     let userData = {title, content, category, user_id, username}
-//     this.props.submitNewPost(userData);
-//     this.props.clearTags();
-//     this.refs.interests.reset();
-//   }
-
-//   handleTag(toggle, str, e) {
-//     e.preventDefault();
-//     if(toggle === "add"){
-//       this.props.addTag(this.refs.tags.value);
-//     }
-//     if(toggle === "remove"){
-//       this.props.removeTag(str.tag);
-//     }
-//     this.refs.tags.value = "";
-//   }
-
-//   render () {
-//     let options = Seed.choices.map((choice) => {
-//       return <option key={choice}>{choice}</option>
-//     })
-//     let domTags = this.props.tags.map((tag) => {
-//       return <p key={tag} onClick={this.handleTag.bind(this, "remove", {tag})}> {tag} </p>
-//     })
-
-//     return (
-//       <div className="form-group">
-//         <form ref="interestsForm" onSubmit={this.handleSubmit.bind(this)}>
-//           <label>Title</label>
-//           <input type="text" ref="title" placeholder="title"/><br />
-//           <textarea ref="content" rows="5" cols="30"/><br />
-//           <input ref="tags" type="text" placeholder="add a tag"/>
-//           <button onClick={this.handleTag.bind(this, "add", null)}>add tag</button>
-//           <div>
-//             {domTags}
-//           </div>
-//           <br />
-//           category:
-//           <select ref="category">
-//             {options}
-//           </select>
-//           <button>CREATE</button>
-//         </form>
-//       </div>
-//     )
-//   }
-// }
 
 

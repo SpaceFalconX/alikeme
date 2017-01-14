@@ -34,16 +34,17 @@ class Profile extends React.Component {
         this.props.user[prop] = [];
       }
     }
-    const {personalityMatches} = this.props;
+    const {personalityMatches, user, dispatch} = this.props;
     return (
         <div className="col-md-10" >
          <div className="row" >
             <div className="col-md-8">
               <NewPostForm {...this.props} />
               {
-                posts.map((post) => {
+                posts.map((post, index) => {
                   return (
-                    <Post key={post.id} post={post} />
+                    <Post dispatch={dispatch} personalityMatches={personalityMatches}
+                    user={user} key={index} post={post} />
                   )
                 }).reverse()
               }
@@ -59,7 +60,7 @@ class Profile extends React.Component {
               <h4>Followers</h4>
               {
                 this.props.user.followers.map((follower, index)=>{
-                  return (<FollowThumb router={this.props.router}key={index} follower={follower}
+                  return (<FollowThumb router={this.props.router} key={index} follower={follower}
                     personalityMatches={this.props.personalityMatches} />)
                 })
               }

@@ -22,15 +22,17 @@ class Matches extends React.Component {
       return post.id === parseInt(this.props.params.postid)
     }).map((post) => {
       return ( //todo -replace post with custom rendering
-        <Post key={post.id} post={post} />
+        <Post key={post.id} user={this.props.user} post={post} />
       )
     })
   }
 
   displayMatches () {
-    return this.props.matches.map((match) => {
+    return this.props.matches.map((match, index) => {
       return ( //todo -replace this one too
-        <MatchedPost key={match.originalPost.id} post={match.originalPost} user={this.props.user} dispatch={this.props.dispatch} compatibilityScore={match.compatibilityScore} />
+        <MatchedPost key={index} post={match} user={this.props.user}
+         dispatch={this.props.dispatch}
+        compatibilityScore={match.compatibilityScore} />
       )
     })
   }

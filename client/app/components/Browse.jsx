@@ -55,7 +55,7 @@ class Browse extends React.Component {
     const {category} = this.props.params
     const filtered = category === undefined ? this.props.allPosts :
     this.props.allPosts.filter(post => post.category.name === category);
-    const CARDS = { 
+    const CARDS = {
       float:'left',
       paddingLeft:'10px',
       paddingBottom: '5px'
@@ -63,40 +63,36 @@ class Browse extends React.Component {
     const FILTER = {paddingBottom: '50px'}
     return (
     <div className="col-md-10">
-     <div className="row">      
+     <div className="row">
       <div className="col-md-8">
         <h1>browse</h1>
-            <div style={FILTER}>
-              {
-                this.props.categories.map((category, index) => {
-                  return (
-                    <div key={index} className="form-check">
-                    <label className="form-check-label" style={CARDS}>
-                      <Link activeStyle={{
-                        color: 'black',
-                        background: 'pink'
-                      }} to={'/browse/' + this.props.user.username + '/' + category.name}>
-                      {category.name}</Link>
-                    </label>
-                  </div>
-                  )
-                })
-              }
-            </div>
-            <div className="row">
-              { filtered.map((post) => {
-                  return (
-                    <Post key={post.id} post={post} contextUser={this.props.user.username} />
-                  )
-                })
-              }
-            </div>
-        </div>
-         <div className="col-md-4">
-           <NewPostForm {...this.props} />
-        </div>
-      </div>  
-    </div>
+          <div>
+            {
+              this.props.categories.map((category, index) =>
+                (
+                  <div key={index} className="form-check">
+                  <label className="form-check-label">
+                    <Link activeStyle={{
+                      color: 'black',
+                      background: 'pink'
+                    }} to={'/browse/' + this.props.user.username + '/' + category.name}>
+                    {category.name}</Link>
+                  </label>
+                </div>
+                )
+              )
+            }
+          </div>
+          <div className="row">
+            { filtered.map((post, index) => {
+                return (
+                  <Post key={index} dispatch={this.props.dispatch}
+                    post={post} user={this.props.user} />
+                )
+              })
+            }
+          </div>
+      </div>
     )
   }
 }

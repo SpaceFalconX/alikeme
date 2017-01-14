@@ -10,11 +10,12 @@ class PublicProfile extends React.Component {
     this.props.dispatch(fetchPublicPostsFromDb(this.props.params.username))
   }
   userPosts () {
+    const {personalityMatches, user} = this.props;
     return this.props.publicPosts.map((post) => {
       return (
-        <div key={post.id} className="row">
-          <Post post={post} contextUser={this.props.user.username}/>
-        </div>
+        <Post personalityMatches={personalityMatches} user={user}
+          dispatch={this.props.dispatch} key={post.id} post={post}
+        />
       )
     })
   }
