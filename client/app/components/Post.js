@@ -54,6 +54,7 @@ class Post extends React.Component {
   }
 
   render () {
+
     const POST_CSS = {
       boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
       transition: '0.3s'
@@ -62,6 +63,7 @@ class Post extends React.Component {
       paddingLeft: 'inherit',
       paddingTop: 'inherit'
     }
+
     return (
         <div className="panel panel-default" style={POST_CSS}>
           <div className="panel-body">

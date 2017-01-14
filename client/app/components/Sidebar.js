@@ -35,6 +35,10 @@ const Sidebar = React.createClass({
   //   // }
   // },
 
+  handleError () { //todo - move to redux to fix error handling and/or render image server side
+    this.setState({profilePicture: "http://www.topcareer.jp/inter_blog/wp-content/uploads/100_100_empty.gif"})
+  },
+
   render () {
     // this.state = {
     //   profilePicture: 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.user.username + '.jpg'
@@ -86,6 +90,7 @@ const Sidebar = React.createClass({
         </div>
       </div>
    )
+
 
     return (
       <div> { isAuthenticated ? loggedInView : '' } </div>

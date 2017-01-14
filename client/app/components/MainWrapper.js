@@ -30,6 +30,12 @@ const Main = React.createClass({
 		    this.props.dispatch(getFollowing(decoded.user.id)),
 		    this.props.dispatch(initUserMatches(decoded.user.username))
 		  ).then(() => (console.log("ALL DATA FETCHED")))
+			//todo
+			//setup pubnub notifications channel (in store?)
+			//publish notifications on starring and following actions
+			//publish notifications on messages (WHEN user is not present in message channel)
+			//listen for starring, following, and messaging
+			//use history to display notifications in seperate view
 		}
 		const currentLocation = this.props.location.pathname
 		if(!this.props.user.isAuthenticated && currentLocation !== '/' && currentLocation !== '/login') {
@@ -49,7 +55,7 @@ const Main = React.createClass({
 					<Sidebar user={this.props.user} dispatch={this.props.dispatch}/>
 					{ React.cloneElement(this.props.children, this.props) }
 			  </div>
-	 )
+		)
 		return (
       <div>
 				{signedInUser}

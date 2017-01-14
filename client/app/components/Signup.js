@@ -20,6 +20,23 @@ const Signup = React.createClass({
 		let userData = { username, email, password, twitterLink };
 		let {user, router} = this.props
 		this.props.dispatch(signupApiRequest(userData))
+// =======
+// 		this.props.dispatch(getWatsonTwitterData(twitterLink)).then((res) => {
+// 			const agreeableness = res.agreeableness
+// 			const conscientiousness = res.conscientiousness
+// 			const emotionalRange = res.emotionalRange
+// 			const extraversion = res.extraversion
+// 			const openness = res.openness
+// 			let userData = {
+// 				username, email, password, twitterLink,
+// 				agreeableness, conscientiousness, emotionalRange, extraversion, openness
+// 			}
+// 			let {user, router} = this.props
+// 			this.props.dispatch(signupApiRequest(userData)).then(()=> {
+// 				router.push({pathname:`/setup/${userData.username}`})
+// 			})
+// 		})
+// >>>>>>> minor changes
 	},
 
 	render() {
