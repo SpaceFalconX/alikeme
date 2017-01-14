@@ -20,6 +20,7 @@ var config = {
     new webpack.NoErrorsPlugin()
   ],
   module : {
+
     loaders : [
       {
         test : /\.jsx?/,
@@ -28,7 +29,7 @@ var config = {
       },
       {
         test: /\.css$/,
-        include: path.join(__dirname, 'client/app'),
+        include: path.join(__dirname, 'client'),
         loaders: ['style-loader', 'css-loader']
       },
       {
