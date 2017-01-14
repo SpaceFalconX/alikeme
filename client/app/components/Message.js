@@ -1,14 +1,12 @@
 import React from 'react'
 import PubNub from 'pubnub'
-// import _ from 'underscore'
-import {browserHistory, refresh} from 'react-router'
+import {browserHistory} from 'react-router'
 import UserPic from './userPicture.js'
 
 class Message extends React.Component {
-
   constructor(props) {
     super()
-    this.state = {
+    this.state = { //TODO- MOVE ALL TO STORE
       messageHistory: [<div key='loading'> LOADING </div>],
       usersHistory: [<div key='loadingHistory'> LOADING </div>],
       usersHistory_names: null,
@@ -22,7 +20,7 @@ class Message extends React.Component {
     this.setState({historyChannel: this.props.user.username + 'history'})
   }
 
-  handleNewMessage (message) {
+  handleNewMessage (message) { //for listener
     //concat new messages to state
     let temp = this.state.messageHistory
     .concat([ //EXTERNALIZE TO AN ENTRY
@@ -31,14 +29,15 @@ class Message extends React.Component {
         {message.text}
       </div>
     ])
-    .slice(this.state.messageHistory.length -9)
-    //fix the slice part
+    if(temp.length > 9) {
+      temp = temp.slice(this.state.messageHistory.length -9)
+    }
     this.setState({
       messageHistory: temp
     })
   }
 
-  componentDidMount () {
+  componentDidMount () { //init pubnub
     this.pubnub = new PubNub({
         publishKey: 'pub-c-f5e1b611-9e28-4b7a-85bc-53d8ffb17f95',
         subscribeKey: 'sub-c-45dd39e4-d8ee-11e6-a0b3-0619f8945a4f',
@@ -58,7 +57,7 @@ class Message extends React.Component {
     this.pubnub.unsubscribeAll()
   }
 
-  publish (e) {
+  publish (e) { //send message and update convos
     e.preventDefault()
     //send message
     this.pubnub.publish({
@@ -80,11 +79,12 @@ class Message extends React.Component {
         channel: this.props.params.user + 'history',
         message: this.props.user.username
       })
+      //TODO- MAKE A DISPATCH
       this.setState({usersHistory_names: this.state.usersHistory_names.concat(this.props.params.user)})
     }
   }
 
-  refresh () {
+  refresh () { //fetch messages and convos on load
     this.pubnub.history( //fetch past messages
       {
         channel: this.state.channelName,
@@ -96,6 +96,7 @@ class Message extends React.Component {
           console.log("empty conversation res")
           return
         } else {
+          //TODO- MAKE A DISPATCH
           this.setState({messageHistory: response.messages.map((message) => { //map messages
               return ( //EXTERNALIZE TO AN ENTRY
                 <div key={Math.random()}>
@@ -110,37 +111,48 @@ class Message extends React.Component {
     this.pubnub.history({ //fetch past convos
       channel: this.state.historyChannel,
       reverse: false,
-      count: 10
+      count: 100
     }, (status, response) => {
       if (response === undefined) {
         console.log('empty message history res')
         return
       } else {
+        //TODO- MAKE A DISPATCH
         this.setState({usersHistory: response.messages.map((message) => { //map past convos
-          if(message.entry !== " ") {
-            return (
-              <div key={Math.random()} onClick={this.navToMessage.bind(this, message.entry)}>
-                <UserPic username={message.entry} />
-                {message.entry}
-              </div>
-            )
-          }
-          })
+            if(message.entry !== " ") {
+              return (
+                <div key={Math.random()} onClick={this.navToMessage.bind(this, message.entry)}>
+                  <UserPic username={message.entry} />
+                  {message.entry}
+                </div>
+              )
+            }
+          }).reverse()
         })
+        //TODO- MAKE A DISPATCH
         this.setState({usersHistory_names: response.messages.map((message) => { //set past convos in state
-          return message.entry
-        })})
+            return message.entry
+          })
+        }).reverse()
       }
     })
   }
 
+  //TODO- FIX THIS
   navToMessage (user) {
     browserHistory.push('/message/' + user)
-    location.reload();
-    //RE RENDER THIS PAGE IDIOT.
+    location.reload(); //NO!
+    //RE RENDER THIS PAGE IDIOT. USE REDUX.
   }
 
-  showConversation () {
+  showConversation () { //check if a convo is selected
+    const messageStyle = {
+      height: 325,
+      overflow: 'scroll'
+    }
+    const inputBarStyle = {
+      width: '90%'
+    }
     if(this.props.user.username === this.props.params.user) {
       return (
         <div className="col-md-6">
@@ -155,14 +167,11 @@ class Message extends React.Component {
             <UserPic username={this.props.params.user} />
             <UserPic username={this.props.user.username} />
           </div>
-          <div style={{
-            height: 300,
-            overflow: 'scroll'
-          }}>
+          <div style={messageStyle}>
             {this.state.messageHistory}
           </div>
           <form onSubmit={this.publish.bind(this)}>
-            <input type="text" ref="message"></input>
+            <input type="text" ref="message" style={inputBarStyle}></input>
             <button>send</button>
           </form>
         </div>
@@ -171,11 +180,17 @@ class Message extends React.Component {
   }
 
   render () {
+    const convoStyle = {
+      height: 400,
+      overflow: 'scroll'
+    }
     return (
       <div>
         <div className="col-md-4">
           <h2>All Conversations</h2>
-          {this.state.usersHistory}
+          <div style={convoStyle}>
+            {this.state.usersHistory}
+          </div>
         </div>
         {this.showConversation()}
       </div>

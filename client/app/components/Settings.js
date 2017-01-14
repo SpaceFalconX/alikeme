@@ -40,10 +40,8 @@ class Settings extends React.Component {
 
   render () {
     return (
-      <div>
-      settings
+      <div className="col-md-6">
         <h3> Configure social media accounts </h3>
-        <h5> Twitter </h5>
         Enter your <span className="fa fa-twitter"> </span> handle:
         <form onSubmit={this.handleSubmit.bind(this)}>
         <input type="text" ref="twitter" placeholder="eg: janedoe"/>
