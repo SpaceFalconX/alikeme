@@ -31,7 +31,7 @@ const NewPostForm = React.createClass({
     const postData = {user_id, username, category, content, title, category_id, tags}
     console.log("POSTDATA", postData)
     this.props.dispatch(submitNewPost(postData)).then(()=> {
-      // this.props.dispatch(clearTags())
+      this.props.dispatch(clearTags())
       this.refs.newPostForm.reset();
     })
     },
