@@ -27,9 +27,9 @@ var config = {
         loader : 'babel-loader'
       },
       {
-        test: /\.styl$/,
+        test: /\.css$/,
         include: path.join(__dirname, 'client/app'),
-        loader: 'style-loader!css-loader'
+        loaders: ['style-loader', 'css-loader']
       },
       {
         test: /\.(jpg|png)$/,

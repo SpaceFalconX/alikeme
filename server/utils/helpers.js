@@ -5,12 +5,10 @@ module.exports = (options) => {
   return new Promise ((resolve, reject) => {
     getTwitterFeed(options).then((feed)=> {
       personality_insights.profile({ text: feed }, (err, result) => {
-        //console.log('WHAT IS RESULT?!  ', result)
         if (err || !result ) {
           reject({error: err.message})
         }
         if (result === null || result === undefined) {
-          //console.log('does result go inside this?')
           reject("error")
         } else {
           personality = {};

@@ -30,7 +30,7 @@ class Matches extends React.Component {
   displayMatches () {
     return this.props.matches.map((match) => {
       return ( //todo -replace this one too
-        <MatchedPost key={match.originalPost.id} post={match.originalPost} compatibilityScore={match.compatibilityScore} />
+        <MatchedPost key={match.originalPost.id} post={match.originalPost} user={this.props.user} dispatch={this.props.dispatch} compatibilityScore={match.compatibilityScore} />
       )
     })
   }

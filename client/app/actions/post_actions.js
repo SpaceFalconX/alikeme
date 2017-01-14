@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST,FETCH_ALL_POSTS, FETCH_USER_POSTS, FETCH_PUBLIC_POSTS, FILTER_POSTS, CLEAR_POSTS} from './index.js'
+import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST,FETCH_ALL_POSTS, FETCH_USER_POSTS, FETCH_PUBLIC_POSTS, FILTER_POSTS, CLEAR_POSTS, INCREMENT_STARS} from './index.js'
 
 export function createPost(newPost) {
 	return {
@@ -30,7 +30,6 @@ export function fetchPublicPosts(fetchedPublicPosts) {
 }
 
 export function filterPosts(category) {
-	console.log("!!!", category)
 	return {
 		type: FILTER_POSTS,
 		category
@@ -43,11 +42,34 @@ export function clearPosts () {
 	}
 }
 
+export function increment(postid, userid) {
+	console.log("postid, userid", postid, userid)
+	return {
+		type: INCREMENT_STARS,
+		postid,
+		userid
+	}
+}
+
+
+export function incrementStars(postid, userid) {
+	console.log("{postid, userid}", {postid, userid})
+	return (dispatch) => {
+		return axios.post(`/api/star/post/`, {postid, userid} )
+		.then((resp) => {
+			console.log("RESP", resp)
+			dispatch(increment(postid, userid))
+		})
+		.catch((err)=> {console.log(err)})
+	}
+}
+
 export function submitNewPost (newPost) {
 	return (dispatch) => {
 		return axios.post('/api/post/new', newPost)
 		.then(({data}) => {
 			let result = {...newPost, ...data}
+			console.log("RESULT NEWWWW", result)
 			dispatch(createPost(result))
 		})
 		.catch((err) => {

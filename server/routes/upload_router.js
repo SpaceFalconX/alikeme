@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
     cb(null, username + '.jpg');
   }
 });
-const upload = multer({ storage }).any();
+const upload = multer({ storage }).any('username');
 
 const cloudinary = require('cloudinary');
 cloudinary.config({
