@@ -12,14 +12,14 @@ const express = require('express');
 
 const router = express.Router();
 
-router.post('/star', (req, res) => {
-	new Post({id: req.body.id})
-	.save({stars: req.body.stars})
-	.then((post) => {
-		console.log("json ", post.toJSON());
-		res.json(post)
-	})
-})
+// router.post('/star', (req, res) => {
+// 	new Post({id: req.body.id})
+// 	.save({stars_count: req.body.stars_count})
+// 	.then((post) => {
+// 		console.log("json ", post.toJSON());
+// 		res.json(post)
+// 	})
+// })
 
 
 router.get('/', (req, res) => {
@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
 		for(let i = 0; i < result.length; i++) {
 				result[i] = _.pick(result[i],
 					['title', 'created_at', 'updated_at', 'content', 'id',
-					 'user.username', 'user.id', 'category.id', 'category.name', 'tags', ]
+					 'user.username', 'user.id', 'category.id', 'category.name', 'tags', 'stars_count' ]
 					)
 				for(let j = 0; j < result[i].tags.length; j++) {
 					delete result[i].tags[j]['_pivot_id'];
@@ -46,7 +46,6 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:username', (req, res) => {
-	console.log("REQ.PARAMS", req.params.username)
 	User.where('username', req.params.username)
 	.fetch().then((user) => {
 		if(!user) {
@@ -56,19 +55,17 @@ router.get('/:username', (req, res) => {
 			.query({where: {user_id: user.id}})
 			.fetch({withRelated: ['user', 'category', 'tags']})
 			.then((collection) => {
-			console.log("USER ID", user.id)
 			let result = collection.toJSON();
 			for(let i = 0; i < result.length; i++) {
 				result[i] = _.pick(result[i],
 					['title', 'created_at', 'updated_at', 'content', 'id',
-					 'user.username', 'user.id','category.id', 'category.name', 'tags'])
+					 'user.username', 'user.id','category.id', 'category.name', 'tags', 'stars_count'])
 				for(let j = 0; j < result[i].tags.length; j++) {
 					delete result[i].tags[j]['_pivot_id'];
 					delete result[i].tags[j]['_pivot_post_id'];
 					delete result[i].tags[j]['_pivot_tag_id'];
 				}
 			}
-			console.log("result", result)
 			res.send(result)
 		})
 		.catch((err) => {
@@ -165,8 +162,10 @@ router.post('/new', (req, res) => {
 						return post.tags().attach(tag);
 					})).then(()=> {
 							const resp = {};
+							resp['stars_count'] = 0;
 							resp.tags = tags;
 							resp.id = post.id;
+							console.log("RESP", resp)
 							res.send(resp);
 					})
 					.catch((err) => {
@@ -245,7 +244,7 @@ router.post('/matches', (req, res) => { //filter by category
 			return a.weightedScore - b.weightedScore
 		})
 		.slice(0, 5)
-		console.log("MATHCES", RankedMatches)
+		console.log("MATHCES")
 		res.json(RankedMatches)
 	})
 	.catch((err) => {

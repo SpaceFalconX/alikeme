@@ -3,17 +3,21 @@ import {connect} from 'react-redux';
 import {browserHistory, Link} from 'react-router';
 import moment from 'moment'
 import axios from 'axios'
+import StarButton from './StarButton.js'
 import UserPic from './userPicture.js'
 
 class Post extends React.Component {
-  
+
   postStyle () {
     return {margin: '0px 3px 0px 3px',}
   }
 
   renderTags () {
     return this.props.post.tags.map((tag, index) => {
-      return (<Link key={index}><span className="label label-info" style={this.postStyle()}>{tag.name}</span></Link>)
+      if(tag.name) {
+        tag = tag.name
+      }
+      return (<Link key={index}><span className="label label-info" style={this.postStyle()}>{tag}</span></Link>)
     })
   }
 
@@ -52,6 +56,7 @@ class Post extends React.Component {
               <p>{this.matchORViewContext()}</p>
             </div>
           </div>
+          <div>{this.props.post.stars_count}</div>
           <div className="panel-body">
             <span className="glyphicon glyphicon-tags" aria-hidden="true" style={this.postStyle()}></span>
             <span>{this.renderTags()}</span>

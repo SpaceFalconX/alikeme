@@ -1,15 +1,14 @@
-import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS, FETCH_PUBLIC_POSTS} from '../actions/index.js'
+import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS, FETCH_PUBLIC_POSTS, INCREMENT_STARS} from '../actions/index.js'
 
 export function createNewPost (action) {
-	const { user_id, username, category,category_id, id,
-					content, title, tags,
-					created_at, updated_at} = action.newPost;
+	const { user_id, username, category, category_id, id, content, title, tags, created_at, updated_at} = action;
 	return {
     title: title,
-    created_at: created_at,
-    updated_at: updated_at,
+    created_at: Date.now(),
+    updated_at: Date.now(),
     content: content,
     id: id,
+    stars_count: 0,
     user: {
       username: username,
       id: user_id
@@ -25,7 +24,8 @@ export function createNewPost (action) {
 export function userPosts (state=[], action) {
 	switch(action.type) {
 		case CREATE_NEW_POST:
-			return [...state, createNewPost(action)];
+      const newStuff = createNewPost(action.newPost)
+			return [...state, {...newStuff, tags: newStuff.tags}];
 		case FETCH_USER_POSTS:
       return action.fetchedUserPosts
 		default :
@@ -37,6 +37,8 @@ export function userPosts (state=[], action) {
 
 export function publicPosts (state=[], action) {
   switch(action.type) {
+    case INCREMENT_STARS:
+      return state;
     case FETCH_PUBLIC_POSTS:
       return action.fetchedPublicPosts
     default :
@@ -52,7 +54,6 @@ export function allPosts (state=[], action) {
     case FETCH_ALL_POSTS:
       return action.fetchedPosts;
     case FILTER_POSTS:
-      console.log("STATE", state[0], action.category)
       return state.filter((post) => {
         return post.category.name === action.category;
       })

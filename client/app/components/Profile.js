@@ -19,20 +19,16 @@ class Profile extends React.Component {
     }
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   const {followers, following, username} = this.props.user;
-  //   if(posts.length && followers.length && following.length) {
-  //     this.props.fetched = true;
-  //   }
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    if(nextProps !== this.props) {
+      return true;
+    }
+  }
 
   render () {
     const posts = this.props.userPosts
     const {followers, following, username} = this.props.user;
     const {personalityMatches} = this.props;
-    // if(!posts.length || !followers.length || !following.length || !categories.length ) {
-    //   return (<div>LOADING</div>)
-    // } else {
     return (
         <div className="col-md-10" >
          <div className="row" >

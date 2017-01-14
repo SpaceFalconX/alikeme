@@ -11,7 +11,7 @@ import {setUser, getFollowers, getFollowing} from './actions/auth_actions.js'
 import {fetchUserPostsFromDb } from './actions/post_actions.js'
 import {initUserMatches } from './actions/match_actions.js'
 import {fetchCategories} from './actions/category_actions.js'
-
+import {Promise} from 'bluebird'
 
 /**
 Devtools extension Redux - should be applied as a store enhancer
@@ -24,15 +24,17 @@ const enhancers = compose(
 
 // Store Creation
 const store = createStore(reducer, enhancers);
-if(localStorage.token) {
-  const decoded = jwt.decode(localStorage.token)
-	setAuthorizationToken(localStorage.token);
-	store.dispatch(setUser(decoded.user))
-  store.dispatch(fetchUserPostsFromDb(decoded.user.username))
-  store.dispatch(getFollowers(decoded.user.id))
-  store.dispatch(getFollowing(decoded.user.id))
-  store.dispatch(initUserMatches(decoded.user.username))
-}
+// if(localStorage.token) {
+//   setAuthorizationToken(localStorage.token);
+//   const decoded = jwt.decode(localStorage.token)
+// 	Promise.join(
+//     store.dispatch(setUser(decoded.user)),
+//     store.dispatch(fetchUserPostsFromDb(decoded.user.username)),
+//     store.dispatch(getFollowers(decoded.user.id)),
+//     store.dispatch(getFollowing(decoded.user.id)),
+//     store.dispatch(initUserMatches(decoded.user.username))
+//   ).then(() => (console.log("success")))
+// }
 
 //Hot reload Redux reducers
 if(module.hot) {

@@ -6,7 +6,7 @@ exports.up = (knex, Promise) => {
     post.integer('category_id').unsigned().references('id').inTable('categories');
     post.string('title', 100).notNullable();
     post.text('content', 'mediumtext').notNullable();
-    post.integer('stars_count').unsigned().defaultTo(0);
+    post.integer('stars_count').unsigned().notNullable().defaultTo(0);
     post.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
     post.timestamp('updated_at').notNullable().defaultTo(knex.fn.now());
   })

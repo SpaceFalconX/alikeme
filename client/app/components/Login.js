@@ -21,6 +21,7 @@ const Login = React.createClass({
 			    .then(()=> {
 			      this.props.dispatch(getFollowing(this.props.user.id))
 			      .then(() => {
+			      	window.localStorage.set
 							this.props.router.push({pathname:`/${username}`})
 			      })
 			    })

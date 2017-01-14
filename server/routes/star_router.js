@@ -26,6 +26,7 @@ router.get('/users/:userid', (req, res) => {
 
 // Star a post
 router.post('/post',(req, res) => {
+  console.log("req.body", req.body)
   const {postid, userid} = req.body;
   new Post({id: postid})
   .fetch()
