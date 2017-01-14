@@ -87,4 +87,3 @@ const MainWrapper = connect(mapStatetoProps)(Main);
 
 export default MainWrapper;
 
-//		{React.cloneElement(this.props.children, this.props)}
