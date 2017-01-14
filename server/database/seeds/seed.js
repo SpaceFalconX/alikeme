@@ -75,7 +75,7 @@ exports.seed = (knex, Promise) => {
         knex('categories').insert({id: 2, name: 'uncategorized'}),
         knex('categories').insert({id: 3, name: 'food'}),
         knex('categories').insert({id: 4, name: 'outdoors'}),
-        knex('categories').insert({id: 5, name: 'concert'}),
+        knex('categories').insert({id: 5, name: 'concerts'}),
         knex('categories').insert({id: 6, name: 'movies'}),
         knex('categories').insert({id: 7, name: 'developers'}),
         knex('categories').insert({id: 8, name: 'startups'}),
