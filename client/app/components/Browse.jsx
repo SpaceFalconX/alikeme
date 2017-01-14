@@ -66,15 +66,16 @@ class Browse extends React.Component {
      <div className="row">
       <div className="col-md-8">
         <h1>browse</h1>
-          <div>
+          <div style={FILTER}>
             {
               this.props.categories.map((category, index) =>
                 (
                   <div key={index} className="form-check">
-                  <label className="form-check-label">
+                  <label className="form-check-label" style={CARDS}>
                     <Link activeStyle={{
-                      color: 'black',
-                      background: 'pink'
+                      color: '#FFF',
+                      background: '#0DD5FF',
+                      padding: '2px 2px 2px 2px'
                     }} to={'/browse/' + this.props.user.username + '/' + category.name}>
                     {category.name}</Link>
                   </label>
@@ -83,6 +84,7 @@ class Browse extends React.Component {
               )
             }
           </div>
+          <NewPostForm {...this.props} />
           <div className="row">
             { filtered.map((post, index) => {
                 return (
@@ -92,6 +94,8 @@ class Browse extends React.Component {
               })
             }
           </div>
+         </div>
+       </div>
       </div>
     )
   }
