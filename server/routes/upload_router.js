@@ -33,12 +33,16 @@ router.post('/uploadProfilePicture', upload, (req, res) => {
 })
 
 router.post('/fetchProfilePicture', (req, res) => {
-  console.log('FETCH REQ BODY', req.body.username)
-  options = {method: 'HEAD', host: 'res.cloudinary.com', port: 80, path: '/isaacxpreston/image/upload/' + req.body.username + '.jpg'},
+  let username = req.body.username
+  options = {method: 'HEAD', host: 'res.cloudinary.com', port: 80, path: '/isaacxpreston/image/upload/' + req.body.username + '.jpg'}
   req = http.request(options, function(r) {
-      console.log('HEADERS', JSON.stringify(r.headers));
-      let temp = !r.headers.status
-      res.send(temp)
+      let validImage = !r.headers.status
+      
+      if (validImage) {
+        res.send('http://res.cloudinary.com/isaacxpreston/image/upload/' + username + '.jpg')
+      } else {
+        res.send("http://www.topcareer.jp/inter_blog/wp-content/uploads/100_100_empty.gif")
+      }
   });
   req.end()
 })

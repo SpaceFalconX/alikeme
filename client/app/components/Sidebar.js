@@ -1,43 +1,19 @@
 'use strict'
-
 import React from 'react'
+import axios from 'axios'
 import { connect } from 'react-redux'
 import { browserHistory, Link } from 'react-router'
 import fetchUserPicture from '../utils/fetchUserPicture.js'
-//import { fetchUserDataFromWatson } from '../actions/refresh_stats'
 
 const Sidebar = React.createClass({
-  // constructor(props) {
-  //   //super()
-  //   // this.state = {
-  //   //   profilePicture: () => {
-  //   //     return 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.user.username + '.jpg'
-  //   //   }
-  //   // }
-  // },
+  componentWillMount () {
+      this.setState({profilePicture: null})
+  },
 
-  // handleSubmit(e) {
-  //   e.preventDefault();
-	// 	let twitter = this.refs.twitter.value;
-	// 	let facebook = this.refs.facebook.value;
-	// 	let userData = {facebook, twitter}
-  //   let options = {
-  //     screen_name: 'userData.twitter',
-  //     include_rts: false,
-  //     count: 100
-  //   }
-  //   console.log({facebook, twitter} = userData)
-	// 	this.props.dispatch(fetchUserDataFromWatson(userData));
-	// 	this.refs.refreshForm.reset();
-  // },
-  // componentWillMount () {
-  //   // this.state = {
-  //   //   profilePicture: 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.user.username + '.jpg'
-  //   // }
-  // },
-
-  handleError () { //todo - move to redux to fix error handling and/or render image server side
-    this.setState({profilePicture: "http://www.topcareer.jp/inter_blog/wp-content/uploads/100_100_empty.gif"})
+  componentWillReceiveProps (nextProps) {
+      fetchUserPicture(nextProps.user.username).then((res) => {
+        this.setState({profilePicture: res.data})
+      })
   },
 
   render () {
