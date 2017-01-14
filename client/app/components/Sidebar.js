@@ -40,6 +40,8 @@ const Sidebar = React.createClass({
     //   profilePicture: 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.user.username + '.jpg'
     // }
 
+
+
     const imgStyle = {
       height: '80px',
       width: '80px',

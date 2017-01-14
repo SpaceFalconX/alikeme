@@ -1,22 +1,49 @@
 import React from 'react'
 import {Link} from 'react-router'
-import {incrementStars} from '../actions/post_actions.js'
 import CSSTransitionGroup from 'react-addons-css-transition-group' // ES6
 
-const StarButton = React.createClass({
-  starPost (e) {
-    console.log("event")
+class StarButton extends React.Component {
+  // constructor(props) {
+  //   super();
+  //   this.state = { toggleStar: true}
+  // }
+  componentWillMount() {
+
+  }
+
+  toggle (e) {
     const {post, user} = this.props;
-    this.props.dispatch(incrementStars(post.id, user.id))
-  },
+    this.props.dispatch(incrementStars(post.id, user.id, flag))
+    .then(() => {
+
+    })
+
+  }
 
   render() {
     const {post, user} = this.props;
     //TODO: Add some conditional on rendering star button
     const starButton = (
-      <div onClick={this.starPost} className="glyphicon glyphicon-star">
-        <strong> {post.stars_count}</strong>
+      <span onClick={this.toggle.bind(this)}>
+        <i className="glyphicon glyphicon-star">
+          <strong> {post.stars_count}</strong>
+        </i>
+      </span>
+    )
+
+    const unstarButton = (
+      <span onClick={this.toggle.bind(this)}>
+        <i className="glyphicon glyphicon-heart">
+          <strong> {post.stars_count}</strong>
+        </i>
+      </span>
+    )
+
+    const userPostView = (
+      <div>
+        <p><strong> {post.stars_count}</strong> people alike you starred your post!</p>
       </div>
+      //TODO: show user's profile's with link tags.. underneath to click on their posts
     )
 
     return (
@@ -29,10 +56,10 @@ const StarButton = React.createClass({
             <span key={post.id}></span>
           </CSSTransitionGroup>
         </div>
-        {starButton}
+        {post.user.username === user.username? userPostView : starButton}
       </div>
     )
   }
-})
+}
 
 export default StarButton;

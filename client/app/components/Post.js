@@ -4,12 +4,24 @@ import {browserHistory, Link} from 'react-router';
 import moment from 'moment'
 import axios from 'axios'
 import UserPic from './userPicture.js'
+<<<<<<< HEAD
 import StarButton from './StarButton.js'
+=======
+import {incrementStars} from '../actions/post_actions.js'
+>>>>>>> fetche starred posts matches
 
 class Post extends React.Component {
 
   postStyle () {
     return {margin: '0px 3px 0px 3px',}
+  }
+
+  toggle (e) {
+    const {post, user} = this.props;
+    this.props.dispatch(incrementStars(post.id, user.id, flag))
+    .then(() => {
+      console.log("star STATUS")
+    })
   }
 
   renderTags () {
@@ -68,7 +80,7 @@ class Post extends React.Component {
               <p>{this.matchORViewContext()}</p>
             </div>
           <div>
-            <StarButton {...this.props} />
+            <StarButton incrementStars={this.toggle.bind(this)} {...this.props} />
           </div>
           <div className="panel-body">
             <span className="glyphicon glyphicon-tags" aria-hidden="true" style={this.postStyle()}></span>

@@ -12,14 +12,6 @@ const express = require('express');
 
 const router = express.Router();
 
-// router.post('/star', (req, res) => {
-// 	new Post({id: req.body.id})
-// 	.save({stars_count: req.body.stars_count})
-// 	.then((post) => {
-// 		console.log("json ", post.toJSON());
-// 		res.json(post)
-// 	})
-// })
 
 //TODO: Select soecific columns to make it more lightweight
 router.get('/', (req, res) => {

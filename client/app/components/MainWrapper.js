@@ -7,7 +7,7 @@ import Navbar from './Navbar'
 import Sidebar from './Sidebar'
 import setAuthorizationToken from '../utils/setAuthorizationToken.js'
 import {setUser, getFollowers, getFollowing} from '../actions/auth_actions.js'
-import {fetchUserPostsFromDb } from '../actions/post_actions.js'
+import {fetchUserPostsFromDb, fetchStarredPostsFromDb} from '../actions/post_actions.js'
 import {initUserMatches } from '../actions/match_actions.js'
 import {fetchCategories} from '../actions/category_actions.js'
 import {Promise} from 'bluebird'
@@ -24,6 +24,7 @@ const Main = React.createClass({
 			Promise.join(
 		    this.props.dispatch(setUser(decoded.user)),
 		    this.props.dispatch(fetchUserPostsFromDb(decoded.user.username)),
+		    this.props.dispatch(fetchStarredPostsFromDb(decoded.user.username)),
 		    this.props.dispatch(getFollowers(decoded.user.id)),
 		    this.props.dispatch(getFollowing(decoded.user.id)),
 		    this.props.dispatch(initUserMatches(decoded.user.username))
@@ -62,6 +63,7 @@ export const defaultState = {
 		following: [],
 		followers: []
 	},
+	starredPosts: [],
 	userPosts: [],
 	allPosts: [],
 	publicPosts: [],
@@ -76,6 +78,7 @@ function mapStatetoProps (state=defaultState) {
 		user: Object.assign(state.user, ...state.user, {following: state.user.following, followers: state.user.followers}),
 		tags: state.tags,
 		categories: state.categories,
+		starredPosts: state.starredPosts,
 		userPosts: state.userPosts,
 		allPosts: state.allPosts,
 		personalityMatches: state.personalityMatches,

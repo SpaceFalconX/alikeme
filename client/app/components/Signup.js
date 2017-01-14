@@ -7,7 +7,7 @@ const Signup = React.createClass({
 
 	componentWillReceiveProps (nextProps) {
 		if(nextProps.user.isAuthenticated) {
-			this.props.router.push('/setup/' + nextProps.user.username)
+			this.props.router.push('/suggestions/' + nextProps.user.username)
 		}
 	},
 

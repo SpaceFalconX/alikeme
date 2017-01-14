@@ -1,4 +1,4 @@
-import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS, FETCH_PUBLIC_POSTS, INCREMENT_STARS} from '../actions/index.js'
+import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS, FETCH_PUBLIC_POSTS, INCREMENT_STARS, GET_STARRED_POSTS} from '../actions/index.js'
 
 export function createNewPost (action) {
 	const { user_id, username, category, category_id, id, content, title, tags, created_at, updated_at} = action;
@@ -21,6 +21,19 @@ export function createNewPost (action) {
   }
 }
 
+
+export function starredPosts (state=[], action) {
+  console.log("STARRED", action.starredPostsId)
+  switch(action.type) {
+    case GET_STARRED_POSTS:
+      return [].concat(action.starredPostsId)
+    default :
+      return state;
+  }
+  return state;
+}
+
+
 export function userPosts (state=[], action) {
   switch(action.type) {
     case CREATE_NEW_POST:
@@ -36,15 +49,16 @@ export function userPosts (state=[], action) {
 
 
 export function publicPosts (state=[], action) {
-  // console.log("STATE", state, "ACTION", action)
+  console.log("STATE", state, "ACTION", action)
   switch(action.type) {
     case INCREMENT_STARS:
       let i = state.findIndex((post)=> post.id === action.postid)
+      console.log("state[i].stars_count + action.flag", 10 + action.flag)
       if(i === -1) {
         return state;
       }
       return  [...state.slice(0, i),
-              {...state[i], stars_count: state[i].stars_count + 1},
+              {...state[i], stars_count: state[i].stars_count + action.flag},
               ...state.slice(i + 1)
               ];
     case FETCH_PUBLIC_POSTS:
@@ -61,12 +75,13 @@ export function allPosts (state=[], action) {
   switch(action.type) {
     case INCREMENT_STARS:
       let i = state.findIndex((post) => post.id === action.postid)
+      console.log("state[i].stars_count + action.flag", 10 + action.flag)
+      console.log("STATE", i)
       if(i === -1) {
           return state;
       }
-      console.log("STATE", i)
       return  [...state.slice(0, i),
-              {...state[i], stars_count: state[i].stars_count + 1},
+              {...state[i], stars_count: state[i].stars_count + action.flag},
               ...state.slice(i + 1)
               ];
     case FETCH_ALL_POSTS:
