@@ -44,7 +44,7 @@ class Profile extends React.Component {
                   return (
                     <Post key={post.id} post={post} />
                   )
-                })
+                }).reverse()
               }
             </div>
             <div className="col-md-4">

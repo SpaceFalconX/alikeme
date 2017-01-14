@@ -140,14 +140,15 @@ class Message extends React.Component {
     //RE RENDER THIS PAGE IDIOT.
   }
 
-  render () {
-    return (
-      <div>
-
-        <div className="col-md-4">
-          <h2>All Conversations</h2>
-          {this.state.usersHistory}
+  showConversation () {
+    if(this.props.user.username === this.props.params.user) {
+      return (
+        <div className="col-md-6">
+          <h1>Select a conversation</h1>
         </div>
+      )
+    } else {
+      return (
         <div className="col-md-6">
           <div className="header">
             <h1>Messages</h1>
@@ -165,6 +166,18 @@ class Message extends React.Component {
             <button>send</button>
           </form>
         </div>
+      )
+    }
+  }
+
+  render () {
+    return (
+      <div>
+        <div className="col-md-4">
+          <h2>All Conversations</h2>
+          {this.state.usersHistory}
+        </div>
+        {this.showConversation()}
       </div>
     )
   }
