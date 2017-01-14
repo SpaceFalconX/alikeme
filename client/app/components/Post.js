@@ -23,13 +23,13 @@ class Post extends React.Component {
 
   usernameContext () {
     if(this.props.post.username) {
-      return this.props.post.username
+      return this.props.post.username  //what is this user.username and post.username
     }
     return this.props.post.user.username
   }
 
   matchORViewContext () {
-    if(this.props.contextUser && this.props.contextUser !== this.usernameContext()) {
+    if(this.props.contextUser && this.props.contextUser !== this.usernameContext()) { //what is contextUser
       return (
         <Link to={'/profile/' + this.usernameContext()}> click to view {this.usernameContext()}'s profile</Link>
       )
