@@ -31,15 +31,23 @@ const Main = React.createClass({
 		}
 	},
 
+	componentWillReceiveProps (nextProps) {
+		const currentLocation = this.props.location.pathname
+		console.log("next falsey", !nextProps.user.isAuthenticated)
+		if(!nextProps.user.isAuthenticated && currentLocation !== '/' && currentLocation !== '/login') {
+			console.log('unauthorized')
+			browserHistory.push('/')
+		}
+	},
+
 	render() {
 	const currentLocation = this.props.location.pathname
 	const isAuthenticated = this.props.user.isAuthenticated;
 
-	if (!isAuthenticated && currentLocation !== '/' && currentLocation !== '/login') {
-		//console.log('unauthorized')
-		browserHistory.push('/')
-		location.reload()
-	}
+	// if (!isAuthenticated && currentLocation !== '/' && currentLocation !== '/login') {
+	// 	//console.log('unauthorized')
+	// 	browserHistory.push('/')
+	// }
 
 	const signedInUser = (
 				<div>

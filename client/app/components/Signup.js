@@ -1,9 +1,16 @@
 import React from 'react'
-import {Link} from 'react-router'
+import {Link, browserHistory} from 'react-router'
 import {signupApiRequest, signupUser} from '../actions/auth_actions.js'
 import {getWatsonTwitterData} from '../actions/watson_actions.js'
 
 const Signup = React.createClass({
+	
+	componentWillReceiveProps (nextProps) {
+		if(nextProps.user.isAuthenticated) {
+			browserHistory.push('/' + nextProps.user.username)
+		}
+	},
+
 	handleSubmit(e) {
 		e.preventDefault();
 		const username = this.refs.username.value;
@@ -28,7 +35,6 @@ const Signup = React.createClass({
 	},
 
 	render() {
-
 		const welcomeCSS = {
 			marginTop: '20vh'
 		}
