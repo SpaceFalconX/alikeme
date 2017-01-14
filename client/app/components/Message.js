@@ -1,5 +1,6 @@
 import React from 'react'
 import PubNub from 'pubnub'
+import {clearTags} from '../actions/tag_actions.js'
 import {browserHistory} from 'react-router'
 import UserPic from './userPicture.js'
 
@@ -16,6 +17,7 @@ class Message extends React.Component {
   }
 
   componentWillMount () {
+    this.props.dispatch(clearTags()) //lazy routing fix until redux integration
     this.setState({channelName: [this.props.params.user, this.props.params.username].sort().join("")})
     this.setState({historyChannel: this.props.params.username + 'history'})
   }
@@ -38,7 +40,7 @@ class Message extends React.Component {
   }
 
   componentDidMount () { //init pubnub
-    console.log(this.props)
+    console.log('on mount', this.props)
     this.pubnub = new PubNub({
         publishKey: 'pub-c-f5e1b611-9e28-4b7a-85bc-53d8ffb17f95',
         subscribeKey: 'sub-c-45dd39e4-d8ee-11e6-a0b3-0619f8945a4f',
@@ -52,6 +54,10 @@ class Message extends React.Component {
       channels: [this.state.channelName]
     })
     this.refresh()
+  }
+
+  componentWillReceiveProps (nextProps) {
+    console.log("next", nextProps)
   }
 
   componentWillUnmount () {
@@ -178,8 +184,6 @@ class Message extends React.Component {
         <div className="col-md-6">
           <div className="header">
             <h1>Messaging {this.props.params.user}</h1>
-            <UserPic username={this.props.params.user} />
-            <UserPic username={this.props.params.username} />
           </div>
           <div style={messageStyle}>
             {this.state.messageHistory}
@@ -194,7 +198,6 @@ class Message extends React.Component {
   }
 
   render () {
-    console.log('ISS RENDERING')
     const convoStyle = {
       height: 400,
       overflow: 'scroll'

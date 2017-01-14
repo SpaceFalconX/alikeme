@@ -39,6 +39,7 @@ const defaultState = {
 const reducer = (state, action) => {
   if (action.type === LOGOUT_USER) {
     state = defaultState;
+    
   }
   return appReducer(state, action)
 }

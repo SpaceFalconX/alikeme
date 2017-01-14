@@ -11,10 +11,10 @@ import _ from 'lodash'
 
 class Profile extends React.Component {
   componentWillMount () {
-    console.log(this.props)
-    if(this.props.params.username !== this.props.user.username){
-      browserHistory.push('/profile/' + this.props.params.username)
-    }
+    // console.log(this.props.user.username)
+    // if(this.props.user.username !== undefined && this.props.params.username !== this.props.user.username){
+    //   browserHistory.push('/profile/' + this.props.params.username)
+    // }
     if(this.props.categories.length === 0) {
       this.props.dispatch(fetchCategories());
     }

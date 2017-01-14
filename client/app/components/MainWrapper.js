@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router'
+import {Link, browserHistory} from 'react-router'
 import {connect} from 'react-redux'
 
 import Signup from './Signup'
@@ -28,6 +28,14 @@ const Main = React.createClass({
 		    this.props.dispatch(getFollowing(decoded.user.id)),
 		    this.props.dispatch(initUserMatches(decoded.user.username))
 		  ).then(() => (console.log("ALL DATA FETCHED")))
+		}
+	},
+
+	componentWillReceiveProps (nextProps) {
+		const currentLocation = this.props.location.pathname
+		if(!nextProps.user.isAuthenticated && currentLocation !== '/' && currentLocation !== '/login') {
+			console.log('unauthorized')
+			browserHistory.push('/')
 		}
 	},
 
@@ -79,8 +87,6 @@ function mapStatetoProps (state=defaultState) {
 		matches: state.matches
 	}
 }
-
-
 
 //init Redux store to React main
 const MainWrapper = connect(mapStatetoProps)(Main);
