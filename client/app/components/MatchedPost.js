@@ -34,7 +34,8 @@ class MatchedPost extends React.Component {
               <h4 className="list-group-item-heading">{this.props.post.title}</h4>
               <p className="list-group-item-text"><b>{this.props.post.content}</b></p>
               <p><i>-{this.props.post.user.username}</i></p>
-              <Link to={'/profile/' + this.props.post.user.username}> click to view {this.props.post.user.username}'s profile</Link>
+              <Link to={'/profile/' + this.props.post.user.username}>
+              click to view {this.props.post.user.username}'s profile</Link>
             </div>
           </div>
           <div>

@@ -30,10 +30,14 @@ export function clearPersonalityMatches(matches) {
 
 export function getMatches(post) {
   return dispatch => axios.post('/api/post/matches', post)
-  .then((resp) => {
-    //console.log('server res', resp.data)
-    dispatch(setMatches(resp.data));
-  });
+  .then(({data}) => {
+    console.log("DATA", data)
+    const normalized = data.map((match) => {
+      const {compatibilityScore, relevantTags, weightedScore, originalPost} = match;
+      return Object.assign({}, {compatibilityScore, relevantTags, weightedScore}, originalPost)
+    })
+    dispatch(setMatches(normalized));
+  })
 }
 
 export function initUserMatches(username) {

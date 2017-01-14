@@ -41,15 +41,15 @@ router.post('/login', (req, res) => {
 	console.log('here')
 	let {username, password} = req.body;
 	new User ({username: username})
-	.fetch({withRelated: ['posts']})
+	.fetch({withRelated: ['posts', 'starredPosts']})
 	.then((user) => {
 		if(!user) {
 			res.status(400).send({error: "go to signup"})
 		} else {
 			user.checkPassword(password)
 			.then((match) => {
-				const userPosts = user.toJSON().posts.map((post) => post.content).join(',')
-				console.log("USERPOSTS LENGTH", userPosts)
+				const userPosts = user.toJSON().posts.map((post) => post.content).join('')
+				console.log(userPosts)
 				const options = {
 					screen_name: user.toJSON().twitterLink,
 					include_rts: false,
@@ -69,6 +69,8 @@ router.post('/login', (req, res) => {
 					const token = generateToken(user);
 					res.status(201).send({token});
 				})
+
+
 				// 	if(stats) {
 				// 		console.log("STATS SAVED SUCCESFULLY", stats.agreeableness)
 				// 		user.save(stats)
