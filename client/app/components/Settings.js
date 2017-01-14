@@ -38,27 +38,10 @@ class Settings extends React.Component {
     })
   }
 
-  // handleImageUpload (e) {
-  //   e.preventDefault()
-  //   let time = Date.now()
-  //   let data = new FormData()
-  //   data.append('file', document.getElementById('file').files[0])
-  //   axios.post('/api/upload/uploadProfilePicture', data)
-  //   .then((res) => {
-  //     console.log('yeah boy')
-  //     // axios.post('/api/upload/uploadProfilePicture', data)
-  //   })
-  //   .catch((err) => {
-  //     console.log(err)
-  //   })
-  // }
-
   render () {
     return (
-      <div>
-      settings
+      <div className="col-md-6">
         <h3> Configure social media accounts </h3>
-        <h5> Twitter </h5>
         Enter your <span className="fa fa-twitter"> </span> handle:
         <form onSubmit={this.handleSubmit.bind(this)}>
         <input type="text" ref="twitter" placeholder="eg: janedoe"/>

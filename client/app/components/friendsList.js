@@ -1,7 +1,7 @@
 import React from 'react'
 import {browserHistory, Link} from 'react-router'
 import {followClick} from '../actions/auth_actions.js'
-
+import UserPic from './userPicture.js'
 
 const FriendsList = React.createClass({
   followUser(e) {
@@ -37,6 +37,12 @@ const FriendsList = React.createClass({
     }
     const {username, distance} = this.props.match
     let route = this.props.router.getCurrentLocation().pathname
+    // <div className="profile-icons">
+    //   <span><i className="fa fa-users"></i> 372</span>
+    //   <span><i className="fa fa-photo"></i> 43</span>
+    //   <span><i className="fa fa-video-camera"></i> 3</span>
+    // </div>
+    //<img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="people" className="media-object img-circle" style={style.friendImg} />
     // const followButton = (<button ref="follower" className="btn btn-default" onClick={this.followUser}>Follow <i className="fa fa-share"></i></button>)
     return (
       <div  className="">
@@ -45,8 +51,7 @@ const FriendsList = React.createClass({
             <div className="panel-heading">
               <div className="media">
                 <div className="pull-left">
-                  <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="people" className="media-object img-circle"
-                    style={style.friendImg} />
+                  <UserPic username={username} />
                 </div>
                 <div className="media-body">
                   <h4 className="media-heading margin-v-5 pull-left">
@@ -55,11 +60,6 @@ const FriendsList = React.createClass({
                   <h4 className="media-heading margin-v-5 pull-right">
                     <a href="#">{Math.abs(Math.round((1 - distance) * 100))}%</a>
                   </h4>
-                  <div className="profile-icons">
-                    <span><i className="fa fa-users"></i> 372</span>
-                    <span><i className="fa fa-photo"></i> 43</span>
-                    <span><i className="fa fa-video-camera"></i> 3</span>
-                  </div>
                 </div>
               </div>
             </div>
