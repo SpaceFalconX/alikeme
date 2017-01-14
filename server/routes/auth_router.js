@@ -14,8 +14,7 @@ const router = express.Router();
 
 router.post('/signup', (req, res) => {
 	const {
-		username, password, email, twitterLink, facebookLink,
-		agreeableness, conscientiousness, emotionalRange, extraversion, openness
+		username, password, email, twitterLink
 	} = req.body
 	new User ({username: username})
 	.fetch()
@@ -23,16 +22,30 @@ router.post('/signup', (req, res) => {
 		if(user) {
 			return res.sendStatus(401);
 		} else {
-			const newUser = new User({
-				username, email, password, twitterLink, facebookLink,
-				agreeableness, conscientiousness, emotionalRange, extraversion, openness
-			})
-			.save()
-			.then((user) => {
-				const token = generateToken(user);
-				console.log(`SIGNUP SUCCESS: ${user.get('username')}`)
-				res.status(201).send({token});
-			})
+			const options = {
+				screen_name: twitterLink,
+				include_rts: false,
+				count: 100
+			}
+			getTwitterFeed(options)
+				.then((feed) => readText(feed))
+				.catch((text) => false)
+				.then((stats) => {
+					console.log("STATS", stats)
+					return new User({
+						username, email, password, twitterLink
+					}).save()
+					.then((user) => {
+						const token = generateToken(user);
+						console.log(`SIGNUP SUCCESS: ${user.get('username')}`)
+						res.status(201).send({token});
+					})
+					.catch(() => {
+						console.log(`SIGNUP FAIL WATSON: ${user.get('username')}`)
+						const token = generateToken(user);
+						res.status(201).send({token});
+					})
+				})
 		}
 	})
 })

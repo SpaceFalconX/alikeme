@@ -1,18 +1,20 @@
 import React from 'react'
+import axios from 'axios'
 
 class UserPic extends React.Component {
   constructor(props) {
     super()
     state: {
-      profilePicture: null
+      profilePicture: "http://www.topcareer.jp/inter_blog/wp-content/uploads/100_100_empty.gif"
     }
   }
 
   componentWillMount () {
-    this.setState({profilePicture: 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.username + '.jpg'})
+    this.setState({profilePicture: "http://www.topcareer.jp/inter_blog/wp-content/uploads/100_100_empty.gif"})
   }
 
   render () {
+    console.log("STATE")
     const imgStyle = () => {
       if(!this.props.style) {
         return {
@@ -34,12 +36,9 @@ class UserPic extends React.Component {
       }
     }
 
-    const handleError = () => {
-      this.setState({profilePicture: "http://www.topcareer.jp/inter_blog/wp-content/uploads/100_100_empty.gif"})
-    }
 
     return (
-      <img src={this.state.profilePicture} className={cName()} style={imgStyle()} onError={handleError}/>
+      <img src={this.state.profilePicture} className={cName()} style={imgStyle()} />
     )
   }
 }

@@ -8,7 +8,7 @@ module.exports = (text) => {
       }
       if (!result) {
         console.log("RESULT NULL", result)
-        reject(result)
+        resolve('')
       }
       else {
         personality = {};

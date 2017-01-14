@@ -95,9 +95,10 @@ class Browse extends React.Component {
           </div>
          </div>
        </div>
-      </div>
+        </div>
     )
   }
 }
 
 export default Browse;
+

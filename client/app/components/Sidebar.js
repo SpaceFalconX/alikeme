@@ -36,10 +36,10 @@ const Sidebar = React.createClass({
   // },
 
   render () {
-    this.state = {
-      profilePicture: 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.user.username + '.jpg'
-    }
-    
+    // this.state = {
+    //   profilePicture: 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.user.username + '.jpg'
+    // }
+
     const imgStyle = {
       height: '80px',
       width: '80px',
@@ -56,9 +56,9 @@ const Sidebar = React.createClass({
       fontSize: '16px'
     }
 
-    const handleError = () => {
-      this.setState({profilePicture: "http://www.topcareer.jp/inter_blog/wp-content/uploads/100_100_empty.gif"})
-    }
+    // const handleError = () => {
+    //   this.setState({profilePicture: "http://www.topcareer.jp/inter_blog/wp-content/uploads/100_100_empty.gif"})
+    // }
 
    const isAuthenticated = this.props.user.isAuthenticated;
 
@@ -81,11 +81,11 @@ const Sidebar = React.createClass({
 			<div className="col-md-2">
 				<div className="jumbotron">
           WELCOME TO aLike.me
-       
+
 				</div>
 			</div>
 	 )
-   
+
     return (
       <div>	{ isAuthenticated ? loggedInView : '' } </div>
     )
@@ -93,4 +93,7 @@ const Sidebar = React.createClass({
 })
 
 export default Sidebar;
-         
+
+
+
+
