@@ -1,4 +1,5 @@
 const express = require('express');
+const http = require('http');
 const router = express.Router();
 
 const multer = require('multer');
@@ -26,13 +27,20 @@ router.post('/setUserName', (req, res) => {
 
 router.post('/uploadProfilePicture', upload, (req, res) => {
   cloudinary.v2.uploader.upload('profile_pictures/' + username + '.jpg', {public_id: username, invalidate: true}, function(err, result) {
-    if(err) {
-      return res.status(401).send(err);
-      console.log(err)
-    }
-    var testImg = cloudinary.image(username + '.jpg')
-    res.send(testImg)
+
+    res.sendStatus(200)
   });
+})
+
+router.post('/fetchProfilePicture', (req, res) => {
+  console.log('FETCH REQ BODY', req.body.username)
+  options = {method: 'HEAD', host: 'res.cloudinary.com', port: 80, path: '/isaacxpreston/image/upload/' + req.body.username + '.jpg'},
+  req = http.request(options, function(r) {
+      console.log('HEADERS', JSON.stringify(r.headers));
+      let temp = !r.headers.status
+      res.send(temp)
+  });
+  req.end()
 })
 
 module.exports = router

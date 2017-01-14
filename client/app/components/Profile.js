@@ -17,7 +17,7 @@ class Profile extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if(nextProps !== this.props) {
+    if (nextProps !== this.props) {
       return true;
     }
   }

@@ -3,6 +3,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { browserHistory, Link } from 'react-router'
+import fetchUserPicture from '../utils/fetchUserPicture.js'
 //import { fetchUserDataFromWatson } from '../actions/refresh_stats'
 
 const Sidebar = React.createClass({
@@ -40,12 +41,13 @@ const Sidebar = React.createClass({
   },
 
   render () {
-    // this.state = {
-    //   profilePicture: 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.user.username + '.jpg'
-    // }
 
+    fetchUserPicture(this.props.user.username)
 
-
+    this.state = {
+      profilePicture: 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.user.username + '.jpg'
+    }
+    
     const imgStyle = {
       height: '80px',
       width: '80px',
@@ -61,10 +63,6 @@ const Sidebar = React.createClass({
       marginTop: '10px',
       fontSize: '16px'
     }
-
-    // const handleError = () => {
-    //   this.setState({profilePicture: "http://www.topcareer.jp/inter_blog/wp-content/uploads/100_100_empty.gif"})
-    // }
 
    const isAuthenticated = this.props.user.isAuthenticated;
 
