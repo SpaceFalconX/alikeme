@@ -3,11 +3,10 @@ import {connect} from 'react-redux';
 import {browserHistory, Link} from 'react-router';
 import moment from 'moment'
 import axios from 'axios'
-import StarButton from './StarButton.js'
 import UserPic from './userPicture.js'
 
 class Post extends React.Component {
-
+  
   postStyle () {
     return {margin: '0px 3px 0px 3px',}
   }
@@ -25,8 +24,15 @@ class Post extends React.Component {
     })
   }
 
+  usernameContext () {
+    if(this.props.post.username) {
+      return this.props.post.username
+    }
+    return this.props.post.user.username
+  }
+
   matchORViewContext () {
-    if(this.props.user.username !== this.props.post.user.username) {
+    if(this.props.contextUser && this.props.contextUser !== this.usernameContext()) { 
       return (
         <Link to={'/profile/' + this.props.post.user.username}> click to view
         {this.props.post.username}'s profile</Link>
@@ -38,8 +44,13 @@ class Post extends React.Component {
   }
 
   render () {
+    const POST_CSS = {
+      boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+      transition: '0.3s'
+    }
+
     return (
-        <div className="panel panel-default">
+        <div className="panel panel-default" style={POST_CSS}>
           <div className="panel-body">
             <Link className="pull-left">
               <UserPic username={this.props.post.user.username} />
