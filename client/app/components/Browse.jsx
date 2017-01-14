@@ -18,9 +18,6 @@ class Browse extends React.Component {
 
   componentWillMount() {
     this.props.dispatch(fetchPostsFromDb());
-    if(this.props.categories.length === 0) {
-      this.props.dispatch(fetchCategories());
-    }
   }
 
   filter (e) {
@@ -52,7 +49,8 @@ class Browse extends React.Component {
   }
 
   render () {
-    const {category} = this.props.params
+    const {personalityMatches, user, params, dispatch} = this.props;
+    const {category} = params;
     const filtered = category === undefined ? this.props.allPosts :
     this.props.allPosts.filter(post => post.category.name === category);
     const CARDS = {
@@ -87,8 +85,8 @@ class Browse extends React.Component {
           <div className="row">
             { filtered.map((post, index) => {
                 return (
-                  <Post key={index} dispatch={this.props.dispatch}
-                    post={post} user={this.props.user} />
+                  <Post personalityMatches={personalityMatches} user={user} params={params}
+                  dispatch={dispatch} key={index} post={post} />
                 )
               })
             }

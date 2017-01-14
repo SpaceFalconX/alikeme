@@ -15,7 +15,7 @@ const router = express.Router();
 router.post('/signup', (req, res) => {
 	const { username, password, email, twitterLink} = req.body
 	new User ({username: username})
-	.fetch()
+	.fetch({withRelated: ['starredPosts']})
 	.then((user) => {
 		if(user) {
 			return res.status(401).send("SIGNUP ERROR USER EXISTS");

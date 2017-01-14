@@ -34,7 +34,7 @@ class Profile extends React.Component {
         this.props.user[prop] = [];
       }
     }
-    const {personalityMatches, user, dispatch} = this.props;
+    const {personalityMatches, user, dispatch, params} = this.props;
     return (
         <div className="col-md-10" >
          <div className="row" >
@@ -44,14 +44,14 @@ class Profile extends React.Component {
                 posts.map((post, index) => {
                   return (
                     <Post dispatch={dispatch} personalityMatches={personalityMatches}
-                    user={user} key={index} post={post} />
+                    user={user} key={index} post={post} params={params} />
                   )
                 }).reverse()
               }
             </div>
             <div className="col-md-4">
               <h4>Following</h4>
-              { 
+              {
                 this.props.user.following.map((follower, index)=>{
                   return (<FollowThumb router={this.props.router} key={index} follower={follower}
                     personalityMatches={this.props.personalityMatches} />)

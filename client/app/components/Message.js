@@ -15,7 +15,7 @@ class Message extends React.Component {
       historyChannel: null
     }
   }
-
+  //Warning: setState(...): Can only update a mounted or mounting component. This usually means you called setState() on an unmounted component. This is a no-op. Please check the code for the Message component.
   componentWillMount () {
     this.props.dispatch(clearTags()) //lazy routing fix until redux integration
     this.setState({channelName: [this.props.params.user, this.props.params.username].sort().join("")})

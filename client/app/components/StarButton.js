@@ -12,6 +12,13 @@ const StarButton = React.createClass({
 
   render() {
     const {post, user} = this.props;
+    //TODO: Add some conditional on rendering star button
+    const starButton = (
+      <div onClick={this.starPost} className="glyphicon glyphicon-star">
+        <strong> {post.stars_count}</strong>
+      </div>
+    )
+
     return (
       <div>
         <div>
@@ -19,12 +26,10 @@ const StarButton = React.createClass({
             transitionName="star"
             transitionEnterTimeout={500}
             transitionLeaveTimeout={500}>
-            <span key={post.id}><strong>{post.stars_count}</strong></span>
+            <span key={post.id}></span>
           </CSSTransitionGroup>
         </div>
-        <button onClick={this.starPost}>
-          <span className="glyphicon glyphicon-star"><strong>{post.stars_count}</strong></span>
-        </button>
+        {starButton}
       </div>
     )
   }

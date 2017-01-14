@@ -21,16 +21,16 @@ const router = express.Router();
 // 	})
 // })
 
-
+//TODO: Select soecific columns to make it more lightweight
 router.get('/', (req, res) => {
 	Posts.forge()
-	.fetch({withRelated: ['user', 'category', 'tags']})
+	.fetch({withRelated: ['user', 'category', 'tags', 'stars']})
 	.then((collection) => {
 		let result = collection.toJSON();
 		for(let i = 0; i < result.length; i++) {
 				result[i] = _.pick(result[i],
 					['title', 'created_at', 'updated_at', 'content', 'id',
-					 'user.username', 'user.id', 'category.id', 'category.name', 'tags', 'stars_count' ]
+					 'user.username', 'user.id', 'category.id', 'category.name', 'tags', 'stars_count', 'stars' ]
 					)
 				for(let j = 0; j < result[i].tags.length; j++) {
 					delete result[i].tags[j]['_pivot_id'];
@@ -45,6 +45,7 @@ router.get('/', (req, res) => {
   });
 });
 
+//TODO: Select soecific columns to make it more lightweight
 router.get('/:username', (req, res) => {
 	User.where('username', req.params.username)
 	.fetch().then((user) => {
@@ -59,14 +60,14 @@ router.get('/:username', (req, res) => {
 			for(let i = 0; i < result.length; i++) {
 				result[i] = _.pick(result[i],
 					['title', 'created_at', 'updated_at', 'content', 'id',
-					 'user.username', 'user.id','category.id', 'category.name', 'tags', 'stars_count'])
+					 'user.username', 'user.id','category.id', 'category.name', 'tags', 'stars_count', 'stars'])
 				for(let j = 0; j < result[i].tags.length; j++) {
 					delete result[i].tags[j]['_pivot_id'];
 					delete result[i].tags[j]['_pivot_post_id'];
 					delete result[i].tags[j]['_pivot_tag_id'];
 				}
 			}
-			res.send(result)
+			res.json(result)
 		})
 		.catch((err) => {
 	    res.status(500).json({error: {message: err.message}});

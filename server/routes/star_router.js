@@ -18,10 +18,19 @@ router.get('/posts/:postid', (req, res) => {
 
 // Fetch a user by id and all the posts the user starred
 router.get('/users/:userid', (req, res) => {
-  User.forge({id: req.params.userid})
-  .fetch({withRelated: ['starredPosts']})
-  .then((user) => res.send(user))
+  const userid = parseInt(req.params.userid, 10);
+  console.log("USER_ID", req.params.userid, typeof userid)
+  PostStars.forge()
+  .query({where: {user_id: userid}})
+  .fetch()
+  .then((user) => {
+    res.send(user)
+  })
   .catch((err) => res.send(err))
+  // User.forge({id: req.params.userid})
+  // .fetch({withRelated: ['starredPosts']})
+  // .then((user) => res.send(user))
+  // .catch((err) => res.send(err))
 });
 
 // Star a post

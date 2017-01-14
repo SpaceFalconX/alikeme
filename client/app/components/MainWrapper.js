@@ -29,13 +29,9 @@ const Main = React.createClass({
 		    this.props.dispatch(initUserMatches(decoded.user.username))
 		  ).then(() => (console.log("ALL DATA FETCHED")))
 		}
-	},
-
-	componentWillReceiveProps (nextProps) {
 		const currentLocation = this.props.location.pathname
-		if(!nextProps.user.isAuthenticated && currentLocation !== '/' && currentLocation !== '/login') {
-			console.log('unauthorized')
-			browserHistory.push('/')
+		if(!this.props.user.isAuthenticated && currentLocation !== '/' && currentLocation !== '/login') {
+			this.props.router.push({pathname: '/login'})
 		}
 	},
 

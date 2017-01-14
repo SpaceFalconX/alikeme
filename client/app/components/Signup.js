@@ -5,11 +5,11 @@ import {getWatsonTwitterData} from '../actions/watson_actions.js'
 
 const Signup = React.createClass({
 
-	// componentWillReceiveProps (nextProps) {
-	// 	if(nextProps.user.isAuthenticated) {
-	// 		browserHistory.push('/' + nextProps.user.username)
-	// 	}
-	// },
+	componentWillReceiveProps (nextProps) {
+		if(nextProps.user.isAuthenticated) {
+			this.props.router.push('/setup/' + nextProps.user.username)
+		}
+	},
 
 	handleSubmit(e) {
 		e.preventDefault();
@@ -17,18 +17,9 @@ const Signup = React.createClass({
 		const email = this.refs.email.value;
 		const password = this.refs.password.value;
 		const twitterLink = this.refs.twitter.value;
-		let userData = {
-			username, email, password, twitterLink
-		}
+		let userData = { username, email, password, twitterLink };
 		let {user, router} = this.props
 		this.props.dispatch(signupApiRequest(userData))
-		.then(()=> {
-			if(user.isAuthenticated) {
-				console.log("user?", user)
-				router.push({pathname:`/setup/${user.username}`})
-			}
-		})
-		.catch((err) => console.log("HOUSTON ERROR", err))
 	},
 
 	render() {
