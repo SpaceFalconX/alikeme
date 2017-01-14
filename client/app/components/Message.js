@@ -23,7 +23,16 @@ class Message extends React.Component {
   }
 
   handleNewMessage (message) {
-    let temp = this.state.messageHistory.concat([<div key={Math.random()}>{message}</div>]).slice(this.state.messageHistory.length -9)
+    //concat new messages to state
+    let temp = this.state.messageHistory
+    .concat([ //EXTERNALIZE TO AN ENTRY
+      <div key={Math.random()}>
+        <UserPic username={message.username} />
+        {message.text}
+      </div>
+    ])
+    .slice(this.state.messageHistory.length -9)
+    //fix the slice part
     this.setState({
       messageHistory: temp
     })
@@ -51,19 +60,23 @@ class Message extends React.Component {
 
   publish (e) {
     e.preventDefault()
+    //send message
     this.pubnub.publish({
       channel: this.state.channelName,
-      message: this.props.user.username + ": " + this.refs.message.value
+      message: {
+        username: this.props.user.username,
+        text: this.refs.message.value
+      } //this.props.user.username + ": " + this.refs.message.value
     }, (status, response) => {
-      console.log('message publish', status, response)
       this.refs.message.value = ""
     })
-    if (this.state.usersHistory_names.indexOf(this.props.params.user) === -1) {
-      this.pubnub.publish({ //publish to both users' 'all messages' history
+    //add to convo history
+    if (this.state.usersHistory_names.indexOf(this.props.params.user) === -1) { //check if not already in history
+      this.pubnub.publish({ //publish to your conversation history
         channel: this.state.historyChannel,
         message: this.props.params.user
       })
-      this.pubnub.publish({
+      this.pubnub.publish({ //publish to other user's conversation history
         channel: this.props.params.user + 'history',
         message: this.props.user.username
       })
@@ -72,7 +85,7 @@ class Message extends React.Component {
   }
 
   refresh () {
-    this.pubnub.history(
+    this.pubnub.history( //fetch past messages
       {
         channel: this.state.channelName,
         reverse: false,
@@ -83,15 +96,18 @@ class Message extends React.Component {
           console.log("empty conversation res")
           return
         } else {
-          this.setState({messageHistory: response.messages.map((message) => {
-              return (
-                <div key={Math.random()}>{message.entry}</div>
+          this.setState({messageHistory: response.messages.map((message) => { //map messages
+              return ( //EXTERNALIZE TO AN ENTRY
+                <div key={Math.random()}>
+                  <UserPic username={message.entry.username} />
+                  {message.entry.text}
+                </div>
               )
             })
           })
         }
     })
-    this.pubnub.history({
+    this.pubnub.history({ //fetch past convos
       channel: this.state.historyChannel,
       reverse: false,
       count: 10
@@ -100,15 +116,18 @@ class Message extends React.Component {
         console.log('empty message history res')
         return
       } else {
-        this.setState({usersHistory: response.messages.map((message) => {
+        this.setState({usersHistory: response.messages.map((message) => { //map past convos
+          if(message.entry !== " ") {
             return (
               <div key={Math.random()} onClick={this.navToMessage.bind(this, message.entry)}>
+                <UserPic username={message.entry} />
                 {message.entry}
               </div>
             )
+          }
           })
         })
-        this.setState({usersHistory_names: response.messages.map((message) => {
+        this.setState({usersHistory_names: response.messages.map((message) => { //set past convos in state
           return message.entry
         })})
       }
@@ -124,19 +143,27 @@ class Message extends React.Component {
   render () {
     return (
       <div>
-        <h1>Messaging</h1>
-        <UserPic username={this.props.params.user} />
-        <UserPic username={this.props.user.username} />
-        <div>
-          {this.state.messageHistory}
-        </div>
-        <form onSubmit={this.publish.bind(this)}>
-          <input type="text" ref="message"></input>
-          <button>send</button>
-        </form>
-        <h2>All Messages</h2>
-        <div>
+
+        <div className="col-md-4">
+          <h2>All Conversations</h2>
           {this.state.usersHistory}
+        </div>
+        <div className="col-md-6">
+          <div className="header">
+            <h1>Messages</h1>
+            <UserPic username={this.props.params.user} />
+            <UserPic username={this.props.user.username} />
+          </div>
+          <div style={{
+            height: 300,
+            overflow: 'scroll'
+          }}>
+            {this.state.messageHistory}
+          </div>
+          <form onSubmit={this.publish.bind(this)}>
+            <input type="text" ref="message"></input>
+            <button>send</button>
+          </form>
         </div>
       </div>
     )
