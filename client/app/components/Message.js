@@ -16,8 +16,8 @@ class Message extends React.Component {
   }
 
   componentWillMount () {
-    this.setState({channelName: [this.props.params.user, this.props.user.username].sort().join("")})
-    this.setState({historyChannel: this.props.user.username + 'history'})
+    this.setState({channelName: [this.props.params.user, this.props.params.username].sort().join("")})
+    this.setState({historyChannel: this.props.params.username + 'history'})
   }
 
   handleNewMessage (message) { //for listener
@@ -38,6 +38,7 @@ class Message extends React.Component {
   }
 
   componentDidMount () { //init pubnub
+    console.log(this.props)
     this.pubnub = new PubNub({
         publishKey: 'pub-c-f5e1b611-9e28-4b7a-85bc-53d8ffb17f95',
         subscribeKey: 'sub-c-45dd39e4-d8ee-11e6-a0b3-0619f8945a4f',
@@ -63,13 +64,14 @@ class Message extends React.Component {
     this.pubnub.publish({
       channel: this.state.channelName,
       message: {
-        username: this.props.user.username,
+        username: this.props.params.username,
         text: this.refs.message.value
       } //this.props.user.username + ": " + this.refs.message.value
     }, (status, response) => {
       this.refs.message.value = ""
     })
     //add to convo history
+    //fix all the params here
     if (this.state.usersHistory_names.indexOf(this.props.params.user) === -1) { //check if not already in history
       this.pubnub.publish({ //publish to your conversation history
         channel: this.state.historyChannel,
@@ -77,17 +79,18 @@ class Message extends React.Component {
       })
       this.pubnub.publish({ //publish to other user's conversation history
         channel: this.props.params.user + 'history',
-        message: this.props.user.username
+        message: this.props.params.username
       })
       //TODO- MAKE A DISPATCH
       this.setState({usersHistory_names: this.state.usersHistory_names.concat(this.props.params.user)})
     }
   }
 
-  refresh () { //fetch messages and convos on load
+  refresh (channel) { //fetch messages and convos on load
+    channel = channel || this.state.channelName
     this.pubnub.history( //fetch past messages
       {
-        channel: this.state.channelName,
+        channel: channel,
         reverse: false,
         count: 10,
       },
@@ -111,7 +114,7 @@ class Message extends React.Component {
     this.pubnub.history({ //fetch past convos
       channel: this.state.historyChannel,
       reverse: false,
-      count: 100
+      count: 5
     }, (status, response) => {
       if (response === undefined) {
         console.log('empty message history res')
@@ -133,16 +136,27 @@ class Message extends React.Component {
         this.setState({usersHistory_names: response.messages.map((message) => { //set past convos in state
             return message.entry
           })
-        }).reverse()
+        })//.reverse()
       }
     })
   }
 
-  //TODO- FIX THIS
-  navToMessage (user) {
-    browserHistory.push('/message/' + user)
-    location.reload(); //NO!
-    //RE RENDER THIS PAGE IDIOT. USE REDUX.
+  navToMessage (newUser) {
+    //change directory
+    browserHistory.push('/message/' + this.props.params.username + '/' + newUser)
+    //disconnect from current channel
+    this.pubnub.unsubscribeAll()
+    //use variable because state doesn't update
+    const newChannel = [newUser, this.props.params.username].sort().join("")
+    //reset channel
+    this.setState({
+      channelName: newChannel
+    })
+    //resubscribe to appropriate channel and refresh() with new state values
+    this.pubnub.subscribe({
+      channels: [newChannel]
+    })
+    this.refresh(newChannel)
   }
 
   showConversation () { //check if a convo is selected
@@ -153,7 +167,7 @@ class Message extends React.Component {
     const inputBarStyle = {
       width: '90%'
     }
-    if(this.props.user.username === this.props.params.user) {
+    if(this.props.user.username === this.props.params.user || !this.props.params.user) {
       return (
         <div className="col-md-6">
           <h1>Select a conversation</h1>
@@ -163,9 +177,9 @@ class Message extends React.Component {
       return (
         <div className="col-md-6">
           <div className="header">
-            <h1>Messages</h1>
+            <h1>Messaging {this.props.params.user}</h1>
             <UserPic username={this.props.params.user} />
-            <UserPic username={this.props.user.username} />
+            <UserPic username={this.props.params.username} />
           </div>
           <div style={messageStyle}>
             {this.state.messageHistory}
@@ -180,6 +194,7 @@ class Message extends React.Component {
   }
 
   render () {
+    console.log('ISS RENDERING')
     const convoStyle = {
       height: 400,
       overflow: 'scroll'
@@ -187,7 +202,7 @@ class Message extends React.Component {
     return (
       <div>
         <div className="col-md-4">
-          <h2>All Conversations</h2>
+          <h2>Recent</h2>
           <div style={convoStyle}>
             {this.state.usersHistory}
           </div>
