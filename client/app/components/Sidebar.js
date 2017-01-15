@@ -28,7 +28,7 @@ const Sidebar = React.createClass({
       height: '80px',
       width: '80px',
       borderRadius: '50%',
-      border: '2px, solid, #000'
+      border: '2px, solid, #000',
     }
 
     const fontStyl = {
