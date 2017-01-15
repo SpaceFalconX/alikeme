@@ -30,7 +30,7 @@ var config = {
       {
         test: /\.css$/,
         include: path.join(__dirname, 'client'),
-        loaders: ['style-loader', 'css-loader']
+        loaders: ['style-loader']
       },
       {
         test: /\.(jpg|png)$/,
