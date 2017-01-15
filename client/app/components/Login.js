@@ -1,42 +1,31 @@
 import React from 'react'
 import {Link} from 'react-router'
 import {loginApiRequest, getFollowers, getFollowing} from '../actions/auth_actions.js'
-import {fetchUserPostsFromDb} from '../actions/post_actions.js'
+import {fetchUserPostsFromDb, fetchStarredPostsFromDb} from '../actions/post_actions.js'
 import {fetchCategories} from '../actions/category_actions.js'
+import {initUserMatches} from '../actions/match_actions.js'
 import {getWatsonData} from '../actions/watson_actions.js'
-
 
 const Login = React.createClass({
 	handleSubmit(e) {
 		e.preventDefault();
+		const {dispatch, router} = this.props
 		const username = this.refs.username.value;
 		const password = this.refs.password.value;
-		let userData = {username, password}
-		this.props.dispatch(loginApiRequest(userData))
+		const userData = {username, password}
+		dispatch(loginApiRequest(userData))
 		.then(() => {
-			if(this.props.user.isAuthenticated) {
-				this.props.dispatch(fetchUserPostsFromDb(username))
-				.then(() => {
-					this.props.dispatch(getFollowers(this.props.user.id))
-			    .then(()=> {
-			      this.props.dispatch(getFollowing(this.props.user.id))
-			      .then(() => {
-			      	window.localStorage.set
-							this.props.router.push({pathname:`/${username}`})
-			      })
-			    })
-				})
-				.catch((err) => {
-					console.log(err)
-				})
+			let {user} = this.props;
+			if(user.isAuthenticated) {
+				dispatch(fetchUserPostsFromDb(user.username))
+				.then(() => dispatch(getFollowers(user.id)))
+			  .then(() => dispatch(getFollowing(user.id)))
+			  .then(() => dispatch(fetchStarredPostsFromDb(user.id)))
+			  .then(() => dispatch(initUserMatches(user.username)))
+			  .then(() => router.push({pathname:`/${username}`}))
 			}
 		})
 		this.refs.loginForm.reset();
-	},
-
-	clicker(e) {
-		e.preventDefault()
-		console.log('cliked ', e )
 	},
 
 	render() {

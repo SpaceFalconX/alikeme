@@ -5,7 +5,7 @@ import moment from 'moment'
 import axios from 'axios'
 import UserPic from './userPicture.js'
 import StarButton from './StarButton.js'
-import {incrementStars} from '../actions/post_actions.js'
+import {toggleStar} from '../actions/post_actions.js'
 
 class Post extends React.Component {
 
@@ -20,6 +20,7 @@ class Post extends React.Component {
     .then(() => {
       console.log("isStarred afsdfsdfter", isStarred)
     })
+    this.props.dispatch(toggleStar(post.id, user.id, isStarred))
   }
 
   renderTags () {
@@ -45,7 +46,7 @@ class Post extends React.Component {
     return ( <Link to={'/matches/' + this.props.post.id}>
             click to view matches and edit</Link> )
 // =======
-//     if(this.props.post.user.username !== this.props.user.username) { 
+//     if(this.props.post.user.username !== this.props.user.username) {
 //       return (
 //         <Link to={'/profile/' + this.props.post.user.username}> click to view {this.props.post.user.username}'s profile</Link>
 //       )
@@ -83,9 +84,11 @@ class Post extends React.Component {
               <p><i>- {this.props.post.user.username}</i></p>
               <p>{this.matchORViewContext()}</p>
             </div>
+
           <div>
-            <StarButton incrementStars={this.toggle.bind(this)} {...this.props} />
+            <StarButton toggle={this.toggle.bind(this)} {...this.props} />
           </div>
+
           <div className="panel-body">
             <span className="glyphicon glyphicon-tags" aria-hidden="true" style={this.postStyle()}></span>
             <span>{this.renderTags()}</span>

@@ -1,4 +1,4 @@
-import {SET_MATCHES, CLEAR_MATCHES, INIT_PERSONALITY_MATCHES, CLEAR_PERSONALITY_MATCHES, INCREMENT_STARS, GET_MATCHES_TABLE, UPDATE_MATCHES_TABLE} from '../actions/index.js'
+import {SET_MATCHES, CLEAR_MATCHES, INIT_PERSONALITY_MATCHES, CLEAR_PERSONALITY_MATCHES, starredPostsJoin, GET_MATCHES_TABLE, UPDATE_MATCHES_TABLE} from '../actions/index.js'
 
 export function matches (state=[], action) {
   switch(action.type) {
@@ -6,7 +6,7 @@ export function matches (state=[], action) {
       return action.posts
     case CLEAR_MATCHES:
       return []
-    case INCREMENT_STARS:
+    case starredPostsJoin:
       console.log("STATE", state, action)
       let i = state.findIndex((post)=>
         post.id === action.postid

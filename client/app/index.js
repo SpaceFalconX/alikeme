@@ -14,7 +14,6 @@ import ProfileSetup from './components/ProfileSetup.js'
 import Login from './components/Login.js'
 import Browse from './components/Browse.jsx'
 import Matches from './components/Matches.js'
-import Edit from './components/Edit.js'
 import Settings from './components/Settings.js'
 import Navbar from './components/Navbar.js'
 import Message from './components/Message.js'
@@ -32,7 +31,6 @@ const Root = (
 				<Route path='/profile/:username' component={PublicProfile} />
         <Route path='/browse/:username(/:category)' component={Browse} />
 				<Route path='/matches/:postid' component={Matches} />
-				<Route path='/edit/:postid' component={Edit} />
 				<Route path='/editProfile/:username' component={Settings} />
 				<Route path='/:username' component={Profile} />
 			</Route>
