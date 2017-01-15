@@ -55,6 +55,6 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!')
 })
 
-app.listen(4000, () => (
+app.listen(process.env.PORT || 4000, () => (
 	console.log("App running on port 4000")
 ))
