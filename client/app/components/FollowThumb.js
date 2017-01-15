@@ -19,7 +19,8 @@ const FollowThumb = React.createClass({
       panel: {
         color: '#333333',
         'backgroundColor': '#ffffff',
-        'borderColor': '#e2e9e6'
+        'borderColor': '#e2e9e6',
+        'width': '280px'
       },
       panelFooter: {
         padding: '10px 15px',
@@ -30,6 +31,12 @@ const FollowThumb = React.createClass({
       }
     }
     // const {otherUser} = this.props.otherUser;
+    // <br/>
+    // <div className="pull-left">
+    //   <span><i className="fa fa-users"></i> 372 </span>
+    //   <span><i className="fa fa-photo"></i> 43 </span>
+    //   <span><i className="fa fa-video-camera"></i> 3 </span>
+    // </div>
     const {follower} = this.props;
     return (
           <div className="thumbnail" style={style.panel}>
@@ -42,12 +49,6 @@ const FollowThumb = React.createClass({
                   <h5 className="media-heading margin-v-5 pull-left">
                     <Link onClick={this.visitProfile}>@{follower.username}</Link>
                   </h5>
-                  <br/>
-                  <div className="pull-left">
-                    <span><i className="fa fa-users"></i> 372 </span>
-                    <span><i className="fa fa-photo"></i> 43 </span>
-                    <span><i className="fa fa-video-camera"></i> 3 </span>
-                  </div>
                 </div>
               </div>
             </div>

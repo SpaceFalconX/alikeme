@@ -1,3 +1,53 @@
+.postForm {
+  opacity: 1;
+  animation: showPostForm ease 0.75s
+}
+
+.postForm-NoAnimate {
+  opacity: 1
+}
+
+.postFormHidden {
+  height: 0;
+  opacity: 0;
+  animation: hidePostForm ease 0.75s
+}
+
+@keyframes hidePostForm {
+  from {
+    height: 220px;
+    opacity: 0.4;
+  }
+}
+
+@keyframes showPostForm {
+  from {
+    height: 0px;
+    opacity: 0;
+  }
+  to {
+    height: 220px;
+  }
+}
+
+.statBar {
+    height: 20px;
+    background-color: #c1c1c1;
+    margin: 5px;
+    border-radius: 5px;
+    animation: loadStats cubic-bezier(0.25,0.5,0.5,1.25) 1s;
+}
+
+@keyframes loadStats {
+    from {
+    	width: 0%;
+      background-color: #428bca;
+    }
+    to {
+    	width: 100%;
+    }
+}
+
 body {
   margin-top:20px;
 }

@@ -23,6 +23,10 @@ class Profile extends React.Component {
   }
 
   render () {
+    const followStyle = {
+      height: 400,
+      overflow: 'scroll'
+    }
     const posts = this.props.userPosts
     const {followers, following, username} = this.props.user;
     for(let prop in this.props.user) {
@@ -46,20 +50,25 @@ class Profile extends React.Component {
               }
             </div>
             <div className="col-md-4">
-              <h4>Following</h4>
-              {
-                this.props.user.following.map((follower, index)=>{
-                  return (<FollowThumb router={this.props.router} key={index} follower={follower}
-                    personalityMatches={this.props.personalityMatches} />)
-                })
-              }
-              <h4>Followers</h4>
-              {
-                this.props.user.followers.map((follower, index)=>{
-                  return (<FollowThumb router={this.props.router} key={index} follower={follower}
-                    personalityMatches={this.props.personalityMatches} />)
-                })
-              }
+
+              <h4>Following ({this.props.user.following.length})</h4>
+                <div style={followStyle}> 
+                  { 
+                    this.props.user.following.map((follower, index)=>{
+                      return (<FollowThumb router={this.props.router} key={index} follower={follower}
+                        personalityMatches={this.props.personalityMatches} />)
+                    })
+                  }
+                </div>
+              <h4>Followers ({this.props.user.followers.length})</h4>
+              <div style={followStyle}> 
+                {
+                  this.props.user.followers.map((follower, index)=>{
+                    return (<FollowThumb router={this.props.router} key={index} follower={follower}
+                      personalityMatches={this.props.personalityMatches} />)
+                  })
+                }
+              </div>
             </div>
           </div>
       </div>
