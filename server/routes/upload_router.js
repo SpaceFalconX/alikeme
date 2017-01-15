@@ -1,4 +1,5 @@
 const express = require('express');
+const http = require('http');
 const router = express.Router();
 
 const multer = require('multer');
@@ -26,13 +27,26 @@ router.post('/setUserName', (req, res) => {
 
 router.post('/uploadProfilePicture', upload, (req, res) => {
   cloudinary.v2.uploader.upload('profile_pictures/' + username + '.jpg', {public_id: username, invalidate: true}, function(err, result) {
-    if(err) {
-      return res.status(401).send(err);
-      console.log(err)
-    }
-    var testImg = cloudinary.image(username + '.jpg')
-    res.send(testImg)
+
+    res.sendStatus(200)
   });
+})
+
+router.post('/fetchProfilePicture', (req, res) => {
+  let username = req.body.username
+  console.log('USERNAME', username)
+  options = {method: 'HEAD', host: 'res.cloudinary.com', port: 80, path: '/isaacxpreston/image/upload/' + username + '.jpg'}
+  req = http.request(options, function(r) {
+      let validImage = !r.headers.status
+      if (validImage) {
+        console.log("it's valid")
+        res.send('http://res.cloudinary.com/isaacxpreston/image/upload/' + username + '.jpg')
+      } else {
+        console.log("it's not valid")
+        res.send("http://www.topcareer.jp/inter_blog/wp-content/uploads/100_100_empty.gif")
+      }
+  });
+  req.end()
 })
 
 module.exports = router

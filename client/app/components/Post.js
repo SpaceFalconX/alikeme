@@ -35,13 +35,6 @@ class Post extends React.Component {
     })
   }
 
-  usernameContext () {
-    if(this.props.post.username) {
-      return this.props.post.username
-    }
-    return this.props.post.user.username
-  }
-
   matchORViewContext () {
     if(this.props.params.username !== this.props.user.username) {
       return ( <span>MATCH ME UP!</span> )
@@ -51,6 +44,17 @@ class Post extends React.Component {
     }
     return ( <Link to={'/matches/' + this.props.post.id}>
             click to view matches and edit</Link> )
+// =======
+//     if(this.props.post.user.username !== this.props.user.username) { 
+//       return (
+//         <Link to={'/profile/' + this.props.post.user.username}> click to view {this.props.post.user.username}'s profile</Link>
+//       )
+//     } else {
+//       return (
+//         <Link to={'/matches/' + this.props.post.id}> click to view matches and edit</Link>
+//       )
+//     }
+// >>>>>>> styling
   }
 
   render () {
@@ -58,10 +62,12 @@ class Post extends React.Component {
       boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
       transition: '0.3s'
     }
+
     const MEDIA_BODY = {
       paddingLeft: 'inherit',
       paddingTop: 'inherit'
     }
+
     return (
         <div className="panel panel-default" style={POST_CSS}>
           <div className="panel-body">

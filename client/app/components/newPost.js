@@ -6,6 +6,11 @@ import {browserHistory, Link} from 'react-router'
 
 
 const NewPostForm = React.createClass({
+  componentWillMount () {
+    this.state = {
+      formClass: 'postForm-NoAnimate'
+    }
+  },
 
   postStyle () {
     return {margin: '0px 3px 0px 3px',}
@@ -48,37 +53,48 @@ const NewPostForm = React.createClass({
   },
 
   render() {
-    const FORM_CSS = {
-      paddingLeft: '20px'
-    }
     const TAG_CSS = {
       paddingBottom: '5px'
     }
+
+    const toggleForm = () => {
+      console.log("changing from", this.state)
+      if(this.state.formClass === 'postForm' || this.state.formClass === "postForm-NoAnimate") {
+        this.setState({formClass: 'postFormHidden'})
+      } else {
+        this.setState({formClass: 'postForm'})
+      }
+    }
+
     return (
         <div className="block">
-          <h5> Create a new Post</h5><hr/>
-          <form ref="newPostForm" onSubmit={this.handleSubmit}>
-          <div className ="form-group">
-            <input className="form-control" type="text" ref="title" placeholder="PostTitle"/>
+          <div onClick={toggleForm}>
+            <h5> Create a new Post</h5><hr/>
           </div>
-          <div className="form-group">
-            <textarea className="form-control" type="text" ref="content" placeholder="Content"/>
-          </div>
+          <div className={this.state.formClass}>
+            <form ref="newPostForm" onSubmit={this.handleSubmit}>
+              <div className ="form-group">
+                <input className="form-control" type="text" ref="title" placeholder="PostTitle"/>
+              </div>
               <div className="form-group">
-              <div style={TAG_CSS}>
-              {this.domTags()}
+                <textarea className="form-control" type="text" ref="content" placeholder="Content"/>
               </div>
-                <input className="form-inline" type="text" ref="tag" placeholder="Add a new tag"/>
-                <button className="btn btn-sm" onClick={this.addNewTag}>Add tag</button>
-                <label style={this.postStyle()}>Select a Category</label>
-                <select ref="category">
-                  {this.props.categories.map((category, index) => {
-                    return <option key={category.id}>{category.name}</option>
-                  })}
-                </select>
-              </div>
-          <input type="submit" className="btn btn-default" value="Submit Post" />
-          </form>
+                  <div className="form-group">
+                  <div style={TAG_CSS}>
+                  {this.domTags()}
+                  </div>
+                    <input className="form-inline" type="text" ref="tag" placeholder="Add a new tag"/>
+                    <button className="btn btn-sm" onClick={this.addNewTag}>Add tag</button>
+                    <label style={this.postStyle()}>Select a Category</label>
+                    <select ref="category">
+                      {this.props.categories.map((category, index) => {
+                        return <option key={category.id}>{category.name}</option>
+                      })}
+                    </select>
+                  </div>
+              <input type="submit" className="btn btn-default" value="Submit Post" />
+            </form>
+          </div>
         </div>
     )
   }
