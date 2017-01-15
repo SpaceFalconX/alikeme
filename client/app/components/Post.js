@@ -65,7 +65,7 @@ class Post extends React.Component {
             <div className="media-body" style={MEDIA_BODY}>
               <h4 className="list-group-item-heading">{this.props.post.title}</h4>
               <p className="list-group-item-text"><b>{this.props.post.content}</b></p>
-              <p><i>-{this.props.post.user.username}</i></p>
+              <p><i>- {this.props.post.user.username}</i></p>
               <p>{this.matchORViewContext()}</p>
             </div>
           <div>
@@ -75,7 +75,7 @@ class Post extends React.Component {
             <span className="glyphicon glyphicon-tags" aria-hidden="true" style={this.postStyle()}></span>
             <span>{this.renderTags()}</span>
             <span> Posted in
-              <Link className="badge">{this.props.post.category.name}</Link>
+              <Link className="badge" style={this.postStyle()}> {this.props.post.category.name} </Link>
             </span>
           </div>
         </div>
