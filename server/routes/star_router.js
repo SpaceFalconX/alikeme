@@ -18,6 +18,7 @@ router.get('/join/all', (req, res) => {
 // fetch join table data for specific users
 router.get('/join/:userid', (req, res) => {
   const userid = parseInt(req.params.userid, 10);
+  console.log("USERID", userid)
   PostStars.forge()
   .query({where: {user_id: req.params.userid}})
   .fetch()
@@ -52,9 +53,9 @@ router.post('/post',(req, res) => {
     .starredPosts()
     .attach(post)
     .then((user) => {
-      console.log("FLAG", flag)
-      flag < 0? post.attributes.stars_count-- :
-                post.attributes.stars_count++;
+      console.log("FLAG server", flag)
+      flag? post.attributes.stars_count++ :
+            post.attributes.stars_count--;
       post.save()
         .then((post) => res.send("Starred post!"), post.stars_count)
         .catch((err) => res.send(err))

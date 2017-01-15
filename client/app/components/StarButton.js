@@ -3,37 +3,29 @@ import {Link} from 'react-router'
 import CSSTransitionGroup from 'react-addons-css-transition-group' // ES6
 
 class StarButton extends React.Component {
-  // constructor(props) {
-  //   super();
-  //   this.state = { toggleStar: true}
-  // }
-  componentWillMount() {
 
-  }
-
-  toggle (e) {
-    const {post, user} = this.props;
-    this.props.dispatch(incrementStars(post.id, user.id, flag))
-    .then(() => {
-
-    })
-
-  }
+    // toggle (e) {
+    //   const {post, user} = this.props;
+    //   this.props.dispatch(incrementStars(post.id, user.id, flag))
+    //   .then(() => {
+    //     console.log("toggle")
+    //   })
+    // }
 
   render() {
     const {post, user} = this.props;
     //TODO: Add some conditional on rendering star button
     const starButton = (
-      <span onClick={this.toggle.bind(this)}>
-        <i className="glyphicon glyphicon-star">
+      <span onClick={this.props.incrementStars}>
+        <i className="glyphicon glyphicon-star-empty">
           <strong> {post.stars_count}</strong>
         </i>
       </span>
     )
 
     const unstarButton = (
-      <span onClick={this.toggle.bind(this)}>
-        <i className="glyphicon glyphicon-heart">
+      <span onClick={this.props.incrementStars}>
+        <i className="glyphicon glyphicon-star">
           <strong> {post.stars_count}</strong>
         </i>
       </span>
@@ -56,7 +48,9 @@ class StarButton extends React.Component {
             <span key={post.id}></span>
           </CSSTransitionGroup>
         </div>
-        {post.user.username === user.username? userPostView : starButton}
+        { post.user.username === user.username? userPostView :
+          post.isStarred? unstarButton : starButton
+        }
       </div>
     )
   }

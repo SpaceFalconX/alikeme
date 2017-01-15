@@ -1,4 +1,4 @@
-import {SHOW_FOLLOWERS, SHOW_FOLLOWING, FOLLOW_USER, SET_USER} from '../actions/index.js'
+import {SHOW_FOLLOWERS, SHOW_FOLLOWING, FOLLOW_USER, SET_USER, UPDATE_STARRED_POSTS} from '../actions/index.js'
 
 function addToFollowingList (state={}, action) {
 	switch(action.type) {
@@ -10,7 +10,6 @@ function addToFollowingList (state={}, action) {
 	return state;
 }
 
-
 export function auth (state={}, action) {
 	switch(action.type) {
 		case SET_USER:
@@ -21,6 +20,11 @@ export function auth (state={}, action) {
 				{ following: []}
 			);
 
+		case UPDATE_STARRED_POSTS:
+			return state;
+			// return Object.assign({}, state, state.user,
+			// 	{starredPosts: }
+			// )
 		case FOLLOW_USER:
 			return Object.assign(
 				{}, state, state.user,

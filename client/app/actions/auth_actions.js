@@ -1,7 +1,7 @@
 import axios from 'axios'
 import setAuthorizationToken from '../utils/setAuthorizationToken.js'
 import jwt from 'jsonwebtoken'
-import {SET_USER, LOGOUT_USER, FOLLOW_USER, SHOW_FOLLOWERS, SHOW_FOLLOWING} from './index.js';
+import {SET_USER, LOGOUT_USER, FOLLOW_USER, SHOW_FOLLOWERS, SHOW_FOLLOWING, UPDATE_STARRED_POSTS} from './index.js';
 
 export function setUser (user) {
 	return {

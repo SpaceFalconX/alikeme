@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST,FETCH_ALL_POSTS, FETCH_USER_POSTS, FETCH_PUBLIC_POSTS, FILTER_POSTS, CLEAR_POSTS, INCREMENT_STARS, GET_STARRED_POSTS} from './index.js'
+import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST,FETCH_ALL_POSTS, FETCH_USER_POSTS, FETCH_PUBLIC_POSTS, FILTER_POSTS, CLEAR_POSTS, INCREMENT_STARS, GET_STARRED_POSTS, UPDATE_STARRED_POSTS} from './index.js'
 
 export function createPost(newPost) {
 	return {
@@ -51,19 +51,31 @@ export function increment(postid, userid, flag) {
 	}
 }
 
-export function fetchStarredPosts(starredPostsId) {
+export function fetchStarredPosts(userid, starredPostsJoin) {
 	return {
 		type: GET_STARRED_POSTS,
-		starredPostsId
+		userid,
+		starredPostsJoin
 	}
 }
 
-export function fetchStarredPostsFromDb(postid, userid, flag) {
+export function updateStarredPosts(userid, posts, starredPosts) {
+	return {
+		type: UPDATE_STARRED_POSTS,
+		userid,
+		posts,
+		starredPosts
+	}
+}
+
+export function fetchStarredPostsFromDb(userid) {
 	return (dispatch) => {
-		return axios.get(`/api/star/join/all`)
+		return axios.get(`/api/star/join/${userid}`)
 		.then(({data}) => {
-			console.log("data", data)
-			dispatch(fetchStarredPosts(data))
+			console.log("userid", userid)
+			console.log("DATA", data)
+			dispatch(fetchStarredPosts(userid, data));
+			// dispatch(updateStarredPosts(userid, data));
 		})
 		.catch((err)=> {console.log(err)})
 	}
@@ -72,8 +84,8 @@ export function incrementStars(postid, userid, flag) {
 	return (dispatch) => {
 		return axios.post(`/api/star/post`, {postid, userid, flag} )
 		.then((resp) => {
-			if(!flag) { flag = -1; }
-			if(flag) { flag = 1; }
+			flag = !flag
+			console.log("FLAG AFTER ACTION", flag)
 			dispatch(increment(postid, userid, flag ))
 		})
 		.catch((err)=> {console.log(err)})
@@ -98,6 +110,7 @@ export function fetchUserPostsFromDb(username) {
 		return axios.get(`/api/post/${username}`, )
 		.then((resp) => {
 			dispatch(fetchUserPosts(resp.data))
+	 		// dispatch(updateStarredPosts(userid, data));
 		})
 		.catch((err)=> {console.log(err)})
 	}

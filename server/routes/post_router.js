@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
 		for(let i = 0; i < result.length; i++) {
 				result[i] = _.pick(result[i],
 					['title', 'created_at', 'updated_at', 'content', 'id',
-					 'user.username', 'user.id', 'category.id', 'category.name', 'tags', 'stars_count', 'stars' ]
+					 'user.username', 'user.id', 'catxegory.id', 'category.name', 'tags', 'stars_count', 'stars' ]
 					)
 				for(let j = 0; j < result[i].tags.length; j++) {
 					delete result[i].tags[j]['_pivot_id'];

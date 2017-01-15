@@ -21,10 +21,11 @@ const Main = React.createClass({
 		if(localStorage.token) {
 		  setAuthorizationToken(localStorage.token);
 		  const decoded = jwt.decode(localStorage.token)
+		  console.log("DECODED", decoded)
 			Promise.join(
 		    this.props.dispatch(setUser(decoded.user)),
 		    this.props.dispatch(fetchUserPostsFromDb(decoded.user.username)),
-		    this.props.dispatch(fetchStarredPostsFromDb(decoded.user.username)),
+		    this.props.dispatch(fetchStarredPostsFromDb(decoded.user.id)),
 		    this.props.dispatch(getFollowers(decoded.user.id)),
 		    this.props.dispatch(getFollowing(decoded.user.id)),
 		    this.props.dispatch(initUserMatches(decoded.user.username))
