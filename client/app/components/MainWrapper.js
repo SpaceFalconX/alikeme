@@ -36,6 +36,7 @@ const Main = React.createClass({
 			//listen for starring, following, and messaging
 			//use history to display notifications in seperate view
 		}
+<<<<<<< HEAD
 		const currentLocation = this.props.location.pathname
 		if(!this.props.user.isAuthenticated && currentLocation !== '/'
 			 && currentLocation !== '/login') {
@@ -56,10 +57,25 @@ const Main = React.createClass({
 					{ React.cloneElement(this.props.children, this.props) }
 			  </div>
 		)
+=======
+		// const currentLocation = this.props.location.pathname
+		// if(!this.props.user.isAuthenticated && currentLocation !== '/'
+		// 	 && currentLocation !== '/login') {
+		// 	this.props.router.push({pathname: '/login'})
+		// }
+	},
+
+	render() {
+>>>>>>> fixed auth and router bugs
 		return (
-      <div>
-				{signedInUser}
-     </div>
+			<div>
+				<h1>
+					<Link to="/">aLike.me</Link>
+				</h1>
+				<Navbar user={this.props.user} dispatch={this.props.dispatch}/>
+				<Sidebar user={this.props.user} dispatch={this.props.dispatch}/>
+				{ React.cloneElement(this.props.children, this.props) }
+			</div>
 		)
 	}
 })

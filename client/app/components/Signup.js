@@ -5,11 +5,11 @@ import {getWatsonTwitterData} from '../actions/watson_actions.js'
 
 const Signup = React.createClass({
 
-	componentWillReceiveProps (nextProps) {
-		if(nextProps.user.isAuthenticated) {
-			this.props.router.push('/suggestions/' + nextProps.user.username)
-		}
-	},
+	// componentWillReceiveProps (nextProps) {
+	// 	if(nextProps.user.isAuthenticated) {
+	// 		this.props.router.push('/setup/' + nextProps.user.username)
+	// 	}
+	// },
 
 	handleSubmit(e) {
 		e.preventDefault();
@@ -19,8 +19,6 @@ const Signup = React.createClass({
 		const twitterLink = this.refs.twitter.value;
 		let userData = { username, email, password, twitterLink };
 		let { user, router } = this.props
-		this.props.dispatch(signupApiRequest(userData))
-// =======
 // 		this.props.dispatch(getWatsonTwitterData(twitterLink)).then((res) => {
 // 			const agreeableness = res.agreeableness
 // 			const conscientiousness = res.conscientiousness
@@ -37,6 +35,11 @@ const Signup = React.createClass({
 // 			})
 // 		})
 // >>>>>>> minor changes
+		this.props.dispatch(signupApiRequest(userData)).then(() => {
+			if(this.props.user.isAuthenticated) {
+				this.props.router.push('/setup/' + this.props.user.username)
+			}
+		})
 	},
 
 	render() {
