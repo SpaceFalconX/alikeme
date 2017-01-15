@@ -4,11 +4,8 @@ import {browserHistory, Link} from 'react-router';
 import moment from 'moment'
 import axios from 'axios'
 import UserPic from './userPicture.js'
-<<<<<<< HEAD
 import StarButton from './StarButton.js'
-=======
 import {incrementStars} from '../actions/post_actions.js'
->>>>>>> fetche starred posts matches
 
 class Post extends React.Component {
 

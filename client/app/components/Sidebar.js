@@ -67,8 +67,7 @@ const Sidebar = React.createClass({
 	 const loggedInView = (
 			<div className="col-md-2">
         <div style={fontStyl}>
-			    <img src={this.state.profilePicture} style={imgStyle} onError={handleError} />
-          <p> <h3> Hello {this.props.user.username}!</h3> </p>
+          <h3> Hello {this.props.user.username}!</h3>
            <p style={locationStyl}> <small> location set to: <br/> San Francisco, CA </small> </p>
           <h4> Stats <small title="The normalized percentile score for the characteristic. The range is 0 to 100. For example, if the percentage for Openness is 25%, the author scored in the 25th percentile; the author is more open than 24% of the population and less open than 74% of the population."> *%percentile </small> </h4>
           <p> <strong> Openness: </strong> { +(this.props.user.openness * 100).toFixed(0) || ' ' }% </p>
@@ -77,19 +76,19 @@ const Sidebar = React.createClass({
           <p> <strong> Emotional range: </strong> { +(this.props.user.emotionalRange * 100).toFixed(0) || ' ' }% </p>
         </div>
       </div>
-	 )
+   )
 
-	 const noSideView = (
-			<div className="col-md-2">
-				<div className="jumbotron">
+   const noSideView = (
+      <div className="col-md-2">
+        <div className="jumbotron">
           WELCOME TO aLike.me
 
-				</div>
-			</div>
-	 )
+        </div>
+      </div>
+   )
 
     return (
-      <div>	{ isAuthenticated ? loggedInView : '' } </div>
+      <div> { isAuthenticated ? loggedInView : '' } </div>
     )
   }
 })
@@ -99,3 +98,4 @@ export default Sidebar;
 
 
 
+			    // <img src={this.state.profilePicture} style={imgStyle} onError={handleError} />

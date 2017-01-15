@@ -15,6 +15,28 @@ class Browse extends React.Component {
       filtering: false
     }
   }
+    filter (e) {
+    e.preventDefault()
+    if(!this.state.filtering){
+      this.props.dispatch(clearPosts()) //clear initial all results to prevent dupes
+      this.setState({filtering: true})
+    }
+
+    let search = this.props.categories.filter((category) => {
+      return this.refs.search.value === category.name
+    })[0]
+
+    if(!search && this.state.filter.indexOf(this.refs.search.value) === -1) {
+      this.props.dispatch(filterTagsfromDb(this.refs.search.value))
+    }
+
+    if(search && this.state.filter.indexOf(this.refs.search.value) === -1){
+      this.props.dispatch(filterPostsFromDb(search.id))
+    }
+
+    this.setState({filter: this.state.filter.concat(this.refs.search.value)})
+    this.refs.search.value = "";
+  }
 
   componentWillMount() {
     this.props.dispatch(fetchPostsFromDb())
@@ -83,25 +105,4 @@ class Browse extends React.Component {
 
 export default Browse;
 
-  // filter (e) {
-  //   e.preventDefault()
-  //   if(!this.state.filtering){
-  //     this.props.dispatch(clearPosts()) //clear initial all results to prevent dupes
-  //     this.setState({filtering: true})
-  //   }
 
-  //   let search = this.props.categories.filter((category) => {
-  //     return this.refs.search.value === category.name
-  //   })[0]
-
-  //   if(!search && this.state.filter.indexOf(this.refs.search.value) === -1) {
-  //     this.props.dispatch(filterTagsfromDb(this.refs.search.value))
-  //   }
-
-  //   if(search && this.state.filter.indexOf(this.refs.search.value) === -1){
-  //     this.props.dispatch(filterPostsFromDb(search.id))
-  //   }
-
-  //   this.setState({filter: this.state.filter.concat(this.refs.search.value)})
-  //   this.refs.search.value = "";
-  // }
