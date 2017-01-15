@@ -54,8 +54,26 @@ router.post('/post',(req, res) => {
     .attach(post)
     .then((user) => {
       console.log("FLAG server", flag)
-      flag? post.attributes.stars_count++ :
-            post.attributes.stars_count--;
+      post.attributes.stars_count++;
+      post.save()
+        .then((post) => res.send("Starred post!"), post.stars_count)
+        .catch((err) => res.send(err))
+    })
+  ))
+  .catch((err) => res.send(err))
+})
+
+router.post('/post/unstar',(req, res) => {
+  const {postid, userid, flag} = req.body;
+  new Post({id: postid})
+  .fetch()
+  .then((post) => (
+    new User({id: userid})
+    .starredPosts()
+    .detach(post)
+    .then((user) => {
+      console.log("FLAG server", flag)
+      post.attributes.stars_count--;
       post.save()
         .then((post) => res.send("Starred post!"), post.stars_count)
         .catch((err) => res.send(err))
