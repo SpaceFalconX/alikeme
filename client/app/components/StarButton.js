@@ -1,17 +1,42 @@
 import React from 'react'
 import {Link} from 'react-router'
-import {incrementStars} from '../actions/post_actions.js'
 import CSSTransitionGroup from 'react-addons-css-transition-group' // ES6
 
-const StarButton = React.createClass({
-  starPost (e) {
-    console.log("event")
-    const {post, user} = this.props;
-    this.props.dispatch(incrementStars(post.id, user.id))
-  },
+class StarButton extends React.Component {
+
+    // toggle (e) {
+    //   const {post, user} = this.props;
+    //   this.props.dispatch(incrementStars(post.id, user.id, flag))
+    //   .then(() => {
+    //     console.log("toggle")
+    //   })
+    // }
 
   render() {
     const {post, user} = this.props;
+    const starButton = (
+      <span onClick={this.props.incrementStars}>
+        <i className="glyphicon glyphicon-star-empty">
+          <strong> {post.stars_count}</strong>
+        </i>
+      </span>
+    )
+
+    const unstarButton = (
+      <span onClick={this.props.incrementStars}>
+        <i className="glyphicon glyphicon-star">
+          <strong> {post.stars_count}</strong>
+        </i>
+      </span>
+    )
+
+    const userPostView = (
+      <div>
+        <p><strong> {post.stars_count}</strong> people alike you starred your post!</p>
+      </div>
+      //TODO: show user's profile's with link tags.. underneath to click on their posts
+    )
+
     return (
       <div>
         <div>
@@ -19,15 +44,15 @@ const StarButton = React.createClass({
             transitionName="star"
             transitionEnterTimeout={500}
             transitionLeaveTimeout={500}>
-            <span key={post.id}><strong>{post.stars_count}</strong></span>
+            <span key={post.id}></span>
           </CSSTransitionGroup>
         </div>
-        <button onClick={this.starPost}>
-          <span className="glyphicon glyphicon-star"><strong>{post.stars_count}</strong></span>
-        </button>
+        { post.user.username === user.username? userPostView :
+          post.isStarred? unstarButton : starButton
+        }
       </div>
     )
   }
-})
+}
 
 export default StarButton;

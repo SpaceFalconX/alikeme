@@ -24,17 +24,11 @@ const enhancers = compose(
 
 // Store Creation
 const store = createStore(reducer, enhancers);
-// if(localStorage.token) {
-//   setAuthorizationToken(localStorage.token);
-//   const decoded = jwt.decode(localStorage.token)
-// 	Promise.join(
-//     store.dispatch(setUser(decoded.user)),
-//     store.dispatch(fetchUserPostsFromDb(decoded.user.username)),
-//     store.dispatch(getFollowers(decoded.user.id)),
-//     store.dispatch(getFollowing(decoded.user.id)),
-//     store.dispatch(initUserMatches(decoded.user.username))
-//   ).then(() => (console.log("success")))
-// }
+if(localStorage.token) {
+  setAuthorizationToken(localStorage.token);
+  const decoded = jwt.decode(localStorage.token)
+  store.dispatch(setUser(decoded.user))
+}
 
 //Hot reload Redux reducers
 if(module.hot) {

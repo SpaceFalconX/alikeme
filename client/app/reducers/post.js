@@ -1,4 +1,5 @@
-import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS, FETCH_PUBLIC_POSTS, INCREMENT_STARS} from '../actions/index.js'
+import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS, FETCH_PUBLIC_POSTS, INCREMENT_STARS, GET_STARRED_POSTS, UPDATE_STARRED_POSTS} from '../actions/index.js'
+import _ from 'underscore';
 
 export function createNewPost (action) {
 	const { user_id, username, category, category_id, id, content, title, tags, created_at, updated_at} = action;
@@ -21,6 +22,19 @@ export function createNewPost (action) {
   }
 }
 
+
+export function starredPosts (state=[], action) {
+  switch(action.type) {
+    case GET_STARRED_POSTS:
+      console.log("STARRED", action)
+      return [].concat(action.starredPostsJoin)
+    default :
+      return state;
+  }
+  return state;
+}
+
+
 export function userPosts (state=[], action) {
   switch(action.type) {
     case CREATE_NEW_POST:
@@ -36,15 +50,17 @@ export function userPosts (state=[], action) {
 
 
 export function publicPosts (state=[], action) {
-  // console.log("STATE", state, "ACTION", action)
   switch(action.type) {
     case INCREMENT_STARS:
       let i = state.findIndex((post)=> post.id === action.postid)
+      console.log("state[i].stars_count + action.flag", 10 + action.flag)
       if(i === -1) {
         return state;
       }
       return  [...state.slice(0, i),
-              {...state[i], stars_count: state[i].stars_count + 1},
+              { ...state[i],
+                stars_count: state[i].stars_count + action.flag
+              },
               ...state.slice(i + 1)
               ];
     case FETCH_PUBLIC_POSTS:
@@ -56,17 +72,37 @@ export function publicPosts (state=[], action) {
 }
 
 
-
 export function allPosts (state=[], action) {
   switch(action.type) {
+    case UPDATE_STARRED_POSTS:
+      console.log("UPDATE_STARRED_POSTS", action)
+      const {userid, posts, starredPosts} = action;
+      return posts.map((post) => {
+        for(var i = 0; i < starredPosts.length; i++) {
+          if(post.id === starredPosts[i].star_id) {
+            post.isStarred = true;
+            return post;
+          }
+        }
+        post.isStarred = false;
+        return post;
+      })
     case INCREMENT_STARS:
       let i = state.findIndex((post) => post.id === action.postid)
       if(i === -1) {
           return state;
       }
-      console.log("STATE", i)
+      if(!action.flag) {
+        var operation = -1;
+      } else {
+        var operation = 1;
+      }
+      console.log("ACTION.FLAG number", 10 + action.flag)
       return  [...state.slice(0, i),
-              {...state[i], stars_count: state[i].stars_count + 1},
+              {...state[i],
+                stars_count: state[i].stars_count + operation,
+                isStarred: action.flag
+              },
               ...state.slice(i + 1)
               ];
     case FETCH_ALL_POSTS:

@@ -58,7 +58,7 @@ const FriendsList = React.createClass({
                     <Link onClick={this.visitProfile}> Match: {username}</Link>
                   </h4>
                   <h4 className="media-heading margin-v-5 pull-right">
-                    <a href="#">{Math.abs(Math.round((1 - distance) * 100))}%</a>
+                    <a href="#">{Math.abs(Math.round((1 - distance/5) * 100))}%</a>
                   </h4>
                 </div>
               </div>

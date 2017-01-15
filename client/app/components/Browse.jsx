@@ -3,7 +3,7 @@ import Post from './Post.js'
 import {connect} from 'react-redux';
 import {Link} from 'react-router'
 import {fetchCategories} from '../actions/category_actions.js'
-import { fetchPostsFromDb, filterPosts, filterTagsfromDb, clearPosts} from '../actions/post_actions.js'
+import { fetchPostsFromDb, filterPosts, filterTagsfromDb, clearPosts, updateStarredPosts} from '../actions/post_actions.js'
 import NewPostForm from './NewPost.js'
 
 class Browse extends React.Component {
@@ -15,15 +15,7 @@ class Browse extends React.Component {
       filtering: false
     }
   }
-
-  componentWillMount() {
-    this.props.dispatch(fetchPostsFromDb());
-    if(this.props.categories.length === 0) {
-      this.props.dispatch(fetchCategories());
-    }
-  }
-
-  filter (e) {
+    filter (e) {
     e.preventDefault()
     if(!this.state.filtering){
       this.props.dispatch(clearPosts()) //clear initial all results to prevent dupes
@@ -46,13 +38,24 @@ class Browse extends React.Component {
     this.refs.search.value = "";
   }
 
+  componentWillMount() {
+    this.props.dispatch(fetchPostsFromDb())
+    .then(()=> {
+      console.log("BROWSE", this.props.allPosts)
+      this.props.dispatch(updateStarredPosts(this.props.user.id, this.props.allPosts, this.props.starredPosts ))
+    })
+  }
+
+
   clearFilter () {
     this.setState({filter: [], filtering: false})
     this.props.dispatch(fetchPostsFromDb())
   }
 
   render () {
-    const {category} = this.props.params
+    console.log("ALLPOSTS", this.props.allPosts)
+    const {personalityMatches, user, params, dispatch} = this.props;
+    const {category} = params;
     const filtered = category === undefined ? this.props.allPosts :
     this.props.allPosts.filter(post => post.category.name === category);
     const CARDS = {
@@ -87,17 +90,19 @@ class Browse extends React.Component {
           <div className="row">
             { filtered.map((post, index) => {
                 return (
-                  <Post key={index} dispatch={this.props.dispatch}
-                    post={post} user={this.props.user} />
+                  <Post personalityMatches={personalityMatches} user={user} params={params}
+                  dispatch={dispatch} key={index} post={post} />
                 )
               })
             }
           </div>
          </div>
        </div>
-      </div>
+        </div>
     )
   }
 }
 
 export default Browse;
+
+

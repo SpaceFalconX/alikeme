@@ -4,11 +4,11 @@ module.exports = (text) => {
   return new Promise ((resolve, reject) => {
     personality_insights.profile({ text: text }, (err, result) => {
       if(err) {
-        reject(err)
+        resolve(false)
       }
       if (!result) {
         console.log("RESULT NULL", result)
-        reject(result)
+        resolve(false)
       }
       else {
         personality = {};

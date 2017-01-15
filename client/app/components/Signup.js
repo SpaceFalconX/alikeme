@@ -4,10 +4,10 @@ import {signupApiRequest, signupUser} from '../actions/auth_actions.js'
 import {getWatsonTwitterData} from '../actions/watson_actions.js'
 
 const Signup = React.createClass({
-	
+
 	componentWillReceiveProps (nextProps) {
 		if(nextProps.user.isAuthenticated) {
-			browserHistory.push('/' + nextProps.user.username)
+			this.props.router.push('/suggestions/' + nextProps.user.username)
 		}
 	},
 
@@ -17,21 +17,9 @@ const Signup = React.createClass({
 		const email = this.refs.email.value;
 		const password = this.refs.password.value;
 		const twitterLink = this.refs.twitter.value;
-		this.props.dispatch(getWatsonTwitterData(twitterLink)).then((res) => {
-			const agreeableness = res.agreeableness
-			const conscientiousness = res.conscientiousness
-			const emotionalRange = res.emotionalRange
-			const extraversion = res.extraversion
-			const openness = res.openness
-			let userData = {
-				username, email, password, twitterLink,
-				agreeableness, conscientiousness, emotionalRange, extraversion, openness
-			}
-			let {user, router} = this.props
-			this.props.dispatch(signupApiRequest(userData)).then(()=> {
-				router.push({pathname:`/setup/${user.username}`})
-			})
-		})
+		let userData = { username, email, password, twitterLink };
+		let {user, router} = this.props
+		this.props.dispatch(signupApiRequest(userData))
 	},
 
 	render() {

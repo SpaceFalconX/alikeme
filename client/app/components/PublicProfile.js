@@ -10,14 +10,12 @@ class PublicProfile extends React.Component {
     this.props.dispatch(fetchPublicPostsFromDb(this.props.params.username))
   }
   userPosts () {
-    const {personalityMatches, user} = this.props;
-    return this.props.publicPosts.map((post) => {
-      return (
-        <Post personalityMatches={personalityMatches} user={user}
-          dispatch={this.props.dispatch} key={post.id} post={post}
-        />
+    const {personalityMatches, user, params, dispatch} = this.props;
+    return this.props.publicPosts.map((post) =>
+      ( <Post personalityMatches={personalityMatches} user={user} params={params}
+        dispatch={dispatch} key={post.id} post={post} />
       )
-    })
+    )
   }
 
   render () {

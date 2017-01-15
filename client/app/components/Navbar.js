@@ -16,7 +16,8 @@ const Navbar = React.createClass({
 				<li><Link to={'/'+this.props.user.username}>Profile</Link></li>
 				<li><Link to={'/message/'+ this.props.user.username}>Message</Link></li>
 				<li><Link to={'/settings/'+this.props.user.username}>Settings</Link></li>
-				<li onClick={this.logout.bind(null, this)}><a href='/'>Logout</a></li>
+				<li><Link to={'/setup/'+this.props.user.username}>Setup</Link></li>
+				<li onClick={this.logout.bind(null, this)}><Link to='/login'>Logout</Link></li>
 			</ul>
 		);
 

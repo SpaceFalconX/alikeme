@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST,FETCH_ALL_POSTS, FETCH_USER_POSTS, FETCH_PUBLIC_POSTS, FILTER_POSTS, CLEAR_POSTS, INCREMENT_STARS} from './index.js'
+import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST,FETCH_ALL_POSTS, FETCH_USER_POSTS, FETCH_PUBLIC_POSTS, FILTER_POSTS, CLEAR_POSTS, INCREMENT_STARS, GET_STARRED_POSTS, UPDATE_STARRED_POSTS} from './index.js'
 
 export function createPost(newPost) {
 	return {
@@ -42,34 +42,92 @@ export function clearPosts () {
 	}
 }
 
-export function increment(postid, userid) {
-	console.log("postid, userid", postid, userid)
+export function increment(postid, userid, flag) {
 	return {
 		type: INCREMENT_STARS,
 		postid,
-		userid
+		userid,
+		flag
 	}
 }
 
+// export function incrementMatch(postid, userid, flag) {
+// 	return {
+// 		type: INCREMENT_STARS,
+// 		postid,
+// 		userid,
+// 		flag
+// 	}
+// }
 
-export function incrementStars(postid, userid) {
-	console.log("{postid, userid}", {postid, userid})
+export function fetchStarredPosts(userid, starredPostsJoin) {
+	return {
+		type: GET_STARRED_POSTS,
+		userid,
+		starredPostsJoin
+	}
+}
+
+export function updateStarredPosts(userid, posts, starredPosts) {
+	return {
+		type: UPDATE_STARRED_POSTS,
+		userid,
+		posts,
+		starredPosts
+	}
+}
+
+export function fetchStarredPostsFromDb(userid) {
 	return (dispatch) => {
-		return axios.post(`/api/star/post/`, {postid, userid} )
-		.then((resp) => {
-			console.log("RESP", resp)
-			dispatch(increment(postid, userid))
+		return axios.get(`/api/star/join/${userid}`)
+		.then(({data}) => {
+			console.log("userid", userid)
+			console.log("DATA", data)
+			dispatch(fetchStarredPosts(userid, data));
+			// dispatch(updateStarredPosts(userid, data));
 		})
 		.catch((err)=> {console.log(err)})
 	}
 }
+export function incrementStars(postid, userid, flag) {
+	return (dispatch) => {
+		if(flag) {
+			var url = `/api/star/post/unstar`
+		} else {
+			var url = `/api/star/post`
+		}
+		return axios.post(url, {postid, userid, flag} )
+		.then((resp) => {
+			flag = !flag
+			console.log("FLAG AFTER ACTION", flag)
+			dispatch(increment(postid, userid, flag ))
+		})
+		.catch((err)=> {console.log(err)})
+	}
+}
+
+// export function incrementStarsMatch(postid, userid, flag) {
+// 	return (dispatch) => {
+// 		if(flag) {
+// 			var url = `/api/star/post/unstar`
+// 		} else {
+// 			var url = `/api/star/post`
+// 		}
+// 		return axios.post(url, {postid, userid, flag} )
+// 		.then((resp) => {
+// 			flag = !flag
+// 			console.log("FLAG AFTER ACTION", flag)
+// 			dispatch(incrementMatch(postid, userid, flag ))
+// 		})
+// 		.catch((err)=> {console.log(err)})
+// 	}
+// }
 
 export function submitNewPost (newPost) {
 	return (dispatch) => {
 		return axios.post('/api/post/new', newPost)
 		.then(({data}) => {
 			let result = {...newPost, ...data}
-			console.log("RESULT NEWWWW", result)
 			dispatch(createPost(result))
 		})
 		.catch((err) => {
@@ -83,6 +141,7 @@ export function fetchUserPostsFromDb(username) {
 		return axios.get(`/api/post/${username}`, )
 		.then((resp) => {
 			dispatch(fetchUserPosts(resp.data))
+	 		// dispatch(updateStarredPosts(userid, data));
 		})
 		.catch((err)=> {console.log(err)})
 	}

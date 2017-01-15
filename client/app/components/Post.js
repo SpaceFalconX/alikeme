@@ -5,11 +5,21 @@ import moment from 'moment'
 import axios from 'axios'
 import UserPic from './userPicture.js'
 import StarButton from './StarButton.js'
+import {incrementStars} from '../actions/post_actions.js'
 
 class Post extends React.Component {
-  
+
   postStyle () {
     return {margin: '0px 3px 0px 3px',}
+  }
+
+  toggle (e) {
+    const {post, user} = this.props;
+    const {isStarred} = post;
+    this.props.dispatch(incrementStars(post.id, user.id, isStarred))
+    .then(() => {
+      console.log("isStarred after", isStarred)
+    })
   }
 
   renderTags () {
@@ -33,15 +43,14 @@ class Post extends React.Component {
   }
 
   matchORViewContext () {
-    if(this.props.contextUser && this.props.contextUser !== this.usernameContext()) { 
-      return (
-        <Link to={'/profile/' + this.props.post.user.username}> click to view
-        {this.props.post.username}'s profile</Link>
-      )
+    if(this.props.params.username !== this.props.user.username) {
+      return ( <span>MATCH ME UP!</span> )
+    } else if (this.props.user.username !== this.props.post.user.username) {
+      return ( <Link to={'/profile/' + this.props.post.user.username}>
+              click to view {this.props.post.username}'s profile</Link> )
     }
-    return (
-      <Link to={'/matches/' + this.props.post.id}> click to view matches and edit</Link>
-    )
+    return ( <Link to={'/matches/' + this.props.post.id}>
+            click to view matches and edit</Link> )
   }
 
   render () {
@@ -69,7 +78,7 @@ class Post extends React.Component {
               <p>{this.matchORViewContext()}</p>
             </div>
           <div>
-            <StarButton {...this.props} />
+            <StarButton incrementStars={this.toggle.bind(this)} {...this.props} />
           </div>
           <div className="panel-body">
             <span className="glyphicon glyphicon-tags" aria-hidden="true" style={this.postStyle()}></span>

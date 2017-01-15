@@ -8,7 +8,6 @@ import FriendsList from './FriendsList.js'
 
 const ProfileSetup = React.createClass({
 	componentWillMount() {
-		console.log("profile setup - will mount")
 		if(!this.props.personalityMatches.length) {
 			this.props.dispatch(initUserMatches(this.props.user.username))
 		}
@@ -55,33 +54,3 @@ const ProfileSetup = React.createClass({
 })
 
 export default ProfileSetup;
-
-
-
-	// selectPref (preference) {
-	// 	this.props.preferences[preference] = !this.props.preferences[preference];
-	// },
-
-	// savePref() {
-	// 	this.props.dispatch(preferencesApiRequest(this.props.preferences, this.props.params.username))
-	// },
-
-// <div>
-// 				<h2>ProfileSetup</h2><hr/>
-// 				<div className="block">
-// 					<h3> Hello {this.props.user.username}!</h3>
-// 					<h4> Why are you here?</h4>
-// 				</div>
-
-// 				<div className="col-md-8">
-// 					{preferences.map((pref, i) => {
-// 						return (
-// 								<div key={i} onClick={this.selectPref.bind(null, pref)} className="list-group-item col-md-4">
-// 									{preferences[pref]}
-// 									<h3><span className="label label-default">{pref}</span></h3>
-// 								</div>
-// 							)
-// 					})}
-// 					<button onClick={this.savePref.bind(null, this.props.preferences)} className="btn btn-primary">Save Settings</button>
-// 				</div>
-// 			</div>

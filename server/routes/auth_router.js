@@ -13,26 +13,40 @@ const Users = require('../database/collections/users.js');
 const router = express.Router();
 
 router.post('/signup', (req, res) => {
-	const {
-		username, password, email, twitterLink, facebookLink,
-		agreeableness, conscientiousness, emotionalRange, extraversion, openness
-	} = req.body
+	const { username, password, email, twitterLink} = req.body
 	new User ({username: username})
 	.fetch()
 	.then((user) => {
 		if(user) {
-			return res.sendStatus(401);
+			return res.status(401).send("SIGNUP ERROR USER EXISTS");
 		} else {
-			const newUser = new User({
-				username, email, password, twitterLink, facebookLink,
-				agreeableness, conscientiousness, emotionalRange, extraversion, openness
-			})
-			.save()
-			.then((user) => {
-				const token = generateToken(user);
-				console.log(`SIGNUP SUCCESS: ${user.get('username')}`)
-				res.status(201).send({token});
-			})
+			const options = {
+				screen_name: twitterLink,
+				include_rts: false,
+				count: 100
+			}
+			getTwitterFeed(options)
+				.then((feed) => readText(feed))
+				.then((stats) => {
+					console.log("STATS", stats)
+					if(!stats) {
+						var stats = {openness: 0, conscientiousness:0 , extraversion: 0, agreeableness: 0, emotionalRange:0}
+					}
+					var {openness, conscientiousness, extraversion, agreeableness, emotionalRange} = stats
+					return new User({
+						username, email, password, twitterLink, openness, conscientiousness, extraversion, agreeableness, emotionalRange
+					}).save()
+					.then((user) => {
+						const token = generateToken(user);
+						console.log(`SIGNUP SUCCESS: ${user.get('username')}`)
+						res.status(201).send({token});
+					})
+					.catch(() => {
+						console.log(`SIGNUP FAIL WATSON: ${user.get('username')}`)
+						const token = generateToken(user);
+						res.status(201).send({token});
+					})
+				})
 		}
 	})
 })
@@ -49,7 +63,6 @@ router.post('/login', (req, res) => {
 			user.checkPassword(password)
 			.then((match) => {
 				const userPosts = user.toJSON().posts.map((post) => post.content).join('')
-				console.log(userPosts)
 				const options = {
 					screen_name: user.toJSON().twitterLink,
 					include_rts: false,

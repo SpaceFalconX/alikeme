@@ -3,13 +3,12 @@ const personality_insights = require('../config/ibm_watson.js');
 
 module.exports = (options) => {
   return new Promise ((resolve, reject) => {
-    getTwitterFeed(options).then((feed)=> {
-      console.log("Twitter Feed SUCCCESS - length:", feed.length)
+    getTwitterFeed(options).then((feed, err)=> {
+      console.log("Twitter Feed SUCCCESS - length:", feed.length, err)
       resolve(feed)
     })
     .catch((err) => {
-      console.log("Twitter Feed ERROR", err)
-      reject(err);
+      resolve(false);
     })
   })
 }

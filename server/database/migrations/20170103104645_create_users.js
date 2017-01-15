@@ -8,11 +8,11 @@ exports.up = (knex, Promise) => {
     user.string('city', 254).defaultTo('San Francisco');
     user.string('twitterLink', 254);
     user.string('facebookLink', 254);
-    user.float('openness').unsigned();
-    user.float('conscientiousness').unsigned();
-    user.float('extraversion').unsigned();
-    user.float('agreeableness').unsigned();
-    user.float('emotionalRange').unsigned();
+    user.float('openness').unsigned().notNullable().defaultTo(0.0);
+    user.float('conscientiousness').unsigned().notNullable().defaultTo(0.0);
+    user.float('extraversion').unsigned().notNullable().defaultTo(0.0);
+    user.float('agreeableness').unsigned().notNullable().defaultTo(0.0);
+    user.float('emotionalRange').unsigned().notNullable().defaultTo(0.0);
     user.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
     user.timestamp('updated_at').notNullable().defaultTo(knex.fn.now());
   })

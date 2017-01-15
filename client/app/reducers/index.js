@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import {auth} from './auth.js'
-import {userPosts, allPosts, publicPosts} from './post.js'
+import {userPosts, allPosts, publicPosts, starredPosts} from './post.js'
 import {tags} from './tags.js'
 import {stats} from './stats.js'
 import {categories} from './categories.js'
@@ -19,6 +19,7 @@ const appReducer = combineReducers({
   matches,
   stats,
   personalityMatches,
+  starredPosts,
   routing: routerReducer
 })
 
@@ -29,6 +30,7 @@ const defaultState = {
     following: []
   },
   userPosts: [],
+  starredPosts: [],
   allPosts: [],
   categories: [],
   tags: [],
@@ -39,7 +41,7 @@ const defaultState = {
 const reducer = (state, action) => {
   if (action.type === LOGOUT_USER) {
     state = defaultState;
-    
+
   }
   return appReducer(state, action)
 }

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import setAuthorizationToken from '../utils/setAuthorizationToken.js'
 import jwt from 'jsonwebtoken'
-import {SET_USER, LOGOUT_USER, FOLLOW_USER, SHOW_FOLLOWERS, SHOW_FOLLOWING} from './index.js';
+import {SET_USER, LOGOUT_USER, FOLLOW_USER, SHOW_FOLLOWERS, SHOW_FOLLOWING, UPDATE_STARRED_POSTS} from './index.js';
 
 export function setUser (user) {
 	return {
@@ -17,7 +17,6 @@ export function logoutUser () {
 }
 
 export function followUser (obj) {
-	console.log("in FOLLOW_USER", obj )
 	return {
 		type: FOLLOW_USER,
 		obj
@@ -25,7 +24,6 @@ export function followUser (obj) {
 }
 
 export function followers (followers) {
-	console.log("in followers", followers )
 	return {
 		type: SHOW_FOLLOWERS,
 		followers
@@ -33,7 +31,6 @@ export function followers (followers) {
 }
 
 export function following (following) {
-	console.log("in following", following )
 	return {
 		type: SHOW_FOLLOWING,
 		following
@@ -54,7 +51,6 @@ export function followClick (follower_id, followed_id) {
 		.then(() => {
 			return axios.get(`/api/user/${followed_id}`)
 			.then(({data}) => {
-				console.log("resp follow click", data)
 				dispatch(followUser({...data, follower_id, followed_id}))
 			})
 		})
@@ -75,7 +71,6 @@ export function getFollowing (id) {
 	return (dispatch) => {
 		return axios.get(`/api/user/following/${id}`)
 		.then((resp) => {
-			// console.log("RESP", resp.data)
 			dispatch(following(resp.data))
 		})
 	}
