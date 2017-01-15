@@ -55,12 +55,16 @@ class Matches extends React.Component {
     }
 
     return (
-      <div>
-        {this.displayCurrent()}
-        <hr />
-        <h1>Alike-Minded Posts</h1>
-        {this.displayMatches()}
-        <hr />
+      <div className="col-md-10">
+        <div className="row">
+          <div className="col-md-8">
+            {this.displayCurrent()}
+          <hr />
+          <h1>Alike-Minded Posts</h1>
+            {this.displayMatches()}
+          <hr />
+          </div>
+        </div>
       </div>
     )
   }

@@ -58,7 +58,6 @@ class Browse extends React.Component {
     const CARDS = {
       float:'left',
       paddingLeft:'10px',
-      paddingBottom: '5px'
     }
     const FILTER = {paddingBottom: '50px'}
     return (

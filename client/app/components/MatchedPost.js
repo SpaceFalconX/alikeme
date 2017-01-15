@@ -18,6 +18,10 @@ class MatchedPost extends React.Component {
   }
 
   render () {
+    const MEDIA_BODY = {
+      paddingLeft: 'inherit',
+      paddingTop: 'inherit'
+    }
     return (
         <div className="panel panel-default">
           <div className="panel-body">
@@ -30,7 +34,7 @@ class MatchedPost extends React.Component {
               </em>
               <p>{((5 - this.props.compatibilityScore)/5 * 100).toFixed()}% Personality Match</p>
             </span>
-            <div className="media-body">
+            <div className="media-body" style={MEDIA_BODY}>
               <h4 className="list-group-item-heading">{this.props.post.title}</h4>
               <p className="list-group-item-text"><b>{this.props.post.content}</b></p>
               <p><i>-{this.props.post.user.username}</i></p>
@@ -38,7 +42,7 @@ class MatchedPost extends React.Component {
               click to view {this.props.post.user.username}'s profile</Link>
             </div>
           </div>
-          <div>
+          <div style={this.postStyle()}>
             <StarButton {...this.props} />
           </div>
           <div className="panel-body">

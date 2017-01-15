@@ -7,6 +7,10 @@ import {browserHistory, Link} from 'react-router'
 
 const NewPostForm = React.createClass({
 
+  postStyle () {
+    return {margin: '0px 3px 0px 3px',}
+  },
+
   addNewTag(e) {
     e.preventDefault();
     this.props.dispatch(addTag(this.refs.tag.value))
@@ -66,7 +70,7 @@ const NewPostForm = React.createClass({
               </div>
                 <input className="form-inline" type="text" ref="tag" placeholder="Add a new tag"/>
                 <button className="btn btn-sm" onClick={this.addNewTag}>Add tag</button>
-                <label style={FORM_CSS}>Select a Category</label>
+                <label style={this.postStyle()}>Select a Category</label>
                 <select ref="category">
                   {this.props.categories.map((category, index) => {
                     return <option key={category.id}>{category.name}</option>
