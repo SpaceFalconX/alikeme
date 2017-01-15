@@ -51,7 +51,7 @@ app.use('/api/twitter', twitter)
 app.use('/api/upload', upload)
 
 // WILD CARD - anything else direct to landing page
-app.get('*', (req, res) => (
+app.get('/', (req, res) => (
   res.sendFile(path.resolve(__dirname, '../client/app', 'index.html'))
 ));
 
