@@ -40,7 +40,8 @@ export function following (following) {
 
 export function logoutClick (user) {
 	return function (dispatch) {
-		delete localStorage.token;
+		localStorage.removeItem('token');
+		setAuthorizationToken(false)
 		dispatch(logoutUser());
 	}
 }

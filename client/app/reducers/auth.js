@@ -19,12 +19,6 @@ export function auth (state={}, action) {
 				{ followers: []},
 				{ following: []}
 			);
-
-		case UPDATE_STARRED_POSTS:
-			return state;
-			// return Object.assign({}, state, state.user,
-			// 	{starredPosts: }
-			// )
 		case FOLLOW_USER:
 			return Object.assign(
 				{}, state, state.user,
