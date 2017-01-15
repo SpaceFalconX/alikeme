@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST,FETCH_ALL_POSTS, FETCH_USER_POSTS, FETCH_PUBLIC_POSTS, FILTER_POSTS, CLEAR_POSTS, INCREMENT_STARS, GET_STARRED_POSTS, UPDATE_STARRED_POSTS} from './index.js'
+import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST,FETCH_ALL_POSTS, FETCH_USER_POSTS, FETCH_PUBLIC_POSTS, FILTER_POSTS, CLEAR_POSTS, starredPostsJoin, GET_STARRED_POSTS, UPDATE_STARRED_POSTS} from './index.js'
 
 export function createPost(newPost) {
 	return {
@@ -42,23 +42,15 @@ export function clearPosts () {
 	}
 }
 
-export function increment(postid, userid, flag) {
+export function toggle(postid, userid, flag) {
 	return {
-		type: INCREMENT_STARS,
+		type: starredPostsJoin,
 		postid,
 		userid,
 		flag
 	}
 }
 
-// export function incrementMatch(postid, userid, flag) {
-// 	return {
-// 		type: INCREMENT_STARS,
-// 		postid,
-// 		userid,
-// 		flag
-// 	}
-// }
 
 export function fetchStarredPosts(userid, starredPostsJoin) {
 	return {
@@ -81,15 +73,12 @@ export function fetchStarredPostsFromDb(userid) {
 	return (dispatch) => {
 		return axios.get(`/api/star/join/${userid}`)
 		.then(({data}) => {
-			console.log("userid", userid)
-			console.log("DATA", data)
 			dispatch(fetchStarredPosts(userid, data));
-			// dispatch(updateStarredPosts(userid, data));
 		})
 		.catch((err)=> {console.log(err)})
 	}
 }
-export function incrementStars(postid, userid, flag) {
+export function toggleStar(postid, userid, flag) {
 	return (dispatch) => {
 		if(flag) {
 			var url = `/api/star/post/unstar`
@@ -100,13 +89,13 @@ export function incrementStars(postid, userid, flag) {
 		.then((resp) => {
 			flag = !flag
 			console.log("FLAG AFTER ACTION", flag)
-			dispatch(increment(postid, userid, flag ))
+			dispatch(toggle(postid, userid, flag ))
 		})
 		.catch((err)=> {console.log(err)})
 	}
 }
 
-// export function incrementStarsMatch(postid, userid, flag) {
+// export function toggleStarsMatch(postid, userid, flag) {
 // 	return (dispatch) => {
 // 		if(flag) {
 // 			var url = `/api/star/post/unstar`
@@ -117,7 +106,7 @@ export function incrementStars(postid, userid, flag) {
 // 		.then((resp) => {
 // 			flag = !flag
 // 			console.log("FLAG AFTER ACTION", flag)
-// 			dispatch(incrementMatch(postid, userid, flag ))
+// 			dispatch(toggleMatch(postid, userid, flag ))
 // 		})
 // 		.catch((err)=> {console.log(err)})
 // 	}

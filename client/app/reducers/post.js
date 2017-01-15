@@ -1,4 +1,4 @@
-import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS, FETCH_PUBLIC_POSTS, INCREMENT_STARS, GET_STARRED_POSTS, UPDATE_STARRED_POSTS} from '../actions/index.js'
+import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS, FETCH_PUBLIC_POSTS, starredPostsJoin, GET_STARRED_POSTS, UPDATE_STARRED_POSTS} from '../actions/index.js'
 import _ from 'underscore';
 
 export function createNewPost (action) {
@@ -26,7 +26,6 @@ export function createNewPost (action) {
 export function starredPosts (state=[], action) {
   switch(action.type) {
     case GET_STARRED_POSTS:
-      console.log("STARRED", action)
       return [].concat(action.starredPostsJoin)
     default :
       return state;
@@ -51,7 +50,7 @@ export function userPosts (state=[], action) {
 
 export function publicPosts (state=[], action) {
   switch(action.type) {
-    case INCREMENT_STARS:
+    case starredPostsJoin:
       let i = state.findIndex((post)=> post.id === action.postid)
       console.log("state[i].stars_count + action.flag", 10 + action.flag)
       if(i === -1) {
@@ -75,7 +74,6 @@ export function publicPosts (state=[], action) {
 export function allPosts (state=[], action) {
   switch(action.type) {
     case UPDATE_STARRED_POSTS:
-      console.log("UPDATE_STARRED_POSTS", action)
       const {userid, posts, starredPosts} = action;
       return posts.map((post) => {
         for(var i = 0; i < starredPosts.length; i++) {
@@ -87,7 +85,7 @@ export function allPosts (state=[], action) {
         post.isStarred = false;
         return post;
       })
-    case INCREMENT_STARS:
+    case starredPostsJoin:
       let i = state.findIndex((post) => post.id === action.postid)
       if(i === -1) {
           return state;
@@ -97,7 +95,6 @@ export function allPosts (state=[], action) {
       } else {
         var operation = 1;
       }
-      console.log("ACTION.FLAG number", 10 + action.flag)
       return  [...state.slice(0, i),
               {...state[i],
                 stars_count: state[i].stars_count + operation,

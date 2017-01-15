@@ -4,6 +4,7 @@ import MatchedPost from './MatchedPost.js'
 import {getMatches, clearMatches} from '../actions/match_actions.js'
 
 class Matches extends React.Component {
+
   displayCurrent () {
     return this.props.userPosts.filter((post) => {
       return post.id === parseInt(this.props.params.postid)

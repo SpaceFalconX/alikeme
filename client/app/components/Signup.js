@@ -18,7 +18,7 @@ const Signup = React.createClass({
 		const password = this.refs.password.value;
 		const twitterLink = this.refs.twitter.value;
 		let userData = { username, email, password, twitterLink };
-		let {user, router} = this.props
+		let { user, router } = this.props
 		this.props.dispatch(signupApiRequest(userData))
 // =======
 // 		this.props.dispatch(getWatsonTwitterData(twitterLink)).then((res) => {

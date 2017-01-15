@@ -21,7 +21,6 @@ const Main = React.createClass({
 		if(localStorage.token) {
 		  setAuthorizationToken(localStorage.token);
 		  const decoded = jwt.decode(localStorage.token)
-		  console.log("DECODED", decoded)
 			Promise.join(
 		    this.props.dispatch(setUser(decoded.user)),
 		    this.props.dispatch(fetchUserPostsFromDb(decoded.user.username)),
@@ -38,7 +37,8 @@ const Main = React.createClass({
 			//use history to display notifications in seperate view
 		}
 		const currentLocation = this.props.location.pathname
-		if(!this.props.user.isAuthenticated && currentLocation !== '/' && currentLocation !== '/login') {
+		if(!this.props.user.isAuthenticated && currentLocation !== '/'
+			 && currentLocation !== '/login') {
 			this.props.router.push({pathname: '/login'})
 			location.reload()
 		}
@@ -46,7 +46,6 @@ const Main = React.createClass({
 
 	render() {
 	const isAuthenticated = this.props.user.isAuthenticated;
-
 	const signedInUser = (
 				<div>
 					<h1>

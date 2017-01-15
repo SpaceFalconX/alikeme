@@ -3,19 +3,10 @@ import {Link} from 'react-router'
 import CSSTransitionGroup from 'react-addons-css-transition-group' // ES6
 
 class StarButton extends React.Component {
-
-    // toggle (e) {
-    //   const {post, user} = this.props;
-    //   this.props.dispatch(incrementStars(post.id, user.id, flag))
-    //   .then(() => {
-    //     console.log("toggle")
-    //   })
-    // }
-
   render() {
     const {post, user} = this.props;
     const starButton = (
-      <span onClick={this.props.incrementStars}>
+      <span onClick={this.props.toggle}>
         <i className="glyphicon glyphicon-star-empty">
           <strong> {post.stars_count}</strong>
         </i>
@@ -23,7 +14,7 @@ class StarButton extends React.Component {
     )
 
     const unstarButton = (
-      <span onClick={this.props.incrementStars}>
+      <span onClick={this.props.toggle}>
         <i className="glyphicon glyphicon-star">
           <strong> {post.stars_count}</strong>
         </i>
