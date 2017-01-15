@@ -18,7 +18,7 @@ class Post extends React.Component {
     const {isStarred} = post;
     this.props.dispatch(incrementStars(post.id, user.id, isStarred))
     .then(() => {
-      console.log("isStarred after", isStarred)
+      console.log("isStarred afsdfsdfter", isStarred)
     })
   }
 
