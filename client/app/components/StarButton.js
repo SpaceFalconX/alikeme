@@ -14,7 +14,6 @@ class StarButton extends React.Component {
 
   render() {
     const {post, user} = this.props;
-    //TODO: Add some conditional on rendering star button
     const starButton = (
       <span onClick={this.props.incrementStars}>
         <i className="glyphicon glyphicon-star-empty">

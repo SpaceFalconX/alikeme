@@ -58,7 +58,9 @@ export function publicPosts (state=[], action) {
         return state;
       }
       return  [...state.slice(0, i),
-              {...state[i], stars_count: state[i].stars_count + action.flag},
+              { ...state[i],
+                stars_count: state[i].stars_count + action.flag
+              },
               ...state.slice(i + 1)
               ];
     case FETCH_PUBLIC_POSTS:
