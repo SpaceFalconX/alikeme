@@ -50,6 +50,10 @@ app.use('/api/star', star)
 app.use('/api/twitter', twitter)
 app.use('/api/upload', upload)
 
+app.get('/', (req, res) => (
+ res.sendFile(path.resolve(__dirname, '../client/app', 'index.html'))
+));
+
 // WILD CARD - anything else direct to landing page
 app.get('*', (req, res) => (
   res.sendFile(path.resolve(__dirname, '../client/app', 'index.html'))
@@ -59,6 +63,6 @@ app.use((err, req, res, next) => {
   res.status(500).send(err.message)
 })
 
-app.listen(4000, () => (
-	console.log("App running on port 4000")
+app.listen(process.env.PORT || 4000, () => (
+    console.log("App running on port 4000", process.env.PORT)
 ))
