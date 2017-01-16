@@ -13,7 +13,7 @@ module.exports = {
   production: {
     client: 'mysql',
     connection: {
-      host: 'mysql://b550a6c003d3e3:8063025e@us-cdbr-iron-east-04.cleardb.net/heroku_8adb93462bc531e?reconnect=true',
+      host: 'us-cdbr-iron-east-04.cleardb.net',
       user     : 'b550a6c003d3e3',
       password : '8063025e',
       database : 'heroku_8adb93462bc531e',
