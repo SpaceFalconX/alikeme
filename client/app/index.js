@@ -2,7 +2,7 @@ import React from 'react'
 import {render} from 'react-dom'
 import {Router, Link, browserHistory, Route, IndexRoute} from 'react-router'
 import {Provider} from 'react-redux'
-//require('../stylesheets/stylesheet.css')
+require('../stylesheets/stylesheet.css')
 
 //components
 import store, {history} from './store.js'
