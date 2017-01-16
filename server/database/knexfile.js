@@ -1,6 +1,9 @@
 // Update with your config settings.
 module.exports = {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin
   // development: {
   //   client: 'mysql',
   //   connection: {
@@ -12,13 +15,13 @@ module.exports = {
   //   }
   // },
 
-  development: {
+  production: {
     client: 'mysql',
     connection: {
-      host: 'us-cdbr-iron-east-04.cleardb.net',
-      user     : 'b550a6c003d3e3',
-      password : '8063025e',
-      database : 'heroku_8adb93462bc531e',
+      host     : 'us-cdbr-iron-east-04.cleardb.net',
+      user     : 'b2c1e11015ee11',
+      password : '90bb8fcd',
+      database : 'heroku_e49323e7b0a627f',
       charset  : 'utf8'
     },
     pool: {
