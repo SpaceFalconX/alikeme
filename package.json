@@ -92,6 +92,8 @@
     "jest-cli": "^18.1.0",
     "react-hot-loader": "^1.3.1",
     "react-test-renderer": "^15.4.2",
-    "static-site-generator-webpack-plugin": "^3.1.0"
+    "static-site-generator-webpack-plugin": "^3.1.0",
+    "style-loader": "^0.13.1"
   }
 }
+
