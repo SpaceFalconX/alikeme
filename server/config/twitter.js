@@ -12,10 +12,10 @@ const Promise = require('bluebird');
 
 const getTwitterFeed = (params) => {
    return new Promise ((res, rej)=>{
-    T.get('statuses/user_timeline', params, (err, response ,feed) => {
-      console.log("TWEEEETETTTTTTT", err, response ,feed)
+    T.get('statuses/user_timeline', params, (err, /*response, */ feed) => {
 			if (err) {
         res(false);
+        //rej(err)
       } else {
         const twitterFeed = _.pluck(feed, 'text').join()
         res(twitterFeed);
