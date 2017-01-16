@@ -1,0 +1,111 @@
+.postForm {
+  opacity: 1;
+  animation: showPostForm ease 0.75s
+}
+
+.postForm-NoAnimate {
+  opacity: 1
+}
+
+.postFormHidden {
+  height: 0;
+  opacity: 0;
+  animation: hidePostForm ease 0.75s
+}
+
+@keyframes hidePostForm {
+  from {
+    height: 220px;
+    opacity: 0.4;
+  }
+}
+
+@keyframes showPostForm {
+  from {
+    height: 0px;
+    opacity: 0;
+  }
+  to {
+    height: 220px;
+  }
+}
+
+.statBar {
+    height: 20px;
+    background-color: #c1c1c1;
+    margin: 5px;
+    border-radius: 5px;
+    animation: loadStats cubic-bezier(0.25,0.5,0.5,1.25) 1s;
+}
+
+@keyframes loadStats {
+    from {
+    	width: 0%;
+      background-color: #428bca;
+    }
+    to {
+    	width: 100%;
+    }
+}
+
+body {
+  margin-top:20px;
+}
+
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+offsets = translateX(-50%) translateY(-50%)
+.likes-heart {
+
+}
+  opacity 0
+  transition all 0.5s // time to fade out after its done
+  transform offsets scale(5) // this is the "end state"
+  display block
+  &.like-enter
+    transition all .2s
+    transform offsets scale(1)
+    opacity 1
+    &.like-enter-active
+      transform offsets scale(5)
+  .like-leave-active
+    display none
+
+
+
+
+
+.panel-default > .panel-heading {
+    color: #333333;
+    background-color: #ffffff;
+    border-color: #e2e9e6;
+}
+
+.panel-footer {
+    padding: 10px 15px;
+    background-color: #ffffff;
+    border-top: 1px solid #e2e9e6;
+    border-bottom-right-radius: -1;
+    border-bottom-left-radius: -1;
+}
+
+.user-friend-list img, .media img {
+  height:50px;
+  width:50px;
+}
