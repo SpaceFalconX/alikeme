@@ -31,13 +31,13 @@ const Main = React.createClass({
 		}
 	},
 
-	componentWillReceiveProps (nextProps) {
-		const currentLocation = this.props.location.pathname
-		if(!nextProps.user.isAuthenticated && currentLocation !== '/' && currentLocation !== '/login') {
-			console.log('unauthorized')
-			browserHistory.push('/')
-		}
-	},
+// 	componentWillReceiveProps (nextProps) {
+// 		const currentLocation = this.props.location.pathname
+// 		if(!nextProps.user.isAuthenticated && currentLocation !== '/' && currentLocation !== '/login') {
+// 			console.log('unauthorized')
+// 			browserHistory.push('/')
+// 		}
+// 	},
 
 	render() {
 	const isAuthenticated = this.props.user.isAuthenticated;
