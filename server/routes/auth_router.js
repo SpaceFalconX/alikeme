@@ -13,6 +13,7 @@ const Users = require('../database/collections/users.js');
 const router = express.Router();
 
 router.post('/signup', (req, res) => {
+	console.log("USERNAME SIGNUP", username)
 	const { username, password, email, twitterLink} = req.body
 	new User ({username: username})
 	.fetch()
@@ -29,7 +30,6 @@ router.post('/signup', (req, res) => {
 				.then((feed) => {
 					readText(feed)
 						.then((stats) => {
-						console.log("STATS", stats)
 						if(!stats) {
 							var stats = {openness: 0, conscientiousness:0 , extraversion: 0, agreeableness: 0, emotionalRange:0}
 						}
@@ -49,26 +49,6 @@ router.post('/signup', (req, res) => {
 						})
 					})
 				})
-				// .then((stats) => {
-				// 	console.log("STATS", stats)
-				// 	if(!stats) {
-				// 		var stats = {openness: 0, conscientiousness:0 , extraversion: 0, agreeableness: 0, emotionalRange:0}
-				// 	}
-				// 	var {openness, conscientiousness, extraversion, agreeableness, emotionalRange} = stats
-				// 	return new User({
-				// 		username, email, password, twitterLink, openness, conscientiousness, extraversion, agreeableness, emotionalRange
-				// 	}).save()
-				// 	.then((user) => {
-				// 		const token = generateToken(user);
-				// 		console.log(`SIGNUP SUCCESS: ${user.get('username')}`)
-				// 		res.status(201).send({token});
-				// 	})
-				// 	.catch(() => {
-				// 		console.log(`SIGNUP FAIL WATSON: ${user.get('username')}`)
-				// 		const token = generateToken(user);
-				// 		res.status(201).send({token});
-				// 	})
-				// })
 		}
 	})
 })
@@ -104,22 +84,6 @@ router.post('/login', (req, res) => {
 					const token = generateToken(user);
 					res.status(201).send({token});
 				})
-
-
-				// 	if(stats) {
-				// 		console.log("STATS SAVED SUCCESFULLY", stats.agreeableness)
-				// 		user.save(stats)
-				// 		.then((user)=> {
-				// 			const token = generateToken(user);
-				// 			res.status(201).send({generateToken(user)});
-				// 		})
-				// 	} else {
-				// 		console.log("NEED MORE TEXT FROM USER")
-				// 		const token = generateToken(user)
-				// 		res.status(201).send({token});
-				// 	}
-				// })
-				// .catch((err) => console.error(err))
 			})
 		}
 	})
