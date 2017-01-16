@@ -1,5 +1,6 @@
 // Update with your config settings.
 module.exports = {
+<<<<<<< HEAD
   // development: {
   //   client: 'mysql',
   //   connection: {
