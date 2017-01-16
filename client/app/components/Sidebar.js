@@ -4,26 +4,27 @@ import axios from 'axios'
 // import Style from 'react-style-tag';
 import { connect } from 'react-redux'
 import { browserHistory, Link } from 'react-router'
-import fetchUserPicture from '../utils/fetchUserPicture.js'
+import UserPic from './userPicture.js'
+// import fetchUserPicture from '../utils/fetchUserPicture.js'
 
 const Sidebar = React.createClass({
-  componentWillMount () {
-      this.setState({profilePicture: null})
-  },
+  // componentWillMount () {
+  //     this.setState({profilePicture: null})
+  // },
 
-  componentWillReceiveProps (nextProps) {
-      fetchUserPicture(nextProps.user.username).then((res) => {
-        this.setState({profilePicture: res.data})
-      })
-  },
+  // componentWillReceiveProps (nextProps) {
+  //     fetchUserPicture(nextProps.user.username).then((res) => {
+  //       this.setState({profilePicture: res.data})
+  //     })
+  // },
 
   render () {
 
-    fetchUserPicture(this.props.user.username)
+    // fetchUserPicture(this.props.user.username)
 
-    this.state = {
-      profilePicture: 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.user.username + '.jpg'
-    }
+    // this.state = {
+    //   profilePicture: 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.user.username + '.jpg'
+    // }
     
     const imgStyle = {
       height: '80px',
@@ -43,11 +44,13 @@ const Sidebar = React.createClass({
 
    const isAuthenticated = this.props.user.isAuthenticated;
 
+   // <img src={this.state.profilePicture} style={imgStyle}/>
+
 	 const loggedInView = (
 			<div className="col-md-2">
         <div style={fontStyl}>
           <h3> Hello {this.props.user.username}!</h3>
-			    <img src={this.state.profilePicture} style={imgStyle}/>
+          <UserPic username={this.props.user.username} style={imgStyle} />
 
            <p style={locationStyl}> <small> location set to: <br/> San Francisco, CA </small> </p>
           <h4> Stats <small title="The normalized percentile score for the characteristic. The range is 0 to 100. For example, if the percentage for Openness is 25%, the author scored in the 25th percentile; the author is more open than 24% of the population and less open than 74% of the population."> *%percentile </small> </h4>
