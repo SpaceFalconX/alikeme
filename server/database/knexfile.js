@@ -10,7 +10,7 @@ module.exports = {
   //     charset  : 'utf8'
   //   }
   // },
-  production: {
+  development: {
     client: 'mysql',
     connection: {
       host     : 'us-cdbr-iron-east-04.cleardb.net',
@@ -19,8 +19,10 @@ module.exports = {
       database : 'heroku_e49323e7b0a627f',
       charset  : 'utf8'
     }
+  },
+    migrations: {
+    tableName: 'knex_migrations'
   }
-
 }
 
 
