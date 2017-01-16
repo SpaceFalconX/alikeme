@@ -1,9 +1,5 @@
 // Update with your config settings.
 module.exports = {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> origin
   // development: {
   //   client: 'mysql',
   //   connection: {
@@ -14,8 +10,7 @@ module.exports = {
   //     charset  : 'utf8'
   //   }
   // },
-
-  production: {
+  development: {
     client: 'mysql',
     connection: {
       host     : 'us-cdbr-iron-east-04.cleardb.net',
@@ -28,9 +23,9 @@ module.exports = {
       min: 2,
       max: 10
     },
+
     migrations: {
-      tableName: 'knex_migrations'
-    }
+    tableName: 'knex_migrations'
   }
 }
 
