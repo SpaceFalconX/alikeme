@@ -40,60 +40,14 @@ router.post('/signup', (req, res) => {
 router.post('/login', (req, res) => {
 	console.log('here')
 	let {username, password} = req.body;
-	new User ({username: username})
-	.fetch({withRelated: ['posts', 'starredPosts']})
-	.then((user) => {
-		if(!user) {
-			res.status(400).send({error: "go to signup"})
-		} else {
-			user.checkPassword(password)
-			.then((match) => {
-				const userPosts = user.toJSON().posts.map((post) => post.content).join('')
-				console.log(userPosts)
-				const options = {
-					screen_name: user.toJSON().twitterLink,
-					include_rts: false,
-					count: 100
-				}
-				getTwitterFeed(options)
-				.then((feed) => feed.concat(userPosts))
-				.then((result)=> readText(result))
-				.then((stats) => user.save(stats))
-				.then(() => {
-					console.log(`LOGIN SUCCESS WATSON: ${user.get('username')}`)
-					const token = generateToken(user);
-					res.status(201).send({token});
-				})
-				.catch(() => {
-					console.log(`LOGIN FAIL WATSON: ${user.get('username')}`)
-					const token = generateToken(user);
-					res.status(201).send({token});
-				})
-
-
-				// 	if(stats) {
-				// 		console.log("STATS SAVED SUCCESFULLY", stats.agreeableness)
-				// 		user.save(stats)
-				// 		.then((user)=> {
-				// 			const token = generateToken(user);
-				// 			res.status(201).send({generateToken(user)});
-				// 		})
-				// 	} else {
-				// 		console.log("NEED MORE TEXT FROM USER")
-				// 		const token = generateToken(user)
-				// 		res.status(201).send({token});
-				// 	}
-				// })
-				// .catch((err) => console.error(err))
-			})
-		}
-	})
+	const token = generateToken(user);
+	res.status(201).send({token});
 })
 
 // Helper function
 const generateToken = (user) => {
 	return jwt.sign({
-		user: _.omit(user.attributes, 'password'),
+		user: user,
 	}, config.jwtSecret)
 }
 
