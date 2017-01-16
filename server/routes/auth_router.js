@@ -28,27 +28,25 @@ router.post('/signup', (req, res) => {
 			}
 			getTwitterFeed(options)
 				.then((feed) => {
-					readText(feed)
-						.then((stats) => {
-						if(!stats) {
-							var stats = {openness: 0, conscientiousness:0 , extraversion: 0, agreeableness: 0, emotionalRange:0}
-						}
-						var {openness, conscientiousness, extraversion, agreeableness, emotionalRange} = stats
-						return new User({
-							username, email, password, twitterLink, openness, conscientiousness, extraversion, agreeableness, emotionalRange
-						}).save()
-						.then((user) => {
-							const token = generateToken(user);
-							console.log(`SIGNUP SUCCESS: ${user.get('username')}`)
-							res.status(201).send({token});
-						})
-						.catch(() => {
-							console.log(`SIGNUP FAIL WATSON: ${user.get('username')}`)
-							const token = generateToken(user);
-							res.status(201).send({token});
-						})
-					})
-				})
+-				.then((feed) => readText(feed))
+ -				.then((stats) => {
+ -					console.log("STATS", stats)
+ -					if(!stats) {
+ -						var stats = {openness: 0, conscientiousness:0 , extraversion: 0, agreeableness: 0, emotionalRange:0}
+ -					}
+ -					var {openness, conscientiousness, extraversion, agreeableness, emotionalRange} = stats
+ -					return new User({
+ -						username, email, password, twitterLink, openness, conscientiousness, extraversion, agreeableness, emotionalRange
+ -					}).save()
+ -					.then((user) => {
+ -						const token = generateToken(user);
+ -						console.log(`SIGNUP SUCCESS: ${user.get('username')}`)
+ -						res.status(201).send({token});
+ -					})
+ -					.catch(() => {
+ -						console.log(`SIGNUP FAIL WATSON: ${user.get('username')}`)
+ -						const token = generateToken(user);
+ -						res.status(201).send({token});
 		}
 	})
 })
