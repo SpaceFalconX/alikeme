@@ -8,12 +8,26 @@ module.exports = {
       password : 'io',
       database : 'alike_me',
       charset  : 'utf8'
+    }   
+  },
+  production: {
+    client: 'mysql',
+    connection: {
+      host: 'mysql://b550a6c003d3e3:8063025e@us-cdbr-iron-east-04.cleardb.net/heroku_8adb93462bc531e?reconnect=true',
+      user     : 'b550a6c003d3e3',
+      password : '8063025e',
+      database : 'heroku_8adb93462bc531e',
+      charset  : 'utf8'
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      tableName: 'knex_migrations'
     }
-    // debug : true
   }
-
 }
-
 
 
 
