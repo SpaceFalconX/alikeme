@@ -40,6 +40,7 @@ const Main = React.createClass({
 		const currentLocation = this.props.location.pathname
 		if(!this.props.user.isAuthenticated && currentLocation !== '/' && currentLocation !== '/login') {
 			this.props.router.push({pathname: '/login'})
+			location.reload()
 		}
 	},
 

@@ -15,7 +15,7 @@ module.exports =  {
     User.where('id', req.params.id)
     .fetch({withRelated: ['following']})
     .then((user) => {
-      console.log("FOLLOWING, "user.related('following'))
+      console.log("FOLLOWING, ", user.related('following'))
       next(user.related('following'))
     })
     .catch((err) => {

@@ -5,6 +5,7 @@ import {logoutClick} from '../actions/auth_actions.js'
 const Navbar = React.createClass({
 	logout () {
 		this.props.dispatch(logoutClick(this.props.user));
+		location.reload()
 	},
 
 	render() {

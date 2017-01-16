@@ -42,7 +42,6 @@ router.post('/fetchProfilePicture', (req, res) => {
         console.log("it's valid")
         res.send('http://res.cloudinary.com/isaacxpreston/image/upload/' + username + '.jpg')
       } else {
-        console.log("it's not valid")
         res.send("http://www.topcareer.jp/inter_blog/wp-content/uploads/100_100_empty.gif")
       }
   });
