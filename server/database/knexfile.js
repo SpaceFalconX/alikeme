@@ -1,16 +1,16 @@
 // Update with your config settings.
 module.exports = {
+//   development: {
+//     client: 'mysql',
+//     connection: {
+//       host     : 'localhost',
+//       user     : 'root',
+//       password : 'io',
+//       database : 'alike_me',
+//       charset  : 'utf8'
+//     }   
+//   },
   development: {
-    client: 'mysql',
-    connection: {
-      host     : 'localhost',
-      user     : 'root',
-      password : 'io',
-      database : 'alike_me',
-      charset  : 'utf8'
-    }   
-  },
-  production: {
     client: 'mysql',
     connection: {
       host: 'us-cdbr-iron-east-04.cleardb.net',
