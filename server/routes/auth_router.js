@@ -47,7 +47,7 @@ router.post('/login', (req, res) => {
 // Helper function
 const generateToken = (user) => {
 	return jwt.sign({
-		user: user,
+		user: user
 	}, config.jwtSecret)
 }
 
