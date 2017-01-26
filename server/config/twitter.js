@@ -1,4 +1,3 @@
-const _ = require('underscore');
 const Twitter  = require('twitter');
 
 const client = new Twitter ({
@@ -8,14 +7,4 @@ const client = new Twitter ({
   access_token_secret:  'ANDr9b24DmqocGkv5xG0tAWTSXzWufT7Wm1Mza49gbIMk'
 })
 
-const getTwitterFeed = (twitterLink) => {
-  const options = {
-    screen_name: twitterLink,
-    include_rts: false,
-    count: 100
-  }
-  return client.get('statuses/user_timeline', options)
-  .then((feed) => _.pluck(feed, 'text').join())
-}
-
-module.exports = getTwitterFeed;
+module.exports = client;

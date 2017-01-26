@@ -3,24 +3,12 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 
-const readText = require('../utils/readText.js')
-// const getTwitterFeed = require('../utils/twitHelper.js')
-
+const util = require('../utils/util.js')
 const config = require('../config/config.js');
 const User = require('../database/models/user.js');
 const Users = require('../database/collections/users.js');
 
 const router = express.Router();
-
-
-const getTwitterFeed = require('../config/twitter.js')
-
-router.get('/tweeet/:twitterlink', (req, res) => {
-	console.log("req.params.twitterlink", req.params.twitterlink)
-	getTwitterFeed(req.params.twitterlink)
-	.then((feed) => res.json(feed))
-	.catch((err) => res.status(404).json(err))
-})
 
 router.post('/signup', (req, res) => {
 	const { username, password, email, twitterLink} = req.body
@@ -28,29 +16,24 @@ router.post('/signup', (req, res) => {
 	.fetch()
 	.then((user) => {
 		if(user) {
-			return res.status(401).send("SIGNUP ERROR USER EXISTS");
-		} else if(twitterLink) {
-			getTwitterFeed(twitterLink)
-			.then((feed) => readText(feed))
+			return res.status(401).send({error: "go to login"});
+		} else  {
+			util.getTwitterFeed(twitterLink)
+			.then((feed) => util.readText(feed))
 			.then((stats) => {
-				console.log(stats)
-				new User({ username, email, password, twitterLink})
-				.save(stats)
+				new User({ username, email, password, twitterLink}).save(stats)
 				.then((newUser) => {
 					console.log(`SIGNUP SUCCESS: ${newUser.get('username')}`)
 					const token = generateToken(newUser);
 					res.status(201).send({token});
 				})
 			})
-			.catch(err => res.status(400).send(err))
+			.catch((err) => res.status(400).send(err))
 		}
 	})
 })
 
-				// var {openness, conscientiousness, extraversion, agreeableness, emotionalRange} = stats
-
 router.post('/login', (req, res) => {
-	console.log('here')
 	let {username, password} = req.body;
 	new User ({username: username})
 	.fetch({withRelated: ['posts', 'starredPosts']})
@@ -60,26 +43,18 @@ router.post('/login', (req, res) => {
 		} else {
 			user.checkPassword(password)
 			.then((match) => {
-				const userPosts = user.toJSON().posts.map((post) => post.content).join('')
-				const options = {
-					screen_name: user.toJSON().twitterLink,
-					include_rts: false,
-					count: 100
-				}
-				getTwitterFeed(options)
+				const {posts, twitterLink} = user.toJSON();
+				const userPosts = posts.map((post) => post.content).join('')
+				util.getTwitterFeed(twitterLink)
 				.then((feed) => feed.concat(userPosts))
-				.then((result)=> readText(result))
+				.then((result)=> util.readText(result))
 				.then((stats) => user.save(stats))
-				.then(() => {
-					console.log(`LOGIN SUCCESS WATSON: ${user.get('username')}`)
-					const token = generateToken(user);
+				.then((userUpdate) => {
+					console.log(`LOGIN SUCCESS WATSON: ${userUpdate.get('username')}`)
+					const token = generateToken(userUpdate);
 					res.status(201).send({token});
 				})
-				.catch(() => {
-					console.log(`LOGIN FAIL WATSON: ${user.get('username')}`)
-					const token = generateToken(user);
-					res.status(201).send({token});
-				})
+				.catch((err) => res.status(500).send({error: err}))
 			})
 		}
 	})
@@ -91,6 +66,8 @@ const generateToken = (user) => {
 		user: _.omit(user.attributes, 'password'),
 	}, config.jwtSecret)
 }
+
+module.exports = router;
 
 
 				// readText(userPosts).then((analysis) => {
@@ -133,7 +110,6 @@ const generateToken = (user) => {
 				// 		})
 				// 	}
 				// })
-module.exports = router;
 			// getTwitterFeed(options)
 			// 	.then((feed) => readText(feed))
  		// 		.then((stats) => {
