@@ -46,4 +46,19 @@ class StarButton extends React.Component {
   }
 }
 
+// offsets = translateX(-50%) translateY(-50%)
+// .likes-heart
+//   opacity 0
+//   transition all 0.5s // time to fade out after its done
+//   transform offsets scale(5) // this is the "end state"
+//   display block
+//   &.like-enter
+//     transition all .2s
+//     transform offsets scale(1)
+//     opacity 1
+//     &.like-enter-active
+//       transform offsets scale(5)
+//   .like-leave-active
+//     display none
+
 export default StarButton;

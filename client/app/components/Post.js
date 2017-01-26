@@ -16,10 +16,6 @@ class Post extends React.Component {
   toggle (e) {
     const {post, user} = this.props;
     const {isStarred} = post;
-    this.props.dispatch(incrementStars(post.id, user.id, isStarred))
-    .then(() => {
-      console.log("isStarred afsdfsdfter", isStarred)
-    })
     this.props.dispatch(toggleStar(post.id, user.id, isStarred))
   }
 

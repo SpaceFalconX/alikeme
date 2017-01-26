@@ -14,6 +14,7 @@ exports.up = (knex, Promise) => {
     user.float('agreeableness').unsigned().notNullable().defaultTo(0.0);
     user.float('emotionalRange').unsigned().notNullable().defaultTo(0.0);
     user.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
+    user.timestamp('updated_at').notNullable().defaultTo(knex.fn.now());
   })
   .then(() => {
   	console.log('USERS table created!')

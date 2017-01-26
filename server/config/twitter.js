@@ -1,29 +1,21 @@
-const twitter = {
-  consumer_key:         'PbfgGoSHba3DWxY4kpT8Lztu1',
-  consumer_secret:      'F6wVQ3xIfZXngTcZwvfT40HMZ4Q8K8RgdB3Q2YhuBwJJUqVevt',
-  access_token:         '812385770484822016-YYML4Fa7afJT7tt7lgCv6j6hx88W52R',
-  access_token_secret:  '6LtmeVQ9qdVPeFR19kBun1uGXbwcPJVW9eszpwmameCX5'
-}
 const _ = require('underscore');
-const Twit  = require('twit');
-const T = new Twit(twitter);
-const Promise = require('bluebird');
+const Twitter  = require('twitter');
 
+const client = new Twitter ({
+  consumer_key:         'fQNz3M7EpfMpUU52TYwI46ng1',
+  consumer_secret:      '2t7xpTMlm85eo0wrkVHTQbbQ6BbkRLy8gaXtxJYzqlb0idRXY1',
+  access_token_key:     '3880918943-TA0eE2QFGqQGsAvTkbxscY7XSsFCGbbtccvBnPl',
+  access_token_secret:  'ANDr9b24DmqocGkv5xG0tAWTSXzWufT7Wm1Mza49gbIMk'
+})
 
-const getTwitterFeed = (params) => {
-   return new Promise ((res, rej)=>{
-    T.get('statuses/user_timeline', params, (err, /*response, */ feed) => {
-			if (err) {
-        res(false);
-        //rej(err)
-      } else {
-        const twitterFeed = _.pluck(feed, 'text').join()
-        res(twitterFeed);
-      }
-		})
-   })
- }
-
-//getTwitterFeed(options)
+const getTwitterFeed = (twitterLink) => {
+  const options = {
+    screen_name: twitterLink,
+    include_rts: false,
+    count: 100
+  }
+  return client.get('statuses/user_timeline', options)
+  .then((feed) => _.pluck(feed, 'text').join())
+}
 
 module.exports = getTwitterFeed;

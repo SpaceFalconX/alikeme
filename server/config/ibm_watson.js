@@ -3,8 +3,8 @@
 const PersonalityInsightsV2 = require('watson-developer-cloud/personality-insights/v2')
 
 const personality_insights = new PersonalityInsightsV2({
-  username: '2c91febf-7b31-4b47-9e27-18e69e2c2fe6',
-  password: 'sJKhuK7kzzCN'
+  username: 'd8d0e835-769e-479b-bfa4-0c04dadaef54',
+  password: 'a4VxUegCFz1z'
 });
 
 module.exports = personality_insights
