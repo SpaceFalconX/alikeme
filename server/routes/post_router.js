@@ -216,33 +216,6 @@ router.get('/matches/:id', (req, res) => {
 	})
 })
 
-
-			// User.where({id: userId })
-			// .fetch()
-			// .then((user) => user.calculateMatches(userId, posts.pluck('user_id')))
-			// .then((result) => {res.json(result)})
-
-// knex.raw('select * from users where id in (?)', [1, 2, 3]);
-// // Error: Expected 3 bindings, saw 1
-
-// knex.raw('select * from users where id in (?)', [[1, 2, 3]])
-// Outputs:
-// select * from users where id in (1, 2, 3)
-
-// });
-
-	// Posts.forge().fetch()
-	// .then((collection) => {
-	// 	collection.load([{tags: function (query) { query.where('posts_tags.tag_id', 9)}}])
-	// 	.then((posts) => {
-	// 		res.json(posts)
-	// 	})
-	// })
-			// new ScholarlyPaper({id: 1}).load({paragraphs: function(qb) {
-		 //  qb.where('paragraphs.author_id', '!=', author_id);
-			// }}).then(function(paper) {
-			//   console.log(JSON.stringify(paper.related('paragraphs')));
-			// });
 module.exports = router;
 
 
