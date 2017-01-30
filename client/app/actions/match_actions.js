@@ -29,7 +29,7 @@ export function clearPersonalityMatches(matches) {
 }
 
 export function getMatches(post) {
-  return dispatch => axios.post('/api/post/matches', post)
+  return dispatch => axios.get('/api/post/matches/:postid')
   .then(({data}) => {
     console.log("DATA", data)
     const normalized = data.map((match) => {

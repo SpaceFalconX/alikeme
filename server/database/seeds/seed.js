@@ -170,6 +170,11 @@ exports.seed = (knex, Promise) => {
         knex('posts_tags').insert({id: 40, post_id: 21, tag_id: 4}),
         knex('posts_tags').insert({id: 41, post_id: 22, tag_id: 5}),
         knex('posts_tags').insert({id: 42, post_id: 23, tag_id: 19}),
+        knex('posts_tags').insert({id: 43, post_id: 22, tag_id: 2}),
+        knex('posts_tags').insert({id: 44, post_id: 19, tag_id: 5}),
+        knex('posts_tags').insert({id: 45, post_id: 20, tag_id: 19}),
+        knex('posts_tags').insert({id: 46, post_id: 22, tag_id: 1}),
+
 
         knex('posts_stars').insert({star_id: 1, user_id: 3}),
         knex('posts_stars').insert({star_id: 4, user_id: 9}),

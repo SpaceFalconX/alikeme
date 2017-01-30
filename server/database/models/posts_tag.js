@@ -3,14 +3,8 @@ const Post = require('./post.js')
 const Tag = require('./tag.js')
 
 const Posts_tag = db.Model.extend({
-  tableName: 'posts_tags',
-  post () {
-    return this.belongsTo('Post');
-  },
-  tag () {
-  	return this.belongsTo('Tag')
-  }
+  tableName: 'posts_tags'
 })
 
-module.exports = db.model('Posts_tag', Posts_tag);
+module.exports = db.model('posts_tags', Posts_tag);
 

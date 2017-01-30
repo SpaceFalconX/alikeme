@@ -48,6 +48,25 @@ const User = db.Model.extend({
       return _.sortBy(distanceMap, 'distance');
     })
   },
+    calculateMatches (userId, otherUsersIds) {
+    const user = this;
+    return user.where('id', 'in', otherUsersIds )
+    .fetchAll({columns: ['openness', 'conscientiousness', 'extraversion', 'agreeableness', 'emotionalRange', 'username', 'id']})
+    .then((allUsers) => {
+      // const allUsers = response.toJSON();
+      const distanceMap = allUsers.map((otherUser, index)=> {
+        let distance = 0.0;
+        for(var trait in otherUser.attributes) {
+          if(trait !== 'username' && trait !== 'id') {
+            distance += Math.pow((user.get(trait) -
+                        otherUser.attributes[trait]), 2);
+          }
+        }
+        return {distance: distance, username: otherUser.get('username'), id: otherUser.id };
+      })
+      return _.sortBy(distanceMap, 'distance');
+    })
+  },
 
 
 
