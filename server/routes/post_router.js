@@ -187,14 +187,15 @@ router.post('/new', (req, res) => {
 
 ////////////////MATCHING
 router.get('/matches/:id', (req, res) => {
+	console.log("ID:",req.params.id)
 	const originalPostId = req.params.id
 	Post.where({id: originalPostId})
 	.fetch({withRelated: ['tags', 'category', 'user.followers']})
 	.then((originalPost) => {
-		const {user, category_id, id, tags} = originalPost.toJSON()
+		const {user, category_id, id, tags} = originalPost.toJSON();
 		Posts.query({where: {category_id: category_id},
 								whereNot: {id: id }})
-		.fetch({withRelated:['user', 'tags']})
+		.fetch({withRelated:['user', 'tags', 'stars']})
 		.then((posts) => {
 			const traits = ['openness', 'conscientiousness', 'extraversion',
 											'agreeableness', 'emotionalRange']
@@ -211,8 +212,7 @@ router.get('/matches/:id', (req, res) => {
         post.id in user.followers? post.set({isfollower: true}) : '';
         post.set({distance: weightedMatch });
 			})
-			res.json(posts)
-		})
+			res.json(posts) })
 	})
 })
 

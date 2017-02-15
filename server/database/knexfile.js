@@ -8,8 +8,8 @@ module.exports = {
       password : 'io',
       database : 'alike_me',
       charset  : 'utf8'
-    },
-    debug: true
+    }
+    // debug: true
   }
   // development: {
   //     client: 'mysql',

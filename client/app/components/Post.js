@@ -37,21 +37,10 @@ class Post extends React.Component {
       return ( <span>MATCH ME UP!</span> )
     } else if (this.props.user.username !== this.props.post.user.username) {
       return ( <Link to={'/profile/' + this.props.post.user.username}>
-              click to view {this.props.post.user.username}'s profile</Link> )
+              click to view {this.props.post.user.username}s profile</Link> )
     }
     return ( <Link to={'/matches/' + this.props.post.id}>
             click to view matches and edit</Link> )
-// =======
-//     if(this.props.post.user.username !== this.props.user.username) {
-//       return (
-//         <Link to={'/profile/' + this.props.post.user.username}> click to view {this.props.post.user.username}'s profile</Link>
-//       )
-//     } else {
-//       return (
-//         <Link to={'/matches/' + this.props.post.id}> click to view matches and edit</Link>
-//       )
-//     }
-// >>>>>>> styling
   }
 
   render () {
@@ -99,4 +88,3 @@ class Post extends React.Component {
 }
 
 export default Post;
-

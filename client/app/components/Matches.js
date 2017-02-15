@@ -35,7 +35,8 @@ class Matches extends React.Component {
       let post = this.props.userPosts.filter((p) => {
         return p.id === parseInt(this.props.params.postid)
       })[0]
-      this.props.dispatch(getMatches(post))
+      console.log('POST', this.props.params.postid)
+      this.props.dispatch(getMatches(this.props.params.postid))
     }
 
     return (
