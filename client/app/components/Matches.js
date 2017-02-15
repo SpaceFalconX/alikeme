@@ -4,6 +4,14 @@ import MatchedPost from './MatchedPost.js'
 import {getMatches, clearMatches} from '../actions/match_actions.js'
 
 class Matches extends React.Component {
+  componentWillMount () {
+    const { dispatch, params } = this.props;
+    dispatch(getMatches(params.postid));
+  }
+
+  componentWillUnmount () {
+    this.props.dispatch(clearMatches())
+  }
 
   displayCurrent () {
     return this.props.userPosts.filter((post) => {
@@ -17,27 +25,18 @@ class Matches extends React.Component {
   }
 
   displayMatches () {
-    return this.props.matches.map((match, index) => {
+    const { matches, dispatch, user, params, distance } = this.props;
+    return matches.map((match, index) => {
       return ( //todo -replace this one too
-        <MatchedPost key={index} post={match} user={this.props.user}
-         dispatch={this.props.dispatch} params={this.props.params}
-        compatibilityScore={match.compatibilityScore} />
+        <MatchedPost key={index} post={match} user={user}
+         dispatch={dispatch} params={params}
+        compatibilityScore={match.distance} />
       )
     })
   }
 
-  componentWillUnmount () {
-    this.props.dispatch(clearMatches())
-  }
 
   render () {
-    if(this.props.userPosts.length > 0 && this.props.matches.length === 0) {
-      let post = this.props.userPosts.filter((p) => {
-        return p.id === parseInt(this.props.params.postid)
-      })[0]
-      console.log('POST', this.props.params.postid)
-      this.props.dispatch(getMatches(this.props.params.postid))
-    }
 
     return (
       <div className="col-md-10">
@@ -55,4 +54,4 @@ class Matches extends React.Component {
   }
 }
 
-export default Matches
+export default Matches;

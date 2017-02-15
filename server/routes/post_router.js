@@ -195,7 +195,7 @@ router.get('/matches/:id', (req, res) => {
 		const {user, category_id, id, tags} = originalPost.toJSON();
 		Posts.query({where: {category_id: category_id},
 								whereNot: {id: id }})
-		.fetch({withRelated:['user', 'tags', 'stars']})
+		.fetch({withRelated:['user', 'tags', 'stars', 'category']})
 		.then((posts) => {
 			const traits = ['openness', 'conscientiousness', 'extraversion',
 											'agreeableness', 'emotionalRange']
