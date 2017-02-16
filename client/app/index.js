@@ -18,12 +18,14 @@ import Settings from './components/Settings.js'
 import Navbar from './components/Navbar.js'
 import Message from './components/Message.js'
 import Sidebar from './components/Sidebar.js'
+import Landing from './components/Landing.js'
 
 const Root = (
 	<Provider store={store}>
 		<Router history={history}>
 			<Route path="/" component={MainWrapper}>
-				<IndexRoute component={Signup}></IndexRoute>
+				<IndexRoute component={Landing} />
+				<Route path='/signup' component={Signup} />
 				<Route path='/login' component={Login} />
 				<Route path='/message/:username(/:user)' component={Message} />
 				<Route path='/setup/:username' component={ProfileSetup} />

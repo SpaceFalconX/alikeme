@@ -13,20 +13,7 @@ export function matches (state=[], action) {
         })
         return match;
       })
-      console.log('RESULT', result)
       return result;
-      // state.map((match) => Object.assign({}, match, { isStarred: true} ) )
-      // return posts.map((post) => {
-      //   for(var i = 0; i < starredPosts.length; i++) {
-      //     if(post.id === starredPosts[i].star_id) {
-      //       post.isStarred = true;
-      //       return post;
-      //     }
-      //   }
-      //   post.isStarred = false;
-      //   console.log('post!', post.isStarred)
-      //   return post;
-      // })
     case STARRED_POSTS_JOIN:
       let i = state.findIndex((post) => post.id === action.postid)
       if(i === -1) {

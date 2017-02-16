@@ -13,6 +13,7 @@ const Navbar = React.createClass({
 
 		const currUserView = (
 			<ul className="nav navbar-nav">
+				<Link className="navbar-brand" to="/">aLike.me</Link>
 				<li><Link to={'/browse/'+this.props.user.username} >Browse</Link></li>
 				<li><Link to={'/'+this.props.user.username}>Profile</Link></li>
 				<li><Link to={'/message/'+ this.props.user.username}>Message</Link></li>
@@ -22,15 +23,16 @@ const Navbar = React.createClass({
 		);
 
 		const noUserView = (
-			<ul className="nav navbar-nav">
+			<ul className="nav navbar-nav navbar-right signout">
 				<li><Link to="/login">Login</Link></li>
 				<li><Link to="/">Sign Up</Link></li>
 			</ul>
 		);
 
 		return (
-			<nav className="navbar navbar-default navbar-static-top">
-			  <div className="container">
+			<nav className="navbar navbar-default navbar-fixed-top">
+			  <div className="container-fluid">
+				<Link className="navbar-brand logo" to="/">aLike.me</Link>
 					{ isAuthenticated ? currUserView : noUserView }
 			  </div>
 			</nav>

@@ -158,31 +158,12 @@ router.post('/new', (req, res) => {
 							console.log("RESP", resp)
 							res.send(resp);
 					})
-					.catch((err) => {
-						console.log(err);
-			    	res.status(500).send({error: {message: err.message}});
-			  	});
-				})
-				.catch((err) => {
-					console.log(err);
-		    	res.status(500).send({error: {message: err.message}});
-		  	});
-			})
-			.catch((err) => {
-				console.log(err);
-	    	res.status(500).send({error: {message: err.message}});
-	  	});
-		})
-		.catch((err) => {
-			console.log(err);
-    	res.status(500).send({error: {message: err.message}});
-  	});
-	})
-	.catch((err) => {
-		console.log(err);
-  	res.status(400).send({error: {message: err.message}});
+					.catch((err) => res.status(500).send({error: {message: err.message}}));
+				});
+			});
+		});
 	});
-})
+});
 
 
 ////////////////MATCHING
@@ -217,58 +198,3 @@ router.get('/matches/:id', (req, res) => {
 })
 
 module.exports = router;
-
-
-// router.post('/matches', (req, res) => { //filter by category
-// 	Posts.forge()
-// 	.query({where: {category_id: req.body.post.category.id}})
-// 	.fetch({withRelated: ['user', 'category', 'tags']})
-// 	.then((collection) => {
-// 		let mappedCollection = collection.toJSON()
-// 		.filter((post) => {
-// 			return req.body.post.id !== post.id && req.body.post.user.id !== post.user.id
-// 		})
-// 		.map((post) => {
-// 			return {
-// 				tags: post.tags.map((tag) => {
-// 				return tag.name
-// 				}),
-// 				originalPost: post,
-// 				post_id: post.id,
-// 				openness : post.user.openness,
-//       	conscientiousness: post.user.conscientiousness,
-//       	extraversion: post.user.extraversion,
-//       	agreeableness: post.user.agreeableness,
-//       	emotionalRange: post.user.emotionalRange
-// 			}
-// 		})
-
-// 		let queryTags = req.body.post.tags.map((tag) => {
-// 			return tag.name
-// 		})
-
-// 		let RankedMatches = mappedCollection.map((post) => { //create personality score and tags score
-// 			let compatibilityScore = Math.abs(req.body.conscientiousness - post.conscientiousness)
-// 				+ Math.abs(req.body.extraversion - post.extraversion)
-// 				+ Math.abs(req.body.agreeableness - post.agreeableness)
-// 				+ Math.abs(req.body.emotionalRange - post.emotionalRange)
-// 			let relevantTags = _.intersection(post.tags, queryTags).length
-// 			let weightedScore = compatibilityScore - (relevantTags / 5) //subtract number of matching tags from compatibilityScore
-// 			return {
-// 				compatibilityScore,
-// 				relevantTags,
-// 				weightedScore,
-// 				originalPost: post.originalPost
-// 			}
-// 		})
-// 		.sort((a, b) => { //sort by lowest number
-// 			return a.weightedScore - b.weightedScore
-// 		})
-// 		.slice(0, 5)
-// 		console.log("MATHCES")
-// 		res.json(RankedMatches)
-// 	})
-// 	.catch((err) => {
-//     res.status(500).json({error: {message: err.message}});
-//   });
-// });

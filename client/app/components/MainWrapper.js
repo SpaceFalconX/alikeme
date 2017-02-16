@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import Signup from './Signup'
 import Navbar from './Navbar'
 import Sidebar from './Sidebar'
+import Landing from './Landing'
 import setAuthorizationToken from '../utils/setAuthorizationToken.js'
 import {setUser, getFollowers, getFollowing} from '../actions/auth_actions.js'
 import {fetchUserPostsFromDb, fetchStarredPostsFromDb} from '../actions/post_actions.js'
@@ -42,9 +43,6 @@ const Main = React.createClass({
 
 		return (
 			<div>
-				<h1>
-					<Link to="/">aLike.me</Link>
-				</h1>
 				<Navbar user={this.props.user} dispatch={this.props.dispatch}/>
 				<Sidebar user={this.props.user} dispatch={this.props.dispatch}/>
 				{ React.cloneElement(this.props.children, this.props) }
@@ -87,4 +85,3 @@ function mapStatetoProps (state=defaultState) {
 const MainWrapper = connect(mapStatetoProps)(Main);
 
 export default MainWrapper;
-

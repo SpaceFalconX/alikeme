@@ -1,3 +1,60 @@
+@import url('https://fonts.googleapis.com/css?family=Special+Elite');
+
+body {
+  margin-top: 10px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.linkto {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /*flex: 1;*/
+  font-size: 22px;
+  font-weight: 500;
+  color: #fff;
+  padding: 5px 20px 5px 20px;
+  margin: 10px;
+  border-style: none;
+  border-radius: 5px;
+  background-color: #5E35B1;
+}
+
+h1 {
+  text-align: center;
+  font-weight: 600;
+}
+
+.signout {
+  padding-right: 20px;
+  font-size: 16px;
+}
+
+a.navbar-brand.logo {
+  font-family: 'Special Elite', cursive;
+  font-weight: 600;
+  font-size: 25px;
+  color: #673AB7;
+}
+
+.boxed {
+  margin-top: 60px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  padding-left: 40px;
+  border-radius: 5px 5px 0 0;
+}
+
+/*h1
+  font-family billabong, 'billabongregular'
+  text-align center
+  font-weight 100
+  font-size 13rem
+  margin 2rem 0
+  letter-spacing -1px
+  text-shadow 0px 4px 0 rgba(18, 86, 136, 0.11)*/
+
 .postForm {
   opacity: 1;
   animation: showPostForm ease 0.75s
@@ -48,9 +105,7 @@
     }
 }
 
-body {
-  margin-top:20px;
-}
+
 
 .example-enter {
   opacity: 0.01;
