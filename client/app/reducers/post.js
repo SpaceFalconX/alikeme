@@ -1,4 +1,4 @@
-import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS, FETCH_PUBLIC_POSTS, starredPostsJoin, GET_STARRED_POSTS, UPDATE_STARRED_POSTS} from '../actions/index.js'
+import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS, FETCH_PUBLIC_POSTS, STARRED_POSTS_JOIN, GET_STARRED_POSTS, UPDATE_STARRED_POSTS} from '../actions/index.js'
 import _ from 'underscore';
 
 export function createNewPost (action) {
@@ -26,7 +26,7 @@ export function createNewPost (action) {
 export function starredPosts (state=[], action) {
   switch(action.type) {
     case GET_STARRED_POSTS:
-      return [].concat(action.starredPostsJoin)
+      return [].concat(action.STARRED_POSTS_JOIN)
     default :
       return state;
   }
@@ -50,7 +50,7 @@ export function userPosts (state=[], action) {
 
 export function publicPosts (state=[], action) {
   switch(action.type) {
-    case starredPostsJoin:
+    case STARRED_POSTS_JOIN:
       let i = state.findIndex((post)=> post.id === action.postid)
       console.log("state[i].stars_count + action.flag", 10 + action.flag)
       if(i === -1) {
@@ -85,7 +85,7 @@ export function allPosts (state=[], action) {
         post.isStarred = false;
         return post;
       })
-    case starredPostsJoin:
+    case STARRED_POSTS_JOIN:
       let i = state.findIndex((post) => post.id === action.postid)
       if(i === -1) {
           return state;

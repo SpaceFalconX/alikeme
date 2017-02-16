@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {SET_MATCHES, INIT_PERSONALITY_MATCHES, CLEAR_PERSONALITY_MATCHES, CLEAR_MATCHES} from './index.js'
+import {SET_MATCHES, INIT_PERSONALITY_MATCHES, CLEAR_PERSONALITY_MATCHES, CLEAR_MATCHES, UPDATE_STARRED_POSTS_MATCHES} from './index.js'
 
 export function setMatches(posts) {
 	return {
@@ -11,6 +11,13 @@ export function setMatches(posts) {
 export function clearMatches () {
   return {
     type: CLEAR_MATCHES
+  }
+}
+
+export function updateStarredPostsMatches (ids) {
+  return {
+    type: UPDATE_STARRED_POSTS_MATCHES,
+		ids
   }
 }
 

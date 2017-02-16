@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST,FETCH_ALL_POSTS, FETCH_USER_POSTS, FETCH_PUBLIC_POSTS, FILTER_POSTS, CLEAR_POSTS, starredPostsJoin, GET_STARRED_POSTS, UPDATE_STARRED_POSTS} from './index.js'
+import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST,FETCH_ALL_POSTS, FETCH_USER_POSTS, FETCH_PUBLIC_POSTS, FILTER_POSTS, CLEAR_POSTS, STARRED_POSTS_JOIN, GET_STARRED_POSTS, UPDATE_STARRED_POSTS} from './index.js'
 
 export function createPost(newPost) {
 	return {
@@ -44,7 +44,7 @@ export function clearPosts () {
 
 export function toggle(postid, userid, flag) {
 	return {
-		type: starredPostsJoin,
+		type: STARRED_POSTS_JOIN,
 		postid,
 		userid,
 		flag
@@ -52,11 +52,11 @@ export function toggle(postid, userid, flag) {
 }
 
 
-export function fetchStarredPosts(userid, starredPostsJoin) {
+export function fetchStarredPosts(userid, STARRED_POSTS_JOIN) {
 	return {
 		type: GET_STARRED_POSTS,
 		userid,
-		starredPostsJoin
+		STARRED_POSTS_JOIN
 	}
 }
 
