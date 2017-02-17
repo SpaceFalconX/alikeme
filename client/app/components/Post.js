@@ -37,7 +37,6 @@ class Post extends React.Component {
     if(params.username !== user.username) {
       return ( <span>MATCH ME UP!</span> )
     } else if (user.username !== post.user.username) {
-      console.log('/profile/' + user.username +'/' + post.user.username)
       return ( <Link to={'/profile/' + user.username +'/' + post.user.username}>
               click to view {post.user.username}s profile</Link> )
     }

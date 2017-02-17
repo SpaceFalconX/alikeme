@@ -12,7 +12,7 @@ class Browse extends React.Component {
     this.props.dispatch(fetchPostsFromDb())
     .then(()=> {
       const {user, allPosts, starredPosts} = this.props
-      this.props.dispatch(updateStarredPosts(user.id, allPosts, starredPosts))
+      this.props.dispatch(updateStarredPosts(user.id, allPosts, starredPosts));
     })
   }
 

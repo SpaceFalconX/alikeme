@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {Link, browserHistory} from 'react-router'
 import {connect} from 'react-redux'
 import {logoutClick} from '../actions/auth_actions.js'
@@ -18,39 +18,43 @@ import jwt from 'jsonwebtoken';
 
 
 //React.cloneElement will clone/propogate props down through the children elements
-const Main = React.createClass({
+class Main extends Component {
+
 
 	componentWillMount() {
+		console.log("LOCATION", window.location.pathname)
 		const { params, router} =  this.props;
 		if(localStorage.token) {
 		  setAuthorizationToken(localStorage.token);
 		  const decoded = jwt.decode(localStorage.token)
-			console.log("compare", params.username, decoded.user.username)
 			if(params.username !== decoded.user.username) {
-				console.log("/${params.username}", `/${params.username}`)
 				router.push(`/${decoded.user.username}`);
 			}
 			Promise.join(
 		    this.props.dispatch(setUser(decoded.user)),
+				this.props.dispatch(fetchCategories()),
 		    this.props.dispatch(fetchUserPostsFromDb(decoded.user.username)),
 		    this.props.dispatch(fetchStarredPostsFromDb(decoded.user.id)),
 		    this.props.dispatch(getFollowers(decoded.user.id)),
 		    this.props.dispatch(getFollowing(decoded.user.id)),
 		    this.props.dispatch(initUserMatches(decoded.user.username))
-		  ).then(() => (console.log("ALL DATA FETCHED")))
+		  )
+			.then(() => console.log('yes'))
 			//todo
 			//setup pubnub notifications channel (in store?)
 			//publish notifications on starring and following actions
 			//publish notifications on messages (WHEN user is not present in message channel)
 			//listen for starring, following, and messaging
 			//use history to display notifications in seperate view
+		} else if(window.location.pathname === "/") {
+			router.push('/');
+		} else if(window.location.pathname === "/signup") {
+			router.push('/signup');
+		} else {
+			router.push('/login');
 		}
-		// router.push(`/login`);
-	},
+	}
 
-	// logout () {
-	// 	this.props.dispatch(logoutClick(this.props.user));
-	// },
 
 	render() {
 
@@ -62,7 +66,7 @@ const Main = React.createClass({
 			</div>
 		)
 	}
-})
+}
 
 export const defaultState = {
 	user: {
