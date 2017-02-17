@@ -1,27 +1,33 @@
 import React from 'react'
+import { Promise } from 'bluebird'
 import {Link, browserHistory} from 'react-router'
 import {signupApiRequest, signupUser,loginApiRequest, getFollowers, getFollowing} from '../actions/auth_actions.js'
 import {fetchUserPostsFromDb, fetchStarredPostsFromDb} from '../actions/post_actions.js'
+import {fetchCategories} from '../actions/category_actions.js'
 import {initUserMatches} from '../actions/match_actions.js'
 import {getWatsonTwitterData} from '../actions/watson_actions.js'
 
 const Landing = React.createClass({
 	loginUser () {
 		const {dispatch, router} = this.props;
+		const user = {username: 'isaac', password: '123', id: '1'}
 		dispatch(loginApiRequest({username: 'isaac', password: '123'}))
 		.then(() => {
 			let {user} = this.props;
 			if(user.isAuthenticated) {
-				dispatch(fetchUserPostsFromDb('isaac'))
-				.then(() => dispatch(getFollowers('2')))
-			  .then(() => dispatch(getFollowing('2')))
-			  .then(() => dispatch(fetchStarredPostsFromDb('2')))
-			  .then(() => dispatch(initUserMatches('isaac')))
-			  .then(() => router.push({pathname:'/isaac'}))
+				Promise.join(
+					dispatch(fetchUserPostsFromDb(user.username)),
+					dispatch(fetchCategories()),
+					dispatch(getFollowers(user.id)),
+					dispatch(getFollowing(user.id)),
+					dispatch(fetchStarredPostsFromDb(user.id)),
+					dispatch(initUserMatches(user.username))
+				)
+				.then(() => router.push({pathname:`/${user.username}`}))
 			}
 		})
 	},
-	
+
 	render() {
 		return (
       <div className="jumbotron boxed landing">

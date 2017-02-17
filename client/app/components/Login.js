@@ -1,10 +1,12 @@
 import React from 'react'
 import {Link} from 'react-router'
+import { Promise } from 'bluebird'
 import {loginApiRequest, getFollowers, getFollowing} from '../actions/auth_actions.js'
 import {fetchUserPostsFromDb, fetchStarredPostsFromDb} from '../actions/post_actions.js'
 import {fetchCategories} from '../actions/category_actions.js'
 import {initUserMatches} from '../actions/match_actions.js'
 import {getWatsonData} from '../actions/watson_actions.js'
+
 
 const Login = React.createClass({
 	handleSubmit(e) {
@@ -17,12 +19,15 @@ const Login = React.createClass({
 		.then(() => {
 			let {user} = this.props;
 			if(user.isAuthenticated) {
-				dispatch(fetchUserPostsFromDb(user.username))
-				.then(() => dispatch(getFollowers(user.id)))
-			  .then(() => dispatch(getFollowing(user.id)))
-			  .then(() => dispatch(fetchStarredPostsFromDb(user.id)))
-			  .then(() => dispatch(initUserMatches(user.username)))
-			  .then(() => router.push({pathname:`/${username}`}))
+				Promise.join(
+					dispatch(fetchUserPostsFromDb(user.username)),
+					dispatch(getFollowers(user.id)),
+					dispatch(fetchCategories()),
+					dispatch(getFollowing(user.id)),
+					dispatch(fetchStarredPostsFromDb(user.id)),
+					dispatch(initUserMatches(user.username))
+				)
+				.then(() => router.push({pathname:`/${username}`}))
 			}
 		})
 		this.refs.loginForm.reset();

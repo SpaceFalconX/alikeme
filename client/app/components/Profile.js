@@ -10,12 +10,6 @@ import {fetchCategories} from '../actions/category_actions.js'
 import _ from 'lodash'
 
 class Profile extends React.Component {
-  componentWillMount () {
-    if(this.props.categories.length === 0) {
-      this.props.dispatch(fetchCategories());
-    }
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     if (nextProps !== this.props) {
       return true;

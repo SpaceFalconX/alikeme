@@ -13,7 +13,7 @@ import {setUser, getFollowers, getFollowing} from '../actions/auth_actions.js'
 import {fetchUserPostsFromDb, fetchStarredPostsFromDb} from '../actions/post_actions.js'
 import {initUserMatches } from '../actions/match_actions.js'
 import {fetchCategories} from '../actions/category_actions.js'
-import {Promise} from 'bluebird'
+import { Promise } from 'bluebird'
 import jwt from 'jsonwebtoken';
 
 
@@ -23,7 +23,7 @@ class Main extends Component {
 
 	componentWillMount() {
 		console.log("LOCATION", window.location.pathname)
-		const { params, router} =  this.props;
+		const { params, router, dispatch} =  this.props;
 		if(localStorage.token) {
 		  setAuthorizationToken(localStorage.token);
 		  const decoded = jwt.decode(localStorage.token)
@@ -31,13 +31,13 @@ class Main extends Component {
 				router.push(`/${decoded.user.username}`);
 			}
 			Promise.join(
-		    this.props.dispatch(setUser(decoded.user)),
-				this.props.dispatch(fetchCategories()),
-		    this.props.dispatch(fetchUserPostsFromDb(decoded.user.username)),
-		    this.props.dispatch(fetchStarredPostsFromDb(decoded.user.id)),
-		    this.props.dispatch(getFollowers(decoded.user.id)),
-		    this.props.dispatch(getFollowing(decoded.user.id)),
-		    this.props.dispatch(initUserMatches(decoded.user.username))
+		    dispatch(setUser(decoded.user)),
+				dispatch(fetchCategories()),
+		    dispatch(fetchUserPostsFromDb(decoded.user.username)),
+		    dispatch(fetchStarredPostsFromDb(decoded.user.id)),
+		    dispatch(getFollowers(decoded.user.id)),
+		    dispatch(getFollowing(decoded.user.id)),
+		    dispatch(initUserMatches(decoded.user.username))
 		  )
 			.then(() => console.log('yes'))
 			//todo
