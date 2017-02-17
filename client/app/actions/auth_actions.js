@@ -10,11 +10,11 @@ export function setUser (user) {
 	}
 }
 
-export function logoutUser () {
-	return {
-		type: LOGOUT_USER,
-	}
-}
+// export function logoutUser () {
+// 	return {
+// 		type: LOGOUT_USER,
+// 	}
+// }
 
 export function followUser (obj) {
 	return {
@@ -38,11 +38,11 @@ export function following (following) {
 }
 
 
-export function logoutClick (user) {
+export function logoutClick () {
 	return function (dispatch) {
 		localStorage.removeItem('token');
 		setAuthorizationToken(false)
-		dispatch(logoutUser());
+		dispatch(setUser({}));
 	}
 }
 

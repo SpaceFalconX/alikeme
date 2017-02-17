@@ -11,8 +11,8 @@ const Signup = React.createClass({
 		const email = this.refs.email.value;
 		const password = this.refs.password.value;
 		const twitterLink = this.refs.twitter.value;
-		let userData = { username, email, password, twitterLink };
-		let { user, router } = this.props
+		const userData = { username, email, password, twitterLink };
+		const { user, router } = this.props
 		this.props.dispatch(signupApiRequest(userData)).then(() => {
 			if(this.props.user.isAuthenticated) {
 				this.props.router.push('/setup/' + this.props.user.username)
@@ -23,23 +23,43 @@ const Signup = React.createClass({
 	render() {
 
 		return (
-				<div className="col-xs-6">
-					<div className="jumbotron boxed">
-						<h2>Signup</h2>
-						<form ref="signupForm" onSubmit={this.handleSubmit}>
-							<label>Username:</label><br/>
-							<input className="form-group" type="text" ref="username" placeholder="username"/><br/>
-							<label>Email address:</label><br/>
-							<input className="form-group" type="email" ref="email" placeholder="email"/><br/>
-							<label>Password:</label><br/>
-							<input className="form-group" type="password" ref="password" placeholder="password"/><br/>
-							<label>Twitter handle:</label><br/>
-							<span className="fa fa-twitter"></span>
-							<input className="form-group" type="text" ref="twitter" placeholder="eg: janedoe"/><br/>
-							<input className="btn btn-default" type="submit" value="Signup"/>
-						</form>
+			<div className="jumbotron boxed center">
+				<h2 className="signup">Join alike.me today</h2>
+				<form className="form-horizontal" ref="signupForm" onSubmit={this.handleSubmit}>
+					<div className="form-group">
+				    <label className="col-sm-3 control-label">Username</label>
+				    <div className="col-sm-9">
+				      <input className="form-control" type="text" ref="username" placeholder="jane123"/>
+				    </div>
+				  </div>
+
+					<div className="form-group">
+						<label className="col-sm-3 control-label">Email</label>
+						<div className="col-sm-9">
+							<input className="form-control" type="email" ref="email" placeholder="user@email.com"/>
 						</div>
 					</div>
+
+					<div className="form-group">
+						<label className="col-sm-3 control-label">Password</label>
+						<div className="col-sm-9">
+							<input className="form-control" type="password" ref="password" placeholder="password"/>
+						</div>
+					</div>
+
+					<div className="form-group">
+						<label className="col-sm-3 control-label">Twitter</label>
+						<div className="col-sm-9">
+							<input className="form-control" type="text" ref="twitter" placeholder="twitter handle"/>
+						</div>
+					</div><br/>
+
+					<div className="form-actions">
+						<input className="btn btn-default linkto signup-btn" type="submit" value="Signup"/>
+					</div>
+
+				</form>
+			</div>
 		)
 	}
 })

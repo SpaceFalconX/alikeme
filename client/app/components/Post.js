@@ -33,13 +33,15 @@ class Post extends React.Component {
   }
 
   matchORViewContext () {
-    if(this.props.params.username !== this.props.user.username) {
+    const { post, user, params } = this.props;
+    if(params.username !== user.username) {
       return ( <span>MATCH ME UP!</span> )
-    } else if (this.props.user.username !== this.props.post.user.username) {
-      return ( <Link to={'/profile/' + this.props.post.user.username}>
-              click to view {this.props.post.user.username}s profile</Link> )
+    } else if (user.username !== post.user.username) {
+      console.log('/profile/' + user.username +'/' + post.user.username)
+      return ( <Link to={'/profile/' + user.username +'/' + post.user.username}>
+              click to view {post.user.username}s profile</Link> )
     }
-    return ( <Link to={'/matches/' + this.props.post.id}>
+    return ( <Link to={'/matches/' + user.username + '/' + post.id}>
             click to view matches and edit</Link> )
   }
 

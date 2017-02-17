@@ -25,7 +25,7 @@ const Sidebar = React.createClass({
     // this.state = {
     //   profilePicture: 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.user.username + '.jpg'
     // }
-    
+
     const imgStyle = {
       height: '80px',
       width: '80px',
@@ -47,13 +47,13 @@ const Sidebar = React.createClass({
    // <img src={this.state.profilePicture} style={imgStyle}/>
 
 	 const loggedInView = (
-			<div className="col-md-2">
+			<div className="col-md-2 space sidebar-custom">
         <div style={fontStyl}>
           <h3> Hello {this.props.user.username}!</h3>
           <UserPic username={this.props.user.username} style={imgStyle} />
 
-           <p style={locationStyl}> <small> location set to: <br/> San Francisco, CA </small> </p>
-          <h4> Stats <small title="The normalized percentile score for the characteristic. The range is 0 to 100. For example, if the percentage for Openness is 25%, the author scored in the 25th percentile; the author is more open than 24% of the population and less open than 74% of the population."> *%percentile </small> </h4>
+           <p style={locationStyl}> <small> Current city: <strong>San Francisco, CA </strong></small> </p><br/>
+          <h4 className="small-title"> My Personality Profile <small title="The normalized percentile score for the characteristic. The range is 0 to 100. For example, if the percentage for Openness is 25%, the author scored in the 25th percentile; the author is more open than 24% of the population and less open than 74% of the population."> </small> </h4>
 
 
           <div style={{width: +(this.props.user.openness * 100).toFixed(0) + '%'}}>
@@ -73,7 +73,7 @@ const Sidebar = React.createClass({
           <div style={{width: +(this.props.user.extraversion * 100).toFixed(0) + '%'}}>
             <div className="statBar">
               <div style={{width: '500px'}}>
-                <p><strong> Introversion/Extraversion: </strong> { +(this.props.user.extraversion * 100).toFixed(0) || ' ' }%</p>
+                <p><strong> Extraversion: </strong> { +(this.props.user.extraversion * 100).toFixed(0) || ' ' }%</p>
               </div>
             </div>
           </div>

@@ -30,9 +30,9 @@ const Root = (
 				<Route path='/message/:username(/:user)' component={Message} />
 				<Route path='/setup/:username' component={ProfileSetup} />
 				<Route path='/settings/:username' component={Settings} />
-				<Route path='/profile/:username' component={PublicProfile} />
+				<Route path='/profile/:username/:otheruser' component={PublicProfile} />
         <Route path='/browse/:username(/:category)' component={Browse} />
-				<Route path='/matches/:postid' component={Matches} />
+				<Route path='/matches/:username/:postid' component={Matches} />
 				<Route path='/editProfile/:username' component={Settings} />
 				<Route path='/:username' component={Profile} />
 			</Route>

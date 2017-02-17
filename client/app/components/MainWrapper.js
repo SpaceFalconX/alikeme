@@ -1,6 +1,8 @@
 import React from 'react'
 import {Link, browserHistory} from 'react-router'
 import {connect} from 'react-redux'
+import {logoutClick} from '../actions/auth_actions.js'
+
 
 import Signup from './Signup'
 import Navbar from './Navbar'
@@ -19,9 +21,15 @@ import jwt from 'jsonwebtoken';
 const Main = React.createClass({
 
 	componentWillMount() {
+		const { params, router} =  this.props;
 		if(localStorage.token) {
 		  setAuthorizationToken(localStorage.token);
 		  const decoded = jwt.decode(localStorage.token)
+			console.log("compare", params.username, decoded.user.username)
+			if(params.username !== decoded.user.username) {
+				console.log("/${params.username}", `/${params.username}`)
+				router.push(`/${decoded.user.username}`);
+			}
 			Promise.join(
 		    this.props.dispatch(setUser(decoded.user)),
 		    this.props.dispatch(fetchUserPostsFromDb(decoded.user.username)),
@@ -37,14 +45,19 @@ const Main = React.createClass({
 			//listen for starring, following, and messaging
 			//use history to display notifications in seperate view
 		}
+		// router.push(`/login`);
 	},
+
+	// logout () {
+	// 	this.props.dispatch(logoutClick(this.props.user));
+	// },
 
 	render() {
 
 		return (
 			<div>
-				<Navbar user={this.props.user} dispatch={this.props.dispatch}/>
-				<Sidebar user={this.props.user} dispatch={this.props.dispatch}/>
+				<Navbar user={this.props.user} dispatch={this.props.dispatch} />
+				<Sidebar user={this.props.user} dispatch={this.props.dispatch} />
 				{ React.cloneElement(this.props.children, this.props) }
 			</div>
 		)

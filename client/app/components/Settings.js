@@ -3,7 +3,7 @@ import axios from 'axios'
 import {setTwitterToDb} from '../actions/twitter_actions.js'
 
 class Settings extends React.Component {
-  
+
   //TODO
   //get watson values with updated handle
   //create route to store new handle and updated values
@@ -40,7 +40,7 @@ class Settings extends React.Component {
 
   render () {
     return (
-      <div className="col-md-6">
+      <div className="col-md-6 space">
         <h3> Configure social media accounts </h3>
         Enter your <span className="fa fa-twitter"> </span> handle:
         <form onSubmit={this.handleSubmit.bind(this)}>

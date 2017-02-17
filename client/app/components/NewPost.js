@@ -13,7 +13,7 @@ const NewPostForm = React.createClass({
   },
 
   postStyle () {
-    return {margin: '0px 3px 0px 3px',}
+    return {margin: '0px 10px 0px 20px',}
   },
 
   addNewTag(e) {
@@ -69,7 +69,7 @@ const NewPostForm = React.createClass({
     return (
         <div className="block">
           <div onClick={toggleForm}>
-            <h5> Create a new Post</h5><hr/>
+            <h4 className="small-title"> Create a new Post</h4><hr/>
           </div>
           <div className={this.state.formClass}>
             <form ref="newPostForm" onSubmit={this.handleSubmit}>
@@ -92,7 +92,7 @@ const NewPostForm = React.createClass({
                       })}
                     </select>
                   </div>
-              <input type="submit" className="btn btn-default" value="Submit Post" />
+              <input type="submit" className="btn btn-default linkto" value="Submit Post" />
             </form>
           </div>
         </div>
@@ -101,6 +101,3 @@ const NewPostForm = React.createClass({
 })
 
 export default NewPostForm;
-
-
-

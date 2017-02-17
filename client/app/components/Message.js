@@ -175,13 +175,13 @@ class Message extends React.Component {
     }
     if(this.props.user.username === this.props.params.user || !this.props.params.user) {
       return (
-        <div className="col-md-6">
+        <div className="col-md-6 space">
           <h1>Select a conversation</h1>
         </div>
       )
     } else {
       return (
-        <div className="col-md-6">
+        <div className="col-md-6 space">
           <div className="header">
             <h1>Messaging {this.props.params.user}</h1>
           </div>
@@ -204,7 +204,7 @@ class Message extends React.Component {
     }
     return (
       <div>
-        <div className="col-md-4">
+        <div className="col-md-4 space">
           <h2>Recent</h2>
           <div style={convoStyle}>
             {this.state.usersHistory}

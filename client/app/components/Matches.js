@@ -57,7 +57,7 @@ class Matches extends React.Component {
   render () {
 
     return (
-      <div className="col-md-10">
+      <div className="col-md-10 space">
         <div className="row">
           <div className="col-md-8">
             {this.displayCurrent()}

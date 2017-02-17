@@ -25,30 +25,14 @@ class Browse extends React.Component {
       float:'left',
       paddingLeft:'10px',
     }
-    const FILTER = {paddingBottom: '50px'}
+    // const FILTER = {
+    //   paddingBottom: '50px';
+    //
+    // }
     return (
-    <div className="col-md-10">
-     <div className="row">
-      <div className="col-md-8">
-        <h1>Browse</h1>
-          <div style={FILTER}>
-            {
-              this.props.categories.map((category, index) =>
-                (
-                  <div key={index} className="form-check">
-                  <label className="form-check-label" style={CARDS}>
-                    <Link activeStyle={{
-                      color: '#FFF',
-                      background: '#0DD5FF',
-                      padding: '2px 2px 2px 2px'
-                    }} to={'/browse/' + this.props.user.username + '/' + category.name}>
-                    {category.name}</Link>
-                  </label>
-                </div>
-                )
-              )
-            }
-          </div>
+    <div className="col-md-10 space">
+      <div className="row">
+        <div className="col-md-8">
           <NewPostForm {...this.props} />
           <div className="row">
             { filtered.map((post, index) => {
@@ -59,13 +43,32 @@ class Browse extends React.Component {
               })
             }
           </div>
-         </div>
-       </div>
+        </div>
+        <div className="col-md-2 select-category">
+          <h4 className="small-title">Filter posts by category</h4>
+            {
+              this.props.categories.map((category, index) =>
+                (
+                  <div key={index} className="form-check">
+                  <label className="form-check-label" style={CARDS}>
+                    <Link className="linkto category" activeStyle={{
+                      color: '#FFF',
+                      background: '#0DD5FF',
+                      padding: '2px 2px 2px 2px'
+                    }} to={'/browse/' + this.props.user.username + '/' + category.name}>
+                    {category.name}</Link>
+                  </label>
+                </div>
+                )
+              )
+            }
+        </div>
+
       </div>
+
+    </div>
     )
   }
 }
 
 export default Browse;
-
-

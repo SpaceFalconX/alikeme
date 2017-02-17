@@ -36,7 +36,7 @@ class Profile extends React.Component {
     }
     const {personalityMatches, user, dispatch, params} = this.props;
     return (
-        <div className="col-md-10" >
+        <div className="col-md-10 space" >
          <div className="row" >
             <div className="col-md-8">
               <NewPostForm {...this.props} />
@@ -52,8 +52,8 @@ class Profile extends React.Component {
             <div className="col-md-4">
 
               <h4>Following ({this.props.user.following.length})</h4>
-                <div style={followStyle}> 
-                  { 
+                <div style={followStyle}>
+                  {
                     this.props.user.following.map((follower, index)=>{
                       return (<FollowThumb router={this.props.router} key={index} follower={follower}
                         personalityMatches={this.props.personalityMatches} />)
@@ -61,7 +61,7 @@ class Profile extends React.Component {
                   }
                 </div>
               <h4>Followers ({this.props.user.followers.length})</h4>
-              <div style={followStyle}> 
+              <div style={followStyle}>
                 {
                   this.props.user.followers.map((follower, index)=>{
                     return (<FollowThumb router={this.props.router} key={index} follower={follower}

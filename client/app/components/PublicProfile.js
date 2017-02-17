@@ -6,9 +6,9 @@ import {fetchPublicPostsFromDb} from '../actions/post_actions.js'
 
 class PublicProfile extends React.Component {
   componentWillMount () {
-    this.props.dispatch(fetchPublicPostsFromDb(this.props.params.username))
+    this.props.dispatch(fetchPublicPostsFromDb(this.props.params.otheruser))
   }
-  
+
   userPosts () {
     const {personalityMatches, user, params, dispatch} = this.props;
     return this.props.publicPosts.map((post) =>
@@ -20,8 +20,8 @@ class PublicProfile extends React.Component {
 
   render () {
     return (
-      <div className="col-md-6">
-      <h1>{this.props.params.username}'s profile</h1>
+      <div className="col-md-6 space">
+      <h1>{this.props.params.username}s profile</h1>
       <Link className="btn btn-default" to={'/message/' + this.props.user.username + '/' + this.props.params.username}>MESSAGE {this.props.params.username}</Link>
       <button className="btn btn-default">FOLLOW {this.props.params.username}</button>
       {this.userPosts()}

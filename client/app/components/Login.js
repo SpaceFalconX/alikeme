@@ -30,31 +30,57 @@ const Login = React.createClass({
 
 	render() {
 		return (
-			<div className="col-md-6">
-				<h2>Login</h2>
-				<form ref="loginForm" onSubmit={this.handleSubmit}>
-					<label>Username:</label><br/>
-					<input className="form-group" type="text" ref="username" placeholder="username"/><br/>
-					<label>Password:</label><br/>
-					<input className="form-group" type="password" ref="password" placeholder="password"/><br/>
-					<input className="btn btn-default" type="submit" value="Login"/>
-					 <a onClick={this.clicker} className="btn btn-social-icon btn-twitter">
-    					<span className="fa fa-twitter"></span>
-  				</a>
-					<a href="/auth/facebook" className="btn btn-social-icon btn-facebook">
-    					<span className="fa fa-facebook"></span>
-  				</a>
-					<a onClick={this.clicker} className="btn btn-social-icon btn-tumblr">
-    					<span className="fa fa-tumblr"></span>
-  				</a>
+
+			<div className="jumbotron boxed center">
+				<h2 className="signup">Login to your account</h2>
+				<form className="form-horizontal" ref="loginForm" onSubmit={this.handleSubmit}>
+					<div className="form-group">
+						<label className="col-sm-3 control-label">Username</label>
+						<div className="col-sm-9">
+							<input className="form-control" type="text" ref="username" placeholder="jane123"/>
+						</div>
+					</div>
+
+					<div className="form-group">
+						<label className="col-sm-3 control-label">Password</label>
+						<div className="col-sm-9">
+							<input className="form-control" type="password" ref="password" placeholder="password"/>
+						</div>
+					</div>
+
+					<div className="form-actions">
+						<input className="btn btn-default linkto signup-btn" type="submit" value="Login"/>
+					</div>
+
 				</form>
-				<div>
-						<p>New to Alike.me?</p>
-						<Link to="/">Go to Signup Page</Link>
-				</div>
 			</div>
 		)
 	}
 })
 
 export default Login;
+
+
+// <div className="col-md-6">
+// 	<h2>Login</h2>
+// 	<form ref="loginForm" onSubmit={this.handleSubmit}>
+// 		<label>Username:</label><br/>
+// 		<input className="form-group" type="text" ref="username" placeholder="username"/><br/>
+// 		<label>Password:</label><br/>
+// 		<input className="form-group" type="password" ref="password" placeholder="password"/><br/>
+// 		<input className="btn btn-default" type="submit" value="Login"/>
+// 		 <a onClick={this.clicker} className="btn btn-social-icon btn-twitter">
+// 				<span className="fa fa-twitter"></span>
+// 		</a>
+// 		<a href="/auth/facebook" className="btn btn-social-icon btn-facebook">
+// 				<span className="fa fa-facebook"></span>
+// 		</a>
+// 		<a onClick={this.clicker} className="btn btn-social-icon btn-tumblr">
+// 				<span className="fa fa-tumblr"></span>
+// 		</a>
+// 	</form>
+// 	<div>
+// 			<p>New to Alike.me?</p>
+// 			<Link to="/">Go to Signup Page</Link>
+// 	</div>
+// </div>

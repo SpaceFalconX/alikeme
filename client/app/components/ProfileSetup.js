@@ -39,7 +39,7 @@ const ProfileSetup = React.createClass({
 		}
 		return (
 			<div>
-				<div className="col-md-8">
+				<div className="col-md-8 space">
 					<div className="col-md-8">
 						<h2 style={headerStyle}>Suggested Users to Follow</h2>
 					</div>
