@@ -49,7 +49,7 @@ const Sidebar = React.createClass({
 	 const loggedInView = (
 			<div className="col-md-2 space sidebar-custom">
         <div style={fontStyl}>
-          <h3> Hello {this.props.user.username}!</h3>
+          <h4 className="small-title hello"> Hello {this.props.user.username}!</h4>
           <UserPic username={this.props.user.username} style={imgStyle} />
 
            <p style={locationStyl}> <small> Current city: <strong>San Francisco, CA </strong></small> </p><br/>
@@ -94,11 +94,9 @@ const Sidebar = React.createClass({
       <div className="col-md-2">
         <div className="jumbotron">
           WELCOME TO aLike.me
-
         </div>
       </div>
    )
-
 
     return (
       <div> { isAuthenticated ? loggedInView : '' } </div>

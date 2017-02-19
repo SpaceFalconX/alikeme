@@ -44,7 +44,6 @@ class Profile extends React.Component {
               }
             </div>
             <div className="col-md-4">
-
               <h4>Following ({this.props.user.following.length})</h4>
                 <div style={followStyle}>
                   {

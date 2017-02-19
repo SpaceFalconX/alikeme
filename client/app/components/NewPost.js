@@ -13,7 +13,11 @@ const NewPostForm = React.createClass({
   },
 
   postStyle () {
-    return {margin: '0px 10px 0px 20px',}
+    return {
+      margin: '0px 10px 0px 0px',
+      fontSize: 15,
+      fontWeight: 600
+    }
   },
 
   addNewTag(e) {
@@ -79,20 +83,23 @@ const NewPostForm = React.createClass({
               <div className="form-group">
                 <textarea className="form-control" type="text" ref="content" placeholder="Content"/>
               </div>
-                  <div className="form-group">
+                <div className="form-inline post-select-container">
                   <div style={TAG_CSS}>
-                  {this.domTags()}
+                    <label style={this.postStyle()}>Tags</label>
+                    {this.domTags()}
+                    <input className="form-control" id="inlineFormInputGroup" type="text" ref="tag" placeholder="Add a new tag"/>
+                    <button className="btn btn-sm linkto addtag-btn"  onClick={this.addNewTag}>Add tag</button>
                   </div>
-                    <input className="form-inline" type="text" ref="tag" placeholder="Add a new tag"/>
-                    <button className="btn btn-sm" onClick={this.addNewTag}>Add tag</button>
+                  <div>
                     <label style={this.postStyle()}>Select a Category</label>
-                    <select ref="category">
+                    <select className="form-control" id="inlineFormInputGroup" ref="category">
                       {this.props.categories.map((category, index) => {
                         return <option key={category.id}>{category.name}</option>
                       })}
                     </select>
                   </div>
-              <input type="submit" className="btn btn-default linkto" value="Submit Post" />
+                    <input type="submit" className="btn btn-default linkto post-btn pull-right" value="Submit Post" />
+                </div>
             </form>
           </div>
         </div>

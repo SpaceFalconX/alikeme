@@ -6,19 +6,31 @@ class StarButton extends React.Component {
   render() {
     const {post, user} = this.props;
     const starButton = (
-      <span onClick={this.props.toggle}>
-        <i className="glyphicon glyphicon-star-empty">
-          <strong> {post.stars_count}</strong>
-        </i>
-      </span>
+      <div className="star-row-container">
+        <div className="badge star-container">
+          <p className="star-text">Star</p>
+          <i className="glyphicon glyphicon-star-empty" onClick={this.props.toggle}></i>
+        </div>
+        <div>
+          <p className="stars-count">
+            <strong>{post.stars_count}&nbsp;</strong>people aLike &nbsp; <strong>{post.user.username}&nbsp;</strong>starred this post!
+          </p>
+        </div>
+      </div>
     )
 
     const unstarButton = (
-      <span onClick={this.props.toggle}>
-        <i className="glyphicon glyphicon-star">
-          <strong> {post.stars_count}</strong>
-        </i>
-      </span>
+      <div className="star-row-container">
+        <div className="badge star-container starred">
+          <p className="star-text">Star</p>
+          <i className="glyphicon glyphicon-star" onClick={this.props.toggle}></i>
+        </div>
+        <div>
+          <p className="stars-count">
+            <strong>{post.stars_count}&nbsp;</strong>people aLike &nbsp; <strong>{post.user.username}&nbsp;</strong>starred this post!
+          </p>
+        </div>
+      </div>
     )
 
     const userPostView = (
@@ -29,19 +41,8 @@ class StarButton extends React.Component {
     )
 
     return (
-      <div>
-        <div>
-          <CSSTransitionGroup
-            transitionName="star"
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={500}>
-            <span key={post.id}></span>
-          </CSSTransitionGroup>
-        </div>
-        { post.user.username === user.username? userPostView :
-          post.isStarred? unstarButton : starButton
-        }
-      </div>
+      post.user.username === user.username? userPostView :
+      post.isStarred? unstarButton : starButton
     )
   }
 }

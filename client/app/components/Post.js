@@ -56,31 +56,31 @@ class Post extends React.Component {
     }
 
     return (
+      <div className="post-content-container">
         <div className="panel panel-default" style={POST_CSS}>
           <div className="panel-body">
-            <Link className="pull-left">
-              <UserPic username={this.props.post.user.username} />
+            <Link className="pull-left post-heading">
+              <UserPic className="post-image" username={this.props.post.user.username} />
+              <span className="post-username"><em>@{this.props.post.user.username}</em></span>
             </Link>
             <span className="pull-right"><em>
             { moment(this.props.post.created_at).calendar() }
             </em></span>
             <div className="media-body" style={MEDIA_BODY}>
-              <h4 className="list-group-item-heading">{this.props.post.title}</h4>
-              <p className="list-group-item-text"><b>{this.props.post.content}</b></p>
-              <p><i>- {this.props.post.user.username}</i></p>
-              <p>{this.matchORViewContext()}</p>
+              <h4 className="list-group-item-heading post-title">{this.props.post.title}</h4>
+              <p className="list-group-item-text post-text">{this.props.post.content}</p>
+              <p style={{paddingLeft: 20}} >{this.matchORViewContext()}</p>
             </div>
-
-          <div>
-            <StarButton toggle={this.toggle.bind(this)} {...this.props} />
+            <div className="panel-body meta">
+              <span className="glyphicon glyphicon-tags" aria-hidden="true" style={this.postStyle()}></span>
+              <span>&nbsp;{this.renderTags()}</span>
+              <span> Posted in &nbsp;
+                <Link className="badge" style={this.postStyle()}> {this.props.post.category.name} </Link>
+              </span>
+            </div>
           </div>
-
-          <div className="panel-body">
-            <span className="glyphicon glyphicon-tags" aria-hidden="true" style={this.postStyle()}></span>
-            <span>{this.renderTags()}</span>
-            <span> Posted in
-              <Link className="badge" style={this.postStyle()}> {this.props.post.category.name} </Link>
-            </span>
+          <div className="panel-footer">
+            <StarButton toggle={this.toggle.bind(this)} {...this.props} />
           </div>
         </div>
       </div>
