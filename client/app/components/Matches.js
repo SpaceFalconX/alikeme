@@ -57,16 +57,11 @@ class Matches extends React.Component {
   render () {
 
     return (
-      <div className="col-md-10 space">
-        <div className="row">
-          <div className="col-md-8">
-            {this.displayCurrent()}
-          <hr />
+      <div className="col-xs-11 feed">
+          {this.displayCurrent()}
           <h1>Alike-Minded Posts</h1>
-            {this.displayMatches()}
+          {this.displayMatches()}
           <hr />
-          </div>
-        </div>
       </div>
     )
   }

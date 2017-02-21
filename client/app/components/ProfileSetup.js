@@ -59,7 +59,7 @@ const ProfileSetup = React.createClass({
 								this.props.personalityMatches.map((match, index)=>{
 									return (<FriendsList key={index} dispatch={this.props.dispatch}
 									match={match} user={this.props.user} router={this.props.router} />)
-								})
+								}).slice(0,10)
 							}
 						</div>
 					</div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import {browserHistory, Link} from 'react-router'
 import {followClick} from '../actions/auth_actions.js'
-import UserPic from './userPicture.js'
+import UserPic from './UserAvatar.js'
 
 const FriendsList = React.createClass({
   followUser(e) {
@@ -74,9 +74,3 @@ const FriendsList = React.createClass({
 })
 
 export default FriendsList;
-
-
-
-
-
-

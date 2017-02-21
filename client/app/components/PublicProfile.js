@@ -20,14 +20,16 @@ class PublicProfile extends React.Component {
 
   render () {
     return (
-      <div className="col-md-6 space">
-      <h1>{this.props.params.username}s profile</h1>
-      <Link className="btn btn-default" to={'/message/' + this.props.user.username + '/' + this.props.params.username}>MESSAGE {this.props.params.username}</Link>
-      <button className="btn btn-default">FOLLOW {this.props.params.username}</button>
-      {this.userPosts()}
+      <div className="row">
+      <div className="col-xs-10 feed">
+        <h2 className="small-title public">{this.props.params.otheruser}'s profile</h2>
+        <Link className="btn btn-default" to={'/message/' + this.props.user.username + '/' + this.props.params.username}><strong>Message</strong> {this.props.params.otheruser}</Link>
+        <button className="btn btn-default"><strong>Follow</strong> {this.props.params.otheruser}</button>
+        {this.userPosts()}
+      </div>
       </div>
     )
   }
 }
 
-export default PublicProfile
+export default PublicProfile;

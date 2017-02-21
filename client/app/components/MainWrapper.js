@@ -59,10 +59,16 @@ class Main extends Component {
 	render() {
 
 		return (
-			<div>
+			<div className="main">
 				<Navbar user={this.props.user} dispatch={this.props.dispatch} />
-				<Sidebar user={this.props.user} dispatch={this.props.dispatch} />
-				{ React.cloneElement(this.props.children, this.props) }
+				<div className="container-fluid">
+					<div className="row">
+						<Sidebar user={this.props.user} dispatch={this.props.dispatch} />
+						<div className="col-xs-10 col-xs-offset-1">
+							{ React.cloneElement(this.props.children, this.props) }
+						</div>
+					</div>
+				</div>
 			</div>
 		)
 	}

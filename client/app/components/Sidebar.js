@@ -4,37 +4,37 @@ import axios from 'axios'
 // import Style from 'react-style-tag';
 import { connect } from 'react-redux'
 import { browserHistory, Link } from 'react-router'
-import UserPic from './userPicture.js'
-// import fetchUserPicture from '../utils/fetchUserPicture.js'
-
+import UserPic from './UserAvatar.js'
+import fetchUserPicture from '../utils/fetchUserPicture.js'
 const Sidebar = React.createClass({
-  // componentWillMount () {
-  //     this.setState({profilePicture: null})
-  // },
+  componentWillMount () {
+      this.setState({profilePicture: null})
+  },
 
-  // componentWillReceiveProps (nextProps) {
-  //     fetchUserPicture(nextProps.user.username).then((res) => {
-  //       this.setState({profilePicture: res.data})
-  //     })
-  // },
+  componentWillReceiveProps (nextProps) {
+      fetchUserPicture(nextProps.user.username).then((res) => {
+        this.setState({profilePicture: res.data})
+      })
+  },
 
   render () {
 
-    // fetchUserPicture(this.props.user.username)
+    fetchUserPicture(this.props.user.username)
 
-    // this.state = {
-    //   profilePicture: 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.user.username + '.jpg'
-    // }
+    this.state = {
+      profilePicture: 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.user.username + '.jpg'
+    }
 
     const imgStyle = {
-      height: '80px',
-      width: '80px',
+      height: '120px',
       borderRadius: '50%',
+      margin: '20px',
       border: '2px, solid, #000',
     }
 
     const fontStyl = {
-      fontSize: '10px'
+      fontSize: '10px',
+      paddingBottom: '20px'
     }
 
     const locationStyl = {
@@ -47,8 +47,7 @@ const Sidebar = React.createClass({
    // <img src={this.state.profilePicture} style={imgStyle}/>
 
 	 const loggedInView = (
-			<div className="col-md-2 space sidebar-custom">
-        <div style={fontStyl}>
+        <div className="col-xs-2 sidebar">
           <h4 className="small-title hello"> Hello {this.props.user.username}!</h4>
           <UserPic username={this.props.user.username} style={imgStyle} />
 
@@ -87,19 +86,17 @@ const Sidebar = React.createClass({
 
 
         </div>
-      </div>
    )
 
    const noSideView = (
-      <div className="col-md-2">
-        <div className="jumbotron">
-          WELCOME TO aLike.me
+        <div style={{borderStyle: 'none'}}>
         </div>
-      </div>
    )
 
     return (
-      <div> { isAuthenticated ? loggedInView : '' } </div>
+      <div>
+        { isAuthenticated ? loggedInView : noSideView }
+      </div>
     )
   }
 })

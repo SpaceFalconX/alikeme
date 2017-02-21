@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {browserHistory, Link} from 'react-router';
 import moment from 'moment'
-import UserPic from './userPicture.js'
+import UserPic from './UserAvatar.js'
 import StarButton from './StarButton.js'
 import {toggleStar} from '../actions/post_actions.js'
 

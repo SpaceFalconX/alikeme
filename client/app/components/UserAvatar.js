@@ -46,8 +46,8 @@ class UserPic extends React.Component {
     const imgStyle = () => {
       if(!this.props.style) {
         return {
-          height: '40px',
-          width: '40px',
+          height: '60px',
+          width: '60px',
           borderRadius: '50%',
           border: '2px, solid, #000'
         }

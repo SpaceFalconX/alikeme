@@ -7,13 +7,20 @@ body {
   margin-top: 10px;
   font-family: 'Open Sans', sans-serif;
   /*background-image: url('./network.jpg');*/
+  background-color: #e9ebee;
   background-repeat:no-repeat;
   background-size:cover;
+
 }
 
-#app.container {
-  width: 100%;
+hr {
+  border-top: 1px solid #cecece;
 }
+
+/*#app.container-fluid {
+  position: relative;
+  left: 20px;
+}*/
 
 .boxed {
   margin-top: 80px;
@@ -45,7 +52,27 @@ body {
   margin-top: 80px;
 }
 
+.panel-footer {
+  display: flex;
+}
 
+.followers-container {
+  position: fixed;
+  top: 50px;
+  bottom: 0;
+  left: 270px;
+  z-index: 1000;
+  padding: 20px;
+  padding-left: 30px;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  border-left: 1px solid #cecece;
+}
+
+.follow-post {
+  display: flex;
+  /*flex-grow: 1;*/
+}
 /* * * * *
   TYPOGRAPHY
 * * * * */
@@ -55,20 +82,28 @@ h1 {
   /*text-shadow 0px 4px 0 rgba(18, 86, 136, 0.11)*/
 }
 
-.hello {
-  padding-bottom: 50px;
-  margin-bottom: 30px;
-  margin-top: 0px;
-  font-size: 30px;
-  color: #000;
-}
-
 .small-title {
   color: #9C27B0;
   font-weight: 600;
   padding-bottom: 10px;
 }
 
+.hello {
+  margin-top: -5px;
+  font-size: 30px;
+  color: #111;
+}
+
+.public {
+  font-size: 28px;
+  padding: 10px;
+  padding-left: 25px;
+  margin: 30px 0;
+  color: #fdfdfd;
+  border-style: none;
+  border-radius: 10px;
+  background-color: #bebebe;
+}
 
 /* * * * *
   NAVBAR
@@ -164,9 +199,12 @@ a.navbar-brand.logo {
   font-size: 14px;
 }
 
+
+
 /* * * CATEGORY * * */
 .category {
   font-size: 15px;
+  color: #111;
   margin: 10px 0 0 10px;
   display: inline-block;
   background-color: #d0d0d0;
@@ -179,9 +217,24 @@ a.navbar-brand.logo {
 }
 
 .select-category {
-  padding-left: 40px;
+  position: fixed;
+  top: 50px;
+  bottom: 0;
+  left: 270px;
+  z-index: 1000;
+  padding: 20px;
+  padding-left: 30px;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  border-left: 1px solid #cecece;
 }
 
+.feed {
+  position: relative;
+  top: 60px;
+  padding-left: 40px;
+  padding-right: 50px;
+}
 /* * * LABELS * * */
 .control-label {
   font-size: 16px;
@@ -206,7 +259,6 @@ a.navbar-brand.logo {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-
   /*align-items: center;*/
 }
 
@@ -270,6 +322,8 @@ a.navbar-brand.logo {
 .media-body {
 
 }
+
+
 .post-text {
   font-weight: 400;
   padding-top: 10px;
@@ -295,6 +349,7 @@ a.navbar-brand.logo {
 .star-row-container {
   display: flex;
   align-items: center;
+  flex-grow: 4
   /*flex-direction: column;*/
 }
 
@@ -303,13 +358,15 @@ a.navbar-brand.logo {
   display: flex;
   align-items: stretch;
   justify-content: space-between;
-  background-color: #ababab;
+  background-color: #E0E0E0;
+  color: #111;
   padding-bottom: 10px;
   padding-top: 10px;
 }
 .starred {
   /*opacity: 0.7;*/
   background-color: #26A69A;
+  color: #eee;
 }
 
 .stars-count {
@@ -336,25 +393,65 @@ a.navbar-brand.logo {
   margin: 0;
 }
 
-/*.star-enter {
-  transition: .2s all;
-  opacity: 0;
-}*/
+/* * * FOLLOW BUTTON * * */
 
-/*.stars-count.star-enter.star-enter-active {
-  right: 100px;
-  transition: 500ms ease-in;
+.glyphicon-user, .glyphicon-plus {
+  color: #00796B;
 }
 
-.stars-count.star-leave-active {
-  display: none;
-}*/
+.glyphicon-user {
+  font-size: 110%;
+}
+.not-following {
+  background-color: #E0E0E0;
+  color: #111;
+}
+.not-following:hover  {
+  background-color: #B2DFDB;
+}
+.following {
+  color: #eee;
+  background-color: #26A69A;
+}
+
+.following >.glyphicon-user, .following >.glyphicon-plus {
+  color: #fff;
+}
+
+.following-both {
+  background-color: #9C27B0;
+}
+
+.emphasis {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+
 
 
 
 /* * * * *
   SIDEBAR
 * * * * */
+
+.sidebar {
+  position: fixed;
+  top: 60px;
+  bottom: 0;
+  left: 40px;
+  z-index: 1000;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  border-right: 1px solid #cecece;
+}
+
+/*.sidebar {
+  padding-left: 0;
+  padding-right: 0;
+}*/
+
 .statBar {
     height: 25px;
     font-size: 14px;
@@ -414,11 +511,4 @@ a.navbar-brand.logo {
     to {
     	width: 100%;
     }
-}
-
-
-
-.user-friend-list img, .media img {
-  height:50px;
-  width:50px;
 }

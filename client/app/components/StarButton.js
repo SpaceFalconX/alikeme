@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router'
 import CSSTransitionGroup from 'react-addons-css-transition-group' // ES6
+import {followClick} from '../actions/auth_actions.js'
 
 class StarButton extends React.Component {
   render() {

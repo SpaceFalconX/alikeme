@@ -2,7 +2,7 @@ import React from 'react'
 import PubNub from 'pubnub'
 import {clearTags} from '../actions/tag_actions.js'
 import {browserHistory} from 'react-router'
-import UserPic from './userPicture.js'
+import UserPic from './UserAvatar.js'
 
 class Message extends React.Component {
   constructor(props) {

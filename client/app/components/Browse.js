@@ -33,9 +33,8 @@ class Browse extends React.Component {
     //
     // }
     return (
-    <div className="col-md-10 space">
       <div className="row">
-        <div className="col-md-8">
+        <div className="col-xs-11 feed">
           <NewPostForm {...this.props} />
             { filtered.map((post, index) => {
                 return (
@@ -45,7 +44,7 @@ class Browse extends React.Component {
               })
             }
         </div>
-        <div className="col-md-4 select-category">
+        <div className="col-xs-2 col-xs-offset-7 select-category">
           <h4 className="small-title">Filter posts by category</h4><hr/>
             {
               this.props.categories.map((category, index) =>
@@ -68,7 +67,6 @@ class Browse extends React.Component {
 
       </div>
 
-    </div>
     )
   }
 }
