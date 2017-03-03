@@ -12,7 +12,6 @@ const Users = require('../database/collections/users.js');
 const router = express.Router();
 
 router.post('/signup', (req, res) => {
-	console.log("USERNAME SIGNUP", username)
 	const { username, password, email, twitterLink} = req.body
 	new User ({username: username})
 	.fetch()
@@ -55,7 +54,6 @@ router.post('/login', (req, res) => {
 				.then((userUpdate) => {
 					const gravatar = gravatarGen.url(userUpdate.get('email'),
 					{s: '100', r: 'x', d: 'retro'}, true);
-					//console.log("UPDATE?", gravatar)
 					userUpdate.set({ gravatar })
 					const token = generateToken(userUpdate);
 					res.status(201).send({token});
