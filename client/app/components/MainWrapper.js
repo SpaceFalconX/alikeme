@@ -56,16 +56,12 @@ class Main extends Component {
 	render() {
 
 		return (
-			<div className="main">
+			<div className="app-wrapper">
 				<Navbar user={this.props.user} dispatch={this.props.dispatch} />
-				<div className="container-fluid">
-					<div className="row">
-						<div className="col-xs-2 sidebar">
-							<Sidebar user={this.props.user} dispatch={this.props.dispatch} />
-						</div>
-						<div className="col-xs-10 col-xs-offset-2">
-							{ React.cloneElement(this.props.children, this.props) }
-						</div>
+				<Sidebar params={this.props.params} user={this.props.user} dispatch={this.props.dispatch} />
+				<div className="page-content-wrapper">
+					<div className="container-fluid">
+						{ React.cloneElement(this.props.children, this.props) }
 					</div>
 				</div>
 			</div>
@@ -90,6 +86,7 @@ export const defaultState = {
 }
 
 function mapStatetoProps (state=defaultState) {
+	console.log("STATE", state);
 	return {
 		user: Object.assign(state.user, ...state.user, {following: state.user.following, followers: state.user.followers}),
 		tags: state.tags,

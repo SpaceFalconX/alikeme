@@ -168,13 +168,13 @@ class Message extends React.Component {
     }
     if(this.props.user.username === this.props.params.user || !this.props.params.user) {
       return (
-        <div className="col-md-6 space">
+        <div className="col-lg-9 feed">
           <h1>Select a conversation</h1>
         </div>
       )
     } else {
       return (
-        <div className="col-md-6 space">
+        <div className="col-lg-9 feed">
           <div className="header">
             <h1>Messaging {this.props.params.user}</h1>
           </div>
@@ -196,14 +196,14 @@ class Message extends React.Component {
       overflow: 'scroll'
     }
     return (
-      <div>
-        <div className="col-md-4 space">
+      <div className="row">
+        {this.showConversation()}
+        <div className="col-lg-3">
           <h2>Recent</h2>
           <div style={convoStyle}>
             {this.state.usersHistory}
           </div>
         </div>
-        {this.showConversation()}
       </div>
     )
   }

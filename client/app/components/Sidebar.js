@@ -4,7 +4,9 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import { browserHistory, Link } from 'react-router'
 import fetchUserPicture from '../utils/fetchUserPicture.js'
-const Sidebar = React.createClass({
+
+
+class Sidebar extends React.Component {
 
   render () {
 
@@ -22,62 +24,60 @@ const Sidebar = React.createClass({
       fontSize: '14px'
     }
 
-   const isAuthenticated = this.props.user.isAuthenticated;
-
+   const { user, params } = this.props;
 
 	 const loggedInView = (
-        <div>
-          <h4 className="small-title hello"> Hello {this.props.user.username}!</h4>
-          <img src={this.props.user.gravatar} style={imgStyle} />
+        <div className="sidebar-wrapper">
+          <div className="sidebar-content">
 
-           <p style={locationStyl}><small>City: <strong> San Francisco, CA </strong></small> </p><br/>
-          <h4 className="small-title"> My Personality Profile </h4>
+            <h4 className="small-title hello"> Hello {this.props.user.username}!</h4>
+            <img src={this.props.user.gravatar} style={imgStyle} />
 
-          <div style={{width: +(this.props.user.openness * 100).toFixed(0) + '%'}}>
-            <div className="statBar">
-              <div style={{width: '500px'}}>
-                <p><strong> Openness: </strong> { +(this.props.user.openness * 100).toFixed(0) || ' ' }%</p>
+             <p style={locationStyl}><small>City: <strong> San Francisco, CA </strong></small> </p><br/>
+            <h4 className="small-title"> My Personality Profile </h4>
+
+            <div style={{width: +(this.props.user.openness * 100).toFixed(0) + '%'}}>
+              <div className="statBar">
+                <div style={{width: '500px'}}>
+                  <p><strong> Openness: </strong> { +(this.props.user.openness * 100).toFixed(0) || ' ' }%</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div style={{width: +(this.props.user.conscientiousness * 100).toFixed(0) + '%'}}>
-            <div className="statBar">
-              <div style={{width: '500px'}}>
-                <p><strong> Conscientiousness: </strong> { +(this.props.user.conscientiousness * 100).toFixed(0) || ' ' }%</p>
+            <div style={{width: +(this.props.user.conscientiousness * 100).toFixed(0) + '%'}}>
+              <div className="statBar">
+                <div style={{width: '500px'}}>
+                  <p><strong> Conscientiousness: </strong> { +(this.props.user.conscientiousness * 100).toFixed(0) || ' ' }%</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div style={{width: +(this.props.user.extraversion * 100).toFixed(0) + '%'}}>
-            <div className="statBar">
-              <div style={{width: '500px'}}>
-                <p><strong> Extraversion: </strong> { +(this.props.user.extraversion * 100).toFixed(0) || ' ' }%</p>
+            <div style={{width: +(this.props.user.extraversion * 100).toFixed(0) + '%'}}>
+              <div className="statBar">
+                <div style={{width: '500px'}}>
+                  <p><strong> Extraversion: </strong> { +(this.props.user.extraversion * 100).toFixed(0) || ' ' }%</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div style={{width: +(this.props.user.emotionalRange * 100).toFixed(0) + '%'}}>
-            <div className="statBar">
-              <div style={{width: '500px'}}>
-                <p><strong> Emotional range: </strong> { +(this.props.user.emotionalRange * 100).toFixed(0) || ' ' }%</p>
+            <div style={{width: +(this.props.user.emotionalRange * 100).toFixed(0) + '%'}}>
+              <div className="statBar">
+                <div style={{width: '500px'}}>
+                  <p><strong> Emotional range: </strong> { +(this.props.user.emotionalRange * 100).toFixed(0) || ' ' }%</p>
+                </div>
               </div>
             </div>
-          </div>
 
-
+          </div>
         </div>
    )
 
    const noSideView = (
-        <div style={{borderStyle: 'none'}}>
-        </div>
+      <div style={{borderStyle: 'none'}}></div>
    )
 
-    return (
-      <div>
-        { isAuthenticated ? loggedInView : noSideView }
-      </div>
-    )
+    return  (user.isAuthenticated && params.username === user.username)? 
+    loggedInView : noSideView
+
   }
-})
+}
 
 export default Sidebar;
 

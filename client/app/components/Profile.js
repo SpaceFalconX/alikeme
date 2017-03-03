@@ -30,8 +30,8 @@ class Profile extends React.Component {
     }
     const {personalityMatches, user, dispatch, params} = this.props;
     return (
-         <div className="row" >
-            <div className="col-xs-10 feed">
+         <div className="row">
+            <div className="col-lg-9 feed">
               <NewPostForm {...this.props} />
               {
                 posts.map((post, index) => {
@@ -42,7 +42,7 @@ class Profile extends React.Component {
                 }).reverse()
               }
             </div>
-            <div className="col-xs-2 col-xs-offset-7 followers-container">
+            <div className="col-lg-3">
               <h4>Following ({this.props.user.following.length})</h4>
                 <div style={followStyle}>
                   {

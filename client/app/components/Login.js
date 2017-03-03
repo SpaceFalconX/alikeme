@@ -39,15 +39,15 @@ const Login = React.createClass({
 				<h2 className="signup">Login to your account</h2>
 				<form className="form-horizontal" ref="loginForm" onSubmit={this.handleSubmit}>
 					<div className="form-group">
-						<label className="col-sm-3 control-label">Username</label>
-						<div className="col-sm-9">
+						<label className="col-lg-3 control-label">Username</label>
+						<div className="col-lg-9">
 							<input className="form-control" type="text" ref="username" placeholder="jane123"/>
 						</div>
 					</div>
 
 					<div className="form-group">
-						<label className="col-sm-3 control-label">Password</label>
-						<div className="col-sm-9">
+						<label className="col-lg-3 control-label">Password</label>
+						<div className="col-lg-9">
 							<input className="form-control" type="password" ref="password" placeholder="password"/>
 						</div>
 					</div>
@@ -65,7 +65,7 @@ const Login = React.createClass({
 export default Login;
 
 
-// <div className="col-md-6">
+// <div className="col-lg-6">
 // 	<h2>Login</h2>
 // 	<form ref="loginForm" onSubmit={this.handleSubmit}>
 // 		<label>Username:</label><br/>

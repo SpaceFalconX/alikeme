@@ -40,19 +40,21 @@ class Settings extends React.Component {
 
   render () {
     return (
-      <div className="col-md-6 space">
-        <h3> Configure social media accounts </h3>
-        Enter your <span className="fa fa-twitter"> </span> handle:
-        <form onSubmit={this.handleSubmit.bind(this)}>
-        <input type="text" ref="twitter" placeholder="eg: janedoe"/>
-        </form> <br/>
-        <button className="btn btn-sm" onClick={this.handleSubmit.bind(this)}>UPDATE</button>
+      <div className="row">
+        <div className="col-lg-9">
+          <h3> Configure social media accounts </h3>
+          Enter your <span className="fa fa-twitter"> </span> handle:
+          <form onSubmit={this.handleSubmit.bind(this)}>
+          <input type="text" ref="twitter" placeholder="eg: janedoe"/>
+          </form> <br/>
+          <button className="btn btn-sm" onClick={this.handleSubmit.bind(this)}>UPDATE</button>
 
-        <h2>Update Profile Picture</h2>
-        <form onSubmit={this.handleImageUpload.bind(this)}>
-          <input id='file' type="file" encType="multipart/form-data" accept="image/*" ref="profilePicture" />
-          <button className="btn btn-sm">UPLOAD</button>
-        </form>
+          <h2>Update Profile Picture</h2>
+          <form onSubmit={this.handleImageUpload.bind(this)}>
+            <input id='file' type="file" encType="multipart/form-data" accept="image/*" ref="profilePicture" />
+            <button className="btn btn-sm">UPLOAD</button>
+          </form>
+        </div>
       </div>
     )
   }

@@ -4,15 +4,19 @@
   LAYOUT
 * * * * */
 body {
-  margin-top: 10px;
+  /*margin-top: 10px;*/
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
   /*background-image: url('./network.jpg');*/
-  background-color: #e9ebee;
+  background-color: #F0F1F3;
+  /* original #E9EBEE*/
+  /*background-color: #E9EBEE;*/
   background-repeat:no-repeat;
   background-size:cover;
+  overflow-x: hidden;
 
 }
+
 
 hr {
   border-top: 1px solid #cecece;
@@ -35,14 +39,18 @@ hr {
 
 .center {
   margin: auto;
+  margin-right: 250px;
   margin-top: 80px;
   width: 600px;
 }
 
 .landing {
-  margin-right: 10%;
+  /*margin-right: 10%;
   margin-left: 10%;
-  margin-top: 120px;
+  margin-top: 120px;*/
+  margin: auto;
+  margin-right: 200px;
+  margin-top: 80px;
 }
 
 .padded-box {
@@ -57,18 +65,6 @@ hr {
   display: flex;
 }
 
-.followers-container {
-  position: fixed;
-  top: 50px;
-  bottom: 0;
-  left: 270px;
-  z-index: 1000;
-  padding: 20px;
-  padding-left: 30px;
-  overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-  border-left: 1px solid #cecece;
-}
 
 .follow-post {
   display: flex;
@@ -80,9 +76,19 @@ hr {
 h1 {
   text-align: center;
   font-weight: 600;
+  font-size: 30px;
   /*text-shadow 0px 4px 0 rgba(18, 86, 136, 0.11)*/
 }
 
+.jumbotron p {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 200;
+}
+
+.jumbotron h1 {
+  font-size: 50px;
+}
 .small-title {
   color: #111;
   font-weight: 600;
@@ -91,11 +97,10 @@ h1 {
 }
 
 .hello {
-  margin-top: -5px;
+  margin-top: 2px;
   font-size: 22px;
   color: #111;
-  padding-bottom: 0;
-  /*margin-bottom: 0;*/
+  margin-bottom: 0;
 }
 
 .public {
@@ -114,6 +119,7 @@ h1 {
 * * * * */
 .navbar-default .navbar-nav>li>a {
   color: #eee;
+  font-size: 14px;
 }
 
 .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
@@ -130,8 +136,23 @@ a.navbar-brand.logo {
   font-family: 'Special Elite', cursive;
   font-weight: 600;
   font-size: 25px;
-  color: #fff;
+  color: #fafafa;
   padding-top: 17px;
+}
+
+a.navbar-brand.logo:hover {
+  color: #37474F;
+  background-color: transparent;
+}
+
+a.navbar-brand.logo:active {
+  color: #263238;
+  background-color: transparent;
+}
+
+a.navbar-brand.logo:focus {
+  color: #263238;
+  background-color: transparent;
 }
 
 
@@ -140,8 +161,8 @@ a.navbar-brand.logo {
 * * * * */
 
 .form-control {
-  font-size: 14px;
-  height: 38px;
+  font-size: 12px;
+  height: 35px;
 }
 
 .form-actions {
@@ -164,7 +185,7 @@ h4 {
   BUTTONS
 * * * * */
 .linkto {
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 500;
   color: #fff;
   padding: 10px 20px 10px 20px;
@@ -236,12 +257,7 @@ h4 {
   border-left: 1px solid #cecece;
 }
 
-.feed {
-  position: relative;
-  top: 60px;
-  padding-left: 40px;
-  padding-right: 50px;
-}
+
 /* * * LABELS * * */
 .control-label {
   font-size: 13px;
@@ -444,7 +460,7 @@ h4 {
   SIDEBAR
 * * * * */
 
-.sidebar {
+/*.sidebar {
   position: fixed;
   top: 60px;
   bottom: 0;
@@ -452,19 +468,15 @@ h4 {
   z-index: 1000;
   padding: 20px;
   overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  overflow-y: auto;
   border-right: 1px solid #cecece;
-}
-
-/*.sidebar {
-  padding-left: 0;
-  padding-right: 0;
 }*/
+
 
 .statBar {
     height: 25px;
     font-size: 12px;
-    background-color: #cecece;
+    background-color: #cacaca;
     margin: 5px;
     border-radius: 5px;
     padding-top: 10px;
@@ -521,3 +533,106 @@ h4 {
     	width: 100%;
     }
 }
+
+
+.app-wrapper {
+  padding-top: 70px;
+  padding-left: 250px;
+}
+
+
+.sidebar-content {
+  position: absolute;
+  top: 0;
+  width: 200px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  padding-left: 10px;
+}
+
+.page-content-wrapper {
+  padding-left: 15px;
+  padding-right: 50px;
+  position: relative;
+}
+
+.sidebar-wrapper {
+    z-index: 1000;
+    position: absolute;
+    left: 250px;
+    width: 200;
+    height: 100%;
+    margin-left: -200px;
+    overflow-x: auto;
+    overflow-y: auto;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    /*background: #fefefe;*/
+    /*border: 1px solid #e1e8ed;
+    border-radius: 5px;*/
+}
+
+
+.feed {
+  padding-right: 30px;
+  padding-left: 30px;
+  border-left: 1px solid #cecece;
+  border-right: 1px solid #cecece;
+}
+
+
+
+
+
+/*.followers-container {*/
+  /*position: fixed;*/
+  /*top: 50px;
+  bottom: 0;*/
+  /*left: 270px;*/
+  /*z-index: 1000;
+  padding: 20px;
+  padding-left: 30px;
+  overflow-x: hidden;
+  overflow-y: auto;*/
+  /*border-left: 1px solid #cecece;*/
+  /*background: #CDDC39;*/
+
+
+  /*position: relative;
+  top: 60px;
+  padding-left: 40px;
+  padding-right: 50px;*/
+  /*border-left: 1px solid #cecece;*/
+
+
+/*
+@media(min-width:768px) {
+    .wrapper {
+        padding-left: 250px;
+    }
+
+    .wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}*/

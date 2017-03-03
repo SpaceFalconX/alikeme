@@ -27,29 +27,29 @@ const Signup = React.createClass({
 				<h2 className="signup">Join alike.me today</h2>
 				<form className="form-horizontal" ref="signupForm" onSubmit={this.handleSubmit}>
 					<div className="form-group">
-				    <label className="col-sm-3 control-label">Username</label>
-				    <div className="col-sm-9">
+				    <label className="col-lg-3 control-label">Username</label>
+				    <div className="col-lg-9">
 				      <input className="form-control" type="text" ref="username" placeholder="jane123"/>
 				    </div>
 				  </div>
 
 					<div className="form-group">
-						<label className="col-sm-3 control-label">Email</label>
-						<div className="col-sm-9">
+						<label className="col-lg-3 control-label">Email</label>
+						<div className="col-lg-9">
 							<input className="form-control" type="email" ref="email" placeholder="user@email.com"/>
 						</div>
 					</div>
 
 					<div className="form-group">
-						<label className="col-sm-3 control-label">Password</label>
-						<div className="col-sm-9">
+						<label className="col-lg-3 control-label">Password</label>
+						<div className="col-lg-9">
 							<input className="form-control" type="password" ref="password" placeholder="password"/>
 						</div>
 					</div>
 
 					<div className="form-group">
-						<label className="col-sm-3 control-label">Twitter</label>
-						<div className="col-sm-9">
+						<label className="col-lg-3 control-label">Twitter</label>
+						<div className="col-lg-9">
 							<input className="form-control" type="text" ref="twitter" placeholder="twitter handle"/>
 						</div>
 					</div><br/>

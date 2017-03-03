@@ -21,12 +21,12 @@ class PublicProfile extends React.Component {
   render () {
     return (
       <div className="row">
-      <div className="col-xs-10 feed">
-        <h2 className="small-title public">{this.props.params.otheruser}'s profile</h2>
-        <Link className="btn btn-default" to={'/message/' + this.props.user.username + '/' + this.props.params.username}><strong>Message</strong> {this.props.params.otheruser}</Link>
-        <button className="btn btn-default"><strong>Follow</strong> {this.props.params.otheruser}</button>
-        {this.userPosts()}
-      </div>
+        <div className="col-lg-9 feed">
+          <h2 className="small-title public">{this.props.params.otheruser}'s profile</h2>
+          <Link className="btn btn-default" to={'/message/' + this.props.user.username + '/' + this.props.params.username}><strong>Message</strong> {this.props.params.otheruser}</Link>
+          <button className="btn btn-default"><strong>Follow</strong> {this.props.params.otheruser}</button>
+          {this.userPosts()}
+        </div>
       </div>
     )
   }

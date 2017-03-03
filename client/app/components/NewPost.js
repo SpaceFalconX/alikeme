@@ -15,7 +15,7 @@ const NewPostForm = React.createClass({
   postStyle () {
     return {
       margin: '0px 10px 0px 0px',
-      fontSize: 15,
+      fontSize: 13,
       fontWeight: 600
     }
   },
@@ -51,7 +51,10 @@ const NewPostForm = React.createClass({
   domTags () {
     return this.props.tags.map((tag) => {
       return (
-        <div className="label label-info"  key={tag} onClick={this.dispatchRemoveTag.bind(this, {tag})}> {tag} </div>
+        <div className="label label-info"
+          key={tag} onClick={this.dispatchRemoveTag.bind(this, {tag})}>
+          {tag}
+        </div>
       )
     })
   },
@@ -78,10 +81,10 @@ const NewPostForm = React.createClass({
           <div className={this.state.formClass}>
             <form ref="newPostForm" onSubmit={this.handleSubmit}>
               <div className ="form-group">
-                <input className="form-control" type="text" ref="title" placeholder="PostTitle"/>
+                <input className="form-control" type="text" ref="title" placeholder="Title..."/>
               </div>
               <div className="form-group">
-                <textarea className="form-control" type="text" ref="content" placeholder="Content"/>
+                <textarea className="form-control" type="text" ref="content" placeholder="What sparks your interest?"/>
               </div>
                 <div className="form-inline post-select-container">
                   <div style={TAG_CSS}>

@@ -45,7 +45,7 @@ const FriendsList = React.createClass({
 
     return (
       <div  className="">
-        <div className="col-md-6">
+        <div className="col-lg-6">
           <div className="panel panel-default thumbnail" style={style.panel}>
             <div className="panel-heading">
               <div className="media">
