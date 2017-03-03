@@ -10,7 +10,7 @@ knex.migrate.latest({directory: path.resolve(__dirname, 'migrations')})
 .then(() => {
   knex.seed.run({directory: path.resolve(__dirname, 'seeds')})
   .then(() => {
-  	//console.log("Migration completed.")
+  	console.log("Migration completed.")
 	});
 })
 

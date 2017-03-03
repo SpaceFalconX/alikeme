@@ -18,11 +18,11 @@ module.exports = {
         password : '90bb8fcd',
         database : 'heroku_e49323e7b0a627f',
         charset  : 'utf8'
-      },
+      }
 
-      migrations: {
-        tableName: 'knex_migrations'
-    }
+    //   migrations: {
+    //     tableName: 'knex_migrations'
+    // }
   }
 
 }
