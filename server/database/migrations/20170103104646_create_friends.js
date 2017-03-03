@@ -8,7 +8,7 @@ exports.up = (knex, Promise) => {
   })
 
   .then(() => {
-  	//console.log('FOLLOWERS_FOLLOWING table created!')
+  	console.log('FOLLOWERS_FOLLOWING table created!')
   })
 };
 

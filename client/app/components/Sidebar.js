@@ -9,33 +9,29 @@ const Sidebar = React.createClass({
   render () {
 
     const imgStyle = {
-      height: '120px',
+      height: '100px',
       borderRadius: '50%',
-      margin: '20px',
+      marginTop: '10px',
+      marginBottom: '10px',
       border: '2px, solid, #000',
     }
 
-    const fontStyl = {
-      fontSize: '10px',
-      paddingBottom: '20px'
-    }
 
     const locationStyl = {
       marginTop: '10px',
-      fontSize: '16px'
+      fontSize: '14px'
     }
 
    const isAuthenticated = this.props.user.isAuthenticated;
 
 
 	 const loggedInView = (
-        <div className="col-xs-2 sidebar">
+        <div>
           <h4 className="small-title hello"> Hello {this.props.user.username}!</h4>
           <img src={this.props.user.gravatar} style={imgStyle} />
 
-           <p style={locationStyl}> <small> Current city: <strong>San Francisco, CA </strong></small> </p><br/>
-          <h4 className="small-title"> My Personality Profile <small title="The normalized percentile score for the characteristic. The range is 0 to 100. For example, if the percentage for Openness is 25%, the author scored in the 25th percentile; the author is more open than 24% of the population and less open than 74% of the population."> </small> </h4>
-
+           <p style={locationStyl}><small>City: <strong> San Francisco, CA </strong></small> </p><br/>
+          <h4 className="small-title"> My Personality Profile </h4>
 
           <div style={{width: +(this.props.user.openness * 100).toFixed(0) + '%'}}>
             <div className="statBar">
@@ -87,5 +83,6 @@ export default Sidebar;
 
 
 
-
+// <small>The normalized percentile score for the characteristic. The range is 0 to 100. For example, if the percentage for Openness is 25%, the author scored in the 25th percentile; the author is more open than 24% of the population and less open than 74% of the population.
+// </small>
 			    // <img src={this.state.profilePicture} style={imgStyle} onError={handleError} />

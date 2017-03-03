@@ -36,15 +36,18 @@ router.post('/signup', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
+	console.log("STEP 1", req.body)
 	let {username, password} = req.body;
 	new User ({username: username})
 	.fetch({withRelated: ['posts', 'starredPosts']})
 	.then((user) => {
+		console.log("STEP 2", user.toJSON())
 		if(!user) {
 			res.status(400).send({error: "go to signup"})
 		} else {
 			user.checkPassword(password)
 			.then((match) => {
+				console.log("STEP 3")
 				const {posts, twitterLink} = user.toJSON();
 				const userPosts = posts.map((post) => post.content).join('')
 				util.getTwitterFeed(twitterLink)
@@ -52,13 +55,15 @@ router.post('/login', (req, res) => {
 				.then((result)=> util.readText(result))
 				.then((stats) => user.save(stats))
 				.then((userUpdate) => {
+					console.log("STEP FIN", userUpdate);
+					console.log(userUpdate.toJSON())
 					const gravatar = gravatarGen.url(userUpdate.get('email'),
 					{s: '100', r: 'x', d: 'retro'}, true);
 					userUpdate.set({ gravatar })
 					const token = generateToken(userUpdate);
 					res.status(201).send({token});
 				})
-				.catch((err) => res.status(500).send({error: err}))
+				.catch((err) => res.status(500).send({error: err.message}))
 			})
 		}
 	})

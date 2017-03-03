@@ -31,7 +31,7 @@ class Browse extends React.Component {
 
     return (
       <div className="row">
-        <div className="col-xs-11 feed">
+        <div className="col-xs-10 feed">
           <NewPostForm {...this.props} />
             { filtered.map((post) => {
                 return (

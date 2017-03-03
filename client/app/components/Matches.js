@@ -57,7 +57,7 @@ class Matches extends React.Component {
   render () {
 
     return (
-      <div className="col-xs-11 feed">
+      <div className="col-xs-10 feed">
           {this.displayCurrent()}
           <h1>Alike-Minded Posts</h1>
           {this.displayMatches()}

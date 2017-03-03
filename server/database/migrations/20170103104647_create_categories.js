@@ -5,7 +5,7 @@ exports.up = (knex, Promise) => {
     category.string('name').unique().notNullable();
   })
   .then(()=>{
-  	//console.log('CATEGORIES table created!')
+  	console.log('CATEGORIES table created!')
   })
 };
 

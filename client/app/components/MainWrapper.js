@@ -60,8 +60,10 @@ class Main extends Component {
 				<Navbar user={this.props.user} dispatch={this.props.dispatch} />
 				<div className="container-fluid">
 					<div className="row">
-						<Sidebar user={this.props.user} dispatch={this.props.dispatch} />
-						<div className="col-xs-10 col-xs-offset-1">
+						<div className="col-xs-2 sidebar">
+							<Sidebar user={this.props.user} dispatch={this.props.dispatch} />
+						</div>
+						<div className="col-xs-10 col-xs-offset-2">
 							{ React.cloneElement(this.props.children, this.props) }
 						</div>
 					</div>
