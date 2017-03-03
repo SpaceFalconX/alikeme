@@ -2,7 +2,8 @@ import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_P
 import _ from 'underscore';
 
 export function createNewPost (action) {
-	const { user_id, username, category, category_id, id, content, title, tags, created_at, updated_at} = action;
+	const { user_id, username, category, category_id, id,
+		content, title, tags, created_at, updated_at, gravatar} = action;
 	return {
     title: title,
     created_at: Date.now(),
@@ -16,7 +17,8 @@ export function createNewPost (action) {
     },
     category: {
       id: category_id,
-      name: category
+      name: category,
+			gravatar: gravatar
     },
     tags: tags
   }
@@ -52,7 +54,7 @@ export function publicPosts (state=[], action) {
   switch(action.type) {
     case STARRED_POSTS_JOIN:
       let i = state.findIndex((post)=> post.id === action.postid)
-      console.log("state[i].stars_count + action.flag", 10 + action.flag)
+      //console.log("state[i].stars_count + action.flag", 10 + action.flag)
       if(i === -1) {
         return state;
       }
@@ -115,5 +117,3 @@ export function allPosts (state=[], action) {
   }
   return state;
 }
-
-

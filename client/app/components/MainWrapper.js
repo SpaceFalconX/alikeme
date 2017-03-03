@@ -20,9 +20,7 @@ import jwt from 'jsonwebtoken';
 //React.cloneElement will clone/propogate props down through the children elements
 class Main extends Component {
 
-
 	componentWillMount() {
-		console.log("LOCATION", window.location.pathname)
 		const { params, router, dispatch} =  this.props;
 		if(localStorage.token) {
 		  setAuthorizationToken(localStorage.token);
@@ -39,7 +37,6 @@ class Main extends Component {
 		    dispatch(getFollowing(decoded.user.id)),
 		    dispatch(initUserMatches(decoded.user.username))
 		  )
-			.then(() => console.log('yes'))
 			//todo
 			//setup pubnub notifications channel (in store?)
 			//publish notifications on starring and following actions

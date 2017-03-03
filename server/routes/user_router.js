@@ -27,11 +27,11 @@ router.route('/posts/:id')
 
 router.route('/matches/:username')
 	.get((req, res) => {
-		console.log(" req.params.username",  req.params.username)
+		//console.log(" req.params.username",  req.params.username)
 		User.where({username: req.params.username})
 		.fetch().then((user) => {
 			let parsedUser = user.toJSON()
-			console.log("user", user)
+			//console.log("user", user)
 			user.generateMatches().then(result => res.json(result.slice(1)))
 		})
 		.catch((err)=>{
@@ -51,7 +51,7 @@ router.route('/count/:id')
 			]
 		)
 		.then((result) => {
-			console.log("result", result)
+			//console.log("result", result)
 		  res.json({followerCount: result[0], followingCount: result[1]})
 		})
 		.catch((err) => {

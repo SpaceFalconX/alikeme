@@ -22,7 +22,8 @@ router.get('/', (req, res) => {
 		for(let i = 0; i < result.length; i++) {
 				result[i] = _.pick(result[i],
 					['title', 'created_at', 'updated_at', 'content', 'id',
-					 'user.username', 'user.id', 'catxegory.id', 'category.name', 'tags', 'stars_count', 'stars' ]
+					 'user.username', 'user.id', 'user.gravatar', 'category.id',
+					 'category.name', 'tags', 'stars_count', 'stars' ]
 					)
 				for(let j = 0; j < result[i].tags.length; j++) {
 					delete result[i].tags[j]['_pivot_id'];
@@ -30,6 +31,7 @@ router.get('/', (req, res) => {
 					delete result[i].tags[j]['_pivot_tag_id'];
 				}
 			}
+			//console.log("RESULTS", result)
 		res.json(result)
 	})
 	.catch((err) => {
@@ -52,7 +54,7 @@ router.get('/:username', (req, res) => {
 			for(let i = 0; i < result.length; i++) {
 				result[i] = _.pick(result[i],
 					['title', 'created_at', 'updated_at', 'content', 'id',
-					 'user.username', 'user.id','category.id', 'category.name', 'tags', 'stars_count', 'stars'])
+					 'user.username', 'user.id', 'user.gravatar','category.id', 'category.name', 'tags', 'stars_count', 'stars'])
 				for(let j = 0; j < result[i].tags.length; j++) {
 					delete result[i].tags[j]['_pivot_id'];
 					delete result[i].tags[j]['_pivot_post_id'];
@@ -69,13 +71,13 @@ router.get('/:username', (req, res) => {
 });
 
 router.post('/getUserId', (req, res) => {
-	console.log('searching for username', req.body.username)
+	//console.log('searching for username', req.body.username)
 	Users.forge()
 	.query({where: {username: req.body.username}})
 	.fetch()
 	.then((result) => {
 		result = result.toJSON()[0].id
-		console.log('result', result)
+		//console.log('result', result)
 		res.json(result)
 	})
 	.catch((err) => {
@@ -87,7 +89,7 @@ router.post('/getUserId', (req, res) => {
 /////////////FILTERING////////////////////////////////////////////////////////////
 
 router.post('/categories', (req, res) => { //filter by category
-	console.log("REQ BODY", req.body)
+	//console.log("REQ BODY", req.body)
 	Posts.forge()
 	.query({where: {category_id: req.body.categoryid}}) //(where: {k: 'v}, orWhere: {k: 'v'}), etc...
 	.fetch({withRelated: ['user', 'category', 'tags']})
@@ -119,7 +121,7 @@ router.post('/tags', (req, res) => { //filter by tag.....how
 	.fetch()
 	.then((tag) => {
 		tag = tag.toJSON()[0].id
-		console.log(tag)
+		//console.log(tag)
 		res.json(tag)
 	})
 	.catch((err) => {
@@ -155,7 +157,7 @@ router.post('/new', (req, res) => {
 							resp['stars_count'] = 0;
 							resp.tags = tags;
 							resp.id = post.id;
-							console.log("RESP", resp)
+							//console.log("RESP", resp)
 							res.send(resp);
 					})
 					.catch((err) => res.status(500).send({error: {message: err.message}}));
@@ -168,7 +170,7 @@ router.post('/new', (req, res) => {
 
 ////////////////MATCHING
 router.get('/matches/:id', (req, res) => {
-	console.log("ID:",req.params.id)
+	//console.log("ID:",req.params.id)
 	const originalPostId = req.params.id
 	Post.where({id: originalPostId})
 	.fetch({withRelated: ['tags', 'category', 'user.followers']})

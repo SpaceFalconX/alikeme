@@ -38,7 +38,7 @@ export function clearPersonalityMatches(matches) {
 export function getMatches(id) {
   return dispatch => axios.get(`/api/post/matches/${id}`)
   .then(({data}) => {
-    console.log("DATA", data);
+    //console.log("DATA", data);
     // const normalized = data.map((match) => {
     //   const {compatibilityScore, relevantTags, weightedScore, originalPost} = match;
     //   return Object.assign({}, {compatibilityScore, relevantTags, weightedScore}, originalPost)
@@ -50,7 +50,7 @@ export function getMatches(id) {
 export function initUserMatches(username) {
   return dispatch => axios.get(`/api/user/matches/${username}`)
   .then((resp) => {
-    //console.log('server res', resp.data)
+    ////console.log('server res', resp.data)
     dispatch(initMatches(resp.data));
   });
 }

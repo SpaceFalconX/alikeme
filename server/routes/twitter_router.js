@@ -5,7 +5,7 @@ const router = express.Router();
 //todo - read twitter here too
 
 router.post('/setTwitter', (req, res) => {
-  console.log('setting to', req.body)
+  //console.log('setting to', req.body)
   new User ({username: req.body.username})
 	.fetch()
 	.then((user) => {

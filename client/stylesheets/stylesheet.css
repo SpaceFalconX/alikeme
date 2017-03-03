@@ -250,7 +250,6 @@ a.navbar-brand.logo {
   padding: 6px;
 }
 
-
 /* * * * *
   POST
 * * * * */
@@ -262,15 +261,17 @@ a.navbar-brand.logo {
   /*align-items: center;*/
 }
 
+.match-btn {
+  display: inline-block;
+  /*align-self: flex-end;*/
+  background-color: #7CB342;
+  margin-top: -10;
+  font-size: 15px;
+  float: right;
+  font-weight: normal;
+  padding: 10px 20px;
+}
 
-/*.date-container {
-  /*float: inherit;*/
-  /*display: inline-block;*/
-/*}*/
-/*.date {
-  padding-right: -10px;
-  margin: 0;
-}*/
 .right-post-container {
   display: flex;
   flex-direction: column;

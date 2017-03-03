@@ -10,11 +10,6 @@ export function setUser (user) {
 	}
 }
 
-// export function logoutUser () {
-// 	return {
-// 		type: LOGOUT_USER,
-// 	}
-// }
 
 export function followUser (obj) {
 	return {
@@ -52,7 +47,7 @@ export function followClick (follower_id, followed_id) {
 		.then(() => {
 			return axios.get(`/api/user/${followed_id}`)
 			.then(({data}) => {
-				console.log("req")
+				//console.log("req")
 				dispatch(followUser({...data, follower_id, followed_id}))
 			})
 		})
@@ -63,7 +58,7 @@ export function getFollowers (id) {
 	return (dispatch) => {
 		return axios.get(`/api/user/followers/${id}`)
 		.then((resp) => {
-			// console.log("RESP", resp.data)
+			// //console.log("RESP", resp.data)
 			dispatch(followers(resp.data))
 		})
 	}
@@ -90,7 +85,7 @@ export function signupApiRequest (userData) {
 			dispatch(setUser(data.user));
 		})
 		.catch((err) => {
-			console.log(err);
+			return err.message;
 		})
 	}
 }
@@ -106,7 +101,7 @@ export function loginApiRequest (userData) {
 			dispatch(setUser(data.user));
 		})
 		.catch((err) => {
-			console.log(err);
+			return err.message;
 		})
 	}
 }

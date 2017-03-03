@@ -6,7 +6,7 @@ class newEntryComponent extends React.Component {
     const description = this.refs.description.value;
     const category = this.refs.category.value;
     let userData = {description, category}
-    console.log(userData)
+    //console.log(userData)
     this.refs.entries.reset();
   }
 

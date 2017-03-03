@@ -5,7 +5,7 @@ exports.up = (knex, Promise) => {
     joinTable.unique(['user_id', 'star_id']);
   })
   .then(() => {
-    console.log('posts_stars table created!')
+    //console.log('posts_stars table created!')
   })
 };
 

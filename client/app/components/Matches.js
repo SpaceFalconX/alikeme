@@ -17,7 +17,7 @@ class Matches extends React.Component {
           }
         })
       })
-      console.log(filtered)
+      //console.log(filtered)
       this.props.dispatch(updateStarredPostsMatches(filtered))
       // if(this.props.user.id === this.props.post.stars.id) {
       //   this.props.dispatch(updateStarredPostsMatches());

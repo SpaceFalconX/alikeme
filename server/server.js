@@ -4,6 +4,7 @@ const path = require('path')
 const bodyParser = require('body-parser');
 const morgan = require('morgan')
 const webpack = require('webpack');
+const gravatar = require('gravatar');
 
 // DEPENDENCIES
 const config = require('../webpack.config.js');
@@ -19,6 +20,7 @@ const upload = require('./routes/upload_router.js')
 
 // APP SETUP & MIDDLEWARE
 const app = express();
+
 
 const compiler = webpack(config);
 app.use(require('webpack-dev-middleware')(compiler, {
@@ -52,5 +54,5 @@ app.use((err, req, res, next) => {
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => (
-	console.log(`App running on port ${port}`)
+	//console.log(`App running on port ${port}`)
 ))

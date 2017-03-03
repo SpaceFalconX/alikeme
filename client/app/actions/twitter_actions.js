@@ -11,7 +11,7 @@ export function setTwitterToDb(body) {
   return dispatch => axios.post('/api/twitter/setTwitter', body)
 	.then((resp) => {
     //dispatch(updatePost(updatedPost));
-    //console.log('bitch')
+    ////console.log('bitch')
   });
 }
 

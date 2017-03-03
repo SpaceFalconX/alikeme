@@ -1,13 +1,12 @@
 import React from 'react'
 import {browserHistory, Link} from 'react-router'
 import {followClick} from '../actions/auth_actions.js'
-import UserPic from './UserAvatar.js'
 
 const FriendsList = React.createClass({
   followUser(e) {
-    console.log(e)
+    //console.log(e)
     e.preventDefault();
-    console.log(this.props.match)
+    //console.log(this.props.match)
     this.props.dispatch(followClick(this.props.user.id, this.props.match.id))
   },
 
@@ -33,17 +32,17 @@ const FriendsList = React.createClass({
         borderTop: '1px solid #e2e9e6',
         borderBottomRightRadius: '5%',
         borderBottomLeftRadius: '5%'
+      },
+      imgStyle: {
+        height: '60px',
+        width: '60px',
+        borderRadius: '50%',
+        border: '2px, solid, #000'
       }
     }
     const {username, distance} = this.props.match
     let route = this.props.router.getCurrentLocation().pathname
-    // <div className="profile-icons">
-    //   <span><i className="fa fa-users"></i> 372</span>
-    //   <span><i className="fa fa-photo"></i> 43</span>
-    //   <span><i className="fa fa-video-camera"></i> 3</span>
-    // </div>
-    //<img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="people" className="media-object img-circle" style={style.friendImg} />
-    // const followButton = (<button ref="follower" className="btn btn-default" onClick={this.followUser}>Follow <i className="fa fa-share"></i></button>)
+
     return (
       <div  className="">
         <div className="col-md-6">
@@ -51,7 +50,7 @@ const FriendsList = React.createClass({
             <div className="panel-heading">
               <div className="media">
                 <div className="pull-left">
-                  <UserPic username={username} />
+                  <img src={this.props.user.gravatar} className="media-object img-circle" style={style.imgStyle} />
                 </div>
                 <div className="media-body">
                   <h4 className="media-heading margin-v-5 pull-left">

@@ -10,7 +10,7 @@ knex.migrate.latest({directory: path.resolve(__dirname, 'migrations')})
 .then(() => {
   knex.seed.run({directory: path.resolve(__dirname, 'seeds')})
   .then(() => {
-  	console.log("Migration completed.")
+  	//console.log("Migration completed.")
 	});
 })
 
@@ -51,7 +51,7 @@ module.exports = db;
 //       user.string('password', 100);
 //       user.timestamps();
 //     }).then(function (table) {
-//       console.log('Created Table', table);
+//       //console.log('Created Table', table);
 //     });
 //   }
 // });
@@ -63,7 +63,7 @@ module.exports = db;
 //       category.string('name', 100).unique();
 //       category.timestamps();
 //     }).then(function (table) {
-//       console.log('Created Table', table);
+//       //console.log('Created Table', table);
 //     });
 //   }
 // });
@@ -83,7 +83,7 @@ module.exports = db;
 //       post.text('content', 'mediumtext');
 //       post.timestamps();
 //     }).then(function (table) {
-//       console.log('Created Table', table);
+//       //console.log('Created Table', table);
 //     });
 //   }
 // });
@@ -95,7 +95,7 @@ module.exports = db;
 //       tag.string('name', 100).unique();
 //       tag.timestamps();
 //     }).then(function (table) {
-//       console.log('Created Table', table);
+//       //console.log('Created Table', table);
 //     });
 //   }
 // });

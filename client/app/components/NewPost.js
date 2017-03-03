@@ -62,7 +62,7 @@ const NewPostForm = React.createClass({
     }
 
     const toggleForm = () => {
-      console.log("changing from", this.state)
+      //console.log("changing from", this.state)
       if(this.state.formClass === 'postForm' || this.state.formClass === "postForm-NoAnimate") {
         this.setState({formClass: 'postFormHidden'})
       } else {

@@ -10,7 +10,7 @@ class Settings extends React.Component {
   //create action/reducer on user store to update after process completed
 
   handleSubmit (e) {
-    console.log('called', this.props.user.username, this.refs.twitter.value)
+    //console.log('called', this.props.user.username, this.refs.twitter.value)
     e.preventDefault();
     const twitter = this.refs.twitter.value;
     const username = this.props.user.username;
@@ -23,18 +23,18 @@ class Settings extends React.Component {
     e.preventDefault()
     let data = new FormData()
     data.append('file', document.getElementById('file').files[0])
-    console.log(data)
+    //console.log(data)
     axios.post('/api/upload/setUserName', {username: this.props.user.username})
     .then((res) => {
-      console.log("uploading picture")
-      console.log(data)
+      //console.log("uploading picture")
+      //console.log(data)
       axios.post('/api/upload/uploadProfilePicture', data)
       .then((res) => {
-        console.log("UPLOADED BACK", res, res.data)
+        //console.log("UPLOADED BACK", res, res.data)
       })
     })
     .catch((err) => {
-      console.log(err)
+      return err.message
     })
   }
 

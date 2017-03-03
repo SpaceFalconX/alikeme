@@ -40,7 +40,6 @@ class Message extends React.Component {
   }
 
   componentDidMount () { //init pubnub
-    console.log('on mount', this.props)
     this.pubnub = new PubNub({
         publishKey: 'pub-c-f5e1b611-9e28-4b7a-85bc-53d8ffb17f95',
         subscribeKey: 'sub-c-45dd39e4-d8ee-11e6-a0b3-0619f8945a4f',
@@ -54,10 +53,6 @@ class Message extends React.Component {
       channels: [this.state.channelName]
     })
     this.refresh()
-  }
-
-  componentWillReceiveProps (nextProps) {
-    console.log("next", nextProps)
   }
 
   componentWillUnmount () {
@@ -102,8 +97,7 @@ class Message extends React.Component {
       },
       (status, response) => {
         if(response === undefined) {
-          console.log("empty conversation res")
-          return
+          return;
         } else {
           //TODO- MAKE A DISPATCH
           this.setState({messageHistory: response.messages.map((message) => { //map messages
@@ -123,8 +117,7 @@ class Message extends React.Component {
       count: 5
     }, (status, response) => {
       if (response === undefined) {
-        console.log('empty message history res')
-        return
+        return;
       } else {
         //TODO- MAKE A DISPATCH
         this.setState({usersHistory: response.messages.map((message) => { //map past convos

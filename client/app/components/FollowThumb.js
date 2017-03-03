@@ -1,7 +1,6 @@
 import React from 'react'
 import {browserHistory, Link} from 'react-router'
 import {followClick} from '../actions/auth_actions.js'
-import UserPic from './UserAvatar.js'
 
 
 const FollowThumb = React.createClass({
@@ -43,7 +42,7 @@ const FollowThumb = React.createClass({
             <div className="panel-heading">
               <div className="media">
                 <div className="pull-left">
-                <UserPic username={follower.username} className="media-object img-circle" style={style.friendImg} />
+                <img src={this.props.follower.gravatar} className="media-object img-circle" style={style.friendImg} />
                 </div>
                 <div className="media-body">
                   <h5 className="media-heading margin-v-5 pull-left">

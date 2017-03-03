@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
+const gravatarGen = require('gravatar');
 
 const util = require('../utils/util.js')
 const config = require('../config/config.js');
@@ -23,7 +24,8 @@ router.post('/signup', (req, res) => {
 			.then((stats) => {
 				new User({ username, email, password, twitterLink}).save(stats)
 				.then((newUser) => {
-					console.log(`SIGNUP SUCCESS: ${newUser.get('username')}`)
+					const gravatar = gravatarGen.url(email, {s: '100', r: 'x', d: 'retro'}, true);
+					newUser.set({ gravatar })
 					const token = generateToken(newUser);
 					res.status(201).send({token});
 				})
@@ -50,7 +52,10 @@ router.post('/login', (req, res) => {
 				.then((result)=> util.readText(result))
 				.then((stats) => user.save(stats))
 				.then((userUpdate) => {
-					console.log(`LOGIN SUCCESS WATSON: ${userUpdate.get('username')}`)
+					const gravatar = gravatarGen.url(userUpdate.get('email'),
+					{s: '100', r: 'x', d: 'retro'}, true);
+					//console.log("UPDATE?", gravatar)
+					userUpdate.set({ gravatar })
 					const token = generateToken(userUpdate);
 					res.status(201).send({token});
 				})
@@ -73,7 +78,7 @@ module.exports = router;
 				// readText(userPosts).then((analysis) => {
 				// 	if(analysis === 'error') {
 				// 		const token = generateToken(user);
-				// 		console.log(`LOG IN SUCCESS BUT NO TEXT UPDATE: ${user.get('username')}`)
+				// 		//console.log(`LOG IN SUCCESS BUT NO TEXT UPDATE: ${user.get('username')}`)
 				// 		res.status(200).send({token});
 				// 	} else {
 				// 		const options = {
@@ -91,7 +96,7 @@ module.exports = router;
 				// 			}
 				// 			if(isNaN(updatedPersonality.openness)) {
 				// 				const token = generateToken(user);
-				// 				console.log(`LOG IN SUCCESS BUT NO TWITTER UPDATE: ${user.get('username')}`)
+				// 				//console.log(`LOG IN SUCCESS BUT NO TWITTER UPDATE: ${user.get('username')}`)
 				// 				res.status(200).send({token});
 				// 			} else {
 				// 				user.save({
@@ -103,7 +108,7 @@ module.exports = router;
 				// 				})
 				// 				.then((success) => {
 				// 					const token = generateToken(user);
-				// 					console.log(`LOG IN SUCCESS: ${user.get('username')}`)
+				// 					//console.log(`LOG IN SUCCESS: ${user.get('username')}`)
 				// 					res.status(200).send({token});
 				// 				})
 				// 			}
@@ -121,13 +126,13 @@ module.exports = router;
  		// 				username, email, password, twitterLink, openness, conscientiousness, extraversion, agreeableness, emotionalRange
  		// 			}).save()
  		// 			.then((user) => {
- 		// 				console.log("USER", user.toJSON())
+ 		// 				//console.log("USER", user.toJSON())
  		// 				const token = generateToken(user);
- 		// 				console.log(`SIGNUP SUCCESS: ${user.get('username')}`)
+ 		// 				//console.log(`SIGNUP SUCCESS: ${user.get('username')}`)
  		// 				res.status(201).send({token});
  		// 			})
  		// 			.catch(() => {
- 		// 				console.log(`SIGNUP FAIL WATSON: ${user.get('username')}`)
+ 		// 				//console.log(`SIGNUP FAIL WATSON: ${user.get('username')}`)
  		// 				const token = generateToken(user);
  		// 				res.status(201).send({token});
  		// 			})

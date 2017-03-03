@@ -6,7 +6,7 @@ exports.up = (knex, Promise) => {
     joinTable.integer('tag_id').unsigned().references('id').inTable('tags');
   })
   .then(() => {
-  	console.log('POSTS_TAGS table created!')
+  	//console.log('POSTS_TAGS table created!')
   })
 };
 

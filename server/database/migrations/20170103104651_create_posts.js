@@ -12,7 +12,7 @@ exports.up = (knex, Promise) => {
 
   })
   .then(() => {
-  	console.log('POSTS table created!')
+  	//console.log('POSTS table created!')
   })
   ;
 };

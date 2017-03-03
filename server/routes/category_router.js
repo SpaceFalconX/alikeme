@@ -10,7 +10,7 @@ router.route('/')
     Categories.forge()
     .fetch()
     .then((collection) => {
-      console.log(collection.toJSON())
+      //console.log(collection.toJSON())
       res.send(collection.toJSON());
     })
     .catch((err) => {
@@ -61,8 +61,8 @@ router.route('/categories/posts')
 //GET MATCHES --does not have related tags, moving to post router
 // router.route('/matches')
 //   .post((req, res) => {
-//     console.log('matches body', req.body)
-//     console.log('category id', req.body.post.category.id)
+//     //console.log('matches body', req.body)
+//     //console.log('category id', req.body.post.category.id)
 //     Categories.forge()
 //     .query({where: {id: req.body.post.category.id}})
 //     .fetch({withRelated: ['posts']})

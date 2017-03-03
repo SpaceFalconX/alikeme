@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {browserHistory, Link} from 'react-router';
 import moment from 'moment'
-import UserPic from './UserAvatar.js'
 import StarButton from './StarButton.js'
 import {toggleStar} from '../actions/post_actions.js'
 
@@ -14,7 +13,6 @@ class MatchedPost extends React.Component {
   toggle (e) {
     const {post, user} = this.props;
     const {isStarred} = post;
-    console.log('TOGGLE', isStarred)
     this.props.dispatch(toggleStar(post.id, user.id, isStarred))
   }
 
@@ -34,14 +32,20 @@ class MatchedPost extends React.Component {
       boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
       transition: '0.3s'
     }
+    const imgStyle = {
+      height: '60px',
+      width: '60px',
+      borderRadius: '50%',
+      border: '2px, solid, #000'
+    };
     const { user, created_at, content, title, stars, category } = this.props.post;
     const traits = [ 'openness', 'conscientiousness', 'extraversion', 'agreeableness', 'emotionalRange' ];
     return (
       <div className="post-content-container">
         <div className="panel panel-default" style={POST_CSS}>
           <div className="panel-body">
-            <Link className="pull-left post-heading">
-              <UserPic className="post-image" username={user.username} />
+            <Link to={'/profile/' + this.props.user.username +'/' + user.username} className="pull-left post-heading">
+              <img src={user.gravatar} className="post-image" style={imgStyle} />
               <span className="post-username"><em>@{user.username}</em></span>
             </Link>
             <div className="pull-right right-post-container">
@@ -73,43 +77,5 @@ class MatchedPost extends React.Component {
     )
   }
 }
-
-
-// <div className="panel panel-default">
-//   <div className="panel-body">
-//     <Link className="pull-left">
-//       <UserPic username={user.username} />
-//     </Link>
-//     <span className="pull-right">
-//       <em>{ moment(created_at).calendar() }</em>
-//       <p>{((5 - this.props.compatibilityScore)/5 * 100).toFixed()}% Personality Match</p>
-//     </span>
-//     <div className="media-body" style={MEDIA_BODY}>
-//       <h4 className="list-group-item-heading">{title}</h4>
-//       <p className="list-group-item-text"><b>{content}</b></p>
-//       <p><i>-{user.username}</i></p>
-//       <Link to={'/profile/' + this.props.user.username + '/' + user.username}>
-//       click to view {user.username}s profile</Link>
-//     </div>
-//   </div>
-//   <div style={this.postStyle()}>
-//     <StarButton toggle={this.toggle.bind(this)} {...this.props} />
-//     Starrs:
-//     {stars.map((user) =>  (
-//       <span key={user.username}><strong>{user.username} </strong></span>
-//     ))}
-//   </div>
-//   <div>
-//     Personality profile:
-//     {traits.map((trait) => (
-//       <div>{`${trait}: ${user[trait]}`}</div>
-//     ))}
-//   </div>
-//   <div className="panel-body">
-//     <span className="glyphicon glyphicon-tags" aria-hidden="true" style={this.postStyle()}></span>
-//     <span>{this.renderTags()}</span>
-//     <span>Posted in <Link className="badge">{category.name}</Link></span>
-//   </div>
-// </div>
 
 export default MatchedPost;

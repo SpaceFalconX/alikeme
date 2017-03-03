@@ -28,18 +28,15 @@ class Browse extends React.Component {
       float:'left',
       paddingLeft:'10px',
     }
-    // const FILTER = {
-    //   paddingBottom: '50px';
-    //
-    // }
+
     return (
       <div className="row">
         <div className="col-xs-11 feed">
           <NewPostForm {...this.props} />
-            { filtered.map((post, index) => {
+            { filtered.map((post) => {
                 return (
                   <Post key={post.id} personalityMatches={personalityMatches} user={user} params={params}
-                  dispatch={dispatch} key={index} post={post} />
+                  dispatch={dispatch} post={post} />
                 )
               })
             }

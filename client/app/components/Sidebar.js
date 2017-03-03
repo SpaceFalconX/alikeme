@@ -1,29 +1,12 @@
 'use strict'
 import React from 'react'
 import axios from 'axios'
-// import Style from 'react-style-tag';
 import { connect } from 'react-redux'
 import { browserHistory, Link } from 'react-router'
-import UserPic from './UserAvatar.js'
 import fetchUserPicture from '../utils/fetchUserPicture.js'
 const Sidebar = React.createClass({
-  componentWillMount () {
-      this.setState({profilePicture: null})
-  },
-
-  componentWillReceiveProps (nextProps) {
-      fetchUserPicture(nextProps.user.username).then((res) => {
-        this.setState({profilePicture: res.data})
-      })
-  },
 
   render () {
-
-    fetchUserPicture(this.props.user.username)
-
-    this.state = {
-      profilePicture: 'http://res.cloudinary.com/isaacxpreston/image/upload/' + this.props.user.username + '.jpg'
-    }
 
     const imgStyle = {
       height: '120px',
@@ -44,12 +27,11 @@ const Sidebar = React.createClass({
 
    const isAuthenticated = this.props.user.isAuthenticated;
 
-   // <img src={this.state.profilePicture} style={imgStyle}/>
 
 	 const loggedInView = (
         <div className="col-xs-2 sidebar">
           <h4 className="small-title hello"> Hello {this.props.user.username}!</h4>
-          <UserPic username={this.props.user.username} style={imgStyle} />
+          <img src={this.props.user.gravatar} style={imgStyle} />
 
            <p style={locationStyl}> <small> Current city: <strong>San Francisco, CA </strong></small> </p><br/>
           <h4 className="small-title"> My Personality Profile <small title="The normalized percentile score for the characteristic. The range is 0 to 100. For example, if the percentage for Openness is 25%, the author scored in the 25th percentile; the author is more open than 24% of the population and less open than 74% of the population."> </small> </h4>

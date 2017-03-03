@@ -15,7 +15,7 @@ const User = db.Model.extend({
   // },
 
   // order () {
-  //   console.log("FETCHING FIRES?")
+  //   //console.log("FETCHING FIRES?")
   //   this.orderBy('-created_at');
   // },
 

@@ -5,7 +5,7 @@ exports.up = (knex, Promise) => {
     tag.string('name', 100).unique().notNullable();
   })
   .then(() => {
-  	console.log('TAGS table created!')
+  	//console.log('TAGS table created!')
   })
 };
 
