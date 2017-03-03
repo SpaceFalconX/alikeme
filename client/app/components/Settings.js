@@ -10,13 +10,13 @@ class Settings extends React.Component {
   //create action/reducer on user store to update after process completed
 
   handleSubmit (e) {
-    //console.log('called', this.props.user.username, this.refs.twitter.value)
+    //console.log('called', this.props.user.username, this.refs.twitterLink.value)
     e.preventDefault();
-    const twitter = this.refs.twitter.value;
+    const twitterLink = this.refs.twitterLink.value;
     const username = this.props.user.username;
-    var postData = {username, twitter}
+    var postData = { username, twitterLink }
     this.props.dispatch(setTwitterToDb(postData));
-    this.refs.twitter.value = ""
+    this.refs.twitterLink.value = "";
   }
 
   handleImageUpload (e) {
@@ -45,7 +45,7 @@ class Settings extends React.Component {
           <h3> Configure social media accounts </h3>
           Enter your <span className="fa fa-twitter"> </span> handle:
           <form onSubmit={this.handleSubmit.bind(this)}>
-          <input type="text" ref="twitter" placeholder="eg: janedoe"/>
+          <input type="text" ref="twitterLink" placeholder="eg: janedoe"/>
           </form> <br/>
           <button className="btn btn-sm" onClick={this.handleSubmit.bind(this)}>UPDATE</button>
 
