@@ -4,10 +4,10 @@ import {userPosts, allPosts, publicPosts, starredPosts} from './post.js'
 import {tags} from './tags.js'
 import {stats} from './stats.js'
 import {categories} from './categories.js'
-import {chat} from './chat.js'
 import {matches, personalityMatches} from './matches.js'
 import {routerReducer} from 'react-router-redux';
 import {LOGOUT_USER} from '../actions/index.js';
+import chat from './chat.js'
 
 //combine all Reducers
 const appReducer = combineReducers({
@@ -24,6 +24,8 @@ const appReducer = combineReducers({
   chat,
   routing: routerReducer
 })
+
+
 
 const defaultState = {
   user: {
@@ -48,3 +50,7 @@ const reducer = (state, action) => {
 }
 
 export default reducer;
+
+export const getMessagesByChannel = (state, channel='AlikeMe Chat') => {
+  return state.messages[channel];
+}

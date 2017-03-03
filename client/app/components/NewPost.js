@@ -86,22 +86,22 @@ const NewPostForm = React.createClass({
               <div className="form-group">
                 <textarea className="form-control" type="text" ref="content" placeholder="What sparks your interest?"/>
               </div>
-                <div className="form-inline post-select-container">
-                  <div style={TAG_CSS}>
-                    <label style={this.postStyle()}>Tags</label>
-                    {this.domTags()}
-                    <input className="form-control" id="inlineFormInputGroup" type="text" ref="tag" placeholder="Add a new tag"/>
-                    <button className="btn btn-sm linkto addtag-btn"  onClick={this.addNewTag}>Add tag</button>
-                  </div>
-                  <div>
-                    <label style={this.postStyle()}>Select a Category</label>
-                    <select className="form-control" id="inlineFormInputGroup" ref="category">
-                      {this.props.categories.map((category, index) => {
-                        return <option key={category.id}>{category.name}</option>
-                      })}
-                    </select>
-                  </div>
-                    <input type="submit" className="btn btn-default linkto post-btn pull-right" value="Submit Post" />
+              <div className="form-inline post-select-container">
+                <div style={TAG_CSS}>
+                  <label style={this.postStyle()}>Tags</label>
+                  {this.domTags()}
+                  <input className="form-control" id="inlineFormInputGroup" type="text" ref="tag" placeholder="Add a new tag"/>
+                  <button className="btn btn-sm linkto addtag-btn"  onClick={this.addNewTag}>Add tag</button>
+                </div>
+                <div>
+                  <label style={this.postStyle()}>Select a Category</label>
+                  <select className="form-control" id="inlineFormInputGroup" ref="category">
+                    {this.props.categories.map((category, index) => {
+                      return <option key={category.id}>{category.name}</option>
+                    })}
+                  </select>
+                </div>
+                  <input type="submit" className="btn btn-default linkto post-btn pull-right" value="Submit Post" />
                 </div>
             </form>
           </div>

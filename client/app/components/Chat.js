@@ -3,7 +3,7 @@ import PubNub from 'pubnub'
 import {clearTags} from '../actions/tag_actions.js'
 import {browserHistory} from 'react-router'
 
-class Chat extends React.Component {
+class Message extends React.Component {
   constructor(props) {
     super()
     this.state = { //TODO- MOVE ALL TO STORE
@@ -210,4 +210,4 @@ class Chat extends React.Component {
   }
 }
 
-export default Chat;
+export default Message;
