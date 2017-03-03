@@ -6,13 +6,13 @@ exports.seed = (knex, Promise) => {
   .then((result) => {
     if(!result[0]['count(`id`)'])  {
       return Promise.join(
-        knex('posts_tags').del(),
-        knex('posts_stars').del(),
-        knex('posts').del(),
-        knex('tags').del(),
-        knex('categories').del(),
-        knex('followers_following').del(),
-        knex('users').del(),
+        // knex('posts_tags').del(),
+        // knex('posts_stars').del(),
+        // knex('posts').del(),
+        // knex('tags').del(),
+        // knex('categories').del(),
+        // knex('followers_following').del(),
+        // knex('users').del(),
 
         knex('users').insert({id: 1, username: 'sevda', email: 'sevda.m.anefi@gmail.com', password: '123', twitterLink: 'PrettyLights',
         gravatar: gravatarGen.url('sevda.m.anefi@gmail.com', {s: '100', r: 'x', d: 'retro'}, true) ,openness: 0.60  ,conscientiousness: 0.10, extraversion: 0.40, agreeableness: 0.20, emotionalRange: 0.80}),
@@ -207,10 +207,10 @@ exports.seed = (knex, Promise) => {
         knex('posts_stars').insert({star_id: 8, user_id: 16})
       )
       .then((seed) => {
-        //console.log(`Seeded db with ${seed.length} entries.`)
+        console.log(`Seeded db with ${seed.length} entries.`)
       })
       .catch((err) => {
-        //console.log(`Error: ${err}`)
+        console.log(`Error: ${err}`)
       })
     }
   })

@@ -47,7 +47,6 @@ export function followClick (follower_id, followed_id) {
 		.then(() => {
 			return axios.get(`/api/user/${followed_id}`)
 			.then(({data}) => {
-				//console.log("req")
 				dispatch(followUser({...data, follower_id, followed_id}))
 			})
 		})
@@ -58,7 +57,6 @@ export function getFollowers (id) {
 	return (dispatch) => {
 		return axios.get(`/api/user/followers/${id}`)
 		.then((resp) => {
-			// //console.log("RESP", resp.data)
 			dispatch(followers(resp.data))
 		})
 	}

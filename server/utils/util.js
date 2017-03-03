@@ -10,8 +10,6 @@ const readText = (text) => {
       }
       else {
         personality = {};
-
-        // trait.forEach(trait => personality[])
         let trait = result.tree.children[0].children[0];
         personality.openness = trait.children[0].percentage
         personality.conscientiousness = trait.children[1].percentage

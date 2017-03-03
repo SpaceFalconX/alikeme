@@ -45,8 +45,8 @@ router.post('/login', (req, res) => {
 		} else {
 			user.checkPassword(password)
 			.then((match) => {
-				const {posts, twitterLink} = user.toJSON();
-				const userPosts = posts.map((post) => post.content).join('')
+				const { posts, twitterLink } = user.toJSON();
+				const userPosts = posts.map((post) => post.content).join('');
 				util.getTwitterFeed(twitterLink)
 				.then((feed) => feed.concat(userPosts))
 				.then((result)=> util.readText(result))

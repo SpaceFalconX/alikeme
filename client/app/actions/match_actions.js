@@ -45,7 +45,6 @@ export function getMatches(id) {
 export function initUserMatches(username) {
   return dispatch => axios.get(`/api/user/matches/${username}`)
   .then((resp) => {
-    ////console.log('server res', resp.data)
     dispatch(initMatches(resp.data));
   });
 }
