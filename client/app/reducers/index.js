@@ -4,6 +4,7 @@ import {userPosts, allPosts, publicPosts, starredPosts} from './post.js'
 import {tags} from './tags.js'
 import {stats} from './stats.js'
 import {categories} from './categories.js'
+import {chat} from './chat.js'
 import {matches, personalityMatches} from './matches.js'
 import {routerReducer} from 'react-router-redux';
 import {LOGOUT_USER} from '../actions/index.js';
@@ -20,6 +21,7 @@ const appReducer = combineReducers({
   stats,
   personalityMatches,
   starredPosts,
+  chat,
   routing: routerReducer
 })
 

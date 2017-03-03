@@ -5,7 +5,7 @@ var BUILD_DIR = path.resolve(__dirname, 'client/public');
 var APP_DIR = path.resolve(__dirname, 'client/app');
 
 var config = {
-  devtool: 'source-map',
+  devtool: 'eval',
   entry: [
     'webpack-hot-middleware/client',
     APP_DIR + '/index.js'
@@ -23,7 +23,7 @@ var config = {
 
     loaders : [
       {
-        test : /\.jsx?/,
+        test : /\.js?/,
         include : path.join(__dirname, 'client/app'),
         loader : 'babel-loader'
       },

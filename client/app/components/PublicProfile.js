@@ -19,11 +19,17 @@ class PublicProfile extends React.Component {
   }
 
   render () {
+    const avatar = this.props.publicPosts[0]? this.props.publicPosts[0].user.gravatar : '';
     return (
       <div className="row">
         <div className="col-lg-9 feed">
           <h2 className="small-title public">{this.props.params.otheruser}'s profile</h2>
-          <Link className="btn btn-default" to={'/message/' + this.props.user.username + '/' + this.props.params.username}><strong>Message</strong> {this.props.params.otheruser}</Link>
+          <Link className="btn btn-default" to={{
+            pathname: `/message/${this.props.user.username}/${this.props.params.otheruser}`,
+            state: avatar
+          }}>
+            <strong>Message</strong> {this.props.params.otheruser}
+          </Link>
           <button className="btn btn-default"><strong>Follow</strong> {this.props.params.otheruser}</button>
           {this.userPosts()}
         </div>

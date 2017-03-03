@@ -37,7 +37,7 @@ class Profile extends React.Component {
                 posts.map((post, index) => {
                   return (
                     <Post dispatch={dispatch} personalityMatches={personalityMatches}
-                    user={user} key={index} post={post} params={params} />
+                    user={user} key={post.id} post={post} params={params} />
                   )
                 }).reverse()
               }
@@ -47,7 +47,7 @@ class Profile extends React.Component {
                 <div style={followStyle}>
                   {
                     this.props.user.following.map((follower, index)=>{
-                      return (<FollowThumb router={this.props.router} key={index} follower={follower}
+                      return (<FollowThumb router={this.props.router} key={follower.id} follower={follower}
                         personalityMatches={this.props.personalityMatches} />)
                     })
                   }

@@ -26,6 +26,12 @@ hr {
   position: relative;
   left: 20px;
 }*/
+.avatar_sml {
+  height: 60px;
+  width: 60px;
+  border: 2px solid #000;
+  border-radius: 50%;
+}
 
 .boxed {
   margin-top: 80px;
