@@ -12,6 +12,7 @@ const Users = require('../database/collections/users.js');
 const router = express.Router();
 
 router.post('/signup', (req, res) => {
+	console.log("USERNAME SIGNUP", username)
 	const { username, password, email, twitterLink} = req.body
 	new User ({username: username})
 	.fetch()

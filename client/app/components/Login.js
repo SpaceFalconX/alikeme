@@ -7,7 +7,6 @@ import {fetchCategories} from '../actions/category_actions.js'
 import {initUserMatches} from '../actions/match_actions.js'
 import {getWatsonData} from '../actions/watson_actions.js'
 
-
 const Login = React.createClass({
 	handleSubmit(e) {
 		e.preventDefault();

@@ -21,7 +21,6 @@ const upload = require('./routes/upload_router.js')
 // APP SETUP & MIDDLEWARE
 const app = express();
 
-
 const compiler = webpack(config);
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
@@ -55,4 +54,4 @@ const port = process.env.PORT || 4000;
 
 app.listen(port, () => (
 	console.log(`App running on port ${port}`)
-))
+));
