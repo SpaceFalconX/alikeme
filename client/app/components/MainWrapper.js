@@ -21,7 +21,8 @@ import jwt from 'jsonwebtoken';
 class Main extends Component {
 
 	componentWillMount() {
-		const { params, router, dispatch} =  this.props;
+		const { params, router, dispatch } =  this.props;
+
 		if(localStorage.token) {
 		  setAuthorizationToken(localStorage.token);
 		  const decoded = jwt.decode(localStorage.token)
@@ -54,11 +55,11 @@ class Main extends Component {
 
 
 	render() {
-
+		const { params, router, dispatch, user, location} =  this.props;
 		return (
 			<div className="app-wrapper">
-				<Navbar user={this.props.user} dispatch={this.props.dispatch} />
-				<Sidebar params={this.props.params} user={this.props.user} dispatch={this.props.dispatch} />
+				<Navbar user={user} dispatch={dispatch} location={location} />
+				<Sidebar params={params} user={user} dispatch={dispatch} location={location} />
 				<div className="page-content-wrapper">
 					<div className="container-fluid">
 						{ React.cloneElement(this.props.children, this.props) }

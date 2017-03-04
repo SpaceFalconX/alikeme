@@ -57,8 +57,21 @@ class Chat extends React.Component {
 
     const { params, user, messages, history, location } = this.props;
     return (
+        <div>
+         <div className="sidebar-wrapper chat-left">
+          <div className="sidebar-content chat-left-content">
+            <h2>Recent</h2>
+            <div>
+              <p>Recent chats here lorem ipsum</p>
+              <p>Recent chats here lorem ipsum</p>
+              <p>Recent chats here lorem ipsum</p>
+              <p>Recent chats here lorem ipsum</p>
+              <p>Recent chats here lorem ipsum</p>
+            </div>
+          </div>
+         </div>
       <div className="row">
-        <div className="col-lg-9 feed">
+        <div className="col-lg-12 chat-feed">
           <div className="small-title">
             <p>Messaging {this.props.params.otheruser}</p>
           </div>
@@ -80,7 +93,7 @@ class Chat extends React.Component {
             })}
           </ul>
 
-          <footer className="chat-container">
+          <footer className="chat-input">
             <form onSubmit={this.submitMessage.bind(this)}>
               <div className="row">
                 <div className="col-sm-10">
@@ -102,18 +115,7 @@ class Chat extends React.Component {
           </footer>
 
         </div>
-
-        <div className="col-lg-3">
-          <h2>Recent</h2>
-          <div>
-            <p>Recent chats here lorem ipsum</p>
-            <p>Recent chats here lorem ipsum</p>
-            <p>Recent chats here lorem ipsum</p>
-            <p>Recent chats here lorem ipsum</p>
-            <p>Recent chats here lorem ipsum</p>
-          </div>
-        </div>
-
+      </div>
       </div>
     )
   }

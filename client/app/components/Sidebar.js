@@ -24,43 +24,43 @@ class Sidebar extends React.Component {
       fontSize: '14px'
     }
 
-   const { user, params } = this.props;
+   const { user, params, location, dispatch } = this.props;
 
 	 const loggedInView = (
         <div className="sidebar-wrapper">
           <div className="sidebar-content">
 
-            <h4 className="small-title hello"> Hello {this.props.user.username}!</h4>
-            <img src={this.props.user.gravatar} style={imgStyle} />
+            <h4 className="small-title hello"> Hello {user.username}!</h4>
+            <img src={user.gravatar} style={imgStyle} />
 
              <p style={locationStyl}><small>City: <strong> San Francisco, CA </strong></small> </p><br/>
             <h4 className="small-title"> My Personality Profile </h4>
 
-            <div style={{width: +(this.props.user.openness * 100).toFixed(0) + '%'}}>
+            <div style={{width: +(user.openness * 100).toFixed(0) + '%'}}>
               <div className="statBar">
                 <div style={{width: '500px'}}>
-                  <p><strong> Openness: </strong> { +(this.props.user.openness * 100).toFixed(0) || ' ' }%</p>
+                  <p><strong> Openness: </strong> { +(user.openness * 100).toFixed(0) || ' ' }%</p>
                 </div>
               </div>
             </div>
-            <div style={{width: +(this.props.user.conscientiousness * 100).toFixed(0) + '%'}}>
+            <div style={{width: +(user.conscientiousness * 100).toFixed(0) + '%'}}>
               <div className="statBar">
                 <div style={{width: '500px'}}>
-                  <p><strong> Conscientiousness: </strong> { +(this.props.user.conscientiousness * 100).toFixed(0) || ' ' }%</p>
+                  <p><strong> Conscientiousness: </strong> { +(user.conscientiousness * 100).toFixed(0) || ' ' }%</p>
                 </div>
               </div>
             </div>
-            <div style={{width: +(this.props.user.extraversion * 100).toFixed(0) + '%'}}>
+            <div style={{width: +(user.extraversion * 100).toFixed(0) + '%'}}>
               <div className="statBar">
                 <div style={{width: '500px'}}>
-                  <p><strong> Extraversion: </strong> { +(this.props.user.extraversion * 100).toFixed(0) || ' ' }%</p>
+                  <p><strong> Extraversion: </strong> { +(user.extraversion * 100).toFixed(0) || ' ' }%</p>
                 </div>
               </div>
             </div>
-            <div style={{width: +(this.props.user.emotionalRange * 100).toFixed(0) + '%'}}>
+            <div style={{width: +(user.emotionalRange * 100).toFixed(0) + '%'}}>
               <div className="statBar">
                 <div style={{width: '500px'}}>
-                  <p><strong> Emotional range: </strong> { +(this.props.user.emotionalRange * 100).toFixed(0) || ' ' }%</p>
+                  <p><strong> Emotional range: </strong> { +(user.emotionalRange * 100).toFixed(0) || ' ' }%</p>
                 </div>
               </div>
             </div>
@@ -69,11 +69,14 @@ class Sidebar extends React.Component {
         </div>
    )
 
-   const noSideView = (
-      <div style={{borderStyle: 'none'}}></div>
-   )
+    const noSideView = (
+      <div></div>
+    )
 
-    return  (user.isAuthenticated && params.username === user.username)? 
+    if(user.isAuthenticated && location.pathname.startsWith('/message')) {
+      return noSideView;
+    }
+    return  (user.isAuthenticated && params.username === user.username)?
     loggedInView : noSideView
 
   }

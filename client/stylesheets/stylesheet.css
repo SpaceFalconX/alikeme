@@ -400,7 +400,7 @@ h4 {
 
 
 /* * * * *
-  SIDEBAR
+  STAT BAR
 * * * * */
 
 .statBar {
@@ -465,6 +465,10 @@ h4 {
 }
 
 
+/* * * * *
+  SIDEBAR AND LAYOUT
+* * * * */
+
 .app-wrapper {
   padding-top: 70px;
   padding-left: 250px;
@@ -476,7 +480,7 @@ h4 {
   top: 0;
   width: 200px;
   margin: 0;
-  padding: 0;
+  padding: 10px;
   list-style: none;
   padding-left: 10px;
 }
@@ -492,7 +496,7 @@ h4 {
     position: absolute;
     left: 250px;
     width: 200;
-    height: 100%;
+    min-height: 100%;
     margin-left: -200px;
     overflow-x: auto;
     overflow-y: auto;
@@ -512,16 +516,43 @@ h4 {
   border-right: 1px solid #cecece;
 }
 
+.chat-feed {
+  border: 1px solid #111;
+  padding: 10px;
+}
 
-/* ChatInput styles */
+/* * * * *
+  CHAT PAGE
+* * * * */
+.chat-left {
+  position: fixed;
+  left: 250;
+  width: 250;
+  min-height: 0;
+  margin-left: -250px;
+  top: 50;
+  bottom: 100;
+  margin-bottom: 30px;
+  background-color: #E0E0E0;
+  border: 1px solid #333;
+  border-radius: 5px;
+}
+
+
+.chat-left-content {
+  width: 250;
+}
+
 footer {
   color: white;
   position: fixed;
-  padding: 0;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 130px;
+  z-index: 1000;
+  padding: 20px;
+  background: #455A64;
 }
 
 footer .input-field input,
@@ -548,11 +579,6 @@ button {
 .input-container {
   position: initial;
   padding-left: 250;
-}
-
-footer {
-  padding: 20px;
-  background: #455A64;
 }
 
 .glyphicon-send {
