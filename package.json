@@ -4,7 +4,7 @@
   "description": "Find people like you",
   "main": "index.js",
   "scripts": {
-    "dev": "node server/server.js",
+    "dev": "nodemon server/server.js",
     "build": "webpack -p",
     "start": "node server/server.js",
     "test": "jest"

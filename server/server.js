@@ -44,12 +44,12 @@ app.use('/api/upload', upload)
 
 // WILD CARD - anything else direct to landing page
 app.get('*', (req, res) => (
-  res.sendFile(path.resolve(__dirname, '../client/app', 'index.html'))
+  res.sendFile(path.resolve(__dirname, '../', 'index.html'))
 ));
 
-app.use((err, req, res, next) => {
-  res.status(500).send(err.message)
-})
+// app.use((err, req, res, next) => {
+//   res.status(500).send(err.message)
+// })
 
 const port = process.env.PORT || 4000;
 

@@ -1,9 +1,9 @@
 import React from 'react'
 import PubNub from 'pubnub'
 import { connect } from 'react-redux';
-import {browserHistory} from 'react-router';
 import * as actions from '../actions/chat_actions';
 import { getMessagesByChannel } from '../reducers'
+import ChatUsers from './ChatUsers';
 
 class Chat extends React.Component {
 
@@ -57,41 +57,32 @@ class Chat extends React.Component {
 
     const { params, user, messages, history, location } = this.props;
     return (
-        <div>
-         <div className="sidebar-wrapper chat-left">
-          <div className="sidebar-content chat-left-content">
-            <h2>Recent</h2>
-            <div>
-              <p>Recent chats here lorem ipsum</p>
-              <p>Recent chats here lorem ipsum</p>
-              <p>Recent chats here lorem ipsum</p>
-              <p>Recent chats here lorem ipsum</p>
-              <p>Recent chats here lorem ipsum</p>
+      <div>
+        <ChatUsers />
+        <div className="row">
+          <div className="col-lg-12 chat-feed">
+            <div className="small-title">
+              <p>Messaging {this.props.params.otheruser}</p>
             </div>
+            <ul className="collection message-list" ref="messageList" onScroll={ this.handleScroll }>
+              { messages.map((messageObj) => {
+                const { timetoken, username, text } = messageObj;
+                return (
+                  <li className="collection-item message-item avatar" key={ timetoken }>
+                    <img src={ location.state } alt={ username } className="circle" />
+                    <span className="title">@{ username }</span>
+                    <p>
+                      <i className="prefix mdi-action-alarm" />
+                      <span className="message-date">{ getTimestamp() }</span>
+                      <br />
+                      <span>{ text }</span>
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
-         </div>
-      <div className="row">
-        <div className="col-lg-12 chat-feed">
-          <div className="small-title">
-            <p>Messaging {this.props.params.otheruser}</p>
-          </div>
-          <ul className="collection message-list" ref="messageList" onScroll={ this.handleScroll }>
-            { messages.map((messageObj) => {
-              const { timetoken, username, text } = messageObj;
-              return (
-                <li className="collection-item message-item avatar" key={ timetoken }>
-                  <img src={ location.state } alt={ username } className="circle" />
-                  <span className="title">@{ username }</span>
-                  <p>
-                    <i className="prefix mdi-action-alarm" />
-                    <span className="message-date">{ getTimestamp() }</span>
-                    <br />
-                    <span>{ text }</span>
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
+        </div>
 
           <footer className="chat-input">
             <form onSubmit={this.submitMessage.bind(this)}>
@@ -113,9 +104,6 @@ class Chat extends React.Component {
               </div>
             </form>
           </footer>
-
-        </div>
-      </div>
       </div>
     )
   }
