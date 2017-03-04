@@ -7,7 +7,8 @@ import {categories} from './categories.js'
 import {matches, personalityMatches} from './matches.js'
 import {routerReducer} from 'react-router-redux';
 import {LOGOUT_USER} from '../actions/index.js';
-import chat from './chat.js'
+import chat, { getIds } from './chat.js'
+
 
 //combine all Reducers
 const appReducer = combineReducers({
@@ -51,6 +52,6 @@ const reducer = (state, action) => {
 
 export default reducer;
 
-export const getMessagesByChannel = (state, channel='AlikeMe Chat') => {
-  return state.messages[channel];
+export const getMessagesByChannel = ({ messages }, channel='TestChannel2') => {
+  return getIds(messages.listByChannel[channel]).map((id) => messages.messagesById[id])
 }

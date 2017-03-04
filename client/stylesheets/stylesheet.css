@@ -7,8 +7,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
   background-color: #F0F1F3;
-  overflow-x: hidden;
-
+  /*overflow: hidden;*/
 }
 
 hr {
@@ -560,9 +559,17 @@ button {
   border-color: #FFFFFF;
 }
 
-.collection {
+/*.collection {
  margin-bottom:130px;
  margin-top: -1px;
+}*/
+
+.message-list {
+  height: 80vh;
+  margin: 0 0 130px 0;
+  overflow-y: scroll;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .message-date {

@@ -8,7 +8,8 @@ import ChatUsers from './ChatUsers';
 class Chat extends React.Component {
 
   componentDidMount () {
-    console.log("Chat props:", this.props.messages);
+    // const { currentChannel, addMessage }
+    // console.log("Messages", this.props.messages);
     this.pubnub = new PubNub({
         publishKey: 'pub-c-f5e1b611-9e28-4b7a-85bc-53d8ffb17f95',
         subscribeKey: 'sub-c-45dd39e4-d8ee-11e6-a0b3-0619f8945a4f',
@@ -17,15 +18,33 @@ class Chat extends React.Component {
       message: this.props.addMessage
     });
     this.pubnub.subscribe({
-      channels: ['AlikeMe Chat']
+      channels: ['TestChannel2']
     });
+    // this.fetchHistory(this.props.currentChannel);
   }
 
-  sendMessage (message) {
+  sendMessage (message, currentChannel) {
     this.pubnub.publish({
-      channel: 'AlikeMe Chat',
-      message: message
+      channel: currentChannel,
+      message: message,
+      storeInHistory: true,
     })
+  }
+
+  fetchHistory(currentChannel) {
+    const { props } = this;
+    console.log("here?",)
+    this.pubnub.history({
+        channel: 'TestChannel2',
+        count: 15,
+        stringifiedTimeToken: false,
+        start: props.latestTimetoken,
+      },
+      function (status, resp) {
+        console.log("HISTORY DATA:",status, resp)
+        props.updateHistory(resp.messages, resp.startTimeToken, currentChannel);
+      }
+    );
   }
 
   submitMessage (e) {
@@ -33,29 +52,34 @@ class Chat extends React.Component {
     const messageObj = {
       username: this.props.user.username,
       text: this.refs.message.value,
+      timestamp: Date.now(),
     }
-    this.sendMessage(messageObj)
+    this.sendMessage(messageObj, this.props.currentChannel)
     this.refs.message.value = '';
     this.refs.message.focus();
   }
 
-  handleScroll () {
-    const { refs, props } = this;
-    const scrollTop = refs.messageList.scrollTop;
-    if (scrollTop === 0) {
-      // props.fetchHistory();
-    }
-  }
 
   render () {
-
-    const getTimestamp = () => {
-      const messageDate = new Date();
+    // console.log("messages:", this.props.messages)
+    console.log("latestTimetoken:", typeof this.props.latestTimetoken)
+    const formatDate = (timestamp) => {
+      const messageDate = new Date(timestamp);
+      console.log("messageDate", messageDate, timestamp)
       return messageDate.toLocaleDateString() +
       ' at ' + messageDate.toLocaleTimeString();
     }
 
     const { params, user, messages, history, location } = this.props;
+
+    const handleScroll = (e) => {
+      e.preventDefault();
+      const scrollTop = this.refs.messageList.scrollTop;
+      if (scrollTop === 0) {
+        console.log("AT 0")
+        // this.fetchHistory(this.props.currentChannel);
+      }
+    }
     return (
       <div>
         <ChatUsers />
@@ -64,16 +88,16 @@ class Chat extends React.Component {
             <div className="small-title">
               <p>Messaging {this.props.params.otheruser}</p>
             </div>
-            <ul className="collection message-list" ref="messageList" onScroll={ this.handleScroll }>
+            <ul className="message-list" ref="messageList" onScroll={ handleScroll }>
               { messages.map((messageObj) => {
-                const { timetoken, username, text } = messageObj;
+                const { timestamp, username, text } = messageObj;
                 return (
-                  <li className="collection-item message-item avatar" key={ timetoken }>
+                  <li className="collection-item message-item avatar" key={ timestamp }>
                     <img src={ location.state } alt={ username } className="circle" />
                     <span className="title">@{ username }</span>
                     <p>
                       <i className="prefix mdi-action-alarm" />
-                      <span className="message-date">{ getTimestamp() }</span>
+                      <span className="message-date">{ formatDate(timestamp) }</span>
                       <br />
                       <span>{ text }</span>
                     </p>
@@ -110,14 +134,16 @@ class Chat extends React.Component {
 }
 
 Chat.defaultProps = {
-  channels: ['AlikeMe Chat'],
+  channels: ['TestChannel2'],
   messages: [],
-  currentChannel: 'AlikeMe Chat',
+  currentChannel: 'TestChannel2',
+  latestTimetoken: null,
 }
 
 const mapStateToProps = ({ chat }) => {
   return {
-    messages: getMessagesByChannel(chat, 'AlikeMe Chat')
+    messages: getMessagesByChannel(chat, 'TestChannel2'),
+    latestTimetoken: chat.latestTimetoken,
   }
 }
 

@@ -1,19 +1,33 @@
-import { ADD_NEW_MESSAGE, ADD_CHAT_HISTORY } from './index'
+import { ADD_NEW_MESSAGE, UPDATE_HISTORY, ADD_USER, REMOVE_USER } from './index'
 
-export function addMessage({ message, channel, publisher, timetoken }) {
+export function addMessage( { message, channel } ) {
+  console.log()
   return {
     type: ADD_NEW_MESSAGE,
     message,
-    channel, 
-    publisher,
-    timetoken
+    channel,
   };
 }
 
-export function addChatHistory(messages, timestamp) {
+export function updateHistory(messages, latestTimetoken) {
   return {
-    type: ADD_CHAT_HISTORY,
+    type: UPDATE_HISTORY,
     messages,
-    timestamp,
+    latestTimetoken,
+  };
+}
+
+
+export function addUser(userID) {
+  return {
+    type: ADD_USER,
+    payload: userID,
+  };
+}
+
+export function removeUser(userID) {
+  return {
+    type: REMOVE_USER,
+    payload: userID,
   };
 }
