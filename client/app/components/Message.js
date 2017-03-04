@@ -13,11 +13,9 @@ class Chat extends React.Component {
         publishKey: 'pub-c-f5e1b611-9e28-4b7a-85bc-53d8ffb17f95',
         subscribeKey: 'sub-c-45dd39e4-d8ee-11e6-a0b3-0619f8945a4f',
     });
-
     this.pubnub.addListener({
       message: this.props.addMessage
     });
-
     this.pubnub.subscribe({
       channels: ['AlikeMe Chat']
     });
@@ -44,12 +42,13 @@ class Chat extends React.Component {
   handleScroll () {
     const { refs, props } = this;
     const scrollTop = refs.messageList.scrollTop;
-    // if (scrollTop === 0) {
-    //   props.fetchHistory();
-    // }
+    if (scrollTop === 0) {
+      // props.fetchHistory();
+    }
   }
 
   render () {
+
     const getTimestamp = () => {
       const messageDate = new Date();
       return messageDate.toLocaleDateString() +
@@ -63,34 +62,45 @@ class Chat extends React.Component {
           <div className="small-title">
             <p>Messaging {this.props.params.otheruser}</p>
           </div>
+          <ul className="collection message-list" ref="messageList" onScroll={ this.handleScroll }>
+            { messages.map((messageObj) => {
+              const { timetoken, username, text } = messageObj;
+              return (
+                <li className="collection-item message-item avatar" key={ timetoken }>
+                  <img src={ location.state } alt={ username } className="circle" />
+                  <span className="title">@{ username }</span>
+                  <p>
+                    <i className="prefix mdi-action-alarm" />
+                    <span className="message-date">{ getTimestamp() }</span>
+                    <br />
+                    <span>{ text }</span>
+                  </p>
+                </li>
+              );
+            })}
+          </ul>
 
-          <div className="messages">
-            <ul className="collection message-list" ref="messageList" onScroll={ this.handleScroll }>
-              { messages.map((messageObj) => {
-                return (
-                  <li className="collection-item message-item avatar" key={ messageObj.timetoken }>
-                    <img src={ location.state } alt={ messageObj.username } className="circle" />
-                    <span className="title">@{ messageObj.username }</span>
-                    <p>
-                      <i className="prefix mdi-action-alarm" />
-                      <span className="message-date">{ getTimestamp() }</span>
-                      <br />
-                      <span>{ messageObj.text }</span>
-                    </p>
-                  </li>
-                );
-              }) }
-            </ul>
-          </div>
+          <footer className="chat-container">
+            <form onSubmit={this.submitMessage.bind(this)}>
+              <div className="row">
+                <div className="col-sm-10">
+                  <div className="input-container">
+                    <input className="form-control" type="text" ref="message"
+                    placeholder="Type here..."/>
+                   <div className="detail">
+                     <img src={ user.gravatar } className="chat-avatar" />
+                     <span>@{ params.username }</span>
+                   </div>
+                 </div>
+                </div>
+                <div className="col-sm-2">
+                  <button type="submit" className="btn btn-default glyphicon glyphicon-send send-message">
+                  </button>
+                </div>
+              </div>
+            </form>
+          </footer>
 
-          <form onSubmit={this.submitMessage.bind(this)}>
-            <div className ="form-group">
-              <input className="form-control" type="text" ref="message"
-              placeholder="Type here..."/>
-            </div>
-            <input type="submit" value="Send"
-             className="btn btn-default"/>
-          </form>
         </div>
 
         <div className="col-lg-3">
@@ -116,7 +126,6 @@ Chat.defaultProps = {
 }
 
 const mapStateToProps = ({ chat }) => {
-  console.log("State before mounting", chat)
   return {
     messages: getMessagesByChannel(chat, 'AlikeMe Chat')
   }

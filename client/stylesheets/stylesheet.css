@@ -4,28 +4,17 @@
   LAYOUT
 * * * * */
 body {
-  /*margin-top: 10px;*/
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
-  /*background-image: url('./network.jpg');*/
   background-color: #F0F1F3;
-  /* original #E9EBEE*/
-  /*background-color: #E9EBEE;*/
-  background-repeat:no-repeat;
-  background-size:cover;
   overflow-x: hidden;
 
 }
-
 
 hr {
   border-top: 1px solid #cecece;
 }
 
-/*#app.container-fluid {
-  position: relative;
-  left: 20px;
-}*/
 .avatar_sml {
   height: 60px;
   width: 60px;
@@ -51,9 +40,6 @@ hr {
 }
 
 .landing {
-  /*margin-right: 10%;
-  margin-left: 10%;
-  margin-top: 120px;*/
   margin: auto;
   margin-right: 200px;
   margin-top: 80px;
@@ -63,18 +49,12 @@ hr {
   padding-top: 20px;
 }
 
-.space {
-  margin-top: 80px;
-}
-
 .panel-footer {
   display: flex;
 }
 
-
 .follow-post {
   display: flex;
-  /*flex-grow: 1;*/
 }
 /* * * * *
   TYPOGRAPHY
@@ -234,7 +214,6 @@ h4 {
 }
 
 
-
 /* * * CATEGORY * * */
 .category {
   font-size: 13px;
@@ -248,19 +227,6 @@ h4 {
   color: white;
   text-decoration: none;
   background-color: rgba(156, 39, 176, 0.7);
-}
-
-.select-category {
-  position: fixed;
-  top: 50px;
-  bottom: 0;
-  left: 270px;
-  z-index: 1000;
-  padding: 20px;
-  padding-left: 30px;
-  overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-  border-left: 1px solid #cecece;
 }
 
 
@@ -326,29 +292,11 @@ h4 {
   padding-left: 20px;
 }
 
-.match-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-style: solid;
-  border-radius: 50%;
-  border-spacing: 10px;
-  width: 120px;
-  height: 120px;
-  /*padding-top: 20px;*/
-  margin: 20px;
-}
-
 .match-text {
   display: flex;
   font-size: 16px;
   align-self: center;
 }
-/*.post-image {
-  font-size: 16px;
-  padding-left: 15px;
-}*/
 
 .media-body {
 
@@ -367,11 +315,6 @@ h4 {
   padding: 0;
   padding-top: 5px;
 }
-/*.post-content-container {
-  border-style: solid;
-  border-bottom: thick dotted blue;
-}*/
-
 
 /* * * * *
   STAR ANIMATION
@@ -395,7 +338,6 @@ h4 {
   padding-top: 10px;
 }
 .starred {
-  /*opacity: 0.7;*/
   background-color: #26A69A;
   color: #eee;
 }
@@ -409,14 +351,11 @@ h4 {
 }
 
 .glyphicon-star, .glyphicon-star-empty {
-  /*display: flex;*/
   font-size: 130%;
   padding-right: 5px;
-  /*margin-left: -10px;*/
 }
 
 .star-text {
-  /*display: flex;*/
   font-weight: 500;
   font-size: 13px;
   padding-right: 5px;
@@ -460,24 +399,9 @@ h4 {
 
 
 
-
-
 /* * * * *
   SIDEBAR
 * * * * */
-
-/*.sidebar {
-  position: fixed;
-  top: 60px;
-  bottom: 0;
-  left: 60px;
-  z-index: 1000;
-  padding: 20px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  border-right: 1px solid #cecece;
-}*/
-
 
 .statBar {
     height: 25px;
@@ -581,7 +505,6 @@ h4 {
     border-radius: 5px;*/
 }
 
-
 .feed {
   padding-right: 30px;
   padding-left: 30px;
@@ -590,55 +513,60 @@ h4 {
 }
 
 
+/* ChatInput styles */
+footer {
+  color: white;
+  position: fixed;
+  padding: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 130px;
+}
 
+footer .input-field input,
+button {
+  border-color: #FFFFFF;
+}
 
+.collection {
+ margin-bottom:130px;
+ margin-top: -1px;
+}
 
-/*.followers-container {*/
-  /*position: fixed;*/
-  /*top: 50px;
-  bottom: 0;*/
-  /*left: 270px;*/
-  /*z-index: 1000;
+.message-date {
+  color: #585858;
+}
+
+.chat-avatar {
+  width: 30;
+  height: 30;
+  border-radius: 50%;
+  margin: 10px;
+}
+
+.input-container {
+  position: initial;
+  padding-left: 250;
+}
+
+footer {
   padding: 20px;
-  padding-left: 30px;
-  overflow-x: hidden;
-  overflow-y: auto;*/
-  /*border-left: 1px solid #cecece;*/
-  /*background: #CDDC39;*/
+  background: #455A64;
+}
 
+.glyphicon-send {
+  color: #fff;
+  font-size: 200%;
+}
 
-  /*position: relative;
-  top: 60px;
-  padding-left: 40px;
-  padding-right: 50px;*/
-  /*border-left: 1px solid #cecece;*/
+button.send-message {
+  border-radius: 50%;
+  background-color: #00897B;
+  border-color: #00897B;
+}
 
-
-/*
-@media(min-width:768px) {
-    .wrapper {
-        padding-left: 250px;
-    }
-
-    .wrapper.toggled {
-        padding-left: 0;
-    }
-
-    #sidebar-wrapper {
-        width: 250px;
-    }
-
-    #wrapper.toggled #sidebar-wrapper {
-        width: 0;
-    }
-
-    #page-content-wrapper {
-        padding: 20px;
-        position: relative;
-    }
-
-    #wrapper.toggled #page-content-wrapper {
-        position: relative;
-        margin-right: 0;
-    }
-}*/
+.detail {
+  font-style: italic;
+  /*display: flex;*/
+}
