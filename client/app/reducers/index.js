@@ -51,7 +51,3 @@ const reducer = (state, action) => {
 }
 
 export default reducer;
-
-export const getMessagesByChannel = ({ messages }, channel='TestChannel2') => {
-  return getIds(messages.listByChannel[channel]).map((id) => messages.messagesById[id])
-}

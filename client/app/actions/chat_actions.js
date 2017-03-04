@@ -9,11 +9,12 @@ export function addMessage( { message, channel } ) {
   };
 }
 
-export function updateHistory(messages, latestTimetoken) {
+export function updateHistory(messages, latestTimetoken, channel) {
   return {
     type: UPDATE_HISTORY,
     messages,
     latestTimetoken,
+    channel,
   };
 }
 

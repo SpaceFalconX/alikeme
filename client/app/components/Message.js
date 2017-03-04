@@ -2,14 +2,12 @@ import React from 'react'
 import PubNub from 'pubnub'
 import { connect } from 'react-redux';
 import * as actions from '../actions/chat_actions';
-import { getMessagesByChannel } from '../reducers'
+import { getMessagesByChannel } from '../reducers/chat'
 import ChatUsers from './ChatUsers';
 
 class Chat extends React.Component {
 
   componentDidMount () {
-    // const { currentChannel, addMessage }
-    // console.log("Messages", this.props.messages);
     this.pubnub = new PubNub({
         publishKey: 'pub-c-f5e1b611-9e28-4b7a-85bc-53d8ffb17f95',
         subscribeKey: 'sub-c-45dd39e4-d8ee-11e6-a0b3-0619f8945a4f',
@@ -18,9 +16,9 @@ class Chat extends React.Component {
       message: this.props.addMessage
     });
     this.pubnub.subscribe({
-      channels: ['TestChannel2']
+      channels: ['TestChannel4']
     });
-    // this.fetchHistory(this.props.currentChannel);
+    this.fetchHistory(this.props.currentChannel);
   }
 
   sendMessage (message, currentChannel) {
@@ -33,16 +31,15 @@ class Chat extends React.Component {
 
   fetchHistory(currentChannel) {
     const { props } = this;
-    console.log("here?",)
     this.pubnub.history({
-        channel: 'TestChannel2',
-        count: 15,
+        channel: 'TestChannel4',
+        count: 10,
         stringifiedTimeToken: false,
         start: props.latestTimetoken,
       },
       function (status, resp) {
-        console.log("HISTORY DATA:",status, resp)
-        props.updateHistory(resp.messages, resp.startTimeToken, currentChannel);
+        const messages = resp.messages.map((message) => message.entry)
+        props.updateHistory(messages, resp.startTimeToken, currentChannel);
       }
     );
   }
@@ -61,11 +58,8 @@ class Chat extends React.Component {
 
 
   render () {
-    // console.log("messages:", this.props.messages)
-    console.log("latestTimetoken:", typeof this.props.latestTimetoken)
     const formatDate = (timestamp) => {
       const messageDate = new Date(timestamp);
-      console.log("messageDate", messageDate, timestamp)
       return messageDate.toLocaleDateString() +
       ' at ' + messageDate.toLocaleTimeString();
     }
@@ -76,10 +70,10 @@ class Chat extends React.Component {
       e.preventDefault();
       const scrollTop = this.refs.messageList.scrollTop;
       if (scrollTop === 0) {
-        console.log("AT 0")
-        // this.fetchHistory(this.props.currentChannel);
+        this.fetchHistory(this.props.currentChannel);
       }
     }
+
     return (
       <div>
         <ChatUsers />
@@ -134,31 +128,17 @@ class Chat extends React.Component {
 }
 
 Chat.defaultProps = {
-  channels: ['TestChannel2'],
+  channels: ['TestChannel4'],
   messages: [],
-  currentChannel: 'TestChannel2',
+  currentChannel: 'TestChannel4',
   latestTimetoken: null,
 }
 
 const mapStateToProps = ({ chat }) => {
   return {
-    messages: getMessagesByChannel(chat, 'TestChannel2'),
+    messages: getMessagesByChannel(chat.messages, 'TestChannel4'),
     latestTimetoken: chat.latestTimetoken,
   }
 }
 
 export default connect(mapStateToProps, actions)(Chat);
-
-
-
-
-
-
-
-// if(this.props.user.username === this.props.params.otheruser || !this.props.params.otheruser) {
-//   return (
-//     <div className="col-lg-9 feed">
-//       <h1>Select a conversation</h1>
-//     </div>
-//   )
-// }
