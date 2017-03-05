@@ -8,7 +8,6 @@ import { ADD_NEW_MESSAGE, UPDATE_HISTORY } from '../actions';
     // if(action.channel === channel) {
     //   return state;
     // }
-    console.log('createList', state, action)
     switch (action.type) {
       case ADD_NEW_MESSAGE:
         return [...state, action.message.timestamp];

@@ -1,4 +1,4 @@
-import { ADD_NEW_MESSAGE, UPDATE_HISTORY, ADD_USER, REMOVE_USER } from './index'
+import { ADD_NEW_MESSAGE, UPDATE_HISTORY, USER_JOIN, USER_LEAVE } from './index'
 
 export function addMessage( { message, channel } ) {
   console.log()
@@ -19,16 +19,16 @@ export function updateHistory(messages, latestTimetoken, channel) {
 }
 
 
-export function addUser(userID) {
+export function addUserToChannel(userId) {
   return {
-    type: ADD_USER,
-    payload: userID,
+    type: USER_JOIN,
+    userId,
   };
 }
 
-export function removeUser(userID) {
+export function removeUserFromChannel(userId) {
   return {
-    type: REMOVE_USER,
-    payload: userID,
+    type: USER_LEAVE,
+    userId,
   };
 }

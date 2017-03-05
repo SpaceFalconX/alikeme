@@ -34,5 +34,5 @@ export const UPDATE_STARRED_POSTS_MATCHES = 'UPDATE_STARRED_POSTS_MATCHES'
 
 export const ADD_NEW_MESSAGE = 'ADD_NEW_MESSAGE';
 export const UPDATE_HISTORY = 'UPDATE_HISTORY';
-export const ADD_USER = 'ADD_USER';
-export const REMOVE_USER = 'REMOVE_USER';
+export const USER_JOIN = 'USER_JOIN';
+export const USER_LEAVE = 'USER_LEAVE';

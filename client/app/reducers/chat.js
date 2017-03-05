@@ -1,7 +1,7 @@
 import { ADD_NEW_MESSAGE, UPDATE_HISTORY } from '../actions';
 import { combineReducers } from 'redux';
 import messages from './messages'
-
+import users from './users'
 
 export function latestTimetoken(state=null, action) {
   switch (action.type) {
@@ -16,9 +16,12 @@ export function latestTimetoken(state=null, action) {
 export default combineReducers({
   messages,
   latestTimetoken,
+  users,
 });
 
 export const getIds = (state=[]) => state;
+
+// export const getActiveUsers = (state=[]) => state.users;
 
 export const getMessagesByChannel = (messages, channel='TestChannel4') => {
   const ids = getIds(messages.listByChannel[channel]);

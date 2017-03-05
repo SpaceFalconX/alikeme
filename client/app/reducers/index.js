@@ -40,7 +40,8 @@ const defaultState = {
   categories: [],
   tags: [],
   publicPosts: [],
-  personalityMatches: []
+  personalityMatches: [],
+  chat: {},
 }
 
 const reducer = (state, action) => {

@@ -8,17 +8,49 @@ import ChatUsers from './ChatUsers';
 class Chat extends React.Component {
 
   componentDidMount () {
-    this.pubnub = new PubNub({
-        publishKey: 'pub-c-f5e1b611-9e28-4b7a-85bc-53d8ffb17f95',
-        subscribeKey: 'sub-c-45dd39e4-d8ee-11e6-a0b3-0619f8945a4f',
-    });
-    this.pubnub.addListener({
-      message: this.props.addMessage
-    });
-    this.pubnub.subscribe({
-      channels: ['TestChannel4']
-    });
-    this.fetchHistory(this.props.currentChannel);
+    const { currentChannel, addMessage, user } = this.props;
+    const { handlePresenceChange } = this;
+      let id = user.username + Math.round(Math.random() * 1000000).toString();
+      console.log("ID on connection",id);
+      this.pubnub = new PubNub({
+          publishKey: 'pub-c-f5e1b611-9e28-4b7a-85bc-53d8ffb17f95',
+          subscribeKey: 'sub-c-45dd39e4-d8ee-11e6-a0b3-0619f8945a4f',
+          ssl: (location.protocol.toLowerCase() === 'https:'),
+          uuid: id,
+      });
+
+      this.pubnub.addListener({
+        message: addMessage,
+        presence: handlePresenceChange
+      });
+
+      this.pubnub.subscribe({
+        channels: [currentChannel],
+        withPresence: true,
+      });
+
+      this.fetchHistory(currentChannel);
+      window.addEventListener('beforeunload', this.leaveChat);
+  }
+
+  componentWillUnmount() {
+    this.leaveChat();
+  }
+
+  handlePresenceChange = (presence) => {
+    console.log("presence & context",presence, this.props)
+    const { addUserToChannel, removeUserFromChannel } = this.props;
+    switch (presence.action) {
+    case 'join':
+      addUserToChannel(presence.uuid)
+      break;
+    case 'leave':
+      removeUserFromChannel(presence.uuid)
+    case 'timeout':
+      break;
+    default:
+      console.error('unknown action: ' + presenceData.action);
+    }
   }
 
   sendMessage (message, currentChannel) {
@@ -26,8 +58,21 @@ class Chat extends React.Component {
       channel: currentChannel,
       message: message,
       storeInHistory: true,
-    })
+    });
   }
+
+  submitMessage (e) {
+    e.preventDefault();
+    const messageObj = {
+      username: this.props.user.username,
+      text: this.refs.message.value,
+      timestamp: Date.now(),
+    }
+    this.sendMessage(messageObj, this.props.currentChannel)
+    this.refs.message.value = '';
+    this.refs.message.focus();
+  }
+
 
   fetchHistory(currentChannel) {
     const { props } = this;
@@ -43,19 +88,6 @@ class Chat extends React.Component {
       }
     );
   }
-
-  submitMessage (e) {
-    e.preventDefault();
-    const messageObj = {
-      username: this.props.user.username,
-      text: this.refs.message.value,
-      timestamp: Date.now(),
-    }
-    this.sendMessage(messageObj, this.props.currentChannel)
-    this.refs.message.value = '';
-    this.refs.message.focus();
-  }
-
 
   render () {
     const formatDate = (timestamp) => {
@@ -125,6 +157,11 @@ class Chat extends React.Component {
       </div>
     )
   }
+
+  leaveChat = () => {
+    const { currentChannel } = this.props;
+    this.pubnub.unsubscribe({ channel: currentChannel});
+  }
 }
 
 Chat.defaultProps = {
@@ -132,12 +169,15 @@ Chat.defaultProps = {
   messages: [],
   currentChannel: 'TestChannel4',
   latestTimetoken: null,
+  users: [],
 }
 
-const mapStateToProps = ({ chat }) => {
+const mapStateToProps = ({ chat, user }) => {
   return {
+    user: user,
     messages: getMessagesByChannel(chat.messages, 'TestChannel4'),
     latestTimetoken: chat.latestTimetoken,
+    users: chat.users,
   }
 }
 
