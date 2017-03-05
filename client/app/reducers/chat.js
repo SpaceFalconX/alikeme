@@ -21,10 +21,10 @@ export default combineReducers({
 
 export const getIds = (state=[]) => state;
 
-// export const getActiveUsers = (state=[]) => state.users;
+export const getUsers = (state=[]) => state.users;
 
 export const getMessagesByChannel = (messages, channel='TestChannel4') => {
   const ids = getIds(messages.listByChannel[channel]);
-  const result = ids.map((id) => messages.messagesById[id]);
-  return ids.map((id) => messages.messagesById[id]);
+  const result = ids.map((id) => messages.byId[id]);
+  return ids.map((id) => messages.byId[id]);
 };

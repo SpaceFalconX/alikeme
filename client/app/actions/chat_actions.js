@@ -19,16 +19,18 @@ export function updateHistory(messages, latestTimetoken, channel) {
 }
 
 
-export function addUserToChannel(userId) {
+export function addUserToChannel(userId, channel) {
   return {
     type: USER_JOIN,
     userId,
+    channel,
   };
 }
 
-export function removeUserFromChannel(userId) {
+export function removeUserFromChannel(userId, channel) {
   return {
     type: USER_LEAVE,
     userId,
+    channel
   };
 }

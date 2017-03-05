@@ -18,7 +18,7 @@ const listByChannel = (state={}, action) => {
   }
 };
 
-const messagesById = (state={}, action) => {
+const byId = (state={}, action) => {
   switch (action.type) {
     case ADD_NEW_MESSAGE:
       return { ...state, [action.message.timestamp]: { ...action.message } };
@@ -37,8 +37,7 @@ const messagesById = (state={}, action) => {
 
 const messages = combineReducers({
   listByChannel: listByChannel,
-  messagesById,
-  users,
+  byId,
 });
 
 export default messages;

@@ -30,22 +30,24 @@ class Chat extends React.Component {
       });
 
       this.fetchHistory(currentChannel);
-      window.addEventListener('beforeunload', this.leaveChat);
+      window.addEventListener('beforeunload', () => this.leaveChat(currentChannel));
   }
 
   componentWillUnmount() {
-    this.leaveChat();
+    console.log('ON UNMOUNT')
+    this.leaveChat(this.props.currentChannel);
   }
 
   handlePresenceChange = (presence) => {
-    console.log("presence & context",presence, this.props)
+    console.log("LEAVE SOON?", presence.action)
     const { addUserToChannel, removeUserFromChannel } = this.props;
+    const { uuid, channel } = presence;
     switch (presence.action) {
     case 'join':
-      addUserToChannel(presence.uuid)
+      addUserToChannel(uuid, channel)
       break;
     case 'leave':
-      removeUserFromChannel(presence.uuid)
+      removeUserFromChannel(uuid, channel)
     case 'timeout':
       break;
     default:
@@ -158,9 +160,9 @@ class Chat extends React.Component {
     )
   }
 
-  leaveChat = () => {
-    const { currentChannel } = this.props;
-    this.pubnub.unsubscribe({ channel: currentChannel});
+  leaveChat = (channel) => {
+    console.log("Is called?", this)
+    this.pubnub.unsubscribe({ channels: [channel]});
   }
 }
 
