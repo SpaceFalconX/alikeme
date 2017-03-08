@@ -1,7 +1,7 @@
 import { ADD_NEW_MESSAGE, UPDATE_HISTORY, USER_JOIN, USER_LEAVE, GET_ACTIVE_USERS } from './index'
 
 export function addMessage( { message, channel } ) {
-  console.log()
+  console.log("addMessage",channel)
   return {
     type: ADD_NEW_MESSAGE,
     message,
@@ -10,6 +10,7 @@ export function addMessage( { message, channel } ) {
 }
 
 export function updateHistory(messages, latestTimetoken, channel) {
+  console.log("updateHistory",channel)
   return {
     type: UPDATE_HISTORY,
     messages,
