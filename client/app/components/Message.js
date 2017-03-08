@@ -43,13 +43,14 @@ class Chat extends React.Component {
         console.log('whereNow',response);
     })
 
-    this.fetchHistory(this.getChannelName());
+    this.fetchHistory(this.getChannelName()[0]);
     window.addEventListener('beforeunload', () => this.leaveChat());
   }
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.params.otheruser !== this.props.params.otheruser) {
-      this.fetchHistory(this.getChannelName());
+      this.fetchHistory(this.getChannelName()[0]);
+      location.reload()
     }
   }
 
@@ -64,7 +65,6 @@ class Chat extends React.Component {
   }
 
   handlePresenceChange = (presence) => {
-    console.log('presence', presence)
     const { addUserToChannel, removeUserFromChannel } = this.props;
     const { uuid, channel } = presence;
     switch (presence.action) {
@@ -82,15 +82,10 @@ class Chat extends React.Component {
 
   sendMessage (message) {
     this.pubnub.publish({
-      channel: this.getChannelName(),
+      channel: this.getChannelName()[0],
       message: message,
       storeInHistory: true,
     });
-    // this.pubnub.publish({
-    //   channel: this.props.params.otheruser,
-    //   message: message,
-    //   storeInHistory: true,
-    // });
   }
 
   submitMessage (e) {
