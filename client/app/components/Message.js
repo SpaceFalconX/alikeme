@@ -2,15 +2,16 @@ import React from 'react'
 import PubNub from 'pubnub'
 import { connect } from 'react-redux';
 import * as actions from '../actions/chat_actions';
-import { getMessagesByChannel } from '../reducers/chat'
+import { getMessages, getUsers, getLatestTimetoken } from '../reducers/chat'
 import ChatUsers from './ChatUsers';
 
 class Chat extends React.Component {
 
   componentDidMount () {
-    const { currentChannel, addMessage, user } = this.props;
+    const { currentChannel, addMessage, user, getActiveUsers, getChannels } = this.props;
     const { handlePresenceChange } = this;
-      let id = user.username + Math.round(Math.random() * 1000000).toString();
+      // let id = user.username + Math.round(Math.random() * 1000000).toString();
+      let id = user.username;
       console.log("ID on connection",id);
       this.pubnub = new PubNub({
           publishKey: 'pub-c-f5e1b611-9e28-4b7a-85bc-53d8ffb17f95',
@@ -29,17 +30,31 @@ class Chat extends React.Component {
         withPresence: true,
       });
 
+      this.pubnub.hereNow({
+        channels: [currentChannel],
+        includeUUIDs: true,
+        includeState: true
+      }, function (status, response) {
+          console.log('hereNow', response);
+          getActiveUsers(response.channels);
+      });
+
+      this.pubnub.whereNow({
+        uuid: id
+      },  function (status, response) {
+          console.log('whereNow',response);
+      })
+
       this.fetchHistory(currentChannel);
       window.addEventListener('beforeunload', () => this.leaveChat(currentChannel));
   }
 
   componentWillUnmount() {
-    console.log('ON UNMOUNT')
     this.leaveChat(this.props.currentChannel);
   }
 
   handlePresenceChange = (presence) => {
-    console.log("LEAVE SOON?", presence.action)
+    console.log('presence', presence)
     const { addUserToChannel, removeUserFromChannel } = this.props;
     const { uuid, channel } = presence;
     switch (presence.action) {
@@ -79,7 +94,7 @@ class Chat extends React.Component {
   fetchHistory(currentChannel) {
     const { props } = this;
     this.pubnub.history({
-        channel: 'TestChannel4',
+        channel: 'LastTest',
         count: 10,
         stringifiedTimeToken: false,
         start: props.latestTimetoken,
@@ -98,7 +113,7 @@ class Chat extends React.Component {
       ' at ' + messageDate.toLocaleTimeString();
     }
 
-    const { params, user, messages, history, location } = this.props;
+    const { params, user, messages, history, location, users } = this.props;
 
     const handleScroll = (e) => {
       e.preventDefault();
@@ -110,11 +125,11 @@ class Chat extends React.Component {
 
     return (
       <div>
-        <ChatUsers />
+        <ChatUsers users={users} username={user.username} />
         <div className="row">
           <div className="col-lg-12 chat-feed">
             <div className="small-title">
-              <p>Messaging {this.props.params.otheruser}</p>
+              <p>Messaging {params.otheruser}</p>
             </div>
             <ul className="message-list" ref="messageList" onScroll={ handleScroll }>
               { messages.map((messageObj) => {
@@ -161,25 +176,24 @@ class Chat extends React.Component {
   }
 
   leaveChat = (channel) => {
-    console.log("Is called?", this)
     this.pubnub.unsubscribe({ channels: [channel]});
   }
 }
 
 Chat.defaultProps = {
-  channels: ['TestChannel4'],
+  channels: ['LastTest'],
   messages: [],
-  currentChannel: 'TestChannel4',
+  currentChannel: 'LastTest',
   latestTimetoken: null,
   users: [],
 }
 
-const mapStateToProps = ({ chat, user }) => {
+const mapStateToProps = ({ chat, user }, ownProps) => {
   return {
     user: user,
-    messages: getMessagesByChannel(chat.messages, 'TestChannel4'),
-    latestTimetoken: chat.latestTimetoken,
-    users: chat.users,
+    messages: getMessages(chat, ownProps.currentChannel),
+    latestTimetoken: getLatestTimetoken(chat),
+    users: getUsers(chat),
   }
 }
 

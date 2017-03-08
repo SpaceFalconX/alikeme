@@ -1,4 +1,4 @@
-import { ADD_NEW_MESSAGE, UPDATE_HISTORY, USER_JOIN, USER_LEAVE } from './index'
+import { ADD_NEW_MESSAGE, UPDATE_HISTORY, USER_JOIN, USER_LEAVE, GET_ACTIVE_USERS } from './index'
 
 export function addMessage( { message, channel } ) {
   console.log()
@@ -32,5 +32,12 @@ export function removeUserFromChannel(userId, channel) {
     type: USER_LEAVE,
     userId,
     channel
+  };
+}
+
+export function getActiveUsers(users) {
+  return {
+    type: GET_ACTIVE_USERS,
+    users
   };
 }

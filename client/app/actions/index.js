@@ -36,3 +36,4 @@ export const ADD_NEW_MESSAGE = 'ADD_NEW_MESSAGE';
 export const UPDATE_HISTORY = 'UPDATE_HISTORY';
 export const USER_JOIN = 'USER_JOIN';
 export const USER_LEAVE = 'USER_LEAVE';
+export const GET_ACTIVE_USERS = 'GET_ACTIVE_USERS';

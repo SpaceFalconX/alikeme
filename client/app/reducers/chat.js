@@ -15,16 +15,19 @@ export function latestTimetoken(state=null, action) {
 
 export default combineReducers({
   messages,
-  latestTimetoken,
   users,
+  latestTimetoken,
 });
 
 export const getIds = (state=[]) => state;
 
-export const getUsers = (state=[]) => state.users;
 
-export const getMessagesByChannel = (messages, channel='TestChannel4') => {
-  const ids = getIds(messages.listByChannel[channel]);
-  const result = ids.map((id) => messages.byId[id]);
-  return ids.map((id) => messages.byId[id]);
+export const getMessages = (state, channel='LastTest') => {
+  const ids = getIds(state.messages.listByChannel[channel]);
+  const result = ids.map((id) => state.messages.byId[id]);
+  return ids.map((id) => state.messages.byId[id]);
 };
+
+export const getUsers = (state={}) => Object.keys(state.users);
+
+export const getLatestTimetoken = (state) => state.latestTimetoken;
