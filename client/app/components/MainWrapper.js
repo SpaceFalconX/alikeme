@@ -88,7 +88,7 @@ export const defaultState = {
 
 function mapStatetoProps (state=defaultState) {
 	return {
-		user: Object.assign(state.user, ...state.user, {following: state.user.following, followers: state.user.followers}),
+		user: state.user,
 		tags: state.tags,
 		categories: state.categories,
 		starredPosts: state.starredPosts,

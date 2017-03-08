@@ -14,7 +14,6 @@ class Chat extends React.Component {
     let channels = [params.username];
     if(params.otheruser) {
       channels.push(params.otheruser);
-      console.log('CHANNELS', channels)
     }
     console.log('CHANNELS', channels, params)
 
@@ -54,6 +53,12 @@ class Chat extends React.Component {
     window.addEventListener('beforeunload', () => this.leaveChat());
   }
 
+  componentWillReceivProps(nextProps) {
+    if(nextProps.params.otheruser !== this.props.params.otheruser) {
+      this.fetchHistory(nextProps.params.otheruser)
+    }
+  }
+
   componentWillUnmount() {
     this.leaveChat();
   }
@@ -75,9 +80,14 @@ class Chat extends React.Component {
     }
   }
 
-  sendMessage (message, currentChannel) {
+  sendMessage (message) {
     this.pubnub.publish({
-      channel: currentChannel,
+      channel: this.props.params.otheruser,
+      message: message,
+      storeInHistory: true,
+    });
+    this.pubnub.publish({
+      channel: this.props.params.username,
       message: message,
       storeInHistory: true,
     });
@@ -90,7 +100,8 @@ class Chat extends React.Component {
       text: this.refs.message.value,
       timestamp: Date.now(),
     }
-    this.sendMessage(messageObj, this.props.params.otheruser || this.props.params.username)
+    console.log('SEND MESSAGE TO...', this.props.params.otheruser || this.props.params.username)
+    this.sendMessage(messageObj)
     this.refs.message.value = '';
     this.refs.message.focus();
   }
@@ -119,18 +130,26 @@ class Chat extends React.Component {
     }
 
     const { params, user, messages, history, location, users } = this.props;
-
     const handleScroll = (e) => {
       e.preventDefault();
       const scrollTop = this.refs.messageList.scrollTop;
       if (scrollTop === 0) {
-        this.fetchHistory(this.props.params.username || this.props.params.otheruser);
+        this.fetchHistory(this.props.params.otheruser || this.props.params.username);
       }
+    }
+
+    if(!this.props.params.otheruser) {
+      return (
+        <div>
+          <ChatUsers users={users} username={user.username} followers={this.props.followers} />
+          <h4>Tap on a user on the right!</h4>
+        </div>
+      )
     }
 
     return (
       <div>
-        <ChatUsers users={users} username={user.username} />
+        <ChatUsers users={users} username={user.username} followers={this.props.followers} />
         <div className="row">
           <div className="col-lg-12 chat-feed">
             <div className="small-title">
@@ -191,6 +210,7 @@ Chat.defaultProps = {
   currentChannel: 'LastTest',
   latestTimetoken: null,
   users: [],
+  followers: [],
 }
 
 const mapStateToProps = ({ chat, user }, ownProps) => {
@@ -205,6 +225,7 @@ const mapStateToProps = ({ chat, user }, ownProps) => {
     messages: getMessages(chat, channel),
     latestTimetoken: getLatestTimetoken(chat),
     users: getUsers(chat),
+    followers: user.followers,
   }
 }
 

@@ -5,17 +5,36 @@ const ChatUsers = (props) => {
   return (
     <div className="sidebar-wrapper chat-left">
       <div className="sidebar-content chat-left-content">
-        <h4>Online Users</h4>
-        {
-          props.users.map((otheruser, index) => (
-            <div key={otheruser}>
-              <span style={{fontSize: 14, padding: 10, fontWeight: 600}}>{otheruser}</span>
-            </div>
-          ))
-        }
+        <div>
+          <h4>Online Users</h4>
+          {
+            props.users.filter((otheruser, index) => (
+              otheruser !== props.username
+            )).map((otheruser) =>
+              <div key={otheruser}>
+                <Link className="chat-user" to={`/message/${props.username}/${otheruser}`}>
+                  <span style={{fontSize: 14, padding: 10, fontWeight: 600}}>{otheruser}</span>
+                </Link>
+              </div>
+            )
+          }
+        </div>
+        <div>
+          <h4>Your followers</h4>
+          {
+            props.followers.map((otheruser, index) => (
+              <div key={otheruser}>
+                <Link className="chat-user" to={`/message/${props.username}/${otheruser.username}`}>
+                  <span style={{fontSize: 14, padding: 10, fontWeight: 600}}>{otheruser.username}</span>
+                </Link>
+              </div>
+            ))
+          }
+        </div>
       </div>
     </div>
   )
 };
+
 
 export default ChatUsers;
