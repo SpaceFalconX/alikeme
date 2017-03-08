@@ -23,7 +23,7 @@ const ChatUsers = (props) => {
           <h4>Your followers</h4>
           {
             props.followers.map((otheruser, index) => (
-              <div key={otheruser}>
+              <div key={otheruser.username}>
                 <Link className="chat-user" to={`/message/${props.username}/${otheruser.username}`}>
                   <span style={{fontSize: 14, padding: 10, fontWeight: 600}}>{otheruser.username}</span>
                 </Link>

@@ -14,9 +14,9 @@ exports.seed = (knex, Promise) => {
         // knex('followers_following').del(),
         // knex('users').del(),
 
-        knex('users').insert({id: 1, username: 'sevda', email: 'sevda.m.anefi@gmail.com', password: '123', twitterLink: 'PrettyLights',
+        knex('users').insert({id: 1, username: 'sevdax', email: 'sevda.m.anefi@gmail.com', password: '123', twitterLink: 'PrettyLights',
         gravatar: gravatarGen.url('sevda.m.anefi@gmail.com', {s: '100', r: 'x', d: 'retro'}, true) ,openness: 0.60  ,conscientiousness: 0.10, extraversion: 0.40, agreeableness: 0.20, emotionalRange: 0.80}),
-        knex('users').insert({id: 2, username: 'isaac', email: 'isaacxpreston@gmail.com', password: '123', twitterLink: 'andrewchen',
+        knex('users').insert({id: 2, username: 'isaacx', email: 'isaacxpreston@gmail.com', password: '123', twitterLink: 'andrewchen',
         gravatar: gravatarGen.url('isaacxpreston@gmail.com', {s: '100', r: 'x', d: 'retro'}, true), openness: 0.35 ,conscientiousness: 0.25, extraversion: 0.70, agreeableness: 0.45, emotionalRange: 0.55}),
         knex('users').insert({id: 3, username: 'wasiff', email: 'wassiff@g.com', password: '123',  twitterLink: 'dan_abramov',
         gravatar: gravatarGen.url('wassiff@g.com', {s: '100', r: 'x', d: 'retro'}, true), openness: 0.90 ,conscientiousness: 0.49, extraversion: 0.58, agreeableness: 0.15, emotionalRange: 0.82}),

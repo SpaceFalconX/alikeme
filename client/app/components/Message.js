@@ -11,12 +11,6 @@ class Chat extends React.Component {
     const { currentChannel, addMessage, user, getActiveUsers, getChannels, params } = this.props;
     const { handlePresenceChange } = this;
     let id = user.username;
-    let channels = [params.username];
-    if(params.otheruser) {
-      channels.push(params.otheruser);
-    }
-    console.log('CHANNELS', channels, params)
-
     this.pubnub = new PubNub({
         publishKey: 'pub-c-f5e1b611-9e28-4b7a-85bc-53d8ffb17f95',
         subscribeKey: 'sub-c-45dd39e4-d8ee-11e6-a0b3-0619f8945a4f',
@@ -30,12 +24,12 @@ class Chat extends React.Component {
     });
 
     this.pubnub.subscribe({
-      channels: channels,
+      channels: this.getChannelName(),
       withPresence: true,
     });
 
     this.pubnub.hereNow({
-      channels: channels,
+      channels: this.getChannelName(),
       includeUUIDs: true,
       includeState: true
     }, function (status, response) {
@@ -49,14 +43,20 @@ class Chat extends React.Component {
         console.log('whereNow',response);
     })
 
-    this.fetchHistory(params.otheruser || params.username);
+    this.fetchHistory(this.getChannelName());
     window.addEventListener('beforeunload', () => this.leaveChat());
   }
 
-  componentWillReceivProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if(nextProps.params.otheruser !== this.props.params.otheruser) {
-      this.fetchHistory(nextProps.params.otheruser)
+      this.fetchHistory(this.getChannelName());
     }
+  }
+
+  getChannelName() {
+    let mix = this.props.params.username + this.props.params.otheruser;
+    let channels = [mix.split('').sort().join('')];
+    return channels;
   }
 
   componentWillUnmount() {
@@ -82,15 +82,15 @@ class Chat extends React.Component {
 
   sendMessage (message) {
     this.pubnub.publish({
-      channel: this.props.params.otheruser,
+      channel: this.getChannelName(),
       message: message,
       storeInHistory: true,
     });
-    this.pubnub.publish({
-      channel: this.props.params.username,
-      message: message,
-      storeInHistory: true,
-    });
+    // this.pubnub.publish({
+    //   channel: this.props.params.otheruser,
+    //   message: message,
+    //   storeInHistory: true,
+    // });
   }
 
   submitMessage (e) {
@@ -100,7 +100,7 @@ class Chat extends React.Component {
       text: this.refs.message.value,
       timestamp: Date.now(),
     }
-    console.log('SEND MESSAGE TO...', this.props.params.otheruser || this.props.params.username)
+    console.log('SEND MESSAGE TO...',this.getChannelName())
     this.sendMessage(messageObj)
     this.refs.message.value = '';
     this.refs.message.focus();
@@ -117,6 +117,7 @@ class Chat extends React.Component {
       },
       function (status, resp) {
         const messages = resp.messages.map((message) => message.entry)
+        console.log('currentChannel fetch hostroy', currentChannel, resp)
         props.updateHistory(messages, resp.startTimeToken, currentChannel);
       }
     );
@@ -142,7 +143,7 @@ class Chat extends React.Component {
       return (
         <div>
           <ChatUsers users={users} username={user.username} followers={this.props.followers} />
-          <h4>Tap on a user on the right!</h4>
+          <h4>Click on a user on the right to start your chat!</h4>
         </div>
       )
     }
@@ -214,12 +215,8 @@ Chat.defaultProps = {
 }
 
 const mapStateToProps = ({ chat, user }, ownProps) => {
-  let channel;
-  if(!ownProps.params.otheruser) {
-    channel = ownProps.params.username
-  } else {
-    channel = ownProps.params.otheruser
-  }
+  let mix = ownProps.params.username + ownProps.params.otheruser;
+  let channel = mix.split('').sort().join('');
   return {
     user: user,
     messages: getMessages(chat, channel),
