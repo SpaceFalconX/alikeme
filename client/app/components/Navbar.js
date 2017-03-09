@@ -3,16 +3,19 @@ import {Link} from 'react-router'
 import {logoutClick} from '../actions/auth_actions.js'
 
 const Navbar = React.createClass({
-	// logoutClick () {
-	// 	this.props.logout();
-	// 	this.props.router.push('/login');
-	// },
 
 	username () {
 		return this.props.user.isAuthenticated? this.props.user.username : '';
 	},
 
 	render() {
+		const displayDemoLink = () => {
+			if(this.props.user.username === 'isaac94') {
+				return '/sevda634';
+			} else {
+				return ''
+			}
+		}
 		const isAuthenticated = this.props.user.isAuthenticated;
 
 		const currUserView = (
@@ -20,7 +23,7 @@ const Navbar = React.createClass({
 				<ul className="nav navbar-nav navbar-left customized-nav">
 					<li><Link to={'/browse/'+this.props.user.username} >Browse</Link></li>
 					<li><Link to={'/'+this.props.user.username}>Profile</Link></li>
-					<li><Link to={'/message/'+ this.props.user.username}>Message</Link></li>
+					<li><Link to={'/message/'+ this.props.user.username + displayDemoLink() }>Message</Link></li>
 					<li><Link to={'/settings/'+this.props.user.username}>Settings</Link></li>
 				</ul>
 
