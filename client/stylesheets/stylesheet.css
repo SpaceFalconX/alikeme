@@ -291,12 +291,6 @@ h4 {
   padding-left: 20px;
 }
 
-.match-text {
-  display: flex;
-  font-size: 16px;
-  align-self: center;
-}
-
 .media-body {
 
 }
@@ -620,4 +614,29 @@ button.send-message {
 .message-text {
   margin-left: 45px;
   margin-top: -10px;
+}
+
+
+.match-container {
+    margin: 5px;
+    margin-top: 30px;
+    display: flex;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #4DB6AC;
+    flex-wrap: wrap;
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    color: #009688;
+}
+
+.match-text {
+    font-size: 14px;
+    padding: 7px;
+    /*color: #AB47BC;*/
+
 }

@@ -27,7 +27,7 @@ const INITIAL_STATE = {
 	following: [],
 }
 
-export function auth (state={}, action) {
+export function auth (state=INITIAL_STATE, action) {
 	switch(action.type) {
 		case SET_USER:
 			return Object.assign(

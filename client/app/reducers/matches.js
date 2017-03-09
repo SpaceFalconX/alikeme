@@ -1,4 +1,13 @@
 import {SET_MATCHES, CLEAR_MATCHES, INIT_PERSONALITY_MATCHES, CLEAR_PERSONALITY_MATCHES, GET_MATCHES_TABLE, UPDATE_MATCHES_TABLE, STARRED_POSTS_JOIN, UPDATE_STARRED_POSTS_MATCHES} from '../actions/index.js'
+// import { date, dateFix } from './post.js'
+
+export const date = Date.now()
+export const dateFix = (post, index) => {
+	if(!post.created_at) {
+		post.created_at = date + 1000000 * index;
+	}
+	return post;
+}
 
 export function matches (state=[], action) {
   switch(action.type) {
@@ -32,7 +41,9 @@ export function matches (state=[], action) {
               ...state.slice(i + 1)
               ];
     case SET_MATCHES:
-      return action.posts
+      const mathces = action.posts.map((post, index) =>
+        dateFix(post, index))
+      return mathces;
     case CLEAR_MATCHES:
       return []
     default:

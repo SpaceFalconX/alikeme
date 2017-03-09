@@ -14,6 +14,7 @@ class Profile extends React.Component {
     if (nextProps !== this.props) {
       return true;
     }
+    return false;
   }
 
   render () {
@@ -23,11 +24,6 @@ class Profile extends React.Component {
     }
     const posts = this.props.userPosts
     const {followers, following, username} = this.props.user;
-    for(let prop in this.props.user) {
-      if(this.props.user[prop] === undefined) {
-        this.props.user[prop] = [];
-      }
-    }
     const {personalityMatches, user, dispatch, params} = this.props;
     return (
          <div className="row">
@@ -65,6 +61,13 @@ class Profile extends React.Component {
           </div>
     )
 
+  }
+}
+
+Profile.defaultProps = {
+  user: {
+    following: [],
+    followers: []
   }
 }
 

@@ -1,6 +1,14 @@
 import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS, FETCH_PUBLIC_POSTS, STARRED_POSTS_JOIN, GET_STARRED_POSTS, UPDATE_STARRED_POSTS} from '../actions/index.js'
 import _ from 'underscore';
 
+export const date = Date.now()
+export const dateFix = (post, index) => {
+	if(!post.created_at) {
+		post.created_at = date + 1000000 * index;
+	}
+	return post;
+}
+
 export function createNewPost (action) {
 	const { user_id, username, category, category_id, id,
 		content, title, tags, created_at, updated_at, gravatar} = action;
@@ -42,7 +50,8 @@ export function userPosts (state=[], action) {
       const newStuff = createNewPost(action.newPost)
       return [...state, {...newStuff, tags: newStuff.tags}];
     case FETCH_USER_POSTS:
-      return action.fetchedUserPosts
+      return action.fetchedUserPosts.map((post, index) =>
+				dateFix(post, index))
     default :
       return state;
   }
@@ -65,7 +74,8 @@ export function publicPosts (state=[], action) {
               ...state.slice(i + 1)
               ];
     case FETCH_PUBLIC_POSTS:
-      return [].concat(action.fetchedPublicPosts)
+      return action.fetchedPublicPosts.map((post, index) =>
+				dateFix(post, index))
     default :
       return state;
   }
@@ -105,7 +115,8 @@ export function allPosts (state=[], action) {
               ...state.slice(i + 1)
               ];
     case FETCH_ALL_POSTS:
-      return [].concat(action.fetchedPosts);
+      return action.fetchedPosts.map((post, index) =>
+				dateFix(post, index))
     case FILTER_POSTS:
       return state.filter((post) => {
         return post.category.name === action.category;
