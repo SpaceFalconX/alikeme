@@ -6,23 +6,16 @@ exports.seed = (knex, Promise) => {
   .then((result) => {
     if(!result[0]['count(`id`)'])  {
       return Promise.join(
-        // knex('posts_tags').del(),
-        // knex('posts_stars').del(),
-        // knex('posts').del(),
-        // knex('tags').del(),
-        // knex('categories').del(),
-        // knex('followers_following').del(),
-        // knex('users').del(),
 
-        knex('users').insert({id: 1, username: 'sevdax', email: 'sevda.m.anefi@gmail.com', password: '123', twitterLink: 'PrettyLights',
+        knex('users').insert({id: 1, username: 'sevda634', email: 'sevda.m.anefi@gmail.com', password: '123', twitterLink: 'PrettyLights',
         gravatar: gravatarGen.url('sevda.m.anefi@gmail.com', {s: '100', r: 'x', d: 'retro'}, true) ,openness: 0.60  ,conscientiousness: 0.10, extraversion: 0.40, agreeableness: 0.20, emotionalRange: 0.80}),
-        knex('users').insert({id: 2, username: 'isaacx', email: 'isaacxpreston@gmail.com', password: '123', twitterLink: 'andrewchen',
+        knex('users').insert({id: 2, username: 'isaac94', email: 'isaacxpreston@gmail.com', password: '123', twitterLink: 'andrewchen',
         gravatar: gravatarGen.url('isaacxpreston@gmail.com', {s: '100', r: 'x', d: 'retro'}, true), openness: 0.35 ,conscientiousness: 0.25, extraversion: 0.70, agreeableness: 0.45, emotionalRange: 0.55}),
-        knex('users').insert({id: 3, username: 'wasiff', email: 'wassiff@g.com', password: '123',  twitterLink: 'dan_abramov',
+        knex('users').insert({id: 3, username: 'wasiff01', email: 'wassiff@g.com', password: '123',  twitterLink: 'dan_abramov',
         gravatar: gravatarGen.url('wassiff@g.com', {s: '100', r: 'x', d: 'retro'}, true), openness: 0.90 ,conscientiousness: 0.49, extraversion: 0.58, agreeableness: 0.15, emotionalRange: 0.82}),
-        knex('users').insert({id: 4, username: 'elliott', email: 'elau002@gmail.com', password: '123',  twitterLink: 'vjeux',
+        knex('users').insert({id: 4, username: 'elliottx', email: 'elau002@gmail.com', password: '123',  twitterLink: 'vjeux',
         gravatar: gravatarGen.url('elau002@gmail.com', {s: '100', r: 'x', d: 'retro'}, true), openness: 0.93 ,conscientiousness: 0.69, extraversion: 0.78, agreeableness: 0.65, emotionalRange: 0.92}),
-        knex('users').insert({id: 5, username: 'iana', email: 'filonenko.jana@gmail.com', password: '123',  twitterLink: 'react_native',
+        knex('users').insert({id: 5, username: 'iana99', email: 'filonenko.jana@gmail.com', password: '123',  twitterLink: 'react_native',
         gravatar: gravatarGen.url('filonenko.jana@gmail.com', {s: '100', r: 'x', d: 'retro'}, true), openness: 0.30 ,conscientiousness: 0.49, extraversion: 0.58, agreeableness: 0.54, emotionalRange: 0.82}),
         knex('users').insert({id: 6, username: 'eric', email: 'churchie@imail.iu.edu', password: '123',  twitterLink: 'midnight',
         gravatar: gravatarGen.url('churchie@imail.iu.edu', {s: '100', r: 'x', d: 'retro'}, true), openness: 0.80 ,conscientiousness: 0.39, extraversion: 0.18, agreeableness: 0.92, emotionalRange: 0.72}),
@@ -46,7 +39,7 @@ exports.seed = (knex, Promise) => {
         gravatar: gravatarGen.url('bartekr@gmail.com', {s: '100', r: 'x', d: 'retro'}, true), openness: 0.90 ,conscientiousness: 0.79, extraversion: 0.48, agreeableness: 0.14, emotionalRange: 0.42}),
         knex('users').insert({id: 16, username: 'whiteshadow', email: 'romaindejean58@gmail.com', password: '123',  twitterLink: 'BarackObama',
         gravatar: gravatarGen.url('romaindejean58@gmail.com', {s: '100', r: 'x', d: 'retro'}, true), openness: 0.01 ,conscientiousness: 0.01, extraversion: 0.01, agreeableness: 0.13, emotionalRange: 0.32}),
-        knex('users').insert({id: 17, username: 'bei', email: 'bei5258@gmail.com', password: '123',  twitterLink: 'GiGiHadid',
+        knex('users').insert({id: 17, username: 'bei90', email: 'bei5258@gmail.com', password: '123',  twitterLink: 'GiGiHadid',
         gravatar: gravatarGen.url('bei5258@gmail.com', {s: '100', r: 'x', d: 'retro'}, true), openness: 0.30 ,conscientiousness: 0.49, extraversion: 0.38, agreeableness: 0.12, emotionalRange: 0.22}),
 
 

@@ -10,8 +10,8 @@ import {getWatsonTwitterData} from '../actions/watson_actions.js'
 const Landing = React.createClass({
 	loginUser () {
 		const {dispatch, router} = this.props;
-		const user = {username: 'isaac', password: '123', id: '1'}
-		dispatch(loginApiRequest({username: 'isaac', password: '123'}))
+		const user = {username: 'isaac94', password: '123', id: '1'}
+		dispatch(loginApiRequest({username: 'isaac94', password: '123'}))
 		.then(() => {
 			let {user} = this.props;
 			if(user.isAuthenticated) {

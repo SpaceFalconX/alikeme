@@ -140,6 +140,17 @@ class Chat extends React.Component {
       )
     }
 
+    const source = (username) => {
+      if(username === params.username) {
+        return this.props.user.gravatar;
+      }
+
+      if(username === params.otheruser) {
+        const avatar = this.props.publicPosts[0]? this.props.publicPosts[0].user.gravatar : 'https://s.gravatar.com/avatar/bbc60d30eec8bbd1a372278140513269?s=100&r=x&d=retro';
+        return avatar;
+      }
+    }
+
     return (
       <div>
         <ChatUsers users={users} username={user.username} followers={this.props.followers} />
@@ -153,7 +164,7 @@ class Chat extends React.Component {
                 const { timestamp, username, text } = messageObj;
                 return (
                   <div className="collection-item message-item avatar" key={ timestamp }>
-                    <img src={ location.state || "https://robohash.org/503483?set=set2&bgset=bg2&size=70x70" } alt={"https://robohash.org/503483?set=set2&bgset=bg2&size=70x70"} className="circle" />
+                    <img src={source(username)} className="circle" />
                     <span className="title">@{ username }&nbsp;&nbsp; </span>
                     <span className="message-date">{ formatDate(timestamp) } </span>
                     <br />
