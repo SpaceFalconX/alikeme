@@ -33,15 +33,10 @@ class Chat extends React.Component {
       includeUUIDs: true,
       includeState: true
     }, function (status, response) {
-        console.log('hereNow', response);
-        getActiveUsers(response.channels);
+        if(!status.error) {
+          getActiveUsers(response.channels);
+        }
     });
-
-    this.pubnub.whereNow({
-      uuid: id
-    },  function (status, response) {
-        console.log('whereNow',response);
-    })
 
     this.fetchHistory(this.getChannelName()[0]);
     window.addEventListener('beforeunload', () => this.leaveChat());
@@ -50,7 +45,7 @@ class Chat extends React.Component {
   componentWillReceiveProps(nextProps) {
     if(nextProps.params.otheruser !== this.props.params.otheruser) {
       this.fetchHistory(this.getChannelName()[0]);
-      location.reload()
+      window.location.reload()
     }
   }
 
@@ -102,18 +97,20 @@ class Chat extends React.Component {
   }
 
 
-  fetchHistory(currentChannel) {
+  fetchHistory() {
     const { props } = this;
+    const channelName = this.getChannelName()[0]
     this.pubnub.history({
-        channel: currentChannel,
+        channel: channelName,
         count: 10,
         stringifiedTimeToken: false,
         start: props.latestTimetoken,
       },
       function (status, resp) {
-        const messages = resp.messages.map((message) => message.entry)
-        console.log('currentChannel fetch hostroy', currentChannel, resp)
-        props.updateHistory(messages, resp.startTimeToken, currentChannel);
+        if(!status.error) {
+          const messages = resp.messages.map((message) => message.entry)
+          props.updateHistory(messages, resp.startTimeToken, channelName);
+        }
       }
     );
   }
@@ -130,7 +127,7 @@ class Chat extends React.Component {
       e.preventDefault();
       const scrollTop = this.refs.messageList.scrollTop;
       if (scrollTop === 0) {
-        this.fetchHistory(this.props.params.otheruser || this.props.params.username);
+        this.fetchHistory(this.getChannelName()[0]);
       }
     }
 
@@ -155,16 +152,14 @@ class Chat extends React.Component {
               { messages.map((messageObj) => {
                 const { timestamp, username, text } = messageObj;
                 return (
-                  <li className="collection-item message-item avatar" key={ timestamp }>
-                    <img src={ location.state } alt={ username } className="circle" />
-                    <span className="title">@{ username }</span>
-                    <p>
-                      <i className="prefix mdi-action-alarm" />
-                      <span className="message-date">{ formatDate(timestamp) }</span>
-                      <br />
-                      <span>{ text }</span>
-                    </p>
-                  </li>
+                  <div className="collection-item message-item avatar" key={ timestamp }>
+                    <img src={ location.state || "https://robohash.org/503483?set=set2&bgset=bg2&size=70x70" } alt={"https://robohash.org/503483?set=set2&bgset=bg2&size=70x70"} className="circle" />
+                    <span className="title">@{ username }&nbsp;&nbsp; </span>
+                    <span className="message-date">{ formatDate(timestamp) } </span>
+                    <br />
+                    <span className="message-text">{ text }</span>
+                    <br />
+                  </div>
                 );
               })}
             </ul>
