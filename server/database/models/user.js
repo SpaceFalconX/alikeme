@@ -33,7 +33,7 @@ const User = db.Model.extend({
   },
   generateMatches () {
     const context = this;
-    return this.fetchAll({columns: ['openness', 'conscientiousness', 'extraversion', 'agreeableness', 'emotionalRange', 'username', 'id']})
+    return this.fetchAll({columns: ['openness', 'conscientiousness', 'extraversion', 'agreeableness', 'emotionalRange','gravatar' ,'username', 'id']})
     .then((response) => {
       const allUsers = response.toJSON();
       const distanceMap = allUsers.map((otherUser, index)=> {
@@ -43,7 +43,9 @@ const User = db.Model.extend({
             distance += Math.pow((context.get(trait) - otherUser[trait]), 2);
           }
         }
-        return {distance: distance, username: otherUser.username, id: otherUser.id };
+				console.log('otherUser', otherUser)
+				const { username, id, gravatar } = otherUser;
+        return { distance, username, id, gravatar };
       })
       return _.sortBy(distanceMap, 'distance');
     })
@@ -100,4 +102,3 @@ const User = db.Model.extend({
 
 
 module.exports = db.model('User', User);
-

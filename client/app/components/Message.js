@@ -133,9 +133,9 @@ class Chat extends React.Component {
 
     if(!this.props.params.otheruser) {
       return (
-        <div>
-          <ChatUsers users={users} username={user.username} followers={this.props.followers} />
-          <h4>Click on a user on the right to start your chat!</h4>
+        <div className="jumbotron boxed" style={{margin: 80, marginTop: 10}}>
+          <ChatUsers users={users} username={user.username} followers={this.props.user.followers} following={this.props.user.following} />
+          <h3>Click on a user alikeYou on the left to start your chat!</h3>
         </div>
       )
     }
@@ -150,10 +150,9 @@ class Chat extends React.Component {
         return avatar;
       }
     }
-
     return (
       <div>
-        <ChatUsers users={users} username={user.username} followers={this.props.followers} />
+        <ChatUsers users={users} username={user.username} followers={this.props.user.followers} following={this.props.user.following} />
         <div className="row">
           <div className="col-lg-12 chat-feed">
             <div className="small-title">
@@ -223,7 +222,6 @@ const mapStateToProps = ({ chat, user }, ownProps) => {
     messages: getMessages(chat, channel),
     latestTimetoken: getLatestTimetoken(chat),
     users: getUsers(chat),
-    followers: user.followers,
   }
 }
 

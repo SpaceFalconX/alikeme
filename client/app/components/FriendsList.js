@@ -3,11 +3,10 @@ import {browserHistory, Link} from 'react-router'
 import {followClick} from '../actions/auth_actions.js'
 
 const FriendsList = React.createClass({
-  followUser(e) {
-    //console.log(e)
-    e.preventDefault();
+  followUser(userId, matchId) {
     //console.log(this.props.match)
-    this.props.dispatch(followClick(this.props.user.id, this.props.match.id))
+    console.log('THIS', this, userId, matchId)
+    this.props.dispatch(followClick(userId, matchId))
   },
 
   visitProfile (e) {
@@ -40,34 +39,60 @@ const FriendsList = React.createClass({
         border: '2px, solid, #000'
       }
     }
-    const {username, distance} = this.props.match
+    const {username, distance, id} = this.props.match
     let route = this.props.router.getCurrentLocation().pathname
 
+
+    const displayFollowers = (user, match) => {
+      const isFollowing = user.following.find((followed) => followed.id === match.id);
+      if(!isFollowing) {
+        return (
+          <div className="badge star-container follow-post not-following pull-right" ref="follower"
+            onClick={() => this.followUser(user.id, match.id)}>
+            <p className="star-text">Follow</p>
+            <i className="glyphicon glyphicon-plus"></i>
+            <i className="glyphicon glyphicon-user"></i>
+            <p className="star-text emphasis"></p>
+          </div>
+        )
+      } else {
+        return (
+          <div className="badge star-container follow-post following">
+            <p className="star-text">Following</p>
+            <i className="glyphicon glyphicon-user"></i>
+            <p className="star-text emphasis"></p>
+          </div>
+        )
+      }
+    }
+
     return (
-      <div  className="">
         <div className="col-lg-6">
           <div className="panel panel-default thumbnail" style={style.panel}>
             <div className="panel-heading">
               <div className="media">
                 <div className="pull-left">
-                  <img src={this.props.user.gravatar} className="media-object img-circle" style={style.imgStyle} />
+                  <img src={this.props.match.gravatar} className="media-object img-circle" style={style.imgStyle} />
                 </div>
                 <div className="media-body">
-                  <h4 className="media-heading margin-v-5 pull-left">
-                    <Link onClick={this.visitProfile}> Match: {username}</Link>
+                  <h4 className="media-heading pull-left">
+                    <Link onClick={this.visitProfile}> @{username}</Link>
                   </h4>
-                  <h4 className="media-heading margin-v-5 pull-right">
-                    <a href="#">{Math.abs(Math.round((1 - distance/5) * 100))}%</a>
-                  </h4>
+                  {this.props.user.openness === 0? <div></div>:
+                    <div className="pull-right match-container setup">
+                    <h4 className="media-heading match-text setup-text">
+                      <a href="#">Match: {Math.abs(Math.round((1 - distance/5) * 100))}%</a>
+                    </h4>
+                    </div>
+                  }
                 </div>
               </div>
             </div>
             <div className="panel-footer" style={style.panelFooter}>
-            <button ref="follower" className="btn btn-default" onClick={this.followUser}>Follow <i className="fa fa-share"></i></button>
+              {displayFollowers(this.props.user, this.props.match)}
             </div>
           </div>
         </div>
-      </div>
     )
   }
 })

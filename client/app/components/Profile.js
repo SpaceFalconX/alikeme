@@ -23,19 +23,24 @@ class Profile extends React.Component {
       overflow: 'scroll'
     }
     const posts = this.props.userPosts
+    console.log('posts.length', posts.length)
     const {followers, following, username} = this.props.user;
     const {personalityMatches, user, dispatch, params} = this.props;
     return (
          <div className="row">
             <div className="col-lg-9 feed">
               <NewPostForm {...this.props} />
-              {
+              { posts.length === 0?
+                (<div className="jumbotron boxed ">
+                  <h3>New on alikeMe? </h3>
+                  <h3>Make your first post to start finding people alike you!</h3>
+                </div>) :
                 posts.map((post, index) => {
-                  return (
-                    <Post dispatch={dispatch} personalityMatches={personalityMatches}
-                    user={user} key={post.id} post={post} params={params} />
-                  )
-                }).reverse()
+                return (
+                  <Post dispatch={dispatch} personalityMatches={personalityMatches}
+                  user={user} key={post.id} post={post} params={params} />
+                )
+              }).reverse()
               }
             </div>
             <div className="col-lg-3">

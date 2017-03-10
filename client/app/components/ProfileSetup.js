@@ -12,10 +12,6 @@ const ProfileSetup = React.createClass({
 		}
 	},
 
-	// componentWillUnmount() {
-	// 	this.props.dispatch(clearPersonalityMatches(this.props.personalityMatches))
-	// },
-
 	handleSubmit(e) {
 		e.preventDefault();
 		const content = this.refs.content.value;
@@ -45,7 +41,7 @@ const ProfileSetup = React.createClass({
 		}
 		return (
 			<div className="row">
-				<div className="col-lg-9">
+				<div className="col-lg-10">
 					<div className="container-fluid" style={headerStyle}>
 						<h2 className="pull-left">Suggested Users to Follow</h2>
 						<Link to={this.props.user.username} className="pull-right">

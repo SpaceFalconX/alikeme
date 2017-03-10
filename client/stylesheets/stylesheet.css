@@ -50,6 +50,7 @@ hr {
 
 .panel-footer {
   display: flex;
+  justify-content: flex-end;
 }
 
 .follow-post {
@@ -637,6 +638,19 @@ button.send-message {
 .match-text {
     font-size: 14px;
     padding: 7px;
-    /*color: #AB47BC;*/
+    color: #009688;
 
+}
+
+.setup-text {
+  padding: 0;
+  padding-left: 10px;
+
+
+}
+
+.setup {
+  margin: 0;
+  width: 60px;
+  height: 60px;
 }
