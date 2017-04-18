@@ -7,6 +7,8 @@ import {categories} from './categories.js'
 import {matches, personalityMatches} from './matches.js'
 import {routerReducer} from 'react-router-redux';
 import {LOGOUT_USER} from '../actions/index.js';
+import chat, { getIds } from './chat.js'
+
 
 //combine all Reducers
 const appReducer = combineReducers({
@@ -20,8 +22,11 @@ const appReducer = combineReducers({
   stats,
   personalityMatches,
   starredPosts,
+  chat,
   routing: routerReducer
 })
+
+
 
 const defaultState = {
   user: {
@@ -35,13 +40,13 @@ const defaultState = {
   categories: [],
   tags: [],
   publicPosts: [],
-  personalityMatches: []
+  personalityMatches: [],
+  chat: {},
 }
 
 const reducer = (state, action) => {
   if (action.type === LOGOUT_USER) {
     state = defaultState;
-
   }
   return appReducer(state, action)
 }

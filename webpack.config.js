@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 
-var BUILD_DIR = path.resolve(__dirname, 'client/public');
+var BUILD_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'client/app');
 
 var config = {
@@ -16,6 +16,7 @@ var config = {
     publicPath: '/public/'
   },
   plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
@@ -23,7 +24,7 @@ var config = {
 
     loaders : [
       {
-        test : /\.jsx?/,
+        test : /\.js?/,
         include : path.join(__dirname, 'client/app'),
         loader : 'babel-loader'
       },

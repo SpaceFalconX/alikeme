@@ -1,219 +1,228 @@
 import React from 'react'
 import PubNub from 'pubnub'
-import {clearTags} from '../actions/tag_actions.js'
-import {browserHistory} from 'react-router'
-import UserPic from './userPicture.js'
+import { connect } from 'react-redux';
+import * as actions from '../actions/chat_actions';
+import { getMessages, getUsers, getLatestTimetoken } from '../reducers/chat'
+import ChatUsers from './ChatUsers';
 
-class Message extends React.Component {
-  constructor(props) {
-    super()
-    this.state = { //TODO- MOVE ALL TO STORE
-      messageHistory: [<div key='loading'> LOADING </div>],
-      usersHistory: [<div key='loadingHistory'> LOADING </div>],
-      usersHistory_names: null,
-      channelName: null,
-      historyChannel: null
-    }
-  }
-  //Warning: setState(...): Can only update a mounted or mounting component. This usually means you called setState() on an unmounted component. This is a no-op. Please check the code for the Message component.
-  componentWillMount () {
-    this.props.dispatch(clearTags()) //lazy routing fix until redux integration
-    this.setState({channelName: [this.props.params.user, this.props.params.username].sort().join("")})
-    this.setState({historyChannel: this.props.params.username + 'history'})
-  }
+class Chat extends React.Component {
 
-  handleNewMessage (message) { //for listener
-    //concat new messages to state
-    let temp = this.state.messageHistory
-    .concat([ //EXTERNALIZE TO AN ENTRY
-      <div key={Math.random()}>
-        <UserPic username={message.username} />
-        {message.text}
-      </div>
-    ])
-    if(temp.length > 9) {
-      temp = temp.slice(this.state.messageHistory.length -9)
-    }
-    this.setState({
-      messageHistory: temp
-    })
-  }
-
-  componentDidMount () { //init pubnub
-    console.log('on mount', this.props)
+  componentDidMount () {
+    const { currentChannel, addMessage, user, getActiveUsers, getChannels, params } = this.props;
+    const { handlePresenceChange } = this;
+    let id = user.username;
     this.pubnub = new PubNub({
         publishKey: 'pub-c-f5e1b611-9e28-4b7a-85bc-53d8ffb17f95',
         subscribeKey: 'sub-c-45dd39e4-d8ee-11e6-a0b3-0619f8945a4f',
-    })
+        ssl: (location.protocol.toLowerCase() === 'https:'),
+        uuid: id,
+    });
+
     this.pubnub.addListener({
-      message: (m) => {
-        this.handleNewMessage(m.message)
-      }
-    })
+      message: addMessage,
+      presence: handlePresenceChange
+    });
+
     this.pubnub.subscribe({
-      channels: [this.state.channelName]
-    })
-    this.refresh()
-  }
+      channels: this.getChannelName(),
+      withPresence: true,
+    });
 
-  componentWillReceiveProps (nextProps) {
-    console.log("next", nextProps)
-  }
-
-  componentWillUnmount () {
-    this.pubnub.unsubscribeAll()
-  }
-
-  publish (e) { //send message and update convos
-    e.preventDefault()
-    //send message
-    this.pubnub.publish({
-      channel: this.state.channelName,
-      message: {
-        username: this.props.params.username,
-        text: this.refs.message.value
-      } //this.props.user.username + ": " + this.refs.message.value
-    }, (status, response) => {
-      this.refs.message.value = ""
-    })
-    //add to convo history
-    //fix all the params here
-    if (this.state.usersHistory_names.indexOf(this.props.params.user) === -1) { //check if not already in history
-      this.pubnub.publish({ //publish to your conversation history
-        channel: this.state.historyChannel,
-        message: this.props.params.user
-      })
-      this.pubnub.publish({ //publish to other user's conversation history
-        channel: this.props.params.user + 'history',
-        message: this.props.params.username
-      })
-      //TODO- MAKE A DISPATCH
-      this.setState({usersHistory_names: this.state.usersHistory_names.concat(this.props.params.user)})
-    }
-  }
-
-  refresh (channel) { //fetch messages and convos on load
-    channel = channel || this.state.channelName
-    this.pubnub.history( //fetch past messages
-      {
-        channel: channel,
-        reverse: false,
-        count: 10,
-      },
-      (status, response) => {
-        if(response === undefined) {
-          console.log("empty conversation res")
-          return
-        } else {
-          //TODO- MAKE A DISPATCH
-          this.setState({messageHistory: response.messages.map((message) => { //map messages
-              return ( //EXTERNALIZE TO AN ENTRY
-                <div key={Math.random()}>
-                  <UserPic username={message.entry.username} />
-                  {message.entry.text}
-                </div>
-              )
-            })
-          })
+    this.pubnub.hereNow({
+      channels: this.getChannelName(),
+      includeUUIDs: true,
+      includeState: true
+    }, function (status, response) {
+        if(!status.error) {
+          getActiveUsers(response.channels);
         }
-    })
-    this.pubnub.history({ //fetch past convos
-      channel: this.state.historyChannel,
-      reverse: false,
-      count: 5
-    }, (status, response) => {
-      if (response === undefined) {
-        console.log('empty message history res')
-        return
-      } else {
-        //TODO- MAKE A DISPATCH
-        this.setState({usersHistory: response.messages.map((message) => { //map past convos
-            if(message.entry !== " ") {
-              return (
-                <div key={Math.random()} onClick={this.navToMessage.bind(this, message.entry)}>
-                  <UserPic username={message.entry} />
-                  {message.entry}
-                </div>
-              )
-            }
-          }).reverse()
-        })
-        //TODO- MAKE A DISPATCH
-        this.setState({usersHistory_names: response.messages.map((message) => { //set past convos in state
-            return message.entry
-          })
-        })//.reverse()
+    });
+
+    this.fetchHistory(this.getChannelName()[0]);
+    window.addEventListener('beforeunload', () => this.leaveChat());
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.params.otheruser !== this.props.params.otheruser) {
+      this.fetchHistory(this.getChannelName()[0]);
+      window.location.reload()
+    }
+  }
+
+  getChannelName() {
+    let mix = this.props.params.username + this.props.params.otheruser;
+    let channels = [mix.split('').sort().join('')];
+    return channels;
+  }
+
+  componentWillUnmount() {
+    this.leaveChat();
+  }
+
+  handlePresenceChange = (presence) => {
+    const { addUserToChannel, removeUserFromChannel } = this.props;
+    const { uuid, channel } = presence;
+    switch (presence.action) {
+    case 'join':
+      addUserToChannel(uuid, channel)
+      break;
+    case 'leave':
+      removeUserFromChannel(uuid, channel)
+    case 'timeout':
+      break;
+    default:
+      console.error('unknown action: ' + presenceData.action);
+    }
+  }
+
+  sendMessage (message) {
+    this.pubnub.publish({
+      channel: this.getChannelName()[0],
+      message: message,
+      storeInHistory: true,
+    });
+  }
+
+  submitMessage (e) {
+    e.preventDefault();
+    const messageObj = {
+      username: this.props.user.username,
+      text: this.refs.message.value,
+      timestamp: Date.now(),
+    }
+    console.log('SEND MESSAGE TO...',this.getChannelName())
+    this.sendMessage(messageObj)
+    this.refs.message.value = '';
+    this.refs.message.focus();
+  }
+
+
+  fetchHistory() {
+    const { props } = this;
+    const channelName = this.getChannelName()[0]
+    this.pubnub.history({
+        channel: channelName,
+        count: 10,
+        stringifiedTimeToken: false,
+        start: props.latestTimetoken,
+      },
+      function (status, resp) {
+        if(!status.error) {
+          const messages = resp.messages.map((message) => message.entry)
+          props.updateHistory(messages, resp.startTimeToken, channelName);
+        }
       }
-    })
-  }
-
-  navToMessage (newUser) {
-    //change directory
-    browserHistory.push('/message/' + this.props.params.username + '/' + newUser)
-    //disconnect from current channel
-    this.pubnub.unsubscribeAll()
-    //use variable because state doesn't update
-    const newChannel = [newUser, this.props.params.username].sort().join("")
-    //reset channel
-    this.setState({
-      channelName: newChannel
-    })
-    //resubscribe to appropriate channel and refresh() with new state values
-    this.pubnub.subscribe({
-      channels: [newChannel]
-    })
-    this.refresh(newChannel)
-  }
-
-  showConversation () { //check if a convo is selected
-    const messageStyle = {
-      height: 325,
-      overflow: 'scroll'
-    }
-    const inputBarStyle = {
-      width: '90%'
-    }
-    if(this.props.user.username === this.props.params.user || !this.props.params.user) {
-      return (
-        <div className="col-md-6">
-          <h1>Select a conversation</h1>
-        </div>
-      )
-    } else {
-      return (
-        <div className="col-md-6">
-          <div className="header">
-            <h1>Messaging {this.props.params.user}</h1>
-          </div>
-          <div style={messageStyle}>
-            {this.state.messageHistory}
-          </div>
-          <form onSubmit={this.publish.bind(this)}>
-            <input type="text" ref="message" style={inputBarStyle}></input>
-            <button>send</button>
-          </form>
-        </div>
-      )
-    }
+    );
   }
 
   render () {
-    const convoStyle = {
-      height: 400,
-      overflow: 'scroll'
+    const formatDate = (timestamp) => {
+      const messageDate = new Date(timestamp);
+      return messageDate.toLocaleDateString() +
+      ' at ' + messageDate.toLocaleTimeString();
+    }
+
+    const { params, user, messages, history, location, users } = this.props;
+    const handleScroll = (e) => {
+      e.preventDefault();
+      const scrollTop = this.refs.messageList.scrollTop;
+      if (scrollTop === 0) {
+        this.fetchHistory(this.getChannelName()[0]);
+      }
+    }
+
+    if(!this.props.params.otheruser) {
+      return (
+        <div className="jumbotron boxed" style={{margin: 80, marginTop: 10}}>
+          <ChatUsers users={users} username={user.username} followers={this.props.user.followers} following={this.props.user.following} />
+          <h3>Click on a user alikeYou on the left to start your chat!</h3>
+        </div>
+      )
+    }
+
+    const source = (username) => {
+      if(username === params.username) {
+        return this.props.user.gravatar;
+      }
+
+      if(username === params.otheruser) {
+        const avatar = this.props.publicPosts[0]? this.props.publicPosts[0].user.gravatar : 'https://s.gravatar.com/avatar/bbc60d30eec8bbd1a372278140513269?s=100&r=x&d=retro';
+        return avatar;
+      }
     }
     return (
       <div>
-        <div className="col-md-4">
-          <h2>Recent</h2>
-          <div style={convoStyle}>
-            {this.state.usersHistory}
+        <ChatUsers users={users} username={user.username} followers={this.props.user.followers} following={this.props.user.following} />
+        <div className="row">
+          <div className="col-lg-12 chat-feed">
+            <div className="small-title">
+              <p>Messaging {params.otheruser}</p>
+            </div>
+            <ul className="message-list" ref="messageList" onScroll={ handleScroll }>
+              { messages.map((messageObj) => {
+                const { timestamp, username, text } = messageObj;
+                return (
+                  <div className="collection-item message-item avatar" key={ timestamp }>
+                    <img src={source(username)} className="circle" />
+                    <span className="title">@{ username }&nbsp;&nbsp; </span>
+                    <span className="message-date">{ formatDate(timestamp) } </span>
+                    <br />
+                    <span className="message-text">{ text }</span>
+                    <br />
+                  </div>
+                );
+              })}
+            </ul>
           </div>
         </div>
-        {this.showConversation()}
+
+          <footer className="chat-input">
+            <form onSubmit={this.submitMessage.bind(this)}>
+              <div className="row">
+                <div className="col-sm-10">
+                  <div className="input-container">
+                    <input className="form-control" type="text" ref="message"
+                    placeholder="Type here..."/>
+                   <div className="detail">
+                     <img src={ user.gravatar } className="chat-avatar" />
+                     <span>@{ params.username }</span>
+                   </div>
+                 </div>
+                </div>
+                <div className="col-sm-2">
+                  <button type="submit" className="btn btn-default glyphicon glyphicon-send send-message">
+                  </button>
+                </div>
+              </div>
+            </form>
+          </footer>
       </div>
     )
   }
+
+  leaveChat = (channel) => {
+    this.pubnub.unsubscribeAll();
+  }
 }
 
-export default Message
+Chat.defaultProps = {
+  channels: ['LastTest'],
+  messages: [],
+  currentChannel: 'LastTest',
+  latestTimetoken: null,
+  users: [],
+  followers: [],
+}
+
+const mapStateToProps = ({ chat, user }, ownProps) => {
+  let mix = ownProps.params.username + ownProps.params.otheruser;
+  let channel = mix.split('').sort().join('');
+  return {
+    user: user,
+    messages: getMessages(chat, channel),
+    latestTimetoken: getLatestTimetoken(chat),
+    users: getUsers(chat),
+  }
+}
+
+export default connect(mapStateToProps, actions)(Chat);

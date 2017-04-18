@@ -5,103 +5,63 @@ import {getWatsonTwitterData} from '../actions/watson_actions.js'
 
 const Signup = React.createClass({
 
-	componentWillReceiveProps (nextProps) {
-		if(nextProps.user.isAuthenticated) {
-			this.props.router.push('/suggestions/' + nextProps.user.username)
-		}
-	},
-
 	handleSubmit(e) {
 		e.preventDefault();
 		const username = this.refs.username.value;
 		const email = this.refs.email.value;
 		const password = this.refs.password.value;
 		const twitterLink = this.refs.twitter.value;
-		let userData = { username, email, password, twitterLink };
-		let {user, router} = this.props
-		this.props.dispatch(signupApiRequest(userData))
-// =======
-// 		this.props.dispatch(getWatsonTwitterData(twitterLink)).then((res) => {
-// 			const agreeableness = res.agreeableness
-// 			const conscientiousness = res.conscientiousness
-// 			const emotionalRange = res.emotionalRange
-// 			const extraversion = res.extraversion
-// 			const openness = res.openness
-// 			let userData = {
-// 				username, email, password, twitterLink,
-// 				agreeableness, conscientiousness, emotionalRange, extraversion, openness
-// 			}
-// 			let {user, router} = this.props
-// 			this.props.dispatch(signupApiRequest(userData)).then(()=> {
-// 				router.push({pathname:`/setup/${userData.username}`})
-// 			})
-// 		})
-// >>>>>>> minor changes
+		const userData = { username, email, password, twitterLink };
+		const { user, router } = this.props
+		this.props.dispatch(signupApiRequest(userData)).then(() => {
+			if(this.props.user.isAuthenticated) {
+				this.props.router.push('/setup/' + this.props.user.username)
+			}
+		})
 	},
 
 	render() {
-		const welcomeCSS = {
-			marginTop: '20vh',
-			boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
-      transition: '0.3s',
-			paddingLeft: '40px',
-			borderRadius: '5px 5px 0 0'
-		}
 
 		return (
-			<div>
-				<div className="col-md-6">
-					<div className="jumbotron">
-						<h2>Signup</h2>
-						<form ref="signupForm" onSubmit={this.handleSubmit}>
-							<label>Username:</label><br/>
-							<input className="form-group" type="text" ref="username" placeholder="username"/><br/>
-							<label>Email address:</label><br/>
-							<input className="form-group" type="email" ref="email" placeholder="email"/><br/>
-							<label>Password:</label><br/>
-							<input className="form-group" type="password" ref="password" placeholder="password"/><br/>
-							<label>Twitter handle:</label><br/>
-							<span className="fa fa-twitter"></span>
-							<input className="form-group" type="text" ref="twitter" placeholder="eg: janedoe"/><br/>
-							<input className="btn btn-default" type="submit" value="Signup"/>
-						</form>
+			<div className="jumbotron boxed center">
+				<h2 className="signup">Join alike.me today</h2>
+				<form className="form-horizontal" ref="signupForm" onSubmit={this.handleSubmit}>
+					<div className="form-group">
+				    <label className="col-lg-3 control-label">Username</label>
+				    <div className="col-lg-9">
+				      <input className="form-control" type="text" ref="username" placeholder="jane123"/>
+				    </div>
+				  </div>
+
+					<div className="form-group">
+						<label className="col-lg-3 control-label">Email</label>
+						<div className="col-lg-9">
+							<input className="form-control" type="email" ref="email" placeholder="user@email.com"/>
 						</div>
 					</div>
-					<div className="col-md-6" style={welcomeCSS}>
-					<h2> Welcome to aLike.me </h2>
-					<br/>
-					<p className="lead"> Find people like you. </p>
-				</div>
+
+					<div className="form-group">
+						<label className="col-lg-3 control-label">Password</label>
+						<div className="col-lg-9">
+							<input className="form-control" type="password" ref="password" placeholder="password"/>
+						</div>
+					</div>
+
+					<div className="form-group">
+						<label className="col-lg-3 control-label">Twitter</label>
+						<div className="col-lg-9">
+							<input className="form-control" type="text" ref="twitter" placeholder="twitter handle"/>
+						</div>
+					</div><br/>
+
+					<div className="form-actions">
+						<input className="btn btn-default linkto signup-btn" type="submit" value="Signup"/>
+					</div>
+
+				</form>
 			</div>
 		)
 	}
 })
 
 export default Signup;
-
-	// <div className="jumbotron">
-	// 				<h2>Signup</h2>
-	// 				<form ref="signupForm" onSubmit={this.handleSubmit}>
-	// 					<label>Username:</label><br/>
-	// 					<input className="form-group" type="text" ref="username" placeholder="username"/><br/>
-	// 					<label>Email address:</label><br/>
-	// 					<input className="form-group" type="email" ref="email" placeholder="email"/><br/>
-	// 					<label>Password:</label><br/>
-	// 					<input className="form-group" type="password" ref="password" placeholder="password"/><br/>
-	// 					<label>Twitter handle:</label><br/>
-	// 					<span className="fa fa-twitter"></span>
-	// 					<input className="form-group" type="text" ref="twitter" placeholder="eg: janedoe"/><br/>
-	// 					<label>Facebook url:</label><br/>
-	// 					<span className="fa fa-facebook"></span>
-	// 					<input className="form-group" type="text" ref="facebook" placeholder="eg: janedoe"/><br/>
-	// 					<input className="btn btn-default" type="submit" value="Signup"/>
-	// 				</form>
-	// 				<div>
-	// 						<p>Already have an account?</p>
-	// 						<Link to="/login">Go to Login Page</Link>
-	// 				</div>
-	// 			</div>
-
-							// 	<label>Facebook url:</label><br/>
-							// <span className="fa fa-facebook"></span>
-							// <input className="form-group" type="text" ref="facebook" placeholder="eg: janedoe"/><br/>

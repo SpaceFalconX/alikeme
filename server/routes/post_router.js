@@ -22,7 +22,8 @@ router.get('/', (req, res) => {
 		for(let i = 0; i < result.length; i++) {
 				result[i] = _.pick(result[i],
 					['title', 'created_at', 'updated_at', 'content', 'id',
-					 'user.username', 'user.id', 'catxegory.id', 'category.name', 'tags', 'stars_count', 'stars' ]
+					 'user.username', 'user.id', 'user.gravatar', 'category.id',
+					 'category.name', 'tags', 'stars_count', 'stars' ]
 					)
 				for(let j = 0; j < result[i].tags.length; j++) {
 					delete result[i].tags[j]['_pivot_id'];
@@ -30,6 +31,7 @@ router.get('/', (req, res) => {
 					delete result[i].tags[j]['_pivot_tag_id'];
 				}
 			}
+			//console.log("RESULTS", result)
 		res.json(result)
 	})
 	.catch((err) => {
@@ -52,7 +54,7 @@ router.get('/:username', (req, res) => {
 			for(let i = 0; i < result.length; i++) {
 				result[i] = _.pick(result[i],
 					['title', 'created_at', 'updated_at', 'content', 'id',
-					 'user.username', 'user.id','category.id', 'category.name', 'tags', 'stars_count', 'stars'])
+					 'user.username', 'user.id', 'user.gravatar','category.id', 'category.name', 'tags', 'stars_count', 'stars'])
 				for(let j = 0; j < result[i].tags.length; j++) {
 					delete result[i].tags[j]['_pivot_id'];
 					delete result[i].tags[j]['_pivot_post_id'];
@@ -69,13 +71,13 @@ router.get('/:username', (req, res) => {
 });
 
 router.post('/getUserId', (req, res) => {
-	console.log('searching for username', req.body.username)
+	//console.log('searching for username', req.body.username)
 	Users.forge()
 	.query({where: {username: req.body.username}})
 	.fetch()
 	.then((result) => {
 		result = result.toJSON()[0].id
-		console.log('result', result)
+		//console.log('result', result)
 		res.json(result)
 	})
 	.catch((err) => {
@@ -87,7 +89,7 @@ router.post('/getUserId', (req, res) => {
 /////////////FILTERING////////////////////////////////////////////////////////////
 
 router.post('/categories', (req, res) => { //filter by category
-	console.log("REQ BODY", req.body)
+	//console.log("REQ BODY", req.body)
 	Posts.forge()
 	.query({where: {category_id: req.body.categoryid}}) //(where: {k: 'v}, orWhere: {k: 'v'}), etc...
 	.fetch({withRelated: ['user', 'category', 'tags']})
@@ -113,16 +115,13 @@ router.post('/categories', (req, res) => { //filter by category
 router.post('/tags', (req, res) => { //filter by tag.....how
 	//use join table to find all post_ids that have the tag id being queried by
 	//then run something to send all those posts back
-
-	console.log("REQ BODY", req.body)
 	Tags.forge()
 	.query({where: {name: req.body.tag}}) //(where: {k: 'v}, orWhere: {k: 'v'}), etc...
 	//{withRelated: ['user', 'category', 'posts']}
 	.fetch()
 	.then((tag) => {
 		tag = tag.toJSON()[0].id
-		console.log(tag)
-
+		//console.log(tag)
 		res.json(tag)
 	})
 	.catch((err) => {
@@ -158,91 +157,46 @@ router.post('/new', (req, res) => {
 							resp['stars_count'] = 0;
 							resp.tags = tags;
 							resp.id = post.id;
-							console.log("RESP", resp)
+							//console.log("RESP", resp)
 							res.send(resp);
 					})
-					.catch((err) => {
-						console.log(err);
-			    	res.status(500).send({error: {message: err.message}});
-			  	});
-				})
-				.catch((err) => {
-					console.log(err);
-		    	res.status(500).send({error: {message: err.message}});
-		  	});
-			})
-			.catch((err) => {
-				console.log(err);
-	    	res.status(500).send({error: {message: err.message}});
-	  	});
-		})
-		.catch((err) => {
-			console.log(err);
-    	res.status(500).send({error: {message: err.message}});
-  	});
-	})
-	.catch((err) => {
-		console.log(err);
-  	res.status(400).send({error: {message: err.message}});
+					.catch((err) => res.status(500).send({error: {message: err.message}}));
+				});
+			});
+		});
 	});
-})
+});
 
 
 ////////////////MATCHING
-router.post('/matches', (req, res) => { //filter by category
-	// console.log("REQ BODY FOR MATCHES", req.body)
-	Posts.forge()
-	.query({where: {category_id: req.body.post.category.id}})
-	.fetch({withRelated: ['user', 'category', 'tags']})
-	.then((collection) => {
-
-		let mappedCollection = collection.toJSON()
-		.filter((post) => {
-			return req.body.post.id !== post.id && req.body.post.user.id !== post.user.id
-		})
-		.map((post) => {
-			return {
-				tags: post.tags.map((tag) => {
-				return tag.name
-				}),
-				originalPost: post,
-				post_id: post.id,
-				openness : post.user.openness,
-      	conscientiousness: post.user.conscientiousness,
-      	extraversion: post.user.extraversion,
-      	agreeableness: post.user.agreeableness,
-      	emotionalRange: post.user.emotionalRange
-			}
-		})
-
-		let queryTags = req.body.post.tags.map((tag) => {
-			return tag.name
-		})
-
-		let RankedMatches = mappedCollection.map((post) => { //create personality score and tags score
-			let compatibilityScore = Math.abs(req.body.conscientiousness - post.conscientiousness)
-				+ Math.abs(req.body.extraversion - post.extraversion)
-				+ Math.abs(req.body.agreeableness - post.agreeableness)
-				+ Math.abs(req.body.emotionalRange - post.emotionalRange)
-			let relevantTags = _.intersection(post.tags, queryTags).length
-			let weightedScore = compatibilityScore - (relevantTags / 5) //subtract number of matching tags from compatibilityScore
-			return {
-				compatibilityScore,
-				relevantTags,
-				weightedScore,
-				originalPost: post.originalPost
-			}
-		})
-		.sort((a, b) => { //sort by lowest number
-			return a.weightedScore - b.weightedScore
-		})
-		.slice(0, 5)
-		console.log("MATHCES")
-		res.json(RankedMatches)
+router.get('/matches/:id', (req, res) => {
+	//console.log("ID:",req.params.id)
+	const originalPostId = req.params.id
+	Post.where({id: originalPostId})
+	.fetch({withRelated: ['tags', 'category', 'user.followers']})
+	.then((originalPost) => {
+		const {user, category_id, id, tags} = originalPost.toJSON();
+		Posts.query({where: {category_id: category_id},
+								whereNot: {id: id }})
+		.fetch({withRelated:['user', 'tags', 'stars', 'category']})
+		.then((posts) => {
+			const traits = ['openness', 'conscientiousness', 'extraversion',
+											'agreeableness', 'emotionalRange']
+			posts.forEach((post) => {
+				var personalityMatch = 0.0;
+				traits.forEach((trait) =>
+					personalityMatch += Math.pow((post.related('user').get(trait) - user[trait]), 2)
+				);
+				personalityMatch = (1 - (Math.sqrt(personalityMatch / traits.length)))
+				const otherTags = post.related('tags').toJSON()
+				const tagsMatch = _.intersectionBy(otherTags, tags, 'id').length / 5;
+				// 3 : 1 - personalityMatch to tagMatch as category is laready considered
+				const weightedMatch = (tagsMatch + personalityMatch * 3) / 3;
+        post.id in user.followers? post.set({isfollower: true}) : '';
+        post.set({distance: weightedMatch });
+			})
+			res.json(posts) })
 	})
-	.catch((err) => {
-    res.status(500).json({error: {message: err.message}});
-  });
-});
+})
 
 module.exports = router;

@@ -15,7 +15,7 @@ const User = db.Model.extend({
   // },
 
   // order () {
-  //   console.log("FETCHING FIRES?")
+  //   //console.log("FETCHING FIRES?")
   //   this.orderBy('-created_at');
   // },
 
@@ -33,7 +33,7 @@ const User = db.Model.extend({
   },
   generateMatches () {
     const context = this;
-    return this.fetchAll({columns: ['openness', 'conscientiousness', 'extraversion', 'agreeableness', 'emotionalRange', 'username', 'id']})
+    return this.fetchAll({columns: ['openness', 'conscientiousness', 'extraversion', 'agreeableness', 'emotionalRange','gravatar' ,'username', 'id']})
     .then((response) => {
       const allUsers = response.toJSON();
       const distanceMap = allUsers.map((otherUser, index)=> {
@@ -43,7 +43,28 @@ const User = db.Model.extend({
             distance += Math.pow((context.get(trait) - otherUser[trait]), 2);
           }
         }
-        return {distance: distance, username: otherUser.username, id: otherUser.id };
+				console.log('otherUser', otherUser)
+				const { username, id, gravatar } = otherUser;
+        return { distance, username, id, gravatar };
+      })
+      return _.sortBy(distanceMap, 'distance');
+    })
+  },
+    calculateMatches (userId, otherUsersIds) {
+    const user = this;
+    return user.where('id', 'in', otherUsersIds )
+    .fetchAll({columns: ['openness', 'conscientiousness', 'extraversion', 'agreeableness', 'emotionalRange', 'username', 'id']})
+    .then((allUsers) => {
+      // const allUsers = response.toJSON();
+      const distanceMap = allUsers.map((otherUser, index)=> {
+        let distance = 0.0;
+        for(var trait in otherUser.attributes) {
+          if(trait !== 'username' && trait !== 'id') {
+            distance += Math.pow((user.get(trait) -
+                        otherUser.attributes[trait]), 2);
+          }
+        }
+        return {distance: distance, username: otherUser.get('username'), id: otherUser.id };
       })
       return _.sortBy(distanceMap, 'distance');
     })
@@ -81,4 +102,3 @@ const User = db.Model.extend({
 
 
 module.exports = db.model('User', User);
-

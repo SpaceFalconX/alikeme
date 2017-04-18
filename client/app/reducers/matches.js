@@ -1,23 +1,51 @@
-import {SET_MATCHES, CLEAR_MATCHES, INIT_PERSONALITY_MATCHES, CLEAR_PERSONALITY_MATCHES, INCREMENT_STARS, GET_MATCHES_TABLE, UPDATE_MATCHES_TABLE} from '../actions/index.js'
+import {SET_MATCHES, CLEAR_MATCHES, INIT_PERSONALITY_MATCHES, CLEAR_PERSONALITY_MATCHES, GET_MATCHES_TABLE, UPDATE_MATCHES_TABLE, STARRED_POSTS_JOIN, UPDATE_STARRED_POSTS_MATCHES} from '../actions/index.js'
+// import { date, dateFix } from './post.js'
+
+export const date = Date.now()
+export const dateFix = (post, index) => {
+	if(!post.created_at) {
+		post.created_at = date + 1000000 * index;
+	}
+	return post;
+}
 
 export function matches (state=[], action) {
   switch(action.type) {
-    case SET_MATCHES:
-      return action.posts
-    case CLEAR_MATCHES:
-      return []
-    case INCREMENT_STARS:
-      console.log("STATE", state, action)
-      let i = state.findIndex((post)=>
-        post.id === action.postid
-      )
+    case UPDATE_STARRED_POSTS_MATCHES:
+      const {ids} = action;
+      const result = state.map((match) => {
+        ids.map((id) => {
+          if(match.id === id) {
+            match.isStarred = true;
+          }
+          return match;
+        })
+        return match;
+      })
+      return result;
+    case STARRED_POSTS_JOIN:
+      let i = state.findIndex((post) => post.id === action.postid)
       if(i === -1) {
-        return state;
+          return state;
+      }
+      if(!action.flag) {
+        var operation = -1;
+      } else {
+        var operation = 1;
       }
       return  [...state.slice(0, i),
-              {...state[i], stars_count: state[i].stars_count + 1},
+              {...state[i],
+                stars_count: state[i].stars_count + operation,
+                isStarred: action.flag
+              },
               ...state.slice(i + 1)
               ];
+    case SET_MATCHES:
+      const mathces = action.posts.map((post, index) =>
+        dateFix(post, index))
+      return mathces;
+    case CLEAR_MATCHES:
+      return []
     default:
       return state;
   }
@@ -47,4 +75,3 @@ export function matchesTable (state=[], action) {
   }
   return state;
 }
-

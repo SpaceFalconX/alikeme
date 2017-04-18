@@ -1,33 +1,37 @@
 import React from 'react'
 import {Link} from 'react-router'
 import CSSTransitionGroup from 'react-addons-css-transition-group' // ES6
+import {followClick} from '../actions/auth_actions.js'
 
 class StarButton extends React.Component {
-
-    // toggle (e) {
-    //   const {post, user} = this.props;
-    //   this.props.dispatch(incrementStars(post.id, user.id, flag))
-    //   .then(() => {
-    //     console.log("toggle")
-    //   })
-    // }
-
   render() {
     const {post, user} = this.props;
     const starButton = (
-      <span onClick={this.props.incrementStars}>
-        <i className="glyphicon glyphicon-star-empty">
-          <strong> {post.stars_count}</strong>
-        </i>
-      </span>
+      <div className="star-row-container">
+        <div className="badge star-container">
+          <p className="star-text">Star</p>
+          <i className="glyphicon glyphicon-star-empty" onClick={this.props.toggle}></i>
+        </div>
+        <div>
+          <p className="stars-count">
+            <strong>{post.stars_count}&nbsp;</strong>people aLike &nbsp; <strong>{post.user.username}&nbsp;</strong>starred this post!
+          </p>
+        </div>
+      </div>
     )
 
     const unstarButton = (
-      <span onClick={this.props.incrementStars}>
-        <i className="glyphicon glyphicon-star">
-          <strong> {post.stars_count}</strong>
-        </i>
-      </span>
+      <div className="star-row-container">
+        <div className="badge star-container starred">
+          <p className="star-text">Star</p>
+          <i className="glyphicon glyphicon-star" onClick={this.props.toggle}></i>
+        </div>
+        <div>
+          <p className="stars-count">
+            <strong>{post.stars_count}&nbsp;</strong>people aLike &nbsp; <strong>{post.user.username}&nbsp;</strong>starred this post!
+          </p>
+        </div>
+      </div>
     )
 
     const userPostView = (
@@ -38,21 +42,25 @@ class StarButton extends React.Component {
     )
 
     return (
-      <div>
-        <div>
-          <CSSTransitionGroup
-            transitionName="star"
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={500}>
-            <span key={post.id}></span>
-          </CSSTransitionGroup>
-        </div>
-        { post.user.username === user.username? userPostView :
-          post.isStarred? unstarButton : starButton
-        }
-      </div>
+      post.user.username === user.username? userPostView :
+      post.isStarred? unstarButton : starButton
     )
   }
 }
+
+// offsets = translateX(-50%) translateY(-50%)
+// .likes-heart
+//   opacity 0
+//   transition all 0.5s // time to fade out after its done
+//   transform offsets scale(5) // this is the "end state"
+//   display block
+//   &.like-enter
+//     transition all .2s
+//     transform offsets scale(1)
+//     opacity 1
+//     &.like-enter-active
+//       transform offsets scale(5)
+//   .like-leave-active
+//     display none
 
 export default StarButton;

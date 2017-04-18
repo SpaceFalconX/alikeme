@@ -1,8 +1,17 @@
-import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS, FETCH_PUBLIC_POSTS, INCREMENT_STARS, GET_STARRED_POSTS, UPDATE_STARRED_POSTS} from '../actions/index.js'
+import {CREATE_NEW_POST, UPDATE_POST, DELETE_POST, FETCH_ALL_POSTS, FETCH_USER_POSTS, FILTER_POSTS, CLEAR_POSTS, FETCH_PUBLIC_POSTS, STARRED_POSTS_JOIN, GET_STARRED_POSTS, UPDATE_STARRED_POSTS} from '../actions/index.js'
 import _ from 'underscore';
 
+export const date = Date.now()
+export const dateFix = (post, index) => {
+	if(!post.created_at) {
+		post.created_at = date + 1000000 * index;
+	}
+	return post;
+}
+
 export function createNewPost (action) {
-	const { user_id, username, category, category_id, id, content, title, tags, created_at, updated_at} = action;
+	const { user_id, username, category, category_id, id,
+		content, title, tags, created_at, updated_at, gravatar} = action;
 	return {
     title: title,
     created_at: Date.now(),
@@ -16,7 +25,8 @@ export function createNewPost (action) {
     },
     category: {
       id: category_id,
-      name: category
+      name: category,
+			gravatar: gravatar
     },
     tags: tags
   }
@@ -26,8 +36,7 @@ export function createNewPost (action) {
 export function starredPosts (state=[], action) {
   switch(action.type) {
     case GET_STARRED_POSTS:
-      console.log("STARRED", action)
-      return [].concat(action.starredPostsJoin)
+      return [].concat(action.STARRED_POSTS_JOIN)
     default :
       return state;
   }
@@ -41,7 +50,8 @@ export function userPosts (state=[], action) {
       const newStuff = createNewPost(action.newPost)
       return [...state, {...newStuff, tags: newStuff.tags}];
     case FETCH_USER_POSTS:
-      return action.fetchedUserPosts
+      return action.fetchedUserPosts.map((post, index) =>
+				dateFix(post, index))
     default :
       return state;
   }
@@ -51,9 +61,9 @@ export function userPosts (state=[], action) {
 
 export function publicPosts (state=[], action) {
   switch(action.type) {
-    case INCREMENT_STARS:
+    case STARRED_POSTS_JOIN:
       let i = state.findIndex((post)=> post.id === action.postid)
-      console.log("state[i].stars_count + action.flag", 10 + action.flag)
+      //console.log("state[i].stars_count + action.flag", 10 + action.flag)
       if(i === -1) {
         return state;
       }
@@ -64,7 +74,8 @@ export function publicPosts (state=[], action) {
               ...state.slice(i + 1)
               ];
     case FETCH_PUBLIC_POSTS:
-      return [].concat(action.fetchedPublicPosts)
+      return action.fetchedPublicPosts.map((post, index) =>
+				dateFix(post, index))
     default :
       return state;
   }
@@ -75,7 +86,6 @@ export function publicPosts (state=[], action) {
 export function allPosts (state=[], action) {
   switch(action.type) {
     case UPDATE_STARRED_POSTS:
-      console.log("UPDATE_STARRED_POSTS", action)
       const {userid, posts, starredPosts} = action;
       return posts.map((post) => {
         for(var i = 0; i < starredPosts.length; i++) {
@@ -87,7 +97,7 @@ export function allPosts (state=[], action) {
         post.isStarred = false;
         return post;
       })
-    case INCREMENT_STARS:
+    case STARRED_POSTS_JOIN:
       let i = state.findIndex((post) => post.id === action.postid)
       if(i === -1) {
           return state;
@@ -97,7 +107,6 @@ export function allPosts (state=[], action) {
       } else {
         var operation = 1;
       }
-      console.log("ACTION.FLAG number", 10 + action.flag)
       return  [...state.slice(0, i),
               {...state[i],
                 stars_count: state[i].stars_count + operation,
@@ -106,7 +115,8 @@ export function allPosts (state=[], action) {
               ...state.slice(i + 1)
               ];
     case FETCH_ALL_POSTS:
-      return [].concat(action.fetchedPosts);
+      return action.fetchedPosts.map((post, index) =>
+				dateFix(post, index))
     case FILTER_POSTS:
       return state.filter((post) => {
         return post.category.name === action.category;
@@ -118,5 +128,3 @@ export function allPosts (state=[], action) {
   }
   return state;
 }
-
-

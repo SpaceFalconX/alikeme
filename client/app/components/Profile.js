@@ -10,16 +10,11 @@ import {fetchCategories} from '../actions/category_actions.js'
 import _ from 'lodash'
 
 class Profile extends React.Component {
-  componentWillMount () {
-    if(this.props.categories.length === 0) {
-      this.props.dispatch(fetchCategories());
-    }
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     if (nextProps !== this.props) {
       return true;
     }
+    return false;
   }
 
   render () {
@@ -28,40 +23,38 @@ class Profile extends React.Component {
       overflow: 'scroll'
     }
     const posts = this.props.userPosts
+    console.log('posts.length', posts.length)
     const {followers, following, username} = this.props.user;
-    for(let prop in this.props.user) {
-      if(this.props.user[prop] === undefined) {
-        this.props.user[prop] = [];
-      }
-    }
     const {personalityMatches, user, dispatch, params} = this.props;
     return (
-        <div className="col-md-10" >
-         <div className="row" >
-            <div className="col-md-8">
+         <div className="row">
+            <div className="col-lg-9 feed">
               <NewPostForm {...this.props} />
-              {
+              { posts.length === 0?
+                (<div className="jumbotron boxed ">
+                  <h3>New on alikeMe? </h3>
+                  <h3>Make your first post to start finding people alike you!</h3>
+                </div>) :
                 posts.map((post, index) => {
-                  return (
-                    <Post dispatch={dispatch} personalityMatches={personalityMatches}
-                    user={user} key={index} post={post} params={params} />
-                  )
-                }).reverse()
+                return (
+                  <Post dispatch={dispatch} personalityMatches={personalityMatches}
+                  user={user} key={post.id} post={post} params={params} />
+                )
+              }).reverse()
               }
             </div>
-            <div className="col-md-4">
-
+            <div className="col-lg-3">
               <h4>Following ({this.props.user.following.length})</h4>
-                <div style={followStyle}> 
-                  { 
+                <div style={followStyle}>
+                  {
                     this.props.user.following.map((follower, index)=>{
-                      return (<FollowThumb router={this.props.router} key={index} follower={follower}
+                      return (<FollowThumb router={this.props.router} key={follower.id} follower={follower}
                         personalityMatches={this.props.personalityMatches} />)
                     })
                   }
                 </div>
               <h4>Followers ({this.props.user.followers.length})</h4>
-              <div style={followStyle}> 
+              <div style={followStyle}>
                 {
                   this.props.user.followers.map((follower, index)=>{
                     return (<FollowThumb router={this.props.router} key={index} follower={follower}
@@ -71,9 +64,15 @@ class Profile extends React.Component {
               </div>
             </div>
           </div>
-      </div>
     )
 
+  }
+}
+
+Profile.defaultProps = {
+  user: {
+    following: [],
+    followers: []
   }
 }
 

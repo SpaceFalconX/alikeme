@@ -1,27 +1,27 @@
 import React  from 'react'
 import Post from './Post.js'
 import MatchedPost from './MatchedPost.js'
-import {getMatches, clearMatches} from '../actions/match_actions.js'
+import {getMatches, clearMatches, updateStarredPostsMatches} from '../actions/match_actions.js'
+// import {updateStarredPostsMatches, fetchPostsFromDb} from '../actions/post_actions.js'
 
 class Matches extends React.Component {
-  displayCurrent () {
-    return this.props.userPosts.filter((post) => {
-      return post.id === parseInt(this.props.params.postid)
-    }).map((post) => {
-      return (
-        <Post dispatch={this.props.dispatch} key={post.id}
-        user={this.props.user} post={post} params={this.props.params} />
-      )
-    })
-  }
-
-  displayMatches () {
-    return this.props.matches.map((match, index) => {
-      return ( //todo -replace this one too
-        <MatchedPost key={index} post={match} user={this.props.user}
-         dispatch={this.props.dispatch} params={this.props.params}
-        compatibilityScore={match.compatibilityScore} />
-      )
+  componentWillMount () {
+    const { dispatch, params } = this.props;
+    dispatch(getMatches(params.postid))
+    .then(()=> {
+      const filtered = [];
+      this.props.matches.forEach((match) => {
+        match.stars.forEach((star) => {
+          if(star.id === this.props.user.id) {
+            filtered.push(match.id)
+          }
+        })
+      })
+      //console.log(filtered)
+      this.props.dispatch(updateStarredPostsMatches(filtered))
+      // if(this.props.user.id === this.props.post.stars.id) {
+      //   this.props.dispatch(updateStarredPostsMatches());
+      // }
     })
   }
 
@@ -29,33 +29,44 @@ class Matches extends React.Component {
     this.props.dispatch(clearMatches())
   }
 
+  displayCurrent () {
+    const { params, userPosts, dispatch, user } = this.props;
+    return userPosts
+    .filter((post) =>  post.id === parseInt(params.postid))
+    .map((post) =>
+      (
+        <Post dispatch={dispatch} key={post.id}
+        user={user} post={post} params={params} />
+      )
+    )
+  }
+
+  displayMatches () {
+    const { matches, dispatch, user, params, distance } = this.props;
+    return matches.map((match, index) => {
+      return ( //todo -replace this one too
+        <MatchedPost key={match.id} post={match} user={user}
+         dispatch={dispatch} params={params}
+        compatibilityScore={match.distance} />
+      )
+    })
+  }
+
+
+
   render () {
-    if(this.props.userPosts.length > 0 && this.props.matches.length === 0) {
-      let post = this.props.userPosts.filter((p) => {
-        return p.id === parseInt(this.props.params.postid)
-      })[0]
-      let agreeableness = this.props.user.agreeableness
-      let conscientiousness = this.props.user.conscientiousness
-      let emotionalRange = this.props.user.emotionalRange
-      let extraversion = this.props.user.extraversion
-      let openness = this.props.user.openness
-      this.props.dispatch(getMatches({post, agreeableness, conscientiousness, emotionalRange, extraversion, openness}))
-    }
 
     return (
-      <div className="col-md-10">
-        <div className="row">
-          <div className="col-md-8">
-            {this.displayCurrent()}
-          <hr />
+    <div className="row">
+      <div className="col-lg-9 feed">
+          {this.displayCurrent()}
           <h1>Alike-Minded Posts</h1>
-            {this.displayMatches()}
+          {this.displayMatches()}
           <hr />
-          </div>
-        </div>
       </div>
+    </div>
     )
   }
 }
 
-export default Matches
+export default Matches;

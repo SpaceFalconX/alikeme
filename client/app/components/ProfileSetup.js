@@ -12,10 +12,6 @@ const ProfileSetup = React.createClass({
 		}
 	},
 
-	// componentWillUnmount() {
-	// 	this.props.dispatch(clearPersonalityMatches(this.props.personalityMatches))
-	// },
-
 	handleSubmit(e) {
 		e.preventDefault();
 		const content = this.refs.content.value;
@@ -32,37 +28,35 @@ const ProfileSetup = React.createClass({
 
 	render() {
 		const btnStyle = {
-			width: '100%'
+			width: '100%',
+			fontSize: '15',
+			fontWeight: 600,
+			backgroundColor: '#cfcfcf'
 		}
 		const headerStyle = {
-			'marginTop': '0px'
+			// backgroundColor: 'pink',
+			// display: 'flex',
+			// justifyContent: 'space-between',
+			// alignItems: 'center'
 		}
 		return (
-			<div>
-				<div className="col-md-8">
-					<div className="col-md-8">
-						<h2 style={headerStyle}>Suggested Users to Follow</h2>
+			<div className="row">
+				<div className="col-lg-10">
+					<div className="container-fluid" style={headerStyle}>
+						<h2 className="pull-left">Suggested Users to Follow</h2>
+						<Link to={this.props.user.username} className="pull-right">
+							<button className="btn btn-default" style={btnStyle}>
+								Skip
+							</button>
+						</Link>
 					</div>
-					<div className="col-md-4">
-					<Link to={this.props.user.username}>
-						<button className="btn btn-default pull-right" style={btnStyle}>
-							Go To My Profile
-						</button>
-					</Link>
-					</div>
-				</div>
-				<br />
-				<div className="col-md-8">
-					<div className="block">
-						<div className="row">
-							{
-								this.props.personalityMatches.map((match, index)=>{
-									return (<FriendsList key={index} dispatch={this.props.dispatch}
-									match={match} user={this.props.user} router={this.props.router} />)
-								})
-							}
-						</div>
-					</div>
+					<hr />
+					{
+						this.props.personalityMatches.map((match, index)=>{
+							return (<FriendsList key={index} dispatch={this.props.dispatch}
+							match={match} user={this.props.user} router={this.props.router} />)
+						}).slice(0,10)
+					}
 				</div>
 			</div>
 		)

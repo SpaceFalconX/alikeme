@@ -4,6 +4,7 @@ const path = require('path')
 const bodyParser = require('body-parser');
 const morgan = require('morgan')
 const webpack = require('webpack');
+const gravatar = require('gravatar');
 
 // DEPENDENCIES
 const config = require('../webpack.config.js');
@@ -19,16 +20,6 @@ const upload = require('./routes/upload_router.js')
 
 // APP SETUP & MIDDLEWARE
 const app = express();
- // app.all('*', function(req, res, next) {
- //    res.header('Access-Control-Allow-Origin', 'URLs to trust of allow');
- //    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
- //    res.header('Access-Control-Allow-Headers', 'Content-Type');
- //    if ('OPTIONS' == req.method) {
- //    res.sendStatus(200);
- //    } else {
- //      next();
- //    }
- //  });
 
 const compiler = webpack(config);
 app.use(require('webpack-dev-middleware')(compiler, {
@@ -36,6 +27,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: config.output.publicPath
 }));
 app.use(require('webpack-hot-middleware')(compiler));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan('dev'))
@@ -52,13 +44,15 @@ app.use('/api/upload', upload)
 
 // WILD CARD - anything else direct to landing page
 app.get('*', (req, res) => (
-  res.sendFile(path.resolve(__dirname, '../client/app', 'index.html'))
+  res.sendFile(path.resolve(__dirname, '../', 'index.html'))
 ));
 
-app.use((err, req, res, next) => {
-  res.status(500).send(err.message)
-})
+// app.use((err, req, res, next) => {
+//   res.status(500).send(err.message)
+// })
 
-app.listen(4000, () => (
-	console.log("App running on port 4000")
-))
+const port = process.env.PORT || 4000;
+
+app.listen(port, () => (
+	console.log(`App running on port ${port}`)
+));

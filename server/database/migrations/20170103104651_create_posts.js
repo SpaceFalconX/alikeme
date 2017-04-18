@@ -7,8 +7,9 @@ exports.up = (knex, Promise) => {
     post.string('title', 100).notNullable();
     post.text('content', 'mediumtext').notNullable();
     post.integer('stars_count').unsigned().notNullable().defaultTo(0);
-    post.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
-    post.timestamp('updated_at').notNullable().defaultTo(knex.fn.now());
+    // post.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
+    // post.timestamp('updated_at').notNullable();
+    post.timestamps();
   })
   .then(() => {
   	console.log('POSTS table created!')
